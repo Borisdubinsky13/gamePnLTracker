@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu  xmlns:android="http://schemas.android.com/apk/res/android">
+	<group 
+		android:id="@menu/preloginmenu" 
+		android:enabled="true">
+		<item 
+			android:id="@+id/setup" 
+			android:title="@string/setupName" android:icon="@android:drawable/ic_menu_add">
+		</item>
+		<item 
+			android:id="@+id/aboutMenu" 
+			android:title="@string/aboutName" android:icon="@android:drawable/ic_menu_info_details">
+		</item>
+	</group>
+</menu>

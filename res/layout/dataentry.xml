@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <TableLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="top"
+	android:id="@+id/topTable">
+	<TableRow>
+		<TextView android:text="Amount: "/>
+		<EditText android:id="@+id/Amount" android:layout_width="250sp" android:inputType="number|numberSigned|numberDecimal"/>
+	</TableRow>
+	<TableRow>
+	    <TextView android:text="Date: "/>
+		<Button android:text="Date" 
+			android:id="@+id/dateButton"  
+			android:layout_height="wrap_content" 
+			/>
+	</TableRow>
+	<TableRow>
+		<TextView android:text="Game: "/>
+		<Spinner android:id="@+id/gType"
+				android:prompt="@string/gameType"
+				/>
+	</TableRow>
+	<TableRow>
+		<TextView android:text="Limit: "/>
+		<Spinner android:id="@+id/gLimit"
+				android:prompt="@string/gameLimit"
+				/>
+	</TableRow>
+	<TableRow android:id="@+id/lastRow">
+		<TextView android:text="Notes:" />
+		<EditText android:id="@+id/notes"
+				android:singleLine="false"
+				android:gravity="top"
+				android:lines="1" 
+				android:maxLines="4" 
+				android:scrollHorizontally="true"/>
+	</TableRow>
+	<TableRow>
+		<TextView android:text=" "/>
+	</TableRow>
+	<TableRow>
+		<TextView android:text=" "/>
+	</TableRow>
+	<TableRow>
+		<TextView android:text=" "/>
+	</TableRow>
+	<RelativeLayout android:gravity="center_horizontal" >
+	<Button android:text="Accept" 
+			android:id="@+id/accept" 
+			android:layout_width="160px" 
+			android:layout_height="wrap_content" 
+			/>
+	<Button android:layout_toRightOf="@id/accept" 
+			android:text="Clear" 
+			android:id="@+id/clear" 
+			android:layout_width="160px" 
+			android:layout_height="wrap_content"
+			/>
+	</RelativeLayout>
+	</TableLayout>
+</LinearLayout>	

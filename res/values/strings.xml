@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ViewStatName">View Stats.</string>
+    <string name="AddResName">Add Result</string>
+    <string name="Name">Name: </string>
+    <string name="appContVal">     dubi13@hotmail.com</string>
+    <string name="appContact">Contact:</string>
+    <string name="applabl">Application:</string>
+    <string name="okStr">OK</string>
+    <string name="setupTitle">Setup an Account</string>
+    <string name="aboutName">About</string>
+	<string name="add">Add</string>
+	<string name="email">E-Mail:</string>
+	<string name="passStr">Password:</string>
+	<string name="newid">Setup New ID</string>
+	<string name="login">Login</string>
+	<string name="Cancel">Cancel</string>
+	<string name="setupName">Setup</string>
+	<string name="appname">gamePnLTracker</string>
+	<string name="appdescrip">     Games Profits aNd Losses Tracker</string>
+	<string name="appVerLabel">Version:</string>
+	<string name="appVer">     Beta</string>
+   	<string name="passwordLabel">Password:</string>
+    <string name="earningsTracker">earningsTracker</string>
+    <string name="gameType">Game: </string>
+	<string-array name="gameType">
+		<item>Holdem</item>
+		<item>Omaha</item>
+		<item>Stud</item>
+		<item>Other</item>
+	</string-array>
+	<string name="gameLimit">Limit: </string>
+	<string-array name="gameLimit">
+		<item>NoLimit</item>
+		<item>Limit</item>
+		<item>PotLimit</item>
+	</string-array>
+<string name="cEarnings">Your career earnings: $</string>
+</resources>

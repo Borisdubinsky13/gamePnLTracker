@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<group 
+		android:id="@menu/mainmenu" 
+		android:enabled="true">
+		<item 
+			android:id="@+id/AddResult" 
+			android:title="@string/AddResName" android:icon="@android:drawable/ic_menu_add">
+		</item>
+		<item
+			android:id="@+id/ViewStats" 
+			android:title="@string/ViewStatName" android:icon="@android:drawable/ic_menu_view">
+		</item>
+		<item 
+			android:id="@+id/about" 
+			android:title="@string/aboutName" android:icon="@android:drawable/ic_menu_info_details">
+		</item>
+	</group>
+</menu>
