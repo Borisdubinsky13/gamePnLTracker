@@ -3,6 +3,8 @@
  */
 package gamePnLTracker.jar;
 
+import java.text.DecimalFormat;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -71,13 +73,12 @@ public class AfterLogin extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.afterlogin);
-/*
 	}
 	
 	@Override
 	protected void onResume()
 	{
-*/
+		super.onPause();
 		// get all the records with the current id ad add all the amounts
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
     	String username = pref.getString(PREF_USERNAME, null);
@@ -86,6 +87,7 @@ public class AfterLogin extends Activity
 		String	value;
 		double	sum = 0;
 		double	dValue;
+		DecimalFormat df = new DecimalFormat("#.##");
 		MyDbAdapter dB = new MyDbAdapter(this);
 		final TextView pnlStr = (TextView)findViewById(R.id.PNL);
 		final String strHead = this.getString(R.string.cEarnings);
@@ -107,11 +109,11 @@ public class AfterLogin extends Activity
 		}
 		result.deactivate();
 		dB.close();
-		Log.i(TAG, SubTag + "Sum:  " + sum);
-		pnlStr.setText(strHead + sum);
+		Log.i(TAG, SubTag + "Sum:  " + df.format(sum));
+		pnlStr.setText(strHead + df.format(sum));
 		if ( sum > 0 )
-			pnlStr.setBackgroundColor(0xFF00FF00);
+			pnlStr.setBackgroundColor(0xFF00A000);
 		else
-			pnlStr.setBackgroundColor(0xFFFF0000);
+			pnlStr.setBackgroundColor(0xFFA00000);
 	}
 }
