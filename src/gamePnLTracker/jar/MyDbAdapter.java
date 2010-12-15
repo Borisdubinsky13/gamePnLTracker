@@ -90,6 +90,7 @@ public class MyDbAdapter
 							"amount TEXT, " +
 							"result TEXT, " +
 							"date TEXT, " +
+							"eventType TEXT, " +
 							"gameType TEXT, " +
 							"gameLimit TEXT, " +
 							"notes TEXT" +

@@ -10,30 +10,37 @@
     android:gravity="top"
 	android:id="@+id/topTable">
 	<TableRow>
-		<TextView android:text="Amount: "/>
+		<TextView android:text="Amount: " android:layout_gravity="left|center_vertical"/>
 		<EditText android:id="@+id/Amount" android:layout_width="250sp" android:inputType="number|numberSigned|numberDecimal"/>
 	</TableRow>
 	<TableRow>
-	    <TextView android:text="Date: "/>
+	    <TextView android:text="Date: " android:layout_gravity="left|center_vertical"/>
 		<Button android:text="Date" 
 			android:id="@+id/dateButton"  
 			android:layout_height="wrap_content" 
 			/>
 	</TableRow>
 	<TableRow>
-		<TextView android:text="Game: "/>
+	<TextView android:text="Event Type: " android:layout_gravity="center"/>
+		<RadioGroup android:orientation="horizontal" android:layout_width="fill_parent">
+			<RadioButton android:id="@+id/idTourney" android:checked="true" android:text="Tourney"/>
+			<RadioButton android:id="@+id/idCash" android:checked="false" android:text="Cash"/>
+		</RadioGroup>
+	</TableRow>
+	<TableRow>
+		<TextView android:text="Game: " android:layout_gravity="left|center_vertical"/>
 		<Spinner android:id="@+id/gType"
 				android:prompt="@string/gameType"
 				/>
 	</TableRow>
 	<TableRow>
-		<TextView android:text="Limit: "/>
+		<TextView android:text="Limit: " android:layout_gravity="left|center_vertical"/>
 		<Spinner android:id="@+id/gLimit"
 				android:prompt="@string/gameLimit"
 				/>
 	</TableRow>
 	<TableRow android:id="@+id/lastRow">
-		<TextView android:text="Notes:" />
+		<TextView android:text="Notes:" android:layout_gravity="left|center_vertical"/>
 		<EditText android:id="@+id/notes"
 				android:singleLine="false"
 				android:gravity="top"

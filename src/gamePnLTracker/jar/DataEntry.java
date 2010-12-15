@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -163,7 +164,8 @@ public class DataEntry extends Activity
         {
             public void onClick(View v) 
             {
-            	ContentValues vals = new ContentValues();;
+            	ContentValues vals = new ContentValues();
+            	String eventStr = "Unknown";
             	
             	Log.i(TAG, SubTag + "ACCEPT button is clicked");
              	EditText amount = (EditText)findViewById(R.id.Amount);
@@ -171,10 +173,18 @@ public class DataEntry extends Activity
             	EditText nts = (EditText)findViewById(R.id.notes);
             	String gameT = (String) gmTypeSp.getSelectedItem().toString();
             	String gameL = (String) gmLimitSp.getSelectedItem().toString();
+            	RadioButton tourneyRB = (RadioButton) findViewById(R.id.idTourney);
+            	RadioButton cashRB = (RadioButton) findViewById(R.id.idCash);
             	
+            	if ( tourneyRB.isChecked())
+            		eventStr = "Tourney";
+            	else if ( cashRB.isChecked())
+            		eventStr = "Cash";
+            		
             	vals.put("name", username);
             	vals.put("amount", amount.getText().toString());
             	vals.put("date", dateT);
+            	vals.put("eventType", eventStr);
             	vals.put("gameType", gameT);
             	vals.put("gameLimit", gameL);
             	vals.put("notes", nts.getText().toString());
