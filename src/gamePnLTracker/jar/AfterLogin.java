@@ -9,11 +9,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -88,32 +90,47 @@ public class AfterLogin extends Activity
 		double	sum = 0;
 		double	dValue;
 		DecimalFormat df = new DecimalFormat("#.##");
-		MyDbAdapter dB = new MyDbAdapter(this);
 		final TextView pnlStr = (TextView)findViewById(R.id.PNL);
 		final String strHead = this.getString(R.string.cEarnings);
 		
-		String	query = "SELECT amount FROM gPNLData WHERE name = '" + username+ "';";
-		Log.i(TAG, SubTag + "Query: " + query);
-		dB.open();
+		String	query = "name = '" + username+ "'";
+		// dB.open();
 
-		result = dB.getRecord(query);
-		result.moveToFirst();
-		while ( !result.isAfterLast() )
-		{	
-			value = result.getString(0);
-			Log.i(TAG, SubTag + "got Value:  " + value);
-			dValue = Double.parseDouble(value);
-			
-			sum += dValue;
-			result.moveToNext();
+		// result = dB.getRecord(query);
+		Uri	tmpUri = Uri.parse("content://gamePnLTracker.provider.userContentProvider");
+		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
+		String[] projection = new String[] {
+				"amount"
+		};
+		// result = getContentResolver().query(tmpUri, null, null, null, null);
+		result = managedQuery(tmpUri, projection, query, null, null);
+		Log.i(TAG, SubTag + "there are " + result.getCount() + " records" );
+		if ( result.moveToFirst() )
+		{
+			Log.i(TAG, SubTag + "got result back from provider");
+			do
+			{	
+				value = result.getString(0);
+				Log.i(TAG, SubTag + "got Value:  " + value);
+				dValue = Double.parseDouble(value);
+				
+				sum += dValue;
+			} while (result.moveToNext());
+//			result.deactivate();
 		}
-		result.deactivate();
-		dB.close();
+		else
+			Log.i(TAG, SubTag + "No Data returned from Content Provider");
+		// dB.close();
 		Log.i(TAG, SubTag + "Sum:  " + df.format(sum));
 		pnlStr.setText(strHead + df.format(sum));
 		if ( sum > 0 )
 			pnlStr.setBackgroundColor(0xFF00A000);
 		else
 			pnlStr.setBackgroundColor(0xFFA00000);
+		
+		ListView  lst = (ListView) findViewById(R.id.pnlList);
+		
+		
+		
 	}
 }

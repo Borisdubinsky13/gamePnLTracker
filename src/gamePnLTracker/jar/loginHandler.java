@@ -1,8 +1,10 @@
 package gamePnLTracker.jar;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -19,7 +21,7 @@ public class loginHandler extends Activity
 	public String TAG="gamePnLTracker";
 	public String SubTag="loginHandler: ";
 	
-	private MyDbAdapter dB = new MyDbAdapter(this);
+	// private MyDbAdapter dB = new MyDbAdapter(this);
 	
 	int duration = Toast.LENGTH_SHORT;
 	public static final String PREFS_NAME = "gamePnLTrackerFile";
@@ -81,18 +83,22 @@ public class loginHandler extends Activity
         			// Check to make sure id and password are in the database.
         			Cursor	result;
         			int		cnt;
-        			String	query = "SELECT name,passwd FROM gUsers WHERE name = '" + id + "' AND passwd = '" + pass + "';";
-        			Log.i(TAG, SubTag + "Query: " + query);
-        			dB.open();
-        			Log.i(TAG, SubTag + "Database is opened");
-        			result = dB.getRecord(query);
+        			String[] projection = new String[] {
+        					"name"
+        			};
+        			String selection = "name = '" + id + "' and passwd = '" + pass + "'";
+        			
+        			ContentResolver cr = getContentResolver();
+        			Log.i(TAG, SubTag + "Got content resolver");
+        			Uri	tmpUri = Uri.parse("content://gamePnLTracker.provider.userContentProvider");
+        			tmpUri = Uri.withAppendedPath(tmpUri,"users");
+        			Log.i(TAG, SubTag + "Got URI populated");    
+        			result = cr.query(tmpUri, projection, selection, null, null);
         			Log.i(TAG, SubTag + "Populated cursor");
         			cnt = result.getCount();
         			Log.i(TAG, SubTag + "got count " + cnt);
         			result.deactivate();
         			Log.i(TAG, SubTag + "deactivating cursor");
-        			dB.close();
-        			Log.i(TAG, SubTag + "closing database");
         			
         			if ( cnt > 0 )
         				return true;

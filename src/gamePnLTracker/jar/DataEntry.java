@@ -8,9 +8,11 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -188,10 +190,12 @@ public class DataEntry extends Activity
             	vals.put("gameType", gameT);
             	vals.put("gameLimit", gameL);
             	vals.put("notes", nts.getText().toString());
-            	
-            	dB.open();
-            	dB.insertRecord("gPNLData",vals);
-            	dB.close();
+    			ContentResolver cr = getContentResolver();
+    			Log.i(TAG, SubTag + "Got content resolver");
+    			Uri	tmpUri = Uri.parse("content://gamePnLTracker.provider.userContentProvider");
+    			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
+    			Log.i(TAG, SubTag + "Got URI populated");        			
+    			cr.insert(tmpUri, vals);            	
             	finish();
             }
         });
@@ -214,7 +218,8 @@ public class DataEntry extends Activity
     	return null;
     }
 
-    private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+    private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() 
+    {
     	// onDateSet method
     	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
     		dateB.setText(String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth)+"/"+String.valueOf(year));

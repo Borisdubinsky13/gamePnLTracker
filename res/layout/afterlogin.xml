@@ -10,4 +10,8 @@
 		android:text="Amount" 
 		android:id="@+id/PNL" android:textStyle="normal">
 	</TextView>
+	<ListView android:id="@+id/pnlList" 
+				android:layout_width="fill_parent" 
+				android:layout_height="fill_parent">
+	</ListView>
 </LinearLayout>

@@ -4,7 +4,9 @@
 package gamePnLTracker.jar;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +22,6 @@ public class SetupWin extends Activity
 	public String TAG="gamePnLTracker";
 	public String SubTag="setupHandler: ";
 
-	private MyDbAdapter dB = new MyDbAdapter(this);
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
@@ -49,9 +50,14 @@ public class SetupWin extends Activity
             	vals.put("name", nm.getText().toString());
             	vals.put("email", em.getText().toString());
             	vals.put("passwd", pss.getText().toString());
-            	dB.open();
-            	dB.insertRecord("gUsers",vals);
-            	dB.close();
+
+    			ContentResolver cr = getContentResolver();
+    			Log.i(TAG, SubTag + "Got content resolver");
+    			Uri	tmpUri = Uri.parse("content://gamePnLTracker.provider.userContentProvider");
+    			tmpUri = Uri.withAppendedPath(tmpUri,"users");
+    			Log.i(TAG, SubTag + "Got URI populated");        			
+    			cr.insert(tmpUri, vals);
+
             	finish();
             }
         });
