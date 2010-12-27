@@ -36,4 +36,5 @@
 		<item>PotLimit</item>
 	</string-array>
 <string name="cEarnings">Your career earnings: $</string>
+<string name="listRes">Results:</string>
 </resources>

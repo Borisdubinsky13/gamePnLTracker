@@ -204,7 +204,7 @@ public class GameContentProvider extends ContentProvider
 				Log.i(TAG, SubTag + "sql: " + sqlStm);
 				break;
 			case PNLDATA:
-				sqlStm += "amount FROM ";
+				sqlStm += "amount,date,gameType FROM ";
 				sqlStm += PNL_TABLE_NAME;
 				sqlStm += " WHERE ";
 				sqlStm += selection;

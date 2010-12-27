@@ -5,6 +5,7 @@ package gamePnLTracker.jar;
 
 import java.text.DecimalFormat;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,7 +16,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -46,7 +46,7 @@ public class AfterLogin extends Activity
 	{
 		Intent iAbout = new Intent(this, AboutHandler.class);
 		Intent iDataEntry = new Intent(this, DataEntry.class);
-		Intent iView = new Intent(this, AfterLogin.class);
+		Intent iViewRes = new Intent(this, ListRes.class);
 
 		// Handle item selection
 	    switch (item.getItemId()) 
@@ -61,10 +61,9 @@ public class AfterLogin extends Activity
 	        startActivity(iDataEntry);
 	        return true;
 	    case R.id.ViewStats:
-	    	Log.i(TAG, SubTag + "User " + "trying to start SETUP");
-	        startActivity(iView);
+	    	Log.i(TAG, SubTag + "User " + "trying to start ViewRes");
+	        startActivity(iViewRes);
 	        return true;
-
 	    default:
 	        return super.onOptionsItemSelected(item);
 	    }
@@ -92,45 +91,43 @@ public class AfterLogin extends Activity
 		DecimalFormat df = new DecimalFormat("#.##");
 		final TextView pnlStr = (TextView)findViewById(R.id.PNL);
 		final String strHead = this.getString(R.string.cEarnings);
-		
-		String	query = "name = '" + username+ "'";
-		// dB.open();
 
-		// result = dB.getRecord(query);
+		String	query = "name = '" + username+ "'";
+
 		Uri	tmpUri = Uri.parse("content://gamePnLTracker.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 		String[] projection = new String[] {
-				"amount"
+				"amount",
+				"date",
+				"gameType"
 		};
+		
 		// result = getContentResolver().query(tmpUri, null, null, null, null);
 		result = managedQuery(tmpUri, projection, query, null, null);
 		Log.i(TAG, SubTag + "there are " + result.getCount() + " records" );
+		
 		if ( result.moveToFirst() )
 		{
 			Log.i(TAG, SubTag + "got result back from provider");
 			do
-			{	
+			{
 				value = result.getString(0);
 				Log.i(TAG, SubTag + "got Value:  " + value);
 				dValue = Double.parseDouble(value);
-				
 				sum += dValue;
+				
 			} while (result.moveToNext());
-//			result.deactivate();
 		}
 		else
 			Log.i(TAG, SubTag + "No Data returned from Content Provider");
-		// dB.close();
+				
 		Log.i(TAG, SubTag + "Sum:  " + df.format(sum));
 		pnlStr.setText(strHead + df.format(sum));
-		if ( sum > 0 )
+		if ( sum >= 0 )
 			pnlStr.setBackgroundColor(0xFF00A000);
 		else
 			pnlStr.setBackgroundColor(0xFFA00000);
-		
-		ListView  lst = (ListView) findViewById(R.id.pnlList);
-		
-		
-		
+
+		Log.i(TAG, SubTag + "Done!");				
 	}
 }

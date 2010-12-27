@@ -39,7 +39,6 @@ public class DataEntry extends Activity
 	public String TAG="gamePnLTracker";
 	public String SubTag="DataEntry";
     final Calendar c = Calendar.getInstance();
-	private MyDbAdapter dB = new MyDbAdapter(this);
 
     static final int MAIN_DIALOG_ID = 0;
     static final int DATE_DIALOG_ID = 1;
