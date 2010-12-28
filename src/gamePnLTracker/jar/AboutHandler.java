@@ -3,6 +3,9 @@
  */
 package gamePnLTracker.jar;
 
+import com.admob.android.ads.AdManager;
+import com.admob.android.ads.AdView;
+
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -20,5 +23,14 @@ public class AboutHandler extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
-	}
+/*		
+        AdManager.setTestDevices(new String[] 
+    	{
+        		AdManager.TEST_EMULATOR,
+        		"426F72697360732050686F6E65"
+        });
+*/
+        AdView	adView = (AdView)findViewById(R.id.ad);
+        adView.requestFreshAd();
+ 	}
 }

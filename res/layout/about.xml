@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:myapp="http://schemas.android.com/apk/res/gamePnLTracker.jar"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:padding="20dip">
+    <com.admob.android.ads.AdView
+    	android:id="@+id/ad"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	myapp:backgroundColor="#000000"
+    	myapp:primaryTextColor="#FFFFFF"
+    	myapp:secondaryTextColor="#CCCCCC"
+    />
 	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/applabl" android:textSize="20sp" android:textStyle="bold"/>
+		android:text="@string/applabl" android:textSize="20sp" android:textStyle="bold"
+		/>
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -17,11 +27,13 @@
  	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:textSize="16sp" android:text=" "/>       
+		android:textSize="16sp" android:text=" "
+		/>       
  	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/appVerLabel" android:textSize="20sp" android:textStyle="bold"/>       
+		android:text="@string/appVerLabel" android:textSize="20sp" android:textStyle="bold"
+		/>       
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -31,15 +43,33 @@
 	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:textSize="16sp" android:text=" "/> 
+		android:textSize="16sp" android:text=" "
+		/> 
 	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/appContact" android:textSize="20sp" android:textStyle="bold"/>       
+		android:text="@string/appContact" android:textSize="20sp" android:textStyle="bold"
+		/>       
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="@string/appContVal"
+        />
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="16sp" android:text=" "
+		/> 
+	<TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/appNote" android:textSize="20sp" android:textStyle="bold"
+        />
+	<TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/appNoteVal"
         />
 </LinearLayout>

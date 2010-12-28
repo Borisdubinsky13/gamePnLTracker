@@ -3,7 +3,9 @@
     <string name="ViewStatName">View Stats.</string>
     <string name="AddResName">Add Result</string>
     <string name="Name">Name: </string>
-    <string name="appContVal">     dubi13@hotmail.com</string>
+    <string name="appContVal">     dubi13@hotmail.com.</string> 
+    <string name="appNote">NOTE: </string> 
+    <string name="appNoteVal">     Please specify \'gamePnLTracker\' in the subject of your e-mail.</string>
     <string name="appContact">Contact:</string>
     <string name="applabl">Application:</string>
     <string name="okStr">OK</string>

@@ -53,5 +53,24 @@
 		</activity>
 		<provider android:name="GameContentProvider"
 			android:authorities="gamePnLTracker.provider.userContentProvider"/>
+			
+			<!-- The application's publisher ID assigned by AdMob -->
+			<meta-data android:value="a14d18e1cd0e067" android:name="ADMOB_PUBLISHER_ID" />
+	        
+			<!-- AdMobActivity definition -->
+			<activity android:name="com.admob.android.ads.AdMobActivity"
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+				android:configChanges="orientation|keyboard|keyboardHidden" />
+			<!-- Track Market installs -->          
+			<receiver android:name="com.admob.android.ads.analytics.InstallReceiver"
+				android:exported="true">
+			<intent-filter>
+				<action android:name="com.android.vending.INSTALL_REFERRER" />
+			</intent-filter>
+		</receiver>
+		<meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS"/>
 	</application>
+	
+	<!-- AdMob SDK requires Internet permission -->
+	<uses-permission android:name="android.permission.INTERNET" />
 </manifest> 

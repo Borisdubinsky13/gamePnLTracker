@@ -5,6 +5,8 @@ package gamePnLTracker.jar;
 
 import java.text.DecimalFormat;
 
+import com.admob.android.ads.AdView;
+
 
 import android.app.Activity;
 import android.content.Intent;
@@ -80,6 +82,10 @@ public class AfterLogin extends Activity
 	protected void onResume()
 	{
 		super.onPause();
+		
+        AdView	adView = (AdView)findViewById(R.id.ad);
+        adView.requestFreshAd();
+        
 		// get all the records with the current id ad add all the amounts
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
     	String username = pref.getString(PREF_USERNAME, null);

@@ -1,5 +1,8 @@
 package gamePnLTracker.jar;
 
+import com.admob.android.ads.AdManager;
+import com.admob.android.ads.AdView;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -64,7 +67,15 @@ public class loginHandler extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+/*
+        AdManager.setTestDevices(new String[] {
+        		AdManager.TEST_EMULATOR,
+        		"426F72697360732050686F6E65"
+        });
+
+        AdView	adView = (AdView)findViewById(R.id.ad);
+        adView.requestFreshAd();
+*/        
         final Button loginB = (Button)findViewById(R.id.loginB);
         loginB.setOnClickListener(new View.OnClickListener()
         {
