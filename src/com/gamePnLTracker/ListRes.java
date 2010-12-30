@@ -33,8 +33,6 @@ public class ListRes extends ListActivity
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.listres);
-		Log.i(TAG, SubTag + "ListRes() start");
 /*		
         AdManager.setTestDevices(new String[] 
         {

@@ -87,13 +87,13 @@ public class AfterLogin extends Activity
 	{
 
 		super.onPause();
-
+/*
         AdManager.setTestDevices(new String[] 
     	{
         		AdManager.TEST_EMULATOR,
         		"426F72697360732050686F6E65"
         });
-
+*/
         AdView	adView = (AdView)findViewById(R.id.adAfterLogin);
         adView.requestFreshAd();
         
