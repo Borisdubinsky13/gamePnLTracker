@@ -1,11 +1,13 @@
 /**
  * 
  */
-package gamePnLTracker.jar;
+package com.gamePnLTracker;
 
 import java.text.DecimalFormat;
 
+import com.admob.android.ads.AdManager;
 import com.admob.android.ads.AdView;
+import com.gamePnLTracker.R;
 
 
 import android.app.Activity;
@@ -74,16 +76,25 @@ public class AfterLogin extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
+		Log.i(TAG, SubTag + "onCreate() started" );
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.afterlogin);
+		Log.i(TAG, SubTag + "onCreate() finished" );
 	}
 	
 	@Override
 	protected void onResume()
 	{
+
 		super.onPause();
-		
-        AdView	adView = (AdView)findViewById(R.id.ad);
+
+        AdManager.setTestDevices(new String[] 
+    	{
+        		AdManager.TEST_EMULATOR,
+        		"426F72697360732050686F6E65"
+        });
+
+        AdView	adView = (AdView)findViewById(R.id.adAfterLogin);
         adView.requestFreshAd();
         
 		// get all the records with the current id ad add all the amounts
@@ -100,7 +111,7 @@ public class AfterLogin extends Activity
 
 		String	query = "name = '" + username+ "'";
 
-		Uri	tmpUri = Uri.parse("content://gamePnLTracker.provider.userContentProvider");
+		Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 		String[] projection = new String[] {
 				"amount",

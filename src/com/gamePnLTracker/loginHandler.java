@@ -1,7 +1,7 @@
-package gamePnLTracker.jar;
+package com.gamePnLTracker;
 
-import com.admob.android.ads.AdManager;
-import com.admob.android.ads.AdView;
+
+import com.gamePnLTracker.R;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -65,17 +65,10 @@ public class loginHandler extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
+        Log.i(TAG, SubTag + " Enter onCreate() ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-/*
-        AdManager.setTestDevices(new String[] {
-        		AdManager.TEST_EMULATOR,
-        		"426F72697360732050686F6E65"
-        });
-
-        AdView	adView = (AdView)findViewById(R.id.ad);
-        adView.requestFreshAd();
-*/        
+        
         final Button loginB = (Button)findViewById(R.id.loginB);
         loginB.setOnClickListener(new View.OnClickListener()
         {
@@ -101,7 +94,7 @@ public class loginHandler extends Activity
         			
         			ContentResolver cr = getContentResolver();
         			Log.i(TAG, SubTag + "Got content resolver");
-        			Uri	tmpUri = Uri.parse("content://gamePnLTracker.provider.userContentProvider");
+        			Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
         			tmpUri = Uri.withAppendedPath(tmpUri,"users");
         			Log.i(TAG, SubTag + "Got URI populated");    
         			result = cr.query(tmpUri, projection, selection, null, null);
@@ -138,9 +131,9 @@ public class loginHandler extends Activity
                 // go to main window
                 if ( isValidUser(idName.getText().toString(), idPass.getText().toString()) )
                 {
-                	Intent iDataEntry = new Intent(loginHandler.this, AfterLogin.class);
+                	Intent iDataEntry = new Intent(loginHandler.this,AfterLogin.class);
         	    	Log.i(TAG, SubTag + "trying to start afterlogin Activity");
-        	        startActivity(iDataEntry);         	
+        	        startActivity(iDataEntry);    
                 }
             }
         });

@@ -1,9 +1,11 @@
 /**
  * 
  */
-package gamePnLTracker.jar;
+package com.gamePnLTracker;
 
-import java.util.ArrayList;
+import com.admob.android.ads.AdManager;
+import com.admob.android.ads.AdView;
+import com.gamePnLTracker.R;
 
 import android.app.ListActivity;
 import android.content.SharedPreferences;
@@ -12,8 +14,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.SimpleCursorAdapter;
 
 /**
  * @author Boris
@@ -32,15 +32,26 @@ public class ListRes extends ListActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
-		Log.i(TAG, SubTag + "Started ListRes started");
 		super.onCreate(savedInstanceState);
-		
+		setContentView(R.layout.listres);
+		Log.i(TAG, SubTag + "ListRes() start");
+/*		
+        AdManager.setTestDevices(new String[] 
+        {
+        		AdManager.TEST_EMULATOR,
+        		"426F72697360732050686F6E65"
+        });
+
+        AdView	adView = (AdView)findViewById(R.id.adListRes);
+        adView.requestFreshAd();
+*/        
+		Log.i(TAG, SubTag + "ListRes()"); 
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
     	String username = pref.getString(PREF_USERNAME, null);
 		String	query = "name = '" + username+ "'";
 
 		Cursor	result;
-		Uri	tmpUri = Uri.parse("content://gamePnLTracker.provider.userContentProvider");
+		Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 		String[] projection = new String[] {
 				"amount",

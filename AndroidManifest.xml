@@ -1,74 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="gamePnLTracker.jar"
       android:versionCode="1"
-      android:versionName="1.0">
+      android:versionName="1.0" package="com.gamePnLTracker">
     <application android:icon="@drawable/icon" android:label="@string/appname">
-		<activity android:name=".DataEntry"
-	    		android:label="@string/appname">
+		<activity android:label="@string/appname" android:name="com.gamePnLTracker.DataEntry">
 			<intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.PICK" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 	    </activity>
-		<activity android:name=".SetupWin"
-					android:label="@string/setupName">
+		<activity android:label="@string/setupName" android:name="com.gamePnLTracker.SetupWin">
 			<intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.PICK" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 		</activity>    
-        <activity android:name=".loginHandler"
-                  android:label="@string/appname">
+        <activity android:label="@string/appname" android:name="com.gamePnLTracker.loginHandler">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-	    <activity android:name=".AboutHandler"
-	    		android:label="@string/appname">
+	    <activity android:label="@string/appname" android:name="com.gamePnLTracker.AboutHandler">
 			<intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.PICK" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 	    </activity>
-	    <activity android:name=".AfterLogin"
-			android:label="@string/appname">
+	    <activity android:label="@string/appname" android:name="com.gamePnLTracker.AfterLogin">
 			<intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.PICK" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 		</activity>
-		<activity android:name=".ListRes"
-				android:label="@string/listRes">
+		<activity android:label="@string/listRes" android:name="com.gamePnLTracker.ListRes">
 				<intent-filter>
 					<action android:name="android.intent.action.VIEW" />
 					<action android:name="android.intent.action.PICK" />
 					<category android:name="android.intent.category.DEFAULT" />
 				</intent-filter>
 		</activity>
-		<provider android:name="GameContentProvider"
-			android:authorities="gamePnLTracker.provider.userContentProvider"/>
+		<provider android:authorities="com.gamePnLTracker.provider.userContentProvider" android:name="com.gamePnLTracker.GamePnLTrackerProvider" />
 			
 			<!-- The application's publisher ID assigned by AdMob -->
 			<meta-data android:value="a14d18e1cd0e067" android:name="ADMOB_PUBLISHER_ID" />
 	        
 			<!-- AdMobActivity definition -->
-			<activity android:name="com.admob.android.ads.AdMobActivity"
-				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-				android:configChanges="orientation|keyboard|keyboardHidden" />
+			<activity android:name="com.admob.android.ads.AdMobActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:configChanges="orientation|keyboard|keyboardHidden" />
 			<!-- Track Market installs -->          
-			<receiver android:name="com.admob.android.ads.analytics.InstallReceiver"
-				android:exported="true">
+			<receiver android:name="com.admob.android.ads.analytics.InstallReceiver" android:exported="true">
 			<intent-filter>
 				<action android:name="com.android.vending.INSTALL_REFERRER" />
 			</intent-filter>
 		</receiver>
-		<meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS"/>
+		<meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS" />
 	</application>
 	
 	<!-- AdMob SDK requires Internet permission -->

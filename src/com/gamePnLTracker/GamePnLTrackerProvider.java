@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gamePnLTracker.jar;
+package com.gamePnLTracker;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -20,10 +20,10 @@ import java.util.HashMap;
  * @author Boris
  *
  */
-public class GameContentProvider extends ContentProvider 
+public class GamePnLTrackerProvider extends ContentProvider 
 {
 	public static String TAG="gamePnLTracker";
-	public static String SubTag="GameContentProvider: ";
+	public static String SubTag="GamePnLTrackerProvider: ";
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
 	private static final int DATABASE_VERSION = 1;
@@ -35,7 +35,7 @@ public class GameContentProvider extends ContentProvider
 	private	static	HashMap<String, String> PNL_PROJECTION_MAP;
 	
 	public static final String AUTHORITY = 
-		"gamePnLTracker.provider.userContentProvider";
+		"com.gamePnLTracker.provider.userContentProvider";
 
 	private static final int USER = 1;
 	private static final int PNLDATA = 2;
@@ -179,6 +179,8 @@ public class GameContentProvider extends ContentProvider
 	public boolean onCreate() 
 	{
 		dbHelper = new DbAdapter(getContext());
+		Log.i(TAG, SubTag + "Created dbHelper");	
+		
 		return true;
 	}
 

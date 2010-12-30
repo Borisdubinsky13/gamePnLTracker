@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:myapp="http://schemas.android.com/apk/res/com.gamePnLTracker"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content">
+      <com.admob.android.ads.AdView
+    	android:id="@+id/adListRes"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	myapp:backgroundColor="#000000"
+    	myapp:primaryTextColor="#FFFFFF"
+    	myapp:secondaryTextColor="#CCCCCC"
+    />
   	<ListView android:id="@+id/pnlList" 
 			android:layout_width="fill_parent" android:layout_height="wrap_content"/>
 	<TextView android:id="@+id/dt" 

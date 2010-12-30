@@ -1,9 +1,11 @@
 /**
  * 
  */
-package gamePnLTracker.jar;
+package com.gamePnLTracker;
 
 import java.util.Calendar;
+
+import com.gamePnLTracker.R;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -191,7 +193,7 @@ public class DataEntry extends Activity
             	vals.put("notes", nts.getText().toString());
     			ContentResolver cr = getContentResolver();
     			Log.i(TAG, SubTag + "Got content resolver");
-    			Uri	tmpUri = Uri.parse("content://gamePnLTracker.provider.userContentProvider");
+    			Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
     			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
     			Log.i(TAG, SubTag + "Got URI populated");        			
     			cr.insert(tmpUri, vals);            	
