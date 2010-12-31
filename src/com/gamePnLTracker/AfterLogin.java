@@ -125,7 +125,7 @@ public class AfterLogin extends Activity
 		String	value;
 		double	sum = 0;
 		double	dValue;
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat("#,###.00");
 		final TextView pnlStr = (TextView)findViewById(R.id.PNL);
 		final String strHead = this.getString(R.string.cEarnings);
 

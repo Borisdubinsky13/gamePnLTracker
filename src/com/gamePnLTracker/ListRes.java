@@ -3,6 +3,8 @@
  */
 package com.gamePnLTracker;
 
+import java.text.DecimalFormat;
+
 import com.admob.android.ads.AdManager;
 import com.admob.android.ads.AdView;
 import com.gamePnLTracker.R;
@@ -39,10 +41,12 @@ public class ListRes extends ListActivity
         		AdManager.TEST_EMULATOR,
         		"426F72697360732050686F6E65"
         });
-
+ 
         AdView	adView = (AdView)findViewById(R.id.adListRes);
         adView.requestFreshAd();
-*/        
+*/       
+        DecimalFormat df = new DecimalFormat("#,###.00");
+        
 		Log.i(TAG, SubTag + "ListRes()"); 
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
     	String username = pref.getString(PREF_USERNAME, null);
@@ -66,7 +70,7 @@ public class ListRes extends ListActivity
 			Log.i(TAG, SubTag + "got result back from provider");
 			do
 			{
-				items.add(result.getString(1) + ": " + result.getString(2) + ": $" + result.getString(0));
+				items.add(result.getString(1) + ": " + result.getString(2) + ": $" + df.format(Double.parseDouble(result.getString(0))));
 			} while (result.moveToNext());
 		}
 		else
