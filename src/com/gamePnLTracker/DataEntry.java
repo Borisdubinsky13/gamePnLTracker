@@ -54,41 +54,7 @@ public class DataEntry extends Activity
     String	username;
     
     /** Called when the activity is first created. */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) 
-	{
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.mainmenu, menu);
-	    return true;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{
-		Intent iAbout = new Intent(this, AboutHandler.class);
-		Intent iSetup = new Intent(this, SetupWin.class);
-		Intent iAddRes = new Intent(this, DataEntry.class);
 
-		// Handle item selection
-	    switch (item.getItemId()) 
-	    {
-	    case R.id.about:
-	    	Log.i(TAG, SubTag + "User " + "trying to start ABOUT");
-	    	// Intent iAbout = new Intent(new Intent(this, AboutHandler.class));
-	        startActivity(iAbout);
-	        return true;
-	    case R.id.ViewStats:
-	    	Log.i(TAG, SubTag + "User " + "trying to start View Stats");
-	        startActivity(iSetup);
-	        return true;
-	    case R.id.AddResult:
-	    	Log.i(TAG, SubTag + "User " + "trying to start Add Results");
-	    	startActivity(iAddRes);
-	    default:
-	        return super.onOptionsItemSelected(item);
-	    }
-	}
-    
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {

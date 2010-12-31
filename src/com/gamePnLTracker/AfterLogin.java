@@ -11,6 +11,8 @@ import com.gamePnLTracker.R;
 
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -48,25 +50,43 @@ public class AfterLogin extends Activity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
-		Intent iAbout = new Intent(this, AboutHandler.class);
-		Intent iDataEntry = new Intent(this, DataEntry.class);
-		Intent iViewRes = new Intent(this, ListRes.class);
-
 		// Handle item selection
 	    switch (item.getItemId()) 
 	    {
-	    case R.id.about:
-	    	Log.i(TAG, SubTag + "User " + "trying to start ABOUT");
-	    	// Intent iAbout = new Intent(new Intent(this, AboutHandler.class));
+	    case R.id.About:
+	    	Log.i(TAG, SubTag + "trying to start ABOUT");
+	    	Intent iAbout = new Intent(this, AboutHandler.class);
 	        startActivity(iAbout);
 	        return true;
 	    case R.id.AddResult:
-	    	Log.i(TAG, SubTag + "User " + "trying to start SETUP");
+	    	Log.i(TAG, SubTag + "trying to start SETUP");
+	    	Intent iDataEntry = new Intent(this, DataEntry.class);
 	        startActivity(iDataEntry);
 	        return true;
 	    case R.id.ViewStats:
-	    	Log.i(TAG, SubTag + "User " + "trying to start ViewRes");
+	    	Log.i(TAG, SubTag + "trying to start ViewRes");
+			Intent iViewRes = new Intent(this, ListRes.class);
 	        startActivity(iViewRes);
+	        return true;
+	    case R.id.Logout:
+	    	Log.i(TAG, SubTag + "Logging user out");
+	    	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
+	    	String username = pref.getString(PREF_USERNAME, null);
+   			Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
+			tmpUri = Uri.withAppendedPath(tmpUri,"pnlstatus");
+
+        	String	query = "name = '" + username+ "'";
+        	ContentResolver cr = getContentResolver();
+        	cr.delete(tmpUri, query, null);
+        	
+        	// store user id in Preferences for everybody to access.
+            getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
+        	.edit()
+        	.putString(PREF_USERNAME, "")
+        	.commit();
+        	// Intent iLogin = new Intent(this,loginHandler.class);
+	    	Log.i(TAG, SubTag + "trying to logout");
+	        finish();
 	        return true;
 	    default:
 	        return super.onOptionsItemSelected(item);

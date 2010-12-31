@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="logoutStr">Logout</string>
     <string name="ViewStatName">View Stats.</string>
     <string name="AddResName">Add Result</string>
     <string name="Name">Name: </string>
@@ -21,7 +22,7 @@
 	<string name="appname">gamePnLTracker</string>
 	<string name="appdescrip">     Games Profits aNd Losses Tracker</string>
 	<string name="appVerLabel">Version:</string>
-	<string name="appVer">     Beta</string>
+	<string name="appVer">     Beta (0.1)</string>
    	<string name="passwordLabel">Password:</string>
     <string name="earningsTracker">earningsTracker</string>
     <string name="gameType">Game: </string>

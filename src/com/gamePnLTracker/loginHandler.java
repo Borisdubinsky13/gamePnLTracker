@@ -1,10 +1,15 @@
 package com.gamePnLTracker;
 
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import com.gamePnLTracker.R;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -21,8 +26,8 @@ import android.widget.Toast;
 public class loginHandler extends Activity 
 {
     /** Called when the activity is first created. */
-	public String TAG="gamePnLTracker";
-	public String SubTag="loginHandler: ";
+	public static String TAG="gamePnLTracker";
+	public static String SubTag="loginHandler: ";
 	
 	// private MyDbAdapter dB = new MyDbAdapter(this);
 	
@@ -30,6 +35,24 @@ public class loginHandler extends Activity
 	public static final String PREFS_NAME = "gamePnLTrackerFile";
 	private static final String PREF_USERNAME = "username";
 	CharSequence text = "No text";
+	
+	public static String getMd5Hash(String input) 
+	{
+        try {
+        	MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger number = new BigInteger(1,messageDigest);
+            String md5 = number.toString(16);
+           
+            while (md5.length() < 32)
+            	md5 = "0" + md5;
+           
+            return md5;
+        } catch(NoSuchAlgorithmException e) {
+                Log.e(TAG, SubTag + e.getMessage());
+                return null;
+        }
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) 
@@ -68,7 +91,32 @@ public class loginHandler extends Activity
         Log.i(TAG, SubTag + " Enter onCreate() ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+        // See if user is still logged in. When user logges out, the status of the user in status table will change to false.
+		Cursor	result;
+		Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
+		tmpUri = Uri.withAppendedPath(tmpUri,"pnlstatus");
+		String[] projection = new String[] {
+				"name",
+				"status"
+		};
+		Log.i(TAG, SubTag + "Got URI populated");
+		String	query = " status = 'in'";
+		result = managedQuery(tmpUri, projection, query, null, null);
+		if ( result.getCount() == 1 )
+		{
+			// There is an active user. Skip the login window.
+        	Intent iDataEntry = new Intent(loginHandler.this,AfterLogin.class);
+        	
+        	result.moveToFirst();
+            getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
+           	.edit()
+        	.putString(PREF_USERNAME, result.getString(0).toString())
+        	.commit();
+
+	        startActivity(iDataEntry);
+	        finish();
+		}
+		
         final Button loginB = (Button)findViewById(R.id.loginB);
         loginB.setOnClickListener(new View.OnClickListener()
         {
@@ -123,14 +171,24 @@ public class loginHandler extends Activity
             	EditText idPass = (EditText)findViewById(R.id.passwd);
             	// Setup a preference class that would keep the user id
             	EditText idName = (EditText)findViewById(R.id.idName);
-            	
-                getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
+            	String md5hash = getMd5Hash(idPass.getText().toString());
+                // go to main window
+                if ( isValidUser(idName.getText().toString(), md5hash) )
+                {
+                	// Store current user into a database
+        			Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
+        			tmpUri = Uri.withAppendedPath(tmpUri,"pnlstatus");
+                	ContentValues vals = new ContentValues();
+                	ContentResolver cr = getContentResolver();
+                	vals.put("name", idName.getText().toString());
+                	vals.put("status", "in");
+                	cr.insert(tmpUri, vals);
+                	
+                	// store user id in Preferences for everybody to access.
+                    getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
                 	.edit()
                 	.putString(PREF_USERNAME, idName.getText().toString())
                 	.commit();
-                // go to main window
-                if ( isValidUser(idName.getText().toString(), idPass.getText().toString()) )
-                {
                 	Intent iDataEntry = new Intent(loginHandler.this,AfterLogin.class);
         	    	Log.i(TAG, SubTag + "trying to start afterlogin Activity");
         	        startActivity(iDataEntry);    

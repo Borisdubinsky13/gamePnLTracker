@@ -3,6 +3,10 @@
  */
 package com.gamePnLTracker;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import com.gamePnLTracker.R;
 
 import android.app.Activity;
@@ -21,13 +25,30 @@ import android.widget.EditText;
  */
 public class SetupWin extends Activity 
 {
-	public String TAG="gamePnLTracker";
-	public String SubTag="setupHandler: ";
+	public static String TAG="gamePnLTracker";
+	public static String SubTag="setupHandler: ";
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
-
+	public static String getMd5Hash(String input) 
+	{
+        try {
+        	MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger number = new BigInteger(1,messageDigest);
+            String md5 = number.toString(16);
+           
+            while (md5.length() < 32)
+            	md5 = "0" + md5;
+           
+            return md5;
+        } catch(NoSuchAlgorithmException e) {
+                Log.e(TAG, SubTag + e.getMessage());
+                return null;
+        }
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -41,17 +62,20 @@ public class SetupWin extends Activity
         {
             public void onClick(View v) 
             {
+            	
             	ContentValues	vals = new ContentValues();
             	EditText nm = (EditText)findViewById(R.id.nameSup);
             	EditText em = (EditText)findViewById(R.id.emailSup);
             	EditText pss = (EditText)findViewById(R.id.passSup);
+            	String md5hash = getMd5Hash(pss.getText().toString());
+            	
             	Log.i(TAG, SubTag + "Add button is clicked");
             	Log.i(TAG, SubTag + "Name: " + nm.getText().toString());
             	Log.i(TAG, SubTag + "e-mail: " + em.getText().toString());
-            	Log.i(TAG, SubTag + "Pass: " + pss.getText().toString());
+            	Log.i(TAG, SubTag + "Pass: " + md5hash);
             	vals.put("name", nm.getText().toString());
             	vals.put("email", em.getText().toString());
-            	vals.put("passwd", pss.getText().toString());
+            	vals.put("passwd", md5hash);
 
     			ContentResolver cr = getContentResolver();
     			Log.i(TAG, SubTag + "Got content resolver");

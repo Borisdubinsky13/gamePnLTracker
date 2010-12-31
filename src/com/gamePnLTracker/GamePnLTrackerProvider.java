@@ -13,7 +13,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+
+import com.admob.android.ads.ac.e;
 
 /**
  * @author Boris
@@ -25,27 +30,52 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public static String SubTag="GamePnLTrackerProvider: ";
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	
 	private static final String USER_TABLE_NAME = "gUsers";
 	private static final String PNL_TABLE_NAME = "gPNLData";
+	private static final String	PNL_STATUS_TABLE_NAME = "gStatus";
 
 	private	static	HashMap<String, String> USER_PROJECTION_MAP;
 	private	static	HashMap<String, String> PNL_PROJECTION_MAP;
+	private	static	HashMap<String, String> PNL_STAT_PROJECTION_MAP;
 	
 	public static final String AUTHORITY = 
 		"com.gamePnLTracker.provider.userContentProvider";
 
 	private static final int USER = 1;
 	private static final int PNLDATA = 2;
+	private static final int PNLSTATUS = 3;
+	
 	private static final UriMatcher sURIMatcher = buildUriMatcher();
+	
+	public static String getMd5Hash(String input) 
+	{
+        try {
+        	MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger number = new BigInteger(1,messageDigest);
+            String md5 = number.toString(16);
+           
+            while (md5.length() < 32)
+            	md5 = "0" + md5;
+           
+            return md5;
+        } catch(NoSuchAlgorithmException e) {
+                Log.e(TAG, SubTag + e.getMessage());
+                return null;
+        }
+	}
+	
 	private static UriMatcher buildUriMatcher() 
 	{
 		UriMatcher matcher =  new UriMatcher(UriMatcher.NO_MATCH);
 		matcher.addURI(AUTHORITY, "users", USER);
 		matcher.addURI(AUTHORITY, "pnldata", PNLDATA);
+		matcher.addURI(AUTHORITY, "pnlstatus", PNLSTATUS);
 		return matcher;
 	}
+	
 	
 	private static class DbAdapter extends SQLiteOpenHelper
 	{
@@ -57,7 +87,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 		@Override
 		public void onCreate(SQLiteDatabase db) 
 		{
-			Log.i(TAG, SubTag + "Creating Users database");
+			Log.i(TAG, SubTag + "Creating Users table");
 			Cursor c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='" +
 					USER_TABLE_NAME + "'", null);
 			try 
@@ -72,7 +102,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 			{
 				c.close();
 			}
-			Log.i(TAG, SubTag + "Creating PnLdata database");
+			Log.i(TAG, SubTag + "Creating PnLdata table");
 			c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
 					PNL_TABLE_NAME + "'", null);
 			try 
@@ -91,16 +121,82 @@ public class GamePnLTrackerProvider extends ContentProvider
  							");");
 				}
 			}
-			finally 
+			finally
 			{
 				c.close();
 			}
+			Log.i(TAG, SubTag + "Creating PnL status table");
+			c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
+					PNL_STATUS_TABLE_NAME + "'", null);
+			try 
+			{
+				if (c.getCount()==0) 
+				{
+					db.execSQL("CREATE TABLE " + PNL_STATUS_TABLE_NAME + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+							"name TEXT, " +
+							"status TEXT " +
+ 							");");
+				}
+			}
+			finally
+			{
+				c.close();
+			}
+
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
 		{
-			Log.i(TAG , SubTag + "Upgrading database. Implementation is pending.");
+			Log.i(TAG , SubTag + "starting an upgrade from " + oldVersion + " to " + newVersion);
+			
+			/* First, if status table does not exist, create it */
+			Cursor c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
+					PNL_STATUS_TABLE_NAME + "'", null);
+			try 
+			{
+				if (c.getCount()==0) 
+				{
+					String sql = new String("CREATE TABLE " + PNL_STATUS_TABLE_NAME + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+							"name TEXT, " +
+							"status TEXT " +
+							");");
+
+				
+					db.execSQL(sql);
+				}
+			}			
+			finally
+			{
+				c.close();
+			}
+			// Convert the passwords from free format to encrypted
+			c = db.rawQuery("SELECT name,passwd FROM " + USER_TABLE_NAME + ";", null);
+			if ( c.moveToFirst() )
+			{
+				do
+				{
+					String nm = c.getString(0);
+					String ps = c.getString(1);
+					String hashed = getMd5Hash(ps);
+					Log.i(TAG, SubTag + "Oldpass: " + ps + ", Newpass: " + hashed);
+					ContentValues values = new ContentValues();
+					values.put("passwd", hashed);
+					String sql = "UPDATE " + USER_TABLE_NAME + " set passwd = '" + hashed + "' WHERE name = '" + nm + "';";
+					Log.i(TAG, SubTag + "exec sql: " + sql);
+					try
+					{
+						db.execSQL(sql);
+					}
+					catch (Exception e)
+					{
+						Log.e(TAG, SubTag + e.getMessage());
+					}
+				} while ( c.moveToNext());
+			}
+			
+			
+			Log.i(TAG , SubTag + "Upgrade is complete!");
 		}
 
 	}
@@ -124,6 +220,9 @@ public class GamePnLTrackerProvider extends ContentProvider
 	      	case PNLDATA:
 	      		count = db.delete(PNL_TABLE_NAME, where, whereArgs);
 	      		break;
+	      	case PNLSTATUS:
+	      		count = db.delete(PNL_STATUS_TABLE_NAME, where, whereArgs);
+	      		break;
 	      	default:
 	      		throw new IllegalArgumentException("Unknown URI " + uri);
 	      }
@@ -143,6 +242,8 @@ public class GamePnLTrackerProvider extends ContentProvider
 				return "vnd.gamePnLTracker.cursor.item/users";
 			case PNLDATA:
 				return "vnd.gamePnLTracker.cursor.dir/pnldata";
+	      	case PNLSTATUS:
+	      		return "vnd.gamePnLTracker.cursor.dir/pnlstatus";
 			default:
 				throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -163,6 +264,10 @@ public class GamePnLTrackerProvider extends ContentProvider
 				break;
 			case PNLDATA:
             	db.insert(PNL_TABLE_NAME ,null,values);
+            	db.close();
+				break;
+			case PNLSTATUS:
+				db.insert(PNL_STATUS_TABLE_NAME ,null,values);
             	db.close();
 				break;
 			default:
@@ -198,6 +303,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 		switch (sURIMatcher.match(uri)) 
 		{
 			case USER:
+				Log.i(TAG, SubTag + "building query for USER table");
 				sqlStm += "name FROM ";
 				sqlStm += USER_TABLE_NAME;
 				sqlStm += " WHERE ";
@@ -205,13 +311,23 @@ public class GamePnLTrackerProvider extends ContentProvider
 				Log.i(TAG, SubTag + "sql: " + sqlStm);
 				break;
 			case PNLDATA:
+				Log.i(TAG, SubTag + "building query for DATA table");
 				sqlStm += "amount,date,gameType FROM ";
 				sqlStm += PNL_TABLE_NAME;
 				sqlStm += " WHERE ";
 				sqlStm += selection;
 				Log.i(TAG, SubTag + "sql: " + sqlStm);
 				break;
+			case PNLSTATUS:
+				Log.i(TAG, SubTag + "building query for STATUS table");
+				sqlStm += "name,status FROM ";
+				sqlStm += PNL_STATUS_TABLE_NAME;
+				sqlStm += " WHERE ";
+				sqlStm += selection;
+				Log.i(TAG, SubTag + "sql: " + sqlStm);
+				break;
 			default:
+				Log.i(TAG, SubTag + "Unknown request");
 				throw new IllegalArgumentException("Unknown URI " + uri);
 		}
 		Log.i(TAG, SubTag + "Trying to execute a query.");
@@ -226,9 +342,40 @@ public class GamePnLTrackerProvider extends ContentProvider
 	 */
 	@Override
 	public int update(Uri uri, ContentValues values, String selection,
-			String[] selectionArgs) {
-		// TODO Auto-generated method stub
-		return 0;
+			String[] selectionArgs) 
+	{
+		int count;
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		getContext().getContentResolver().notifyChange(uri, null);	  	
+		
+		switch (sURIMatcher.match(uri)) 
+		{
+	    case USER:
+            count = db.update(
+            			USER_TABLE_NAME, 
+            			values,
+            			selection, 
+            			selectionArgs);
+	    	break;
+	    case PNLDATA:
+            count = db.update(
+            			PNL_TABLE_NAME, 
+            			values,
+            			selection, 
+            			selectionArgs);
+	      		break;
+	      	case PNLSTATUS:
+	            count = db.update(
+	            		PNL_STATUS_TABLE_NAME, 
+            			values,
+            			selection, 
+            			selectionArgs);
+	      		break;
+	      	default:
+	      		throw new IllegalArgumentException("Unknown URI " + uri);
+	      }
+	      getContext().getContentResolver().notifyChange(uri, null);
+	      return count;
 	}
 	
 	static
@@ -247,5 +394,10 @@ public class GamePnLTrackerProvider extends ContentProvider
 		PNL_PROJECTION_MAP.put(PNL_TABLE_NAME, "gameType");
 		PNL_PROJECTION_MAP.put(PNL_TABLE_NAME, "gameLimit");
 		PNL_PROJECTION_MAP.put(PNL_TABLE_NAME, "notes");
+		
+		PNL_STAT_PROJECTION_MAP = new HashMap<String,String>();
+		PNL_STAT_PROJECTION_MAP.put(PNL_STATUS_TABLE_NAME, "name");
+		PNL_STAT_PROJECTION_MAP.put(PNL_STATUS_TABLE_NAME, "status");
+		
 	}
 }

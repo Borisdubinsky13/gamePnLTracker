@@ -13,7 +13,11 @@
 			android:title="@string/ViewStatName" android:icon="@android:drawable/ic_menu_view">
 		</item>
 		<item 
-			android:id="@+id/about" 
+			android:id="@+id/Logout" 
+			android:title="@string/logoutStr" android:icon="@android:drawable/ic_menu_close_clear_cancel">
+		</item>
+		<item 
+			android:id="@+id/About" 
 			android:title="@string/aboutName" android:icon="@android:drawable/ic_menu_info_details">
 		</item>
 	</group>
