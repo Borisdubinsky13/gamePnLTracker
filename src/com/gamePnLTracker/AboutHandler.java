@@ -3,7 +3,6 @@
  */
 package com.gamePnLTracker;
 
-import com.admob.android.ads.AdManager;
 import com.admob.android.ads.AdView;
 import com.gamePnLTracker.R;
 

@@ -44,6 +44,13 @@
 					<category android:name="android.intent.category.DEFAULT" />
 				</intent-filter>
 		</activity>
+		<activity android:label="@string/dispFullItem" android:name="com.gamePnLTracker.DetailDisplay">
+				<intent-filter>
+					<action android:name="android.intent.action.VIEW" />
+					<action android:name="android.intent.action.PICK" />
+					<category android:name="android.intent.category.DEFAULT" />
+				</intent-filter>
+		</activity>
 		<provider android:authorities="com.gamePnLTracker.provider.userContentProvider" android:name="com.gamePnLTracker.GamePnLTrackerProvider" />
 			
 			<!-- The application's publisher ID assigned by AdMob -->

@@ -18,8 +18,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
-import com.admob.android.ads.ac.e;
-
 /**
  * @author Boris
  *
@@ -46,6 +44,8 @@ public class GamePnLTrackerProvider extends ContentProvider
 	private static final int USER = 1;
 	private static final int PNLDATA = 2;
 	private static final int PNLSTATUS = 3;
+	private static final int PNL1RECORD = 4;
+	
 	
 	private static final UriMatcher sURIMatcher = buildUriMatcher();
 	
@@ -73,9 +73,9 @@ public class GamePnLTrackerProvider extends ContentProvider
 		matcher.addURI(AUTHORITY, "users", USER);
 		matcher.addURI(AUTHORITY, "pnldata", PNLDATA);
 		matcher.addURI(AUTHORITY, "pnlstatus", PNLSTATUS);
+		matcher.addURI(AUTHORITY, "pnl1record", PNL1RECORD);
 		return matcher;
 	}
-	
 	
 	private static class DbAdapter extends SQLiteOpenHelper
 	{
@@ -210,7 +210,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public int delete(Uri uri, String where, String[] whereArgs) 
 	{
 	      SQLiteDatabase db = dbHelper.getWritableDatabase();
-	
+	      Log.i(TAG, SubTag + "Deleting SQL: " + where);
 	      int count;
 			switch (sURIMatcher.match(uri)) 
 			{
@@ -218,6 +218,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	      		count = db.delete(USER_TABLE_NAME, where, whereArgs);
 	      		break;
 	      	case PNLDATA:
+	      	case PNL1RECORD:
 	      		count = db.delete(PNL_TABLE_NAME, where, whereArgs);
 	      		break;
 	      	case PNLSTATUS:
@@ -244,6 +245,8 @@ public class GamePnLTrackerProvider extends ContentProvider
 				return "vnd.gamePnLTracker.cursor.dir/pnldata";
 	      	case PNLSTATUS:
 	      		return "vnd.gamePnLTracker.cursor.dir/pnlstatus";
+	      	case PNL1RECORD:
+	      		return "vnd.gamePnLTracker.cursor.item/pnlrecord";
 			default:
 				throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -263,6 +266,7 @@ public class GamePnLTrackerProvider extends ContentProvider
             	db.close();
 				break;
 			case PNLDATA:
+			case PNL1RECORD:
             	db.insert(PNL_TABLE_NAME ,null,values);
             	db.close();
 				break;
@@ -312,7 +316,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 				break;
 			case PNLDATA:
 				Log.i(TAG, SubTag + "building query for DATA table");
-				sqlStm += "amount,date,gameType FROM ";
+				sqlStm += "_ID,name,amount,date,eventType,gameType,gameLimit,notes FROM ";
 				sqlStm += PNL_TABLE_NAME;
 				sqlStm += " WHERE ";
 				sqlStm += selection;

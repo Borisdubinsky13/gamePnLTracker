@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="dispFullItem">Result Entry: </string>
     <string name="logoutStr">Logout</string>
     <string name="ViewStatName">View Stats.</string>
     <string name="AddResName">Add Result</string>
@@ -40,4 +41,6 @@
 	</string-array>
 <string name="cEarnings">Your career earnings: $</string>
 <string name="listRes">Results:</string>
+<string name="deleteStr">Delete</string>
+<string name="updateStr">Update</string>
 </resources>

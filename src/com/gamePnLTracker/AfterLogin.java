@@ -5,14 +5,11 @@ package com.gamePnLTracker;
 
 import java.text.DecimalFormat;
 
-import com.admob.android.ads.AdManager;
 import com.admob.android.ads.AdView;
 import com.gamePnLTracker.R;
 
-
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -34,6 +31,7 @@ public class AfterLogin extends Activity
 	public String SubTag="AfterLogin: ";
 	public static final String PREFS_NAME = "gamePnLTrackerFile";
 	private static final String PREF_USERNAME = "username";
+	public String currentUser = new String();
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -70,8 +68,9 @@ public class AfterLogin extends Activity
 	        return true;
 	    case R.id.Logout:
 	    	Log.i(TAG, SubTag + "Logging user out");
-	    	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
+	    	SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);   
 	    	String username = pref.getString(PREF_USERNAME, null);
+	    	
    			Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
 			tmpUri = Uri.withAppendedPath(tmpUri,"pnlstatus");
 
@@ -120,7 +119,7 @@ public class AfterLogin extends Activity
 		// get all the records with the current id ad add all the amounts
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
     	String username = pref.getString(PREF_USERNAME, null);
-    	
+
 		Cursor	result;
 		String	value;
 		double	sum = 0;
@@ -134,9 +133,14 @@ public class AfterLogin extends Activity
 		Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 		String[] projection = new String[] {
+				"_ID",
+				"name",
 				"amount",
 				"date",
-				"gameType"
+				"gameType",
+				"gameLimit",
+				"eventType",
+				"notes"
 		};
 		
 		// result = getContentResolver().query(tmpUri, null, null, null, null);
@@ -148,7 +152,7 @@ public class AfterLogin extends Activity
 			Log.i(TAG, SubTag + "got result back from provider");
 			do
 			{
-				value = result.getString(0);
+				value = result.getString(2);
 				Log.i(TAG, SubTag + "got Value:  " + value);
 				dValue = Double.parseDouble(value);
 				sum += dValue;
