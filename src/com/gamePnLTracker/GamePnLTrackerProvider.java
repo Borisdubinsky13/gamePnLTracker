@@ -349,6 +349,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 			String[] selectionArgs) 
 	{
 		int count;
+		Log.i(TAG, SubTag + "Started....");
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		getContext().getContentResolver().notifyChange(uri, null);	  	
 		
@@ -362,6 +363,8 @@ public class GamePnLTrackerProvider extends ContentProvider
             			selectionArgs);
 	    	break;
 	    case PNLDATA:
+	    	Log.i(TAG, SubTag + "Updating " + PNL_TABLE_NAME);
+	    	
             count = db.update(
             			PNL_TABLE_NAME, 
             			values,
@@ -379,6 +382,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	      		throw new IllegalArgumentException("Unknown URI " + uri);
 	      }
 	      getContext().getContentResolver().notifyChange(uri, null);
+	      Log.i(TAG, SubTag + "Ended....");
 	      return count;
 	}
 	

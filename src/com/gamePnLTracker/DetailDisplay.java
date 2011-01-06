@@ -5,15 +5,18 @@ package com.gamePnLTracker;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 
 /**
  * @author Boris
@@ -31,12 +34,20 @@ public class DetailDisplay extends Activity
 	private String name = "";
 	private String	workRecord = "";
 	
+    Spinner gmTypeSp;
+    Spinner gmLimitSp;
+	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
+        final ArrayAdapter<CharSequence> gmType = ArrayAdapter.createFromResource(
+                this, R.array.gameType, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<CharSequence> gmLimit = ArrayAdapter.createFromResource(
+                this, R.array.gameLimit, android.R.layout.simple_spinner_item);
+        
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.displayitem);
@@ -70,21 +81,48 @@ public class DetailDisplay extends Activity
 		
 		if ( result.moveToFirst() )
 		{
-			int	tmp = maxI;
-			Log.i(TAG, SubTag + "Scanning " + tmp + "records");
 			for ( int i = 0; i < maxI && result.moveToNext(); i++ )
 				Log.i(TAG, SubTag + "Scanned record " + i);
 		}
 		Log.i(TAG, SubTag + "ID: " + result.getString(0));
 		workRecord = result.getString(0);
-		Log.i(TAG, SubTag + "Name: " + result.getString(1));
-		Log.i(TAG, SubTag + "Amount: " + result.getString(2));
-		Log.i(TAG, SubTag + "Date: " + result.getString(3));
 		EditText amount = (EditText)findViewById(R.id.Amount);
         amount.setText(result.getString(2));
-        Button dateB = (Button)findViewById(R.id.dateButton);
+        final Button dateB = (Button)findViewById(R.id.dateButton);
         dateB.setText(result.getString(3));
-        	
+        String evnt = result.getString(4);
+    	RadioButton tourneyRB = (RadioButton) findViewById(R.id.idTourney);
+    	RadioButton cashRB = (RadioButton) findViewById(R.id.idCash);
+        if ( evnt.equalsIgnoreCase("Cash") )
+        {
+        	cashRB.setChecked(true);
+        	tourneyRB.setChecked(false);
+        }
+        else if ( evnt.equalsIgnoreCase("Tourney") )
+        {
+        	tourneyRB.setChecked(true);
+        	cashRB.setChecked(false);
+        }
+        else
+        {
+        	tourneyRB.setChecked(false);
+        	cashRB.setChecked(false);
+        }
+        
+        gmTypeSp = (Spinner) findViewById(R.id.gType);
+        gmType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gmTypeSp.setAdapter(gmType);
+        gmTypeSp.setSelection(gmType.getPosition(result.getString(5)));
+        
+        gmLimitSp = (Spinner) findViewById(R.id.gLimit);
+        gmLimit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gmLimitSp.setAdapter(gmLimit);
+        gmLimitSp.setSelection(gmLimit.getPosition(result.getString(6)));
+        
+        EditText nts = (EditText)findViewById(R.id.notes);
+        nts.setText(result.getString(7));
+        
+        // Setup buttons
         final Button deleteB = (Button)findViewById(R.id.delete);
         deleteB.setOnClickListener(new View.OnClickListener()
         {
@@ -105,7 +143,39 @@ public class DetailDisplay extends Activity
 	     {
 		     public void onClick(View v) 
 		     {
+		    	 ContentValues vals = new ContentValues();
+		    	 String eventStr = "Unknown";
+		    	 String where = "";
+            	
+		    	 Log.i(TAG, SubTag + "ACCEPT button is clicked");
+		    	 EditText amount = (EditText)findViewById(R.id.Amount);
+		    	 String dateT = (String) dateB.getText();
+		    	 EditText nts = (EditText)findViewById(R.id.notes);
+		    	 String gameT = (String) gmTypeSp.getSelectedItem().toString();
+		    	 String gameL = (String) gmLimitSp.getSelectedItem().toString();
+		    	 RadioButton tourneyRB = (RadioButton) findViewById(R.id.idTourney);
+		    	 RadioButton cashRB = (RadioButton) findViewById(R.id.idCash);
+		    	 if ( tourneyRB.isChecked())
+		    		 eventStr = "Tourney";
+		    	 else if ( cashRB.isChecked())
+		    		 eventStr = "Cash";
 		    	 
+		         vals.put("amount", amount.getText().toString());
+		         vals.put("date", dateT);
+		         vals.put("eventType", eventStr);
+		         vals.put("gameType", gameT);
+		         vals.put("gameLimit", gameL);
+		         vals.put("notes", nts.getText().toString());
+
+		    	 where = "_ID = " + workRecord;
+
+		    	 ContentResolver cr = getContentResolver();
+		    	 Log.i(TAG, SubTag + "Got content resolver");
+		    	 Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
+		    	 tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
+		    	 Log.i(TAG, SubTag + "Got URI populated");        			
+		    	 cr.update(tmpUri, vals, where, null);            	
+		    	 finish(); 
 		     }
 
 	     });
