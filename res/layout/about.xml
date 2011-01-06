@@ -12,12 +12,13 @@
     	myapp:backgroundColor="#000000"
     	myapp:primaryTextColor="#FFFFFF"
     	myapp:secondaryTextColor="#CCCCCC"
-    />
+    >
+    </com.admob.android.ads.AdView>
 	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:text="@string/applabl" android:textSize="20sp" android:textStyle="bold"
-		/>
+		/>		
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -44,12 +45,12 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:textSize="16sp" android:text=" "
-		/> 
+		/>
 	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:text="@string/appContact" android:textSize="20sp" android:textStyle="bold"
-		/>       
+		/>
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -72,4 +73,19 @@
         android:textSize="16sp"
         android:text="@string/appNoteVal"
         />
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="16sp" android:text=" "
+		/> 
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="16sp" android:text=" "
+		/> 
+    <Button android:layout_width="wrap_content" 
+		android:id="@+id/dispRelNotes" 
+		android:layout_height="wrap_content" 
+		android:text="@string/dispRelNotes">
+	</Button>
 </LinearLayout>

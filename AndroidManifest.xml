@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      android:versionCode="1"
-      android:versionName="1.0" package="com.gamePnLTracker">
+      android:versionName="1.0" package="com.gamePnLTracker" android:versionCode="2">
     <application android:icon="@drawable/icon" android:label="@string/appname">
 		<activity android:label="@string/appname" android:name="com.gamePnLTracker.DataEntry">
 			<intent-filter>

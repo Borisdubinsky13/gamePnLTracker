@@ -23,7 +23,7 @@
 	<string name="appname">gamePnLTracker</string>
 	<string name="appdescrip">     Games Profits aNd Losses Tracker</string>
 	<string name="appVerLabel">Version:</string>
-	<string name="appVer">     Beta (0.1)</string>
+	<string name="appVer">     Beta (0.2)</string>
    	<string name="passwordLabel">Password:</string>
     <string name="earningsTracker">earningsTracker</string>
     <string name="gameType">Game: </string>
@@ -43,4 +43,5 @@
 <string name="listRes">Results:</string>
 <string name="deleteStr">Delete</string>
 <string name="updateStr">Update</string>
+<string name="dispRelNotes">Display Release Notes</string>
 </resources>
