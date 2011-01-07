@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.gamePnLTracker;
+package com.gamesPnL;
 
 public final class R {
     public static final class array {
@@ -159,11 +159,11 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #com_admob_android_ads_AdView_backgroundColor com.gamePnLTracker:backgroundColor}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_admob_android_ads_AdView_keywords com.gamePnLTracker:keywords}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_admob_android_ads_AdView_primaryTextColor com.gamePnLTracker:primaryTextColor}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_admob_android_ads_AdView_refreshInterval com.gamePnLTracker:refreshInterval}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_admob_android_ads_AdView_secondaryTextColor com.gamePnLTracker:secondaryTextColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_admob_android_ads_AdView_backgroundColor com.gamesPnL:backgroundColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_admob_android_ads_AdView_keywords com.gamesPnL:keywords}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_admob_android_ads_AdView_primaryTextColor com.gamesPnL:primaryTextColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_admob_android_ads_AdView_refreshInterval com.gamesPnL:refreshInterval}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_admob_android_ads_AdView_secondaryTextColor com.gamesPnL:secondaryTextColor}</code></td><td></td></tr>
            </table>
            @see #com_admob_android_ads_AdView_backgroundColor
            @see #com_admob_android_ads_AdView_keywords
@@ -176,7 +176,7 @@ containing a value of this type.
             0x7f010004
         };
         /**
-          <p>This symbol is the offset where the {@link com.gamePnLTracker.R.attr#backgroundColor}
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#backgroundColor}
           attribute's value can be found in the {@link #com_admob_android_ads_AdView} array.
 
 
@@ -191,7 +191,7 @@ containing a value of this type.
         */
         public static final int com_admob_android_ads_AdView_backgroundColor = 0;
         /**
-          <p>This symbol is the offset where the {@link com.gamePnLTracker.R.attr#keywords}
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#keywords}
           attribute's value can be found in the {@link #com_admob_android_ads_AdView} array.
 
 
@@ -205,7 +205,7 @@ containing a value of this type.
         */
         public static final int com_admob_android_ads_AdView_keywords = 3;
         /**
-          <p>This symbol is the offset where the {@link com.gamePnLTracker.R.attr#primaryTextColor}
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#primaryTextColor}
           attribute's value can be found in the {@link #com_admob_android_ads_AdView} array.
 
 
@@ -220,7 +220,7 @@ containing a value of this type.
         */
         public static final int com_admob_android_ads_AdView_primaryTextColor = 1;
         /**
-          <p>This symbol is the offset where the {@link com.gamePnLTracker.R.attr#refreshInterval}
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#refreshInterval}
           attribute's value can be found in the {@link #com_admob_android_ads_AdView} array.
 
 
@@ -234,7 +234,7 @@ containing a value of this type.
         */
         public static final int com_admob_android_ads_AdView_refreshInterval = 4;
         /**
-          <p>This symbol is the offset where the {@link com.gamePnLTracker.R.attr#secondaryTextColor}
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#secondaryTextColor}
           attribute's value can be found in the {@link #com_admob_android_ads_AdView} array.
 
 

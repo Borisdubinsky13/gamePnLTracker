@@ -1,11 +1,11 @@
-package com.gamePnLTracker;
+package com.gamesPnL;
 
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.gamePnLTracker.R;
+import com.gamesPnL.R;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -48,7 +48,9 @@ public class loginHandler extends Activity
             	md5 = "0" + md5;
            
             return md5;
-        } catch(NoSuchAlgorithmException e) {
+        } 
+        catch(NoSuchAlgorithmException e) 
+        {
                 Log.e(TAG, SubTag + e.getMessage());
                 return null;
         }
@@ -93,7 +95,7 @@ public class loginHandler extends Activity
         setContentView(R.layout.main);
         // See if user is still logged in. When user logges out, the status of the user in status table will change to false.
 		Cursor	result;
-		Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
+		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnlstatus");
 		String[] projection = new String[] {
 				"name",
@@ -142,7 +144,7 @@ public class loginHandler extends Activity
         			
         			ContentResolver cr = getContentResolver();
         			Log.i(TAG, SubTag + "Got content resolver");
-        			Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
+        			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
         			tmpUri = Uri.withAppendedPath(tmpUri,"users");
         			Log.i(TAG, SubTag + "Got URI populated");    
         			result = cr.query(tmpUri, projection, selection, null, null);
@@ -176,7 +178,7 @@ public class loginHandler extends Activity
                 if ( isValidUser(idName.getText().toString(), md5hash) )
                 {
                 	// Store current user into a database
-        			Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
+        			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
         			tmpUri = Uri.withAppendedPath(tmpUri,"pnlstatus");
                 	ContentValues vals = new ContentValues();
                 	ContentResolver cr = getContentResolver();

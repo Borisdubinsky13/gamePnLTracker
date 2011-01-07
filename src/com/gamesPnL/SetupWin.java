@@ -1,13 +1,13 @@
 /**
  * 
  */
-package com.gamePnLTracker;
+package com.gamesPnL;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.gamePnLTracker.R;
+import com.gamesPnL.R;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -79,7 +79,7 @@ public class SetupWin extends Activity
 
     			ContentResolver cr = getContentResolver();
     			Log.i(TAG, SubTag + "Got content resolver");
-    			Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
+    			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
     			tmpUri = Uri.withAppendedPath(tmpUri,"users");
     			Log.i(TAG, SubTag + "Got URI populated");        			
     			cr.insert(tmpUri, vals);

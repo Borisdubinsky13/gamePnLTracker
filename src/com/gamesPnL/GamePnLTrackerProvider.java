@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gamePnLTracker;
+package com.gamesPnL;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -39,7 +39,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	private	static	HashMap<String, String> PNL_STAT_PROJECTION_MAP;
 	
 	public static final String AUTHORITY = 
-		"com.gamePnLTracker.provider.userContentProvider";
+		"com.gamesPnL.provider.userContentProvider";
 
 	private static final int USER = 1;
 	private static final int PNLDATA = 2;

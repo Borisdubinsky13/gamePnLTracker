@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gamePnLTracker;
+package com.gamesPnL;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class ListRes extends ListActivity
 		String	query = "name = '" + username + "'";
 
  		Cursor	result;
-		Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
+		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 		String[] projection = new String[] {
 				"_ID",

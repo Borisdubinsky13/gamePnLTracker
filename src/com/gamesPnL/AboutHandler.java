@@ -1,10 +1,10 @@
 /**
  * 
  */
-package com.gamePnLTracker;
+package com.gamesPnL;
 
 import com.admob.android.ads.AdView;
-import com.gamePnLTracker.R;
+import com.gamesPnL.R;
 
 import android.app.Activity;
 import android.content.ContentResolver;

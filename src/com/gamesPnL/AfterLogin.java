@@ -1,12 +1,12 @@
 /**
  * 
  */
-package com.gamePnLTracker;
+package com.gamesPnL;
 
 import java.text.DecimalFormat;
 
 import com.admob.android.ads.AdView;
-import com.gamePnLTracker.R;
+import com.gamesPnL.R;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -71,7 +71,7 @@ public class AfterLogin extends Activity
 	    	SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);   
 	    	String username = pref.getString(PREF_USERNAME, null);
 	    	
-   			Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
+   			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 			tmpUri = Uri.withAppendedPath(tmpUri,"pnlstatus");
 
         	String	query = "name = '" + username+ "'";
@@ -130,7 +130,7 @@ public class AfterLogin extends Activity
 
 		String	query = "name = '" + username+ "'";
 
-		Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
+		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 		String[] projection = new String[] {
 				"_ID",

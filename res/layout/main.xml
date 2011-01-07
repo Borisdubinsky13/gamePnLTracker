@@ -25,5 +25,10 @@
 				android:layout_height="wrap_content" 
 				android:text="@string/login">
 		</Button>
+    	<TextView></TextView>
+    	<TextView></TextView>
+    	
+		<TextView android:text="NOTE: First time users need to create an account (Menu->Setup)."/>	
+		
 	</TableLayout>
 </LinearLayout>

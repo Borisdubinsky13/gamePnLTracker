@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gamePnLTracker;
+package com.gamesPnL;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -62,7 +62,7 @@ public class DetailDisplay extends Activity
 		// Get the record with all the values, populate all the fields for display
 		String	query = "name = '" + name + "'";
 		Cursor	result;
-		Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
+		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 		String[] projection = new String[] {
 				"_ID",
@@ -131,7 +131,7 @@ public class DetailDisplay extends Activity
         		Log.i(TAG, SubTag + "Deleting record with ID# " + workRecord);
 		    	ContentResolver cr = getContentResolver();
 		    	String	query = "_ID = '" + workRecord + "'";
-		    	Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
+		    	Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		    	 
 		    	tmpUri = Uri.withAppendedPath(tmpUri,"pnl1record");
 		    	cr.delete(tmpUri, query, null);
@@ -171,7 +171,7 @@ public class DetailDisplay extends Activity
 
 		    	 ContentResolver cr = getContentResolver();
 		    	 Log.i(TAG, SubTag + "Got content resolver");
-		    	 Uri	tmpUri = Uri.parse("content://com.gamePnLTracker.provider.userContentProvider");
+		    	 Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		    	 tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 		    	 Log.i(TAG, SubTag + "Got URI populated");        			
 		    	 cr.update(tmpUri, vals, where, null);            	
