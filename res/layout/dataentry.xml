@@ -12,7 +12,7 @@
 		android:id="@+id/topTable">
 		<TableRow>
 			<TextView android:text="Amount: " android:layout_gravity="left|center_vertical"/>
-			<EditText android:id="@+id/Amount" android:layout_width="250sp" android:inputType="number|numberSigned|numberDecimal"/>
+			<EditText android:id="@+id/Amount" android:layout_width="250sp" android:inputType="number|numberDecimal"/>
 		</TableRow>
 		<TableRow>
 		    <TextView android:text="Date: " android:layout_gravity="left|center_vertical"/>
@@ -59,15 +59,21 @@
 			<TextView android:text=" "/>
 		</TableRow>
 		<RelativeLayout android:gravity="center_horizontal" >
-		<Button android:text="Accept" 
-				android:id="@+id/accept" 
-				android:layout_width="160px" 
+		<Button android:text="Win" 
+				android:id="@+id/Win" 
+				android:layout_width="120px" 
 				android:layout_height="wrap_content" 
 				/>
-		<Button android:layout_toRightOf="@id/accept" 
+		<Button android:layout_toRightOf="@id/Win"
+				android:text="Loss" 
+				android:id="@+id/Loss" 
+				android:layout_width="120px" 
+				android:layout_height="wrap_content" 
+				/>
+		<Button android:layout_toRightOf="@id/Loss" 
 				android:text="Clear" 
 				android:id="@+id/clear" 
-				android:layout_width="160px" 
+				android:layout_width="120px" 
 				android:layout_height="wrap_content"
 				/>
 		</RelativeLayout>

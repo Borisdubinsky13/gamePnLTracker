@@ -69,7 +69,8 @@ public class DataEntry extends Activity
        
         // setup buttons
         final Button clearB = (Button)findViewById(R.id.clear);
-        final Button acceptB = (Button)findViewById(R.id.accept);
+        final Button winB = (Button)findViewById(R.id.Win);
+        final Button looseB = (Button)findViewById(R.id.Loss);
         final int mYear = c.get(Calendar.YEAR);
         final int mMonth = c.get(Calendar.MONTH);
         final int mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -125,14 +126,14 @@ public class DataEntry extends Activity
             }
         });
        	
-        acceptB.setOnClickListener(new View.OnClickListener()
+        winB.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v) 
             {
             	ContentValues vals = new ContentValues();
             	String eventStr = "Unknown";
             	
-            	Log.i(TAG, SubTag + "ACCEPT button is clicked");
+            	Log.i(TAG, SubTag + "WIN button is clicked");
              	EditText amount = (EditText)findViewById(R.id.Amount);
              	String dateT = (String) dateB.getText();
             	EditText nts = (EditText)findViewById(R.id.notes);
@@ -148,6 +149,46 @@ public class DataEntry extends Activity
             		
             	vals.put("name", username);
             	vals.put("amount", amount.getText().toString());
+            	vals.put("date", dateT);
+            	vals.put("eventType", eventStr);
+            	vals.put("gameType", gameT);
+            	vals.put("gameLimit", gameL);
+            	vals.put("notes", nts.getText().toString());
+    			ContentResolver cr = getContentResolver();
+    			Log.i(TAG, SubTag + "Got content resolver");
+    			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
+    			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
+    			Log.i(TAG, SubTag + "Got URI populated");        			
+    			cr.insert(tmpUri, vals);            	
+            	finish();
+            }
+        });
+        
+        looseB.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v) 
+            {
+            	ContentValues vals = new ContentValues();
+            	String eventStr = "Unknown";
+            	String realAmount = "-";
+            	
+            	Log.i(TAG, SubTag + "LOSS button is clicked");
+             	EditText amount = (EditText)findViewById(R.id.Amount);
+             	realAmount += amount.getText().toString(); 
+             	String dateT = (String) dateB.getText();
+            	EditText nts = (EditText)findViewById(R.id.notes);
+            	String gameT = (String) gmTypeSp.getSelectedItem().toString();
+            	String gameL = (String) gmLimitSp.getSelectedItem().toString();
+            	RadioButton tourneyRB = (RadioButton) findViewById(R.id.idTourney);
+            	RadioButton cashRB = (RadioButton) findViewById(R.id.idCash);
+            	
+            	if ( tourneyRB.isChecked())
+            		eventStr = "Tourney";
+            	else if ( cashRB.isChecked())
+            		eventStr = "Cash";
+            		
+            	vals.put("name", username);
+            	vals.put("amount", realAmount );
             	vals.put("date", dateT);
             	vals.put("eventType", eventStr);
             	vals.put("gameType", gameT);
