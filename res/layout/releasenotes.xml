@@ -85,10 +85,36 @@
 		/>
 	</TableRow>
    <TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+   <TextView android:text="Beta-0.3:" android:id="@+id/TextView01" android:textSize="20sp" android:layout_height="wrap_content" android:textStyle="bold" android:layout_width="fill_parent"></TextView>
+	
+</TableRow>
+	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+ 	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="16sp" android:text=" "
+		/>
+	</TableRow>
+	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+ 	<TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="- Replace Accept with Win/Loss buttons"
+        />
+	</TableRow>
+	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+	 <TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="16sp" android:text=" "
+		/>
+	</TableRow>
+	   <TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
    <TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="Beta-0.3:" android:textSize="20sp" android:textStyle="bold"
+		android:text="Beta-0.4:" android:textSize="20sp" android:textStyle="bold"
 		/>
 	</TableRow>
 	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
@@ -103,7 +129,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="- Replace Accept with Win/Loss buttons"
+        android:text="- Add colors to list view"
         />
 	</TableRow>        
 </TableLayout>

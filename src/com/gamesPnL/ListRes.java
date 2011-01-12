@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 /**
  * @author Boris
@@ -51,12 +53,50 @@ public class ListRes extends ListActivity
         adView.requestFreshAd();
 */       
 	}
+	
+	class ShowViewBinder implements SimpleCursorAdapter.ViewBinder 
+	{
+		 public boolean setViewValue(View view, Cursor cursor, int columnIndex) 
+		 {
+			 TextView tv = (TextView) view;
+			 DecimalFormat df = new DecimalFormat("#,###.00");
+
+			 Log.i(TAG, SubTag + "ColumnIndex = " + columnIndex);
+			 Log.i(TAG, SubTag + "Column 0 = " + cursor.getString(0));
+			 Log.i(TAG, SubTag + "Column 1 = " + cursor.getString(1));
+			 Log.i(TAG, SubTag + "Column 2 = " + cursor.getString(2));
+			 Log.i(TAG, SubTag + "Column 3 = " + cursor.getString(3));
+			 Log.i(TAG, SubTag + "Column 4 = " + cursor.getString(4));
+			 Log.i(TAG, SubTag + "Column 5 = " + cursor.getString(5));
+			 Log.i(TAG, SubTag + "Column 6 = " + cursor.getString(6));
+			 Log.i(TAG, SubTag + "Column 7 = " + cursor.getString(7));
+
+			 double	dValue = Double.parseDouble(cursor.getString(2));
+			 if ( dValue >= 0 )
+			 {
+				 tv.setBackgroundColor(0xFF00A000);
+			 }
+			 else
+			 {
+				 tv.setBackgroundColor(0xFFA00000);
+			 }
+
+			 if ( columnIndex == 2 )
+			 {
+				 // 1st line
+				 tv.setText(cursor.getString(3) + " :  " + cursor.getString(5) + " | " + cursor.getString(6) + " | " + cursor.getString(4));
+			 }
+			 if ( columnIndex == 3 )
+			 {
+				 tv.setText("     $" + df.format(dValue));
+			 }
+			 return true;
+		 }
+	}
 	@Override
 	protected void onResume()
 	{
 		super.onPause();
-		
-        DecimalFormat df = new DecimalFormat("#,###.00");
         
 		Log.i(TAG, SubTag + "ListRes()"); 
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
@@ -64,11 +104,12 @@ public class ListRes extends ListActivity
     	
 		String	query = "name = '" + username + "'";
 
- 		Cursor	result;
+ 		// Cursor	result;
 		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
+/*
 		String[] projection = new String[] {
-				"_ID",
+				"_id",
 				"name",
 				"amount",
 				"date",
@@ -77,30 +118,16 @@ public class ListRes extends ListActivity
 				"eventType",
 				"notes"
 		};
-		
-		// result = getContentResolver().query(tmpUri, null, null, null, null);
-		result = managedQuery(tmpUri, projection, query, null, null);
-		Log.i(TAG, SubTag + "there are " + result.getCount() + " records" );
-		
-		ArrayAdapter<String> items = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-		if ( result.moveToFirst() )
-		{
-			Log.i(TAG, SubTag + "got result back from provider");
-			do
-			{
-				String	tmp = result.getString(3) + ": " + result.getString(4) + ": $" + df.format(Double.parseDouble(result.getString(2)));
-				indxNames.add(result.getString(1));
-				items.add(tmp);
-			} while (result.moveToNext());
-		}
-		else
-			Log.i(TAG, SubTag + "No Data returned from Content Provider");
-		
-		// ListView list = (ListView)findViewById(R.id.pnlList);
-
-		setListAdapter(items);
-
+*/
+		Cursor result = getContentResolver().query(tmpUri, null, query, null, null);
+		String[] columns = new String[] { "amount", "date", "gameType"  };
+		int[] to = new int[] { android.R.id.text1, android.R.id.text2 };
+		startManagingCursor(result);
+		Log.i(TAG, SubTag + "Everything is ready for the adapter. # of records: " + result.getCount());
+		SimpleCursorAdapter items = new SimpleCursorAdapter(this, android.R.layout.two_line_list_item, result, columns, to);
         Log.i(TAG, SubTag + "adapter has been created and populated");
+        items.setViewBinder(new ShowViewBinder());
+		setListAdapter(items);
 	}
 	/* (non-Javadoc)
 	 * @see android.app.ListActivity#onListItemClick(android.widget.ListView, android.view.View, int, long)
@@ -109,8 +136,9 @@ public class ListRes extends ListActivity
 	protected void onListItemClick(ListView l, View v, int position, long id) 
 	{
 		// TODO Auto-generated method stub
+		Log.i(TAG, SubTag + "Clicked on position: " + position );
 		super.onListItemClick(l, v, position, id);
-		Log.i(TAG, SubTag + "Clicked on position: " + position + " ID: " + indxNames.get(position));
+		
 		// Save the entry in the preferences, so the display activity can display an appropriate record
         getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
        	.edit()

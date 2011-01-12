@@ -28,7 +28,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public static String SubTag="GamePnLTrackerProvider: ";
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 	
 	private static final String USER_TABLE_NAME = "gUsers";
 	private static final String PNL_TABLE_NAME = "gPNLData";
@@ -95,7 +95,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 				if (c.getCount()==0) 
 				{
 					db.execSQL("CREATE TABLE " + 
-							USER_TABLE_NAME + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, email TEXT, passwd TEXT);");
+							USER_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, email TEXT, passwd TEXT);");
 				}
 			}
 			finally 
@@ -109,7 +109,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 			{
 				if (c.getCount()==0) 
 				{
-					db.execSQL("CREATE TABLE " + PNL_TABLE_NAME + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+					db.execSQL("CREATE TABLE " + PNL_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
 							"uid TEXT, " +
 							"name TEXT, " +
 							"amount TEXT, " +
@@ -132,7 +132,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 			{
 				if (c.getCount()==0) 
 				{
-					db.execSQL("CREATE TABLE " + PNL_STATUS_TABLE_NAME + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+					db.execSQL("CREATE TABLE " + PNL_STATUS_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
 							"name TEXT, " +
 							"status TEXT " +
  							");");
@@ -142,59 +142,106 @@ public class GamePnLTrackerProvider extends ContentProvider
 			{
 				c.close();
 			}
-
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
 		{
 			Log.i(TAG , SubTag + "starting an upgrade from " + oldVersion + " to " + newVersion);
-			
-			/* First, if status table does not exist, create it */
-			Cursor c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
-					PNL_STATUS_TABLE_NAME + "'", null);
-			try 
-			{
-				if (c.getCount()==0) 
-				{
-					String sql = new String("CREATE TABLE " + PNL_STATUS_TABLE_NAME + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-							"name TEXT, " +
-							"status TEXT " +
-							");");
+			// First rename the table to <table>_OLD
 
-				
-					db.execSQL(sql);
-				}
-			}			
-			finally
+			try
 			{
-				c.close();
-			}
-			// Convert the passwords from free format to encrypted
-			c = db.rawQuery("SELECT name,passwd FROM " + USER_TABLE_NAME + ";", null);
-			if ( c.moveToFirst() )
-			{
-				do
+				// Start with user table
+				String sql = "ALTER TABLE " + USER_TABLE_NAME + " RENAME TO " + USER_TABLE_NAME + "_OLD;";
+				Log.i(TAG, SubTag + "exec sql: " + sql);
+				db.execSQL(sql);
+
+				// Create a user table
+				db.execSQL("CREATE TABLE " + 
+						USER_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, email TEXT, passwd TEXT);");
+				// copy all the records from the <table>_old to <table>
+				Cursor from = db.rawQuery("SELECT name,email,passwd FROM " + USER_TABLE_NAME + "_OLD;", null);
+				if ( from.moveToFirst() )
 				{
-					String nm = c.getString(0);
-					String ps = c.getString(1);
-					String hashed = getMd5Hash(ps);
-					Log.i(TAG, SubTag + "Oldpass: " + ps + ", Newpass: " + hashed);
-					ContentValues values = new ContentValues();
-					values.put("passwd", hashed);
-					String sql = "UPDATE " + USER_TABLE_NAME + " set passwd = '" + hashed + "' WHERE name = '" + nm + "';";
-					Log.i(TAG, SubTag + "exec sql: " + sql);
-					try
+					do
 					{
-						db.execSQL(sql);
-					}
-					catch (Exception e)
+						ContentValues vals = new ContentValues();
+						vals.put("name", from.getString(0));
+						vals.put("email", from.getString(1));
+						vals.put("passwd", from.getString(2));
+						db.insert(USER_TABLE_NAME,null,vals);
+					} while ( from.moveToNext() );
+				}
+				// Delete the <table>_OLD
+				db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE_NAME + "_OLD;");
+				
+				// Next is data table
+				sql = "ALTER TABLE " + PNL_TABLE_NAME + " RENAME TO " + PNL_TABLE_NAME + "_OLD;";
+				Log.i(TAG, SubTag + "exec sql: " + sql);
+				db.execSQL(sql);
+
+				// Create the table
+				db.execSQL("CREATE TABLE " + PNL_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+						"uid TEXT, " +
+						"name TEXT, " +
+						"amount TEXT, " +
+						"date TEXT, " +
+						"eventType TEXT, " +
+						"gameType TEXT, " +
+						"gameLimit TEXT, " +
+						"notes TEXT" +
+							");");
+				// copy all the records from the <table>_old to <table>
+				from = db.rawQuery("SELECT uid,name,amount,date,eventType,gameType,gameLimit,notes FROM " + PNL_TABLE_NAME + "_OLD;", null);
+				if ( from.moveToFirst() )
+				{
+					do
 					{
-						Log.e(TAG, SubTag + e.getMessage());
-					}
-				} while ( c.moveToNext());
+						ContentValues vals = new ContentValues();
+						vals.put("uid", from.getString(0));
+						vals.put("name", from.getString(1));
+						vals.put("amount", from.getString(2));
+						vals.put("date", from.getString(3));
+						vals.put("eventType", from.getString(4));
+						vals.put("gameType", from.getString(5));
+						vals.put("gameLimit", from.getString(6));
+						vals.put("notes", from.getString(7));
+						db.insert(PNL_TABLE_NAME,null,vals);
+					} while ( from.moveToNext() );
+				}
+				// Delete the <table>_OLD
+				db.execSQL("DROP TABLE IF EXISTS " + PNL_TABLE_NAME + "_OLD;");
+				
+				// Fainally, status table
+				sql = "ALTER TABLE " + PNL_STATUS_TABLE_NAME + " RENAME TO " + PNL_STATUS_TABLE_NAME + "_OLD;";
+				Log.i(TAG, SubTag + "exec sql: " + sql);
+				db.execSQL(sql);
+
+				// Create the table
+				db.execSQL("CREATE TABLE " + PNL_STATUS_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+						"name TEXT, " +
+						"status TEXT " +
+							");");
+				// copy all the records from the <table>_old to <table>
+				from = db.rawQuery("SELECT name,status FROM " + PNL_STATUS_TABLE_NAME + "_OLD;", null);
+				if ( from.moveToFirst() )
+				{
+					do
+					{
+						ContentValues vals = new ContentValues();
+						vals.put("name", from.getString(0));
+						vals.put("status", from.getString(1));
+						db.insert(PNL_STATUS_TABLE_NAME,null,vals);
+					} while ( from.moveToNext() );
+				}
+				// Delete the <table>_OLD
+				db.execSQL("DROP TABLE IF EXISTS " + PNL_STATUS_TABLE_NAME + "_OLD;");
 			}
-			
+			catch (Exception e)
+			{
+				Log.e(TAG, SubTag + e.getMessage());
+			}
 			
 			Log.i(TAG , SubTag + "Upgrade is complete!");
 		}
@@ -316,7 +363,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 				break;
 			case PNLDATA:
 				Log.i(TAG, SubTag + "building query for DATA table");
-				sqlStm += "_ID,name,amount,date,eventType,gameType,gameLimit,notes FROM ";
+				sqlStm += "_id,name,amount,date,eventType,gameType,gameLimit,notes FROM ";
 				sqlStm += PNL_TABLE_NAME;
 				sqlStm += " WHERE ";
 				sqlStm += selection;
