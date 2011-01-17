@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="gameDescr">Description</string>
+    <string name="Setup">Setup</string>
     <string name="dispFullItem">Result Entry: </string>
     <string name="logoutStr">Logout</string>
     <string name="ViewStatName">View Stats.</string>

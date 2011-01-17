@@ -20,5 +20,8 @@
 			android:id="@+id/About" 
 			android:title="@string/aboutName" android:icon="@android:drawable/ic_menu_info_details">
 		</item>
-	</group>
+	<item android:title="@string/Setup" android:visible="true" android:enabled="true" android:id="@+id/Setup"></item>
+</group>
+
+
 </menu>

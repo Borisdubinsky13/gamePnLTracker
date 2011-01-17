@@ -66,6 +66,9 @@ public class AfterLogin extends Activity
 			Intent iViewRes = new Intent(this, ListRes.class);
 	        startActivity(iViewRes);
 	        return true;
+	    case R.id.setup:
+	    	Log.i(TAG, SubTag + "trying to start Setup/Preferances");
+	    	return true;
 	    case R.id.Logout:
 	    	Log.i(TAG, SubTag + "Logging user out");
 	    	SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);   

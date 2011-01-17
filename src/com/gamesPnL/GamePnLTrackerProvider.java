@@ -33,10 +33,12 @@ public class GamePnLTrackerProvider extends ContentProvider
 	private static final String USER_TABLE_NAME = "gUsers";
 	private static final String PNL_TABLE_NAME = "gPNLData";
 	private static final String	PNL_STATUS_TABLE_NAME = "gStatus";
+	private static final String PNL_GAMES_TABLE_NAME = "gGames";
 
 	private	static	HashMap<String, String> USER_PROJECTION_MAP;
 	private	static	HashMap<String, String> PNL_PROJECTION_MAP;
 	private	static	HashMap<String, String> PNL_STAT_PROJECTION_MAP;
+	private static	HashMap<String, String> PNL_GAMES_PROJECTION_MAP;
 	
 	public static final String AUTHORITY = 
 		"com.gamesPnL.provider.userContentProvider";
@@ -45,9 +47,12 @@ public class GamePnLTrackerProvider extends ContentProvider
 	private static final int PNLDATA = 2;
 	private static final int PNLSTATUS = 3;
 	private static final int PNL1RECORD = 4;
-	
+	private static final int PNLGAMES = 5;
 	
 	private static final UriMatcher sURIMatcher = buildUriMatcher();
+	
+	static String[] gms = { "TexasHold'em", "Omaha", "Stud" };
+	static String[] desc = { "Texas Holdem", "Omaha", "Stud" };
 	
 	public static String getMd5Hash(String input) 
 	{
@@ -74,6 +79,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 		matcher.addURI(AUTHORITY, "pnldata", PNLDATA);
 		matcher.addURI(AUTHORITY, "pnlstatus", PNLSTATUS);
 		matcher.addURI(AUTHORITY, "pnl1record", PNL1RECORD);
+		matcher.addURI(AUTHORITY, "pnlgames", PNLGAMES);
 		return matcher;
 	}
 	
@@ -102,6 +108,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 			{
 				c.close();
 			}
+			
 			Log.i(TAG, SubTag + "Creating PnLdata table");
 			c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
 					PNL_TABLE_NAME + "'", null);
@@ -125,6 +132,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 			{
 				c.close();
 			}
+			
 			Log.i(TAG, SubTag + "Creating PnL status table");
 			c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
 					PNL_STATUS_TABLE_NAME + "'", null);
@@ -136,6 +144,34 @@ public class GamePnLTrackerProvider extends ContentProvider
 							"name TEXT, " +
 							"status TEXT " +
  							");");
+				}
+			}
+			finally
+			{
+				c.close();
+			}
+			
+			Log.i(TAG, SubTag + "Creating PnL games table");
+			c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
+					PNL_GAMES_TABLE_NAME + "'", null);
+			try 
+			{
+				if (c.getCount()==0) 
+				{
+					db.execSQL("CREATE TABLE " + PNL_GAMES_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+							"game TEXT, " +
+							"description TEXT " +
+							"addedBy TEXT" +
+ 							");");
+					// Need to populate this table with some of the games
+					for ( int i = 0; gms[i] != null; i++ )
+					{
+						ContentValues vals = new ContentValues();
+						vals.put("game", gms[i]);
+						vals.put("description", desc[i]);
+						vals.put("addedBy","gamePnL");
+						db.insert(USER_TABLE_NAME,null,vals);
+					}
 				}
 			}
 			finally
@@ -237,6 +273,22 @@ public class GamePnLTrackerProvider extends ContentProvider
 				}
 				// Delete the <table>_OLD
 				db.execSQL("DROP TABLE IF EXISTS " + PNL_STATUS_TABLE_NAME + "_OLD;");
+
+				// Create a table that would have list of all games
+				db.execSQL("CREATE TABLE " + PNL_GAMES_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+						"game TEXT, " +
+						"description TEXT " +
+						"addedBy TEXT" +
+							");");
+				// Need to populate this table with some of the games
+				for ( int i = 0; gms[i] != null; i++ )
+				{
+					ContentValues vals = new ContentValues();
+					vals.put("game", gms[i]);
+					vals.put("description", desc[i]);
+					vals.put("addedBy","gamePnL");
+					db.insert(USER_TABLE_NAME,null,vals);
+				}
 			}
 			catch (Exception e)
 			{
@@ -245,7 +297,6 @@ public class GamePnLTrackerProvider extends ContentProvider
 			
 			Log.i(TAG , SubTag + "Upgrade is complete!");
 		}
-
 	}
 
 	private DbAdapter dbHelper;
@@ -271,6 +322,9 @@ public class GamePnLTrackerProvider extends ContentProvider
 	      	case PNLSTATUS:
 	      		count = db.delete(PNL_STATUS_TABLE_NAME, where, whereArgs);
 	      		break;
+	      	case PNLGAMES:
+	      		count = db.delete(PNL_GAMES_TABLE_NAME, where, whereArgs);
+	      		break;
 	      	default:
 	      		throw new IllegalArgumentException("Unknown URI " + uri);
 	      }
@@ -294,6 +348,8 @@ public class GamePnLTrackerProvider extends ContentProvider
 	      		return "vnd.gamePnLTracker.cursor.dir/pnlstatus";
 	      	case PNL1RECORD:
 	      		return "vnd.gamePnLTracker.cursor.item/pnlrecord";
+	      	case PNLGAMES:
+	      		return "vnd.gamePnLTracker.cursor.item/pnlgames";
 			default:
 				throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -320,6 +376,10 @@ public class GamePnLTrackerProvider extends ContentProvider
 			case PNLSTATUS:
 				db.insert(PNL_STATUS_TABLE_NAME ,null,values);
             	db.close();
+				break;
+			case PNLGAMES:
+				db.insert(PNL_GAMES_TABLE_NAME, null, values);
+				db.close();
 				break;
 			default:
 				throw new IllegalArgumentException("Unknown URI " + uri);
@@ -377,6 +437,13 @@ public class GamePnLTrackerProvider extends ContentProvider
 				sqlStm += selection;
 				Log.i(TAG, SubTag + "sql: " + sqlStm);
 				break;
+			case PNLGAMES:
+				Log.i(TAG, SubTag + "building query for GAMES table");
+				sqlStm += "game,description,addedBy FROM ";
+				sqlStm += PNL_GAMES_TABLE_NAME;
+				sqlStm += " WHERE ";
+				sqlStm += selection;
+				Log.i(TAG, SubTag + "sql: " + sqlStm);
 			default:
 				Log.i(TAG, SubTag + "Unknown request");
 				throw new IllegalArgumentException("Unknown URI " + uri);
@@ -425,6 +492,13 @@ public class GamePnLTrackerProvider extends ContentProvider
             			selection, 
             			selectionArgs);
 	      		break;
+	      	case PNLGAMES:
+	            count = db.update(
+	            		PNL_GAMES_TABLE_NAME, 
+            			values,
+            			selection, 
+            			selectionArgs);
+	      		break;
 	      	default:
 	      		throw new IllegalArgumentException("Unknown URI " + uri);
 	      }
@@ -454,5 +528,9 @@ public class GamePnLTrackerProvider extends ContentProvider
 		PNL_STAT_PROJECTION_MAP.put(PNL_STATUS_TABLE_NAME, "name");
 		PNL_STAT_PROJECTION_MAP.put(PNL_STATUS_TABLE_NAME, "status");
 		
+		PNL_GAMES_PROJECTION_MAP = new HashMap<String,String>();
+		PNL_GAMES_PROJECTION_MAP.put(PNL_GAMES_TABLE_NAME, "game");
+		PNL_GAMES_PROJECTION_MAP.put(PNL_GAMES_TABLE_NAME, "description");
+		PNL_GAMES_PROJECTION_MAP.put(PNL_GAMES_TABLE_NAME, "addBy");
 	}
 }
