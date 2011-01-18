@@ -66,9 +66,11 @@ public class AfterLogin extends Activity
 			Intent iViewRes = new Intent(this, ListRes.class);
 	        startActivity(iViewRes);
 	        return true;
-	    case R.id.setup:
-	    	Log.i(TAG, SubTag + "trying to start Setup/Preferances");
-	    	return true;
+	    case R.id.AddGame:
+	    	Log.i(TAG, SubTag + "trying to start Add Game");
+	    	Intent iViewAddGame = new Intent(this, AddGame.class);
+	        startActivity(iViewAddGame);
+	        return true;
 	    case R.id.Logout:
 	    	Log.i(TAG, SubTag + "Logging user out");
 	    	SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);   
@@ -98,10 +100,8 @@ public class AfterLogin extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
-		Log.i(TAG, SubTag + "onCreate() started" );
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.afterlogin);
-		Log.i(TAG, SubTag + "onCreate() finished" );
 	}
 	
 	@Override
@@ -136,7 +136,7 @@ public class AfterLogin extends Activity
 		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 		String[] projection = new String[] {
-				"_ID",
+				"_id",
 				"name",
 				"amount",
 				"date",

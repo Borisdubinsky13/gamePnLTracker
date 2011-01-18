@@ -6,13 +6,13 @@ package com.gamesPnL;
 import java.util.Calendar;
 
 import com.gamesPnL.R;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -35,11 +36,12 @@ public class DataEntry extends Activity
 	public static final String PREFS_NAME = "gamePnLTrackerFile";
 	private static final String PREF_USERNAME = "username";
 	public String TAG="gamePnLTracker";
-	public String SubTag="DataEntry";
+	public String SubTag="DataEntry ";
     final Calendar c = Calendar.getInstance();
 
     static final int MAIN_DIALOG_ID = 0;
     static final int DATE_DIALOG_ID = 1;
+    static final int GAME_SELECTION_DIALOG_ID = 2;
 
     String	date_selected;
 	CharSequence text = "No text";
@@ -56,16 +58,23 @@ public class DataEntry extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dataentry);
-
-        final ArrayAdapter<CharSequence> gmType = ArrayAdapter.createFromResource(
+    }
+    
+    @Override
+    protected void onResume()
+    {
+    	super.onPause();
+/*
+        ArrayAdapter gmType = ArrayAdapter.createFromResource(
                 this, R.array.gameType, android.R.layout.simple_spinner_item);
+*/
         final ArrayAdapter<CharSequence> gmLimit = ArrayAdapter.createFromResource(
                 this, R.array.gameLimit, android.R.layout.simple_spinner_item);
 
         // go to data entry window
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
     	username = pref.getString(PREF_USERNAME, null);
-    	Log.i(TAG, SubTag + "Started data entry window for user: " + username);
+    	Log.i(TAG, SubTag + " Started data entry window for user: " + username);
        
         // setup buttons
         final Button clearB = (Button)findViewById(R.id.clear);
@@ -91,9 +100,18 @@ public class DataEntry extends Activity
             }
         });
     	
+		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
+		tmpUri = Uri.withAppendedPath(tmpUri,"pnlgames");
+		
         gmTypeSp = (Spinner) findViewById(R.id.gType);
-        gmType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        gmTypeSp.setAdapter(gmType);
+		Cursor result = getContentResolver().query(tmpUri, null, null, null, null);
+		String[] columns = new String[] { "game" };
+		int[] to = new int[] { android.R.id.text1 };
+		startManagingCursor(result);
+		Log.i(TAG, SubTag + "Everything is ready for the Spinner. # of records: " + result.getCount());
+		SimpleCursorAdapter items = new SimpleCursorAdapter(this, R.layout.db_view_row, result, columns, to);
+        items.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        gmTypeSp.setAdapter(items);
         
         gmLimitSp = (Spinner) findViewById(R.id.gLimit);
         gmLimit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

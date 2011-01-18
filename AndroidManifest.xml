@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.gamesPnL" android:versionCode="5" android:versionName="Beta-0.5">
+      package="com.gamesPnL" android:versionName="R-1.0" android:versionCode="10">
     <application android:icon="@drawable/icon" android:label="@string/appname">
 		<activity android:label="@string/appname" android:name="com.gamesPnL.DataEntry">
 			<intent-filter>
@@ -49,6 +49,13 @@
 					<action android:name="android.intent.action.PICK" />
 					<category android:name="android.intent.category.DEFAULT" />
 				</intent-filter>
+		</activity>
+		<activity android:label="@string/dispFullItem" android:name="com.gamesPnL.AddGame">
+		<intent-filter>
+			<action android:name="android.intent.action.VIEW" />
+			<action android:name="android.intent.action.PICK" />
+			<category android:name="android.intent.category.DEFAULT" />
+		</intent-filter>
 		</activity>
 		<provider android:authorities="com.gamesPnL.provider.userContentProvider" android:name="com.gamesPnL.GamePnLTrackerProvider" />
 			

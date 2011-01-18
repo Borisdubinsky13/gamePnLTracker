@@ -43,6 +43,9 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public static final String AUTHORITY = 
 		"com.gamesPnL.provider.userContentProvider";
 
+	static String[] gms = { "TexasHold'em", "Omaha", "Stud" };
+	static String[] desc = { "Texas Holdem", "Omaha", "Stud" };
+
 	private static final int USER = 1;
 	private static final int PNLDATA = 2;
 	private static final int PNLSTATUS = 3;
@@ -50,9 +53,6 @@ public class GamePnLTrackerProvider extends ContentProvider
 	private static final int PNLGAMES = 5;
 	
 	private static final UriMatcher sURIMatcher = buildUriMatcher();
-	
-	static String[] gms = { "TexasHold'em", "Omaha", "Stud" };
-	static String[] desc = { "Texas Holdem", "Omaha", "Stud" };
 	
 	public static String getMd5Hash(String input) 
 	{
@@ -66,7 +66,8 @@ public class GamePnLTrackerProvider extends ContentProvider
             	md5 = "0" + md5;
            
             return md5;
-        } catch(NoSuchAlgorithmException e) {
+        } catch(NoSuchAlgorithmException e) 
+        {
                 Log.e(TAG, SubTag + e.getMessage());
                 return null;
         }
@@ -103,17 +104,11 @@ public class GamePnLTrackerProvider extends ContentProvider
 					db.execSQL("CREATE TABLE " + 
 							USER_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, email TEXT, passwd TEXT);");
 				}
-			}
-			finally 
-			{
-				c.close();
-			}
 			
-			Log.i(TAG, SubTag + "Creating PnLdata table");
-			c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
-					PNL_TABLE_NAME + "'", null);
-			try 
-			{
+				Log.i(TAG, SubTag + "Creating PnLdata table");
+				c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
+						PNL_TABLE_NAME + "'", null);
+
 				if (c.getCount()==0) 
 				{
 					db.execSQL("CREATE TABLE " + PNL_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -127,17 +122,10 @@ public class GamePnLTrackerProvider extends ContentProvider
 							"notes TEXT" +
  							");");
 				}
-			}
-			finally
-			{
-				c.close();
-			}
-			
-			Log.i(TAG, SubTag + "Creating PnL status table");
-			c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
-					PNL_STATUS_TABLE_NAME + "'", null);
-			try 
-			{
+
+				Log.i(TAG, SubTag + "Creating PnL status table");
+				c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
+						PNL_STATUS_TABLE_NAME + "'", null);
 				if (c.getCount()==0) 
 				{
 					db.execSQL("CREATE TABLE " + PNL_STATUS_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -145,38 +133,31 @@ public class GamePnLTrackerProvider extends ContentProvider
 							"status TEXT " +
  							");");
 				}
-			}
-			finally
-			{
-				c.close();
-			}
 			
-			Log.i(TAG, SubTag + "Creating PnL games table");
-			c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
+				Log.i(TAG, SubTag + "Creating PnL games table");
+				c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
 					PNL_GAMES_TABLE_NAME + "'", null);
-			try 
-			{
+
 				if (c.getCount()==0) 
 				{
-					db.execSQL("CREATE TABLE " + PNL_GAMES_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-							"game TEXT, " +
-							"description TEXT " +
+					String sql = "CREATE TABLE " + PNL_GAMES_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+							"game TEXT UNIQUE, " +
+							"description TEXT, " +
 							"addedBy TEXT" +
- 							");");
-					// Need to populate this table with some of the games
-					for ( int i = 0; gms[i] != null; i++ )
-					{
-						ContentValues vals = new ContentValues();
-						vals.put("game", gms[i]);
-						vals.put("description", desc[i]);
-						vals.put("addedBy","gamePnL");
-						db.insert(USER_TABLE_NAME,null,vals);
-					}
+ 							");";
+					Log.i(TAG, SubTag + "SQL: " + sql);
+					db.execSQL( sql );
+
+					Log.i(TAG, SubTag + "Populating PnL games table");
+
+					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('TexasHold''em', 'Texas Hold''em', 'gamePnL');" );
+					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Omaha', 'Omaha', 'gamePnL');" );
+					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Stud', 'Stud', 'gamePnL');" );
 				}
 			}
-			finally
+			catch (Exception e)
 			{
-				c.close();
+				Log.e(TAG, SubTag + e.getMessage());
 			}
 		}
 
@@ -277,24 +258,20 @@ public class GamePnLTrackerProvider extends ContentProvider
 				// Create a table that would have list of all games
 				db.execSQL("CREATE TABLE " + PNL_GAMES_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
 						"game TEXT, " +
-						"description TEXT " +
+						"description TEXT, " +
 						"addedBy TEXT" +
 							");");
 				// Need to populate this table with some of the games
-				for ( int i = 0; gms[i] != null; i++ )
-				{
-					ContentValues vals = new ContentValues();
-					vals.put("game", gms[i]);
-					vals.put("description", desc[i]);
-					vals.put("addedBy","gamePnL");
-					db.insert(USER_TABLE_NAME,null,vals);
-				}
+				Log.i(TAG, SubTag + "Populating PnL games table");
+
+				db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('TexasHold''em', 'Texas Hold''em', 'gamePnL');" );
+				db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Omaha', 'Omaha', 'gamePnL');" );
+				db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Stud', 'Stud', 'gamePnL');" );
 			}
 			catch (Exception e)
 			{
 				Log.e(TAG, SubTag + e.getMessage());
 			}
-			
 			Log.i(TAG , SubTag + "Upgrade is complete!");
 		}
 	}
@@ -431,7 +408,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 				break;
 			case PNLSTATUS:
 				Log.i(TAG, SubTag + "building query for STATUS table");
-				sqlStm += "name,status FROM ";
+				sqlStm += "_id,name,status FROM ";
 				sqlStm += PNL_STATUS_TABLE_NAME;
 				sqlStm += " WHERE ";
 				sqlStm += selection;
@@ -439,11 +416,10 @@ public class GamePnLTrackerProvider extends ContentProvider
 				break;
 			case PNLGAMES:
 				Log.i(TAG, SubTag + "building query for GAMES table");
-				sqlStm += "game,description,addedBy FROM ";
+				sqlStm += "_id,game,description,addedBy FROM ";
 				sqlStm += PNL_GAMES_TABLE_NAME;
-				sqlStm += " WHERE ";
-				sqlStm += selection;
 				Log.i(TAG, SubTag + "sql: " + sqlStm);
+				break;
 			default:
 				Log.i(TAG, SubTag + "Unknown request");
 				throw new IllegalArgumentException("Unknown URI " + uri);

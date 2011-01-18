@@ -59,7 +59,7 @@ public class ListRes extends ListActivity
 		 {
 			 TextView tv = (TextView) view;
 			 DecimalFormat df = new DecimalFormat("#,###.00");
-
+/*
 			 Log.i(TAG, SubTag + "ColumnIndex = " + columnIndex);
 			 Log.i(TAG, SubTag + "Column 0 = " + cursor.getString(0));
 			 Log.i(TAG, SubTag + "Column 1 = " + cursor.getString(1));
@@ -69,7 +69,7 @@ public class ListRes extends ListActivity
 			 Log.i(TAG, SubTag + "Column 5 = " + cursor.getString(5));
 			 Log.i(TAG, SubTag + "Column 6 = " + cursor.getString(6));
 			 Log.i(TAG, SubTag + "Column 7 = " + cursor.getString(7));
-
+*/
 			 double	dValue = Double.parseDouble(cursor.getString(2));
 			 if ( dValue >= 0 )
 			 {

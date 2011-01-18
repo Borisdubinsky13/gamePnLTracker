@@ -98,6 +98,7 @@ public class loginHandler extends Activity
 		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnlstatus");
 		String[] projection = new String[] {
+				"_id",
 				"name",
 				"status"
 		};
@@ -112,7 +113,7 @@ public class loginHandler extends Activity
         	result.moveToFirst();
             getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
            	.edit()
-        	.putString(PREF_USERNAME, result.getString(0).toString())
+        	.putString(PREF_USERNAME, result.getString(1).toString())
         	.commit();
 
 	        startActivity(iDataEntry);

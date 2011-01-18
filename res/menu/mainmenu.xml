@@ -8,6 +8,10 @@
 			android:id="@+id/AddResult" 
 			android:title="@string/AddResName" android:icon="@android:drawable/ic_menu_add">
 		</item>
+		<item 
+			android:id="@+id/AddGame" 
+			android:title="@string/AddGameName" android:icon="@android:drawable/ic_menu_add">
+		</item>
 		<item
 			android:id="@+id/ViewStats" 
 			android:title="@string/ViewStatName" android:icon="@android:drawable/ic_menu_view">
@@ -20,7 +24,6 @@
 			android:id="@+id/About" 
 			android:title="@string/aboutName" android:icon="@android:drawable/ic_menu_info_details">
 		</item>
-	<item android:title="@string/Setup" android:visible="true" android:enabled="true" android:id="@+id/Setup"></item>
 </group>
 
 
