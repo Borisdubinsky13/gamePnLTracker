@@ -157,7 +157,10 @@ public class AfterLogin extends Activity
 			{
 				value = result.getString(2);
 				Log.i(TAG, SubTag + "got Value:  " + value);
-				dValue = Double.parseDouble(value);
+				if ( value.equals("") )
+					dValue = 0;
+				else
+					dValue = Double.parseDouble(value);
 				sum += dValue;
 				
 			} while (result.moveToNext());

@@ -22,7 +22,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -103,15 +102,23 @@ public class DataEntry extends Activity
 		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnlgames");
 		
+		ArrayAdapter<String> items = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         gmTypeSp = (Spinner) findViewById(R.id.gType);
+        gmTypeSp.setAdapter(items);
+        gmTypeSp.setSelection(0);
 		Cursor result = getContentResolver().query(tmpUri, null, null, null, null);
-		String[] columns = new String[] { "game" };
-		int[] to = new int[] { android.R.id.text1 };
 		startManagingCursor(result);
 		Log.i(TAG, SubTag + "Everything is ready for the Spinner. # of records: " + result.getCount());
-		SimpleCursorAdapter items = new SimpleCursorAdapter(this, R.layout.db_view_row, result, columns, to);
+		if ( result.moveToFirst() )
+		{
+			do
+			{
+				items.add(result.getString(1));
+			} while (result.moveToNext());
+		}
         items.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         gmTypeSp.setAdapter(items);
+        gmTypeSp.setSelection(0);
         
         gmLimitSp = (Spinner) findViewById(R.id.gLimit);
         gmLimit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -136,7 +143,6 @@ public class DataEntry extends Activity
                     .append(mYear).append(" "));
             	
              	gmTypeSp.setSelection(0);
-             	
              	gmLimitSp.setSelection(0);
              	
                	EditText nts = (EditText)findViewById(R.id.notes);
@@ -165,20 +171,30 @@ public class DataEntry extends Activity
             	else if ( cashRB.isChecked())
             		eventStr = "Cash";
             		
-            	vals.put("name", username);
-            	vals.put("amount", amount.getText().toString());
-            	vals.put("date", dateT);
-            	vals.put("eventType", eventStr);
-            	vals.put("gameType", gameT);
-            	vals.put("gameLimit", gameL);
-            	vals.put("notes", nts.getText().toString());
-    			ContentResolver cr = getContentResolver();
-    			Log.i(TAG, SubTag + "Got content resolver");
-    			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
-    			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
-    			Log.i(TAG, SubTag + "Got URI populated");        			
-    			cr.insert(tmpUri, vals);            	
-            	finish();
+            	if ( !amount.getText().toString().equals(""))
+            	{
+	            	vals.put("name", username);
+	            	vals.put("amount", amount.getText().toString());
+	            	vals.put("date", dateT);
+	            	vals.put("eventType", eventStr);
+	            	vals.put("gameType", gameT);
+	            	vals.put("gameLimit", gameL);
+	            	vals.put("notes", nts.getText().toString());
+	    			ContentResolver cr = getContentResolver();
+	    			Log.i(TAG, SubTag + "Got content resolver");
+	    			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
+	    			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
+	    			Log.i(TAG, SubTag + "Got URI populated");        			
+	    			cr.insert(tmpUri, vals);            	
+	            	finish();
+            	}
+            	else
+            	{
+        			String text = "Please enter the amount!";
+        			Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+        			toast.show();
+        			return;
+            	}
             }
         });
         
@@ -192,33 +208,44 @@ public class DataEntry extends Activity
             	
             	Log.i(TAG, SubTag + "LOSS button is clicked");
              	EditText amount = (EditText)findViewById(R.id.Amount);
-             	realAmount += amount.getText().toString(); 
-             	String dateT = (String) dateB.getText();
-            	EditText nts = (EditText)findViewById(R.id.notes);
-            	String gameT = (String) gmTypeSp.getSelectedItem().toString();
-            	String gameL = (String) gmLimitSp.getSelectedItem().toString();
-            	RadioButton tourneyRB = (RadioButton) findViewById(R.id.idTourney);
-            	RadioButton cashRB = (RadioButton) findViewById(R.id.idCash);
-            	
-            	if ( tourneyRB.isChecked())
-            		eventStr = "Tourney";
-            	else if ( cashRB.isChecked())
-            		eventStr = "Cash";
-            		
-            	vals.put("name", username);
-            	vals.put("amount", realAmount );
-            	vals.put("date", dateT);
-            	vals.put("eventType", eventStr);
-            	vals.put("gameType", gameT);
-            	vals.put("gameLimit", gameL);
-            	vals.put("notes", nts.getText().toString());
-    			ContentResolver cr = getContentResolver();
-    			Log.i(TAG, SubTag + "Got content resolver");
-    			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
-    			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
-    			Log.i(TAG, SubTag + "Got URI populated");        			
-    			cr.insert(tmpUri, vals);            	
-            	finish();
+
+            	if ( !amount.getText().toString().equals(""))
+            	{
+	             	realAmount += amount.getText().toString(); 
+	             	String dateT = (String) dateB.getText();
+	            	EditText nts = (EditText)findViewById(R.id.notes);
+	            	String gameT = (String) gmTypeSp.getSelectedItem().toString();
+	            	String gameL = (String) gmLimitSp.getSelectedItem().toString();
+	            	RadioButton tourneyRB = (RadioButton) findViewById(R.id.idTourney);
+	            	RadioButton cashRB = (RadioButton) findViewById(R.id.idCash);
+	            	
+	            	if ( tourneyRB.isChecked())
+	            		eventStr = "Tourney";
+	            	else if ( cashRB.isChecked())
+	            		eventStr = "Cash";
+	          		
+	            	vals.put("name", username);
+	            	vals.put("amount", realAmount );
+	            	vals.put("date", dateT);
+	            	vals.put("eventType", eventStr);
+	            	vals.put("gameType", gameT);
+	            	vals.put("gameLimit", gameL);
+	            	vals.put("notes", nts.getText().toString());
+	    			ContentResolver cr = getContentResolver();
+	    			Log.i(TAG, SubTag + "Got content resolver");
+	    			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
+	    			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
+	    			Log.i(TAG, SubTag + "Got URI populated");        			
+	    			cr.insert(tmpUri, vals);            	
+	            	finish();
+            	}
+            	else
+            	{
+           			String text = "Please enter the amount!";
+        			Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+        			toast.show();
+        			return;
+            	}
             }
         });
     }

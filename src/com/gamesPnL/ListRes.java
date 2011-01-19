@@ -148,5 +148,4 @@ public class ListRes extends ListActivity
 
         startActivity(iDataEntry);
 	}	
-
 }

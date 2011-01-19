@@ -28,7 +28,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public static String SubTag="GamePnLTrackerProvider: ";
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 	
 	private static final String USER_TABLE_NAME = "gUsers";
 	private static final String PNL_TABLE_NAME = "gPNLData";
@@ -95,10 +95,10 @@ public class GamePnLTrackerProvider extends ContentProvider
 		public void onCreate(SQLiteDatabase db) 
 		{
 			Log.i(TAG, SubTag + "Creating Users table");
-			Cursor c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='" +
-					USER_TABLE_NAME + "'", null);
 			try 
 			{
+				Cursor c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='" +
+						USER_TABLE_NAME + "'", null);
 				if (c.getCount()==0) 
 				{
 					db.execSQL("CREATE TABLE " + 
@@ -216,15 +216,19 @@ public class GamePnLTrackerProvider extends ContentProvider
 					do
 					{
 						ContentValues vals = new ContentValues();
-						vals.put("uid", from.getString(0));
-						vals.put("name", from.getString(1));
-						vals.put("amount", from.getString(2));
-						vals.put("date", from.getString(3));
-						vals.put("eventType", from.getString(4));
-						vals.put("gameType", from.getString(5));
-						vals.put("gameLimit", from.getString(6));
-						vals.put("notes", from.getString(7));
-						db.insert(PNL_TABLE_NAME,null,vals);
+
+						if ( !from.getString(2).equals("") )
+						{
+							vals.put("uid", from.getString(0));
+							vals.put("name", from.getString(1));
+							vals.put("amount", from.getString(2));
+							vals.put("date", from.getString(3));
+							vals.put("eventType", from.getString(4));
+							vals.put("gameType", from.getString(5));
+							vals.put("gameLimit", from.getString(6));
+							vals.put("notes", from.getString(7));
+							db.insert(PNL_TABLE_NAME,null,vals);
+						}
 					} while ( from.moveToNext() );
 				}
 				// Delete the <table>_OLD

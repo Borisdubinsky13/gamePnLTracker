@@ -33,9 +33,7 @@
 		</TableRow>
 		<TableRow>
 			<TextView android:text="Game: " android:layout_gravity="left|center_vertical"/>
-			<Spinner android:id="@+id/gType"
-					android:prompt="@string/gameType"
-					/>
+			<Spinner android:id="@+id/gType" android:isScrollContainer="true"/>
 		</TableRow>
 		<TableRow>
 			<TextView android:text="Limit: " android:layout_gravity="left|center_vertical"/>
