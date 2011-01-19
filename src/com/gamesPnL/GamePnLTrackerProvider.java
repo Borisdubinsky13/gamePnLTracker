@@ -28,7 +28,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public static String SubTag="GamePnLTrackerProvider: ";
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 	
 	private static final String USER_TABLE_NAME = "gUsers";
 	private static final String PNL_TABLE_NAME = "gPNLData";
@@ -217,7 +217,8 @@ public class GamePnLTrackerProvider extends ContentProvider
 					{
 						ContentValues vals = new ContentValues();
 
-						if ( !from.getString(2).equals("") )
+						if ( !from.getString(2).equals("") &&
+							 !from.getString(2).equals("-"))
 						{
 							vals.put("uid", from.getString(0));
 							vals.put("name", from.getString(1));
