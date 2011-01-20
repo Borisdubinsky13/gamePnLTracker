@@ -37,6 +37,7 @@ public class DetailDisplay extends Activity
     Spinner gmTypeSp;
     Spinner gmLimitSp;
 	
+
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
@@ -108,10 +109,24 @@ public class DetailDisplay extends Activity
         	tourneyRB.setChecked(false);
         	cashRB.setChecked(false);
         }
-        
+     
+		Uri	typeUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
+		typeUri = Uri.withAppendedPath(typeUri,"pnlgames");
+		ArrayAdapter<String> items = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         gmTypeSp = (Spinner) findViewById(R.id.gType);
-        gmType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        gmTypeSp.setAdapter(gmType);
+        gmTypeSp.setAdapter(items);
+		Cursor typeResult = getContentResolver().query(typeUri, null, null, null, null);
+		startManagingCursor(typeResult);
+		Log.i(TAG, SubTag + "Everything is ready for the Spinner. # of records: " + typeResult.getCount());
+		if ( typeResult.moveToFirst() )
+		{
+			do
+			{
+				items.add(typeResult.getString(1));
+			} while (typeResult.moveToNext());
+		}
+        items.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        gmTypeSp.setAdapter(items);
         gmTypeSp.setSelection(gmType.getPosition(result.getString(5)));
         
         gmLimitSp = (Spinner) findViewById(R.id.gLimit);
