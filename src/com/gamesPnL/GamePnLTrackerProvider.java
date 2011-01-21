@@ -28,7 +28,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public static String SubTag="GamePnLTrackerProvider: ";
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 6;
 	
 	private static final String USER_TABLE_NAME = "gUsers";
 	private static final String PNL_TABLE_NAME = "gPNLData";
@@ -115,7 +115,9 @@ public class GamePnLTrackerProvider extends ContentProvider
 							"uid TEXT, " +
 							"name TEXT, " +
 							"amount TEXT, " +
-							"date TEXT, " +
+							"EvYear TEXT, " +
+							"EvMonth TEXT, " +
+							"EvDay TEXT, " +
 							"eventType TEXT, " +
 							"gameType TEXT, " +
 							"gameLimit TEXT, " +
@@ -203,7 +205,9 @@ public class GamePnLTrackerProvider extends ContentProvider
 						"uid TEXT, " +
 						"name TEXT, " +
 						"amount TEXT, " +
-						"date TEXT, " +
+						"EvYear TEXT, " +
+						"EvMonth TEXT, " +
+						"EvDay TEXT, " +
 						"eventType TEXT, " +
 						"gameType TEXT, " +
 						"gameLimit TEXT, " +
@@ -220,14 +224,60 @@ public class GamePnLTrackerProvider extends ContentProvider
 						if ( !from.getString(2).equals("") &&
 							 !from.getString(2).equals("-"))
 						{
-							vals.put("uid", from.getString(0));
-							vals.put("name", from.getString(1));
-							vals.put("amount", from.getString(2));
-							vals.put("date", from.getString(3));
-							vals.put("eventType", from.getString(4));
-							vals.put("gameType", from.getString(5));
-							vals.put("gameLimit", from.getString(6));
-							vals.put("notes", from.getString(7));
+							int		startLoc;
+							int		endLoc;
+							String	uidS = null;
+							String	nameS = null;
+							String	amountS = null;
+							String	dateS;
+							String	yearS = null;
+							String	monthS = null;
+							String	dayS = null;
+							String	eventTypeS = null;
+							String	gameTypeS = null;
+							String	gameLimitS = null;
+							String	notesS = null;
+							String	tmp;
+							 
+							switch ( oldVersion )
+							{
+							case 1:
+							case 2:
+							case 3:
+							case 4:
+							case 5:
+								uidS = from.getString(0);
+								nameS = from.getString(1);
+								amountS = from.getString(2);
+								dateS = from.getString(3);
+								eventTypeS = from.getString(4);
+								gameTypeS = from.getString(5);
+								gameLimitS = from.getString(6);
+								notesS = from.getString(7);
+								// The current format of the field is mm/dd/yyyy
+								startLoc = 0;
+								endLoc = dateS.indexOf('/');
+								monthS = dateS.substring(startLoc, endLoc);
+								tmp = dateS.substring(endLoc+1);
+								startLoc = 0;
+								endLoc = tmp.indexOf('/');
+								dayS = tmp.substring(startLoc, endLoc);
+								yearS = tmp.substring(endLoc+1);
+								Log.i(TAG, SubTag + "Year: " + yearS + " Month: " + monthS + " Day: " + dayS);
+								break;
+							default:
+								break;
+							}
+							vals.put("uid", uidS);
+							vals.put("name", nameS);
+							vals.put("amount", amountS);
+							vals.put("EvYear", yearS);
+							vals.put("EvMonth", monthS);
+							vals.put("EvDay", dayS);
+							vals.put("eventType", eventTypeS);
+							vals.put("gameType", gameTypeS);
+							vals.put("gameLimit", gameLimitS);
+							vals.put("notes", notesS);
 							db.insert(PNL_TABLE_NAME,null,vals);
 						}
 					} while ( from.moveToNext() );
@@ -259,19 +309,22 @@ public class GamePnLTrackerProvider extends ContentProvider
 				}
 				// Delete the <table>_OLD
 				db.execSQL("DROP TABLE IF EXISTS " + PNL_STATUS_TABLE_NAME + "_OLD;");
-
-				// Create a table that would have list of all games
-				db.execSQL("CREATE TABLE " + PNL_GAMES_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-						"game TEXT, " +
-						"description TEXT, " +
-						"addedBy TEXT" +
-							");");
-				// Need to populate this table with some of the games
-				Log.i(TAG, SubTag + "Populating PnL games table");
-
-				db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('TexasHold''em', 'Texas Hold''em', 'gamePnL');" );
-				db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Omaha', 'Omaha', 'gamePnL');" );
-				db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Stud', 'Stud', 'gamePnL');" );
+				
+				if ( oldVersion <= 4 )
+				{
+					// Create a table that would have list of all games
+					db.execSQL("CREATE TABLE " + PNL_GAMES_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+							"game TEXT, " +
+							"description TEXT, " +
+							"addedBy TEXT" +
+								");");
+					// Need to populate this table with some of the games
+					Log.i(TAG, SubTag + "Populating PnL games table");
+	
+					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('TexasHold''em', 'Texas Hold''em', 'gamePnL');" );
+					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Omaha', 'Omaha', 'gamePnL');" );
+					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Stud', 'Stud', 'gamePnL');" );
+				}
 			}
 			catch (Exception e)
 			{
@@ -389,50 +442,60 @@ public class GamePnLTrackerProvider extends ContentProvider
 			String[] selectionArgs, String sort) 
 	{
 		Cursor	result;
-		String	sqlStm = "SELECT ";
-		// final DbAdapter dba = new DbAdapter(getContext());
-		SQLiteDatabase dba = dbHelper.getReadableDatabase();
-		Log.i(TAG, SubTag + "Started Query");
-		switch (sURIMatcher.match(uri)) 
+		try
 		{
-			case USER:
-				Log.i(TAG, SubTag + "building query for USER table");
-				sqlStm += "name FROM ";
-				sqlStm += USER_TABLE_NAME;
-				sqlStm += " WHERE ";
-				sqlStm += selection;
-				Log.i(TAG, SubTag + "sql: " + sqlStm);
-				break;
-			case PNLDATA:
-				Log.i(TAG, SubTag + "building query for DATA table");
-				sqlStm += "_id,name,amount,date,eventType,gameType,gameLimit,notes FROM ";
-				sqlStm += PNL_TABLE_NAME;
-				sqlStm += " WHERE ";
-				sqlStm += selection;
-				Log.i(TAG, SubTag + "sql: " + sqlStm);
-				break;
-			case PNLSTATUS:
-				Log.i(TAG, SubTag + "building query for STATUS table");
-				sqlStm += "_id,name,status FROM ";
-				sqlStm += PNL_STATUS_TABLE_NAME;
-				sqlStm += " WHERE ";
-				sqlStm += selection;
-				Log.i(TAG, SubTag + "sql: " + sqlStm);
-				break;
-			case PNLGAMES:
-				Log.i(TAG, SubTag + "building query for GAMES table");
-				sqlStm += "_id,game,description,addedBy FROM ";
-				sqlStm += PNL_GAMES_TABLE_NAME;
-				Log.i(TAG, SubTag + "sql: " + sqlStm);
-				break;
-			default:
-				Log.i(TAG, SubTag + "Unknown request");
-				throw new IllegalArgumentException("Unknown URI " + uri);
+			String	sqlStm = "SELECT ";
+			// final DbAdapter dba = new DbAdapter(getContext());
+			SQLiteDatabase dba = dbHelper.getReadableDatabase();
+			Log.i(TAG, SubTag + "Started Query");
+			switch (sURIMatcher.match(uri)) 
+			{
+				case USER:
+					Log.i(TAG, SubTag + "building query for USER table");
+					sqlStm += "name FROM ";
+					sqlStm += USER_TABLE_NAME;
+					sqlStm += " WHERE ";
+					sqlStm += selection;
+					Log.i(TAG, SubTag + "sql: " + sqlStm);
+					break;
+				case PNLDATA:
+					Log.i(TAG, SubTag + "building query for DATA table");
+					sqlStm += "_id,name,amount,EvYear,EvMonth,EvDay,eventType,gameType,gameLimit,notes FROM ";
+					sqlStm += PNL_TABLE_NAME;
+					sqlStm += " WHERE ";
+					sqlStm += selection;
+					sqlStm += " order by EvYear asc, EvMonth asc, EvDay asc";
+					Log.i(TAG, SubTag + "sql: " + sqlStm);
+					break;
+				case PNLSTATUS:
+					Log.i(TAG, SubTag + "building query for STATUS table");
+					sqlStm += "_id,name,status FROM ";
+					sqlStm += PNL_STATUS_TABLE_NAME;
+					sqlStm += " WHERE ";
+					sqlStm += selection;
+					Log.i(TAG, SubTag + "sql: " + sqlStm);
+					break;
+				case PNLGAMES:
+					Log.i(TAG, SubTag + "building query for GAMES table");
+					sqlStm += "_id,game,description,addedBy FROM ";
+					sqlStm += PNL_GAMES_TABLE_NAME;
+					Log.i(TAG, SubTag + "sql: " + sqlStm);
+					break;
+				default:
+					Log.i(TAG, SubTag + "Unknown request");
+					throw new IllegalArgumentException("Unknown URI " + uri);
+			}
+			Log.i(TAG, SubTag + "Trying to execute a query.");
+			// result = qb.query(db, projection, selection, selectionArgs, null, null, null);
+			result = dba.rawQuery(sqlStm, null);
+			Log.i(TAG, SubTag + "Returning query result");
 		}
-		Log.i(TAG, SubTag + "Trying to execute a query.");
-		// result = qb.query(db, projection, selection, selectionArgs, null, null, null);
-		result = dba.rawQuery(sqlStm, null);
-		Log.i(TAG, SubTag + "Returning query result");
+		catch (Exception e)
+		{
+			Log.e(TAG, SubTag + e.getMessage());
+			result = null;
+		}
+
 		return result;
 	}
 
@@ -443,49 +506,56 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public int update(Uri uri, ContentValues values, String selection,
 			String[] selectionArgs) 
 	{
-		int count;
-		Log.i(TAG, SubTag + "Started....");
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		getContext().getContentResolver().notifyChange(uri, null);	  	
-		
-		switch (sURIMatcher.match(uri)) 
+		int count = 0;
+		try
 		{
-	    case USER:
-            count = db.update(
-            			USER_TABLE_NAME, 
-            			values,
-            			selection, 
-            			selectionArgs);
-	    	break;
-	    case PNLDATA:
-	    	Log.i(TAG, SubTag + "Updating " + PNL_TABLE_NAME);
-	    	
-            count = db.update(
-            			PNL_TABLE_NAME, 
-            			values,
-            			selection, 
-            			selectionArgs);
-	      		break;
-	      	case PNLSTATUS:
+			Log.i(TAG, SubTag + "Started....");
+			SQLiteDatabase db = dbHelper.getWritableDatabase();
+			getContext().getContentResolver().notifyChange(uri, null);	  	
+			
+			switch (sURIMatcher.match(uri)) 
+			{
+		    case USER:
 	            count = db.update(
-	            		PNL_STATUS_TABLE_NAME, 
-            			values,
-            			selection, 
-            			selectionArgs);
-	      		break;
-	      	case PNLGAMES:
+	            			USER_TABLE_NAME, 
+	            			values,
+	            			selection, 
+	            			selectionArgs);
+		    	break;
+		    case PNLDATA:
+		    	Log.i(TAG, SubTag + "Updating " + PNL_TABLE_NAME);
+		    	
 	            count = db.update(
-	            		PNL_GAMES_TABLE_NAME, 
-            			values,
-            			selection, 
-            			selectionArgs);
-	      		break;
-	      	default:
-	      		throw new IllegalArgumentException("Unknown URI " + uri);
-	      }
-	      getContext().getContentResolver().notifyChange(uri, null);
-	      Log.i(TAG, SubTag + "Ended....");
-	      return count;
+	            			PNL_TABLE_NAME, 
+	            			values,
+	            			selection, 
+	            			selectionArgs);
+		      		break;
+		      	case PNLSTATUS:
+		            count = db.update(
+		            		PNL_STATUS_TABLE_NAME, 
+	            			values,
+	            			selection, 
+	            			selectionArgs);
+		      		break;
+		      	case PNLGAMES:
+		            count = db.update(
+		            		PNL_GAMES_TABLE_NAME, 
+	            			values,
+	            			selection, 
+	            			selectionArgs);
+		      		break;
+		      	default:
+		      		throw new IllegalArgumentException("Unknown URI " + uri);
+		      }
+		      getContext().getContentResolver().notifyChange(uri, null);
+		      Log.i(TAG, SubTag + "Ended....");
+		}
+		catch (Exception e)
+		{
+			Log.e(TAG, SubTag + e.getMessage());
+		}
+		return count;
 	}
 	
 	static

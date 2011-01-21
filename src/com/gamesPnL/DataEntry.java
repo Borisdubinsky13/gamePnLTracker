@@ -49,6 +49,9 @@ public class DataEntry extends Activity
     Spinner gmTypeSp;
     Spinner gmLimitSp;
     String	username;
+    String	evYearS;
+    String	evDayS;
+    String	evMonthS;
     
     /** Called when the activity is first created. */
 
@@ -82,6 +85,10 @@ public class DataEntry extends Activity
         final int mYear = c.get(Calendar.YEAR);
         final int mMonth = c.get(Calendar.MONTH);
         final int mDay = c.get(Calendar.DAY_OF_MONTH);
+        
+        evYearS = "" + mYear;
+        evMonthS = "" + mMonth;
+        evDayS = "" + mDay;
 
         dateB = (Button)findViewById(R.id.dateButton);
     	dateB.setText( new StringBuilder()
@@ -175,7 +182,9 @@ public class DataEntry extends Activity
             	{
 	            	vals.put("name", username);
 	            	vals.put("amount", amount.getText().toString());
-	            	vals.put("date", dateT);
+	            	vals.put("EvYear", evYearS);
+	            	vals.put("EvMonth", evMonthS);
+	            	vals.put("EvDay", evDayS);
 	            	vals.put("eventType", eventStr);
 	            	vals.put("gameType", gameT);
 	            	vals.put("gameLimit", gameL);
@@ -226,7 +235,9 @@ public class DataEntry extends Activity
 	          		
 	            	vals.put("name", username);
 	            	vals.put("amount", realAmount );
-	            	vals.put("date", dateT);
+	            	vals.put("EvYear", evYearS);
+	            	vals.put("EvMonth", evMonthS);
+	            	vals.put("EvDay", evDayS);
 	            	vals.put("eventType", eventStr);
 	            	vals.put("gameType", gameT);
 	            	vals.put("gameLimit", gameL);
@@ -270,8 +281,13 @@ public class DataEntry extends Activity
     private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() 
     {
     	// onDateSet method
-    	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+    	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) 
+    	{
     		dateB.setText(String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth)+"/"+String.valueOf(year));
+            evYearS = String.valueOf(year);
+            evMonthS = String.valueOf(monthOfYear+1);
+            evDayS = String.valueOf(dayOfMonth);
+    		
     	}
 
     };

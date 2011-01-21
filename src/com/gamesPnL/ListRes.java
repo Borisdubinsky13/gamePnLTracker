@@ -73,7 +73,9 @@ public class ListRes extends ListActivity
 			 if ( columnIndex == 2 )
 			 {
 				 // 1st line
-				 tv.setText(cursor.getString(3) + " :  " + cursor.getString(5) + " | " + cursor.getString(6) + " | " + cursor.getString(4));
+				 String outS = cursor.getString(4) + "/" + cursor.getString(5) + "/" + cursor.getString(3) + ": " + 
+				 				cursor.getString(6) + " |  " + cursor.getString(7) + " | " + cursor.getString(8);
+				 tv.setText(outS);
 			 }
 			 if ( columnIndex == 3 )
 			 {
@@ -101,7 +103,9 @@ public class ListRes extends ListActivity
 				"_id",
 				"name",
 				"amount",
-				"date",
+				"EvYear",
+				"EvMonth",
+				"EvDay",
 				"gameType",
 				"gameLimit",
 				"eventType",
@@ -109,7 +113,7 @@ public class ListRes extends ListActivity
 		};
 */
 		Cursor result = getContentResolver().query(tmpUri, null, query, null, null);
-		String[] columns = new String[] { "amount", "date", "gameType"  };
+		String[] columns = new String[] { "amount", "EvYear", "gameType"  };
 		int[] to = new int[] { android.R.id.text1, android.R.id.text2 };
 		startManagingCursor(result);
 		Log.i(TAG, SubTag + "Everything is ready for the adapter. # of records: " + result.getCount());

@@ -142,9 +142,12 @@ public class AfterLogin extends Activity
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 		String[] projection = new String[] {
 				"_id",
+				"uid",
 				"name",
 				"amount",
-				"date",
+				"year",
+				"month",
+				"day",
 				"gameType",
 				"gameLimit",
 				"eventType",

@@ -12,7 +12,29 @@
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content">
 		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-			<TextView
+		<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:text="R-1.4:" android:textSize="20sp" android:textStyle="bold"
+			/>
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+	 		<TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text="- Generate graph based on the date of the event."
+		        />
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="" android:textSize="20sp" android:textStyle="bold"
+			/>
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+		<TextView
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:text="R-1.3:" android:textSize="20sp" android:textStyle="bold"
@@ -23,7 +45,7 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:textSize="16sp"
-		        android:text="- Add tunning total graph."
+		        android:text="- Add 'running total' graph."
 		        />
 		</TableRow>
 		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">

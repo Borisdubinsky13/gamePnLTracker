@@ -3,6 +3,8 @@
  */
 package com.gamesPnL;
 
+import java.text.DecimalFormat;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -21,6 +23,7 @@ public class GraphData extends Activity
 	public static final String PREFS_NAME = "gamePnLTrackerFile";
 	private static final String PREF_USERNAME = "username";
 	public String currentUser = new String();
+	DecimalFormat df = new DecimalFormat("#,###.00");
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -95,9 +98,9 @@ public class GraphData extends Activity
 		else
 			Log.i(TAG, SubTag + "No Data returned from Content Provider");
 		
-		String[] verlabels = new String[] { "" + max, "" + ((min+max)/2), "" + min };
+		String[] verlabels = new String[] { "$" + df.format(max), "$" + df.format(((min+max)/2)), "$" + df.format(min) };
 		String[] horlabels = new String[] { "", "" };
-		GraphView graphView = new GraphView(this, values, "GamePnL", horlabels, verlabels, GraphView.LINE);
+		GraphView graphView = new GraphView(this, values, "Running Total", horlabels, verlabels, GraphView.LINE);
 		setContentView(graphView);
 	}
 }
