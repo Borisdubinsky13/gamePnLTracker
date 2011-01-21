@@ -3,9 +3,6 @@
  */
 package com.gamesPnL;
 
-import com.admob.android.ads.AdView;
-import java.text.DecimalFormat;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.database.Cursor;
