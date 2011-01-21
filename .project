@@ -30,4 +30,11 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/com/gamesPnL/GraphView.java</name>
+			<type>1</type>
+			<location>C:/Users/Boris/Documents/workspace/gamePnLTracker/src/com/gamesPnL/GraphView.java</location>
+		</link>
+	</linkedResources>
 </projectDescription>

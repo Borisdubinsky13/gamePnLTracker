@@ -1,50 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="aboutName">About</string><string name="add">Add</string><string name="AddResName">Add Result</string><string name="applabl">Application:</string><string name="appContVal">     dubi13@hotmail.com</string><string name="appNote">NOTE: </string><string name="appNoteVal">     Please specify \'gamePnLTracker\' in the subject of your e-mail.</string><string name="appContact">Contact:</string>
-    
-    <string name="appname">gamePnLTracker</string><string name="appdescrip">     Games Profits aNd Losses Tracker</string><string name="appVerLabel">Version:</string><string name="appVer">     R-1.2</string><string name="Cancel">Cancel</string><string name="cEarnings">Your career earnings: $</string><string name="dispFullItem">Result Entry: </string><string name="email">E-Mail:</string><string name="gameDescr">Description:</string>
-    <string name="gameLimit">Limit: </string><string-array name="gameLimit">
+    <string name="viewGraph">Graph</string>
+    <string name="graphViewAuthor">     Arno den Hond</string>
+    <string name="graphViewLabel">GraphView provided by</string>
+    <string name="aboutName">About</string><string name="add">Add</string>
+    <string name="AddResName">Add Result</string>
+    <string name="applabl">Application:</string>
+    <string name="appContVal">     dubi13@hotmail.com</string>
+    <string name="appNote">NOTE: </string>
+    <string name="appNoteVal">     Please specify \'gamePnLTracker\' in the subject of your e-mail.</string>
+    <string name="appContact">Contact:</string>
+    <string name="appname">gamePnLTracker</string>
+    <string name="appdescrip">     Games Profits aNd Losses Tracker</string>
+    <string name="appVerLabel">Version:</string>
+    <string name="appVer">     R-1.2</string>
+    <string name="Cancel">Cancel</string>
+    <string name="cEarnings">Your career earnings: $</string>
+    <string name="dispFullItem">Result Entry: </string>
+    <string name="email">E-Mail:</string>
+    <string name="gameDescr">Description:</string>
+    <string name="gameLimit">Limit: </string>
+    <string-array name="gameLimit">
 		<item>NoLimit</item>
 		<item>Limit</item>
 		<item>PotLimit</item>
-	</string-array><string name="gameType">Game: </string><string-array name="gameType">
-		
-		
-		
-		
-	</string-array><string name="logoutStr">Logout</string>
+		<item>Mixed</item>
+	</string-array><string name="gameType">Game: </string>
+	<string-array name="gameType">
+	</string-array>
+	<string name="logoutStr">Logout</string>
     <string name="ViewStatName">View Stats.</string>
-    
     <string name="Name">Name: </string>
-     
-     
-    
-    
-    
     <string name="okStr">OK</string>
     <string name="setupTitle">Setup an Account</string>
-    
-	
-	
 	<string name="passStr">Password:</string>
 	<string name="newid">Setup New ID</string>
 	<string name="login">Login</string>
-	
 	<string name="setupName">Setup</string>
-	
-	
-	
-	
    	<string name="passwordLabel">Password:</string>
     <string name="earningsTracker">earningsTracker</string>
     <string name="Setup">Setup</string>
-	
-	
-	
-
-<string name="listRes">Results:</string>
-<string name="deleteStr">Delete</string>
-<string name="updateStr">Update</string>
-<string name="dispRelNotes">Display Release Notes</string>
-<string name="AddGameName">Add Game</string>
+	<string name="listRes">Results:</string>
+	<string name="deleteStr">Delete</string>
+	<string name="updateStr">Update</string>
+	<string name="dispRelNotes">Display Release Notes</string>
+	<string name="AddGameName">Add Game</string>
 </resources>

@@ -66,6 +66,11 @@ public class AfterLogin extends Activity
 			Intent iViewRes = new Intent(this, ListRes.class);
 	        startActivity(iViewRes);
 	        return true;
+	    case R.id.viewGraph:
+	    	Log.i(TAG, SubTag + "trying to start GraphData");
+	    	Intent iViewGraph = new Intent(this, GraphData.class);
+	        startActivity(iViewGraph);
+	        return true;
 	    case R.id.AddGame:
 	    	Log.i(TAG, SubTag + "trying to start Add Game");
 	    	Intent iViewAddGame = new Intent(this, AddGame.class);

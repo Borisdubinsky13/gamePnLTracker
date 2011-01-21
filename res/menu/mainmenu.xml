@@ -8,14 +8,19 @@
 			android:id="@+id/AddResult" 
 			android:title="@string/AddResName" android:icon="@android:drawable/ic_menu_add">
 		</item>
-		<item 
-			android:id="@+id/AddGame" 
-			android:title="@string/AddGameName" android:icon="@android:drawable/ic_menu_add">
-		</item>
 		<item
 			android:id="@+id/ViewStats" 
 			android:title="@string/ViewStatName" android:icon="@android:drawable/ic_menu_view">
 		</item>
+		<item 
+			android:id="@+id/viewGraph" 
+			android:title="@string/viewGraph" 
+			android:icon="@drawable/ic_menu_chart">
+		</item>
+		<item 
+			android:id="@+id/AddGame" 
+			android:title="@string/AddGameName" android:icon="@android:drawable/ic_menu_add">
+		</item>		
 		<item 
 			android:id="@+id/Logout" 
 			android:title="@string/logoutStr" android:icon="@android:drawable/ic_menu_close_clear_cancel">
@@ -25,6 +30,7 @@
 			android:title="@string/aboutName" android:icon="@android:drawable/ic_menu_info_details">
 		</item>
 </group>
+
 
 
 </menu>

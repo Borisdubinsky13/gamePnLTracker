@@ -3,7 +3,6 @@
  */
 package com.gamesPnL;
 
-import com.admob.android.ads.AdView;
 import com.gamesPnL.R;
 
 import android.app.Activity;
@@ -30,16 +29,7 @@ public class AboutHandler extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about_display);
-/*
-        AdManager.setTestDevices(new String[] 
-    	{
-        		AdManager.TEST_EMULATOR,
-        		"426F72697360732050686F6E65"
-        });
-*/
-        AdView	adView = (AdView)findViewById(R.id.adAbout);
-        adView.requestFreshAd();
-        
+
         final TextView appVersion = (TextView)findViewById(R.id.AppVersion);
         String versionName = "";
 		try

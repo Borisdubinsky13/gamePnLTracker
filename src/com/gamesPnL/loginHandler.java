@@ -105,7 +105,7 @@ public class loginHandler extends Activity
 		Log.i(TAG, SubTag + "Got URI populated");
 		String	query = " status = 'in'";
 		result = managedQuery(tmpUri, projection, query, null, null);
-		if ( result.getCount() == 1 )
+		if ( result.getCount() >= 1 )
 		{
 			// There is an active user. Skip the login window.
         	Intent iDataEntry = new Intent(loginHandler.this,AfterLogin.class);
