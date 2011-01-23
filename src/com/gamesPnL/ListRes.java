@@ -6,6 +6,9 @@ package com.gamesPnL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import com.admob.android.ads.AdManager;
+import com.admob.android.ads.AdView;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -51,7 +54,7 @@ public class ListRes extends ListActivity
  
         AdView	adView = (AdView)findViewById(R.id.adListRes);
         adView.requestFreshAd();
-*/       
+ */     
 	}
 	
 	class ShowViewBinder implements SimpleCursorAdapter.ViewBinder 
