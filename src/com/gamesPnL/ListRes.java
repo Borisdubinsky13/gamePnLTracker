@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * @author Boris
@@ -58,7 +59,7 @@ public class ListRes extends ListActivity
 		 public boolean setViewValue(View view, Cursor cursor, int columnIndex) 
 		 {
 			 TextView tv = (TextView) view;
-			 DecimalFormat df = new DecimalFormat("#,###.00");
+			 DecimalFormat df = new DecimalFormat("#,##0.00");
 
 			 double	dValue = Double.parseDouble(cursor.getString(2));
 			 if ( dValue >= 0 )
@@ -73,8 +74,14 @@ public class ListRes extends ListActivity
 			 if ( columnIndex == 2 )
 			 {
 				 // 1st line
-				 String outS = cursor.getString(4) + "/" + cursor.getString(5) + "/" + cursor.getString(3) + ": " + 
-				 				cursor.getString(6) + " |  " + cursor.getString(7) + " | " + cursor.getString(8);
+		        String tmpStr = cursor.getString(cursor.getColumnIndex("evMonth")) +
+	        		"/" + cursor.getString(cursor.getColumnIndex("evDay")) +
+	        		"/" + cursor.getString(cursor.getColumnIndex("evYear"));
+
+				 String outS = tmpStr + ": " + 
+				 				cursor.getString(cursor.getColumnIndex("gameType")) + " |  " + 
+				 				cursor.getString(cursor.getColumnIndex("eventType")) + " | " + 
+				 				cursor.getString(cursor.getColumnIndex("gameLimit"));
 				 tv.setText(outS);
 			 }
 			 if ( columnIndex == 3 )
@@ -98,14 +105,15 @@ public class ListRes extends ListActivity
  		// Cursor	result;
 		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
+		this.setTitle("User: " + username);
 /*
 		String[] projection = new String[] {
 				"_id",
 				"name",
 				"amount",
-				"EvYear",
-				"EvMonth",
-				"EvDay",
+				"evYear",
+				"evMonth",
+				"evDay",
 				"gameType",
 				"gameLimit",
 				"eventType",
@@ -113,14 +121,25 @@ public class ListRes extends ListActivity
 		};
 */
 		Cursor result = getContentResolver().query(tmpUri, null, query, null, null);
-		String[] columns = new String[] { "amount", "EvYear", "gameType"  };
+		String[] columns = new String[] { "amount", "evYear", "gameType"  };
 		int[] to = new int[] { android.R.id.text1, android.R.id.text2 };
 		startManagingCursor(result);
 		Log.i(TAG, SubTag + "Everything is ready for the adapter. # of records: " + result.getCount());
 		SimpleCursorAdapter items = new SimpleCursorAdapter(this, android.R.layout.two_line_list_item, result, columns, to);
         Log.i(TAG, SubTag + "adapter has been created and populated");
-        items.setViewBinder(new ShowViewBinder());
-		setListAdapter(items);
+        if ( result.getCount() > 0 )
+        {
+        	items.setViewBinder(new ShowViewBinder());
+        	setListAdapter(items);
+        }
+        else
+        {
+        	int duration = Toast.LENGTH_LONG;
+			String text = "Need to add at least one result!";
+			Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+			toast.show();
+			finish();
+        }
 	}
 	/* (non-Javadoc)
 	 * @see android.app.ListActivity#onListItemClick(android.widget.ListView, android.view.View, int, long)

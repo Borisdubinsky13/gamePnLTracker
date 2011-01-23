@@ -6,6 +6,7 @@ package com.gamesPnL;
 import com.gamesPnL.R;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,13 @@ public class AboutHandler extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about_display);
+		
+		final String PREFS_NAME = "gamePnLTrackerFile";
+		final String PREF_USERNAME = "username";
+    	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
+    	String username = pref.getString(PREF_USERNAME, null);
+    	
+    	this.setTitle("User: " + username);
 
         final TextView appVersion = (TextView)findViewById(R.id.AppVersion);
         String versionName = "";

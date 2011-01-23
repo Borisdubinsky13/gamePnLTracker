@@ -28,7 +28,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public static String SubTag="GamePnLTrackerProvider: ";
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
-	private static final int DATABASE_VERSION = 6;
+	private static final int DATABASE_VERSION = 7;
 	
 	private static final String USER_TABLE_NAME = "gUsers";
 	private static final String PNL_TABLE_NAME = "gPNLData";
@@ -101,9 +101,12 @@ public class GamePnLTrackerProvider extends ContentProvider
 						USER_TABLE_NAME + "'", null);
 				if (c.getCount()==0) 
 				{
-					db.execSQL("CREATE TABLE " + 
-							USER_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, email TEXT, passwd TEXT);");
-				}
+					db.execSQL("CREATE TABLE " + USER_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+								"name TEXT UNIQUE, " +
+								"passwd TEXT, " +
+								"firstName TEXT, " +
+								"lastName TEXT, " +
+								"email TEXT);");				}
 			
 				Log.i(TAG, SubTag + "Creating PnLdata table");
 				c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
@@ -115,9 +118,9 @@ public class GamePnLTrackerProvider extends ContentProvider
 							"uid TEXT, " +
 							"name TEXT, " +
 							"amount TEXT, " +
-							"EvYear TEXT, " +
-							"EvMonth TEXT, " +
-							"EvDay TEXT, " +
+							"evYear TEXT, " +
+							"evMonth TEXT, " +
+							"evDay TEXT, " +
 							"eventType TEXT, " +
 							"gameType TEXT, " +
 							"gameLimit TEXT, " +
@@ -131,9 +134,8 @@ public class GamePnLTrackerProvider extends ContentProvider
 				if (c.getCount()==0) 
 				{
 					db.execSQL("CREATE TABLE " + PNL_STATUS_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-							"name TEXT, " +
-							"status TEXT " +
- 							");");
+							"name TEXT UNIQUE, " +
+							"status TEXT);");
 				}
 			
 				Log.i(TAG, SubTag + "Creating PnL games table");
@@ -178,9 +180,18 @@ public class GamePnLTrackerProvider extends ContentProvider
 
 				// Create a user table
 				db.execSQL("CREATE TABLE " + 
-						USER_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, email TEXT, passwd TEXT);");
+						USER_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+								"name TEXT UNIQUE, " +
+								"passwd TEXT, " +
+								"firstName TEXT, " +
+								"lastName TEXT, " +
+								"email TEXT);");
 				// copy all the records from the <table>_old to <table>
-				Cursor from = db.rawQuery("SELECT name,email,passwd FROM " + USER_TABLE_NAME + "_OLD;", null);
+				Cursor from;
+				if ( oldVersion <= 6 )
+					from = db.rawQuery("SELECT name,email,passwd FROM " + USER_TABLE_NAME + "_OLD;", null);
+				else
+					from = db.rawQuery("SELECT name,email,passwd,lastName,firstName FROM " + USER_TABLE_NAME + "_OLD;", null);
 				if ( from.moveToFirst() )
 				{
 					do
@@ -189,6 +200,11 @@ public class GamePnLTrackerProvider extends ContentProvider
 						vals.put("name", from.getString(0));
 						vals.put("email", from.getString(1));
 						vals.put("passwd", from.getString(2));
+						if ( oldVersion > 6 )
+						{
+							vals.put("firstName", from.getString(3));
+							vals.put("lastName", from.getString(4));
+						}
 						db.insert(USER_TABLE_NAME,null,vals);
 					} while ( from.moveToNext() );
 				}
@@ -205,9 +221,9 @@ public class GamePnLTrackerProvider extends ContentProvider
 						"uid TEXT, " +
 						"name TEXT, " +
 						"amount TEXT, " +
-						"EvYear TEXT, " +
-						"EvMonth TEXT, " +
-						"EvDay TEXT, " +
+						"evYear TEXT, " +
+						"evMonth TEXT, " +
+						"evDay TEXT, " +
 						"eventType TEXT, " +
 						"gameType TEXT, " +
 						"gameLimit TEXT, " +
@@ -271,9 +287,9 @@ public class GamePnLTrackerProvider extends ContentProvider
 							vals.put("uid", uidS);
 							vals.put("name", nameS);
 							vals.put("amount", amountS);
-							vals.put("EvYear", yearS);
-							vals.put("EvMonth", monthS);
-							vals.put("EvDay", dayS);
+							vals.put("evYear", yearS);
+							vals.put("evMonth", monthS);
+							vals.put("evDay", dayS);
 							vals.put("eventType", eventTypeS);
 							vals.put("gameType", gameTypeS);
 							vals.put("gameLimit", gameLimitS);
@@ -442,6 +458,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 			String[] selectionArgs, String sort) 
 	{
 		Cursor	result;
+    	
 		try
 		{
 			String	sqlStm = "SELECT ";
@@ -454,31 +471,45 @@ public class GamePnLTrackerProvider extends ContentProvider
 					Log.i(TAG, SubTag + "building query for USER table");
 					sqlStm += "name FROM ";
 					sqlStm += USER_TABLE_NAME;
-					sqlStm += " WHERE ";
-					sqlStm += selection;
+					if ( selection != null )
+					{
+						sqlStm += " WHERE ";
+						sqlStm += selection;
+					}
 					Log.i(TAG, SubTag + "sql: " + sqlStm);
 					break;
 				case PNLDATA:
 					Log.i(TAG, SubTag + "building query for DATA table");
-					sqlStm += "_id,name,amount,EvYear,EvMonth,EvDay,eventType,gameType,gameLimit,notes FROM ";
+					sqlStm += "_id,name,amount,evYear,evMonth,evDay,eventType,gameType,gameLimit,notes FROM ";
 					sqlStm += PNL_TABLE_NAME;
-					sqlStm += " WHERE ";
-					sqlStm += selection;
-					sqlStm += " order by EvYear asc, EvMonth asc, EvDay asc";
+					if ( selection != null )
+					{
+						sqlStm += " WHERE ";
+						sqlStm += selection;
+					}
+					sqlStm += " order by evYear asc, evMonth asc, evDay asc";
 					Log.i(TAG, SubTag + "sql: " + sqlStm);
 					break;
 				case PNLSTATUS:
 					Log.i(TAG, SubTag + "building query for STATUS table");
 					sqlStm += "_id,name,status FROM ";
 					sqlStm += PNL_STATUS_TABLE_NAME;
-					sqlStm += " WHERE ";
-					sqlStm += selection;
+					if ( selection != null )
+					{
+						sqlStm += " WHERE ";
+						sqlStm += selection;
+					}
 					Log.i(TAG, SubTag + "sql: " + sqlStm);
 					break;
 				case PNLGAMES:
 					Log.i(TAG, SubTag + "building query for GAMES table");
 					sqlStm += "_id,game,description,addedBy FROM ";
 					sqlStm += PNL_GAMES_TABLE_NAME;
+					if ( selection != null )
+					{
+						sqlStm += " WHERE ";
+						sqlStm += selection;
+					}
 					Log.i(TAG, SubTag + "sql: " + sqlStm);
 					break;
 				default:

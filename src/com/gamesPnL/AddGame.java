@@ -26,16 +26,23 @@ public class AddGame extends Activity
 	
 	public static final String PREFS_NAME = "gamePnLTrackerFile";
 	private static final String PREF_USERNAME = "username";
-	public String currentUser = new String();
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addgame);
+		
+    	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
+    	String username = pref.getString(PREF_USERNAME, null);
+    	
+    	this.setTitle("User: " + username);
+
+		
 		final Button addGButton = (Button)findViewById(R.id.AddGBtn);
 		final EditText gameName = (EditText)findViewById(R.id.gameName);
 		final EditText gameDesc = (EditText)findViewById(R.id.gameDescr);

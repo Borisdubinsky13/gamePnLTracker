@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="lastNameStr">Last Name: </string>
+    <string name="firstNameStr">First Name: </string>
     <string name="viewGraph">Graph</string>
     <string name="graphViewAuthor">     Arno den Hond</string>
     <string name="graphViewLabel">GraphView provided by</string>
@@ -15,7 +17,7 @@
     <string name="appVerLabel">Version:</string>
     <string name="appVer">     R-1.2</string>
     <string name="Cancel">Cancel</string>
-    <string name="cEarnings">Your career earnings: $</string>
+    <string name="cEarnings">Your career earnings: </string>
     <string name="dispFullItem">Result Entry: </string>
     <string name="email">E-Mail:</string>
     <string name="gameDescr">Description:</string>
@@ -39,10 +41,11 @@
 	<string name="setupName">Setup</string>
    	<string name="passwordLabel">Password:</string>
     <string name="earningsTracker">earningsTracker</string>
-    <string name="Setup">Setup</string>
+    <string name="Setup">Setup</string> 	
 	<string name="listRes">Results:</string>
 	<string name="deleteStr">Delete</string>
 	<string name="updateStr">Update</string>
 	<string name="dispRelNotes">Display Release Notes</string>
 	<string name="AddGameName">Add Game</string>
+<string name="addResult">Need to add at least one result</string>
 </resources>

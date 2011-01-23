@@ -76,6 +76,8 @@ public class DataEntry extends Activity
         // go to data entry window
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
     	username = pref.getString(PREF_USERNAME, null);
+    	this.setTitle("User: " + username);
+
     	Log.i(TAG, SubTag + " Started data entry window for user: " + username);
        
         // setup buttons
@@ -83,17 +85,17 @@ public class DataEntry extends Activity
         final Button winB = (Button)findViewById(R.id.Win);
         final Button looseB = (Button)findViewById(R.id.Loss);
         final int mYear = c.get(Calendar.YEAR);
-        final int mMonth = c.get(Calendar.MONTH);
+        final int mMonth = c.get(Calendar.MONTH) + 1;
         final int mDay = c.get(Calendar.DAY_OF_MONTH);
         
-        evYearS = "" + mYear;
-        evMonthS = "" + mMonth;
-        evDayS = "" + mDay;
+        evYearS = String.valueOf(mYear);
+        evMonthS = String.valueOf(mMonth);
+        evDayS =  String.valueOf(mDay);
 
         dateB = (Button)findViewById(R.id.dateButton);
     	dateB.setText( new StringBuilder()
     		// Month is 0 based so add 1
-        	.append(mMonth + 1).append("/")
+        	.append(mMonth).append("/")
         	.append(mDay).append("/")
         	.append(mYear).append(" "));
 
@@ -102,18 +104,18 @@ public class DataEntry extends Activity
             public void onClick(View v) 
             {
             	Log.i(TAG, SubTag + "DATE button is clicked");
-            	new DatePickerDialog(DataEntry.this, mDateSetListener, mYear, mMonth, mDay).show();
+            	new DatePickerDialog(DataEntry.this, mDateSetListener, mYear, mMonth-1, mDay).show();
             }
         });
     	
 		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnlgames");
-		
+		String	query = "addedBy = '" + username + "'" + " OR addedBy = 'gamePnL'";
 		ArrayAdapter<String> items = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         gmTypeSp = (Spinner) findViewById(R.id.gType);
         gmTypeSp.setAdapter(items);
         gmTypeSp.setSelection(0);
-		Cursor result = getContentResolver().query(tmpUri, null, null, null, null);
+		Cursor result = getContentResolver().query(tmpUri, null, query, null, null);
 		startManagingCursor(result);
 		Log.i(TAG, SubTag + "Everything is ready for the Spinner. # of records: " + result.getCount());
 		if ( result.moveToFirst() )
@@ -145,7 +147,7 @@ public class DataEntry extends Activity
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
             	dateB.setText( new StringBuilder()
                     // Month is 0 based so add 1
-                    .append(mMonth + 1).append("/")
+                    .append(mMonth+1).append("/")
                     .append(mDay).append("/")
                     .append(mYear).append(" "));
             	
@@ -166,7 +168,7 @@ public class DataEntry extends Activity
             	
             	Log.i(TAG, SubTag + "WIN button is clicked");
              	EditText amount = (EditText)findViewById(R.id.Amount);
-             	String dateT = (String) dateB.getText();
+             	// String dateT = (String) dateB.getText();
             	EditText nts = (EditText)findViewById(R.id.notes);
             	String gameT = (String) gmTypeSp.getSelectedItem().toString();
             	String gameL = (String) gmLimitSp.getSelectedItem().toString();
@@ -182,13 +184,14 @@ public class DataEntry extends Activity
             	{
 	            	vals.put("name", username);
 	            	vals.put("amount", amount.getText().toString());
-	            	vals.put("EvYear", evYearS);
-	            	vals.put("EvMonth", evMonthS);
-	            	vals.put("EvDay", evDayS);
+	            	vals.put("evYear", evYearS);
+	            	vals.put("evMonth", evMonthS);
+	            	vals.put("evDay", evDayS);
 	            	vals.put("eventType", eventStr);
 	            	vals.put("gameType", gameT);
 	            	vals.put("gameLimit", gameL);
 	            	vals.put("notes", nts.getText().toString());
+	            	Log.i(TAG, SubTag + "Storing date: " + evMonthS + "/" + evDayS + "/" + evYearS);
 	    			ContentResolver cr = getContentResolver();
 	    			Log.i(TAG, SubTag + "Got content resolver");
 	    			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
@@ -221,7 +224,7 @@ public class DataEntry extends Activity
             	if ( !amount.getText().toString().equals(""))
             	{
 	             	realAmount += amount.getText().toString(); 
-	             	String dateT = (String) dateB.getText();
+//	             	String dateT = (String) dateB.getText();
 	            	EditText nts = (EditText)findViewById(R.id.notes);
 	            	String gameT = (String) gmTypeSp.getSelectedItem().toString();
 	            	String gameL = (String) gmLimitSp.getSelectedItem().toString();
@@ -235,13 +238,14 @@ public class DataEntry extends Activity
 	          		
 	            	vals.put("name", username);
 	            	vals.put("amount", realAmount );
-	            	vals.put("EvYear", evYearS);
-	            	vals.put("EvMonth", evMonthS);
-	            	vals.put("EvDay", evDayS);
+	            	vals.put("evYear", evYearS);
+	            	vals.put("evMonth", evMonthS);
+	            	vals.put("evDay", evDayS);
 	            	vals.put("eventType", eventStr);
 	            	vals.put("gameType", gameT);
 	            	vals.put("gameLimit", gameL);
 	            	vals.put("notes", nts.getText().toString());
+	    			Log.i(TAG, SubTag + "Storing date: " + evMonthS + "/" + evDayS + "/" + evYearS);
 	    			ContentResolver cr = getContentResolver();
 	    			Log.i(TAG, SubTag + "Got content resolver");
 	    			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");

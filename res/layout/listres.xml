@@ -5,6 +5,7 @@
   android:orientation="vertical"
   android:layout_width="fill_parent" 
   android:layout_height="fill_parent">
+<!-- 
       <com.admob.android.ads.AdView
     	android:id="@+id/adListRes"
     	android:layout_width="fill_parent"
@@ -13,13 +14,12 @@
     	myapp:primaryTextColor="#FFFFFF"
     	myapp:secondaryTextColor="#CCCCCC"
     android:visibility="invisible"/>
+ -->
   	<ListView android:id="@+id/pnlList" 
 			android:layout_width="fill_parent" android:layout_height="wrap_content"/>
-	<TextView android:id="@+id/nm_indx" android:visibility="invisible"/>
 	<TextView android:id="@+id/dt" 
 			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content">
-	</TextView>
-	<TextView android:id="@+id/gt"/>
+			android:layout_height="wrap_content"
+			android:text="@string/addResult" android:layout_gravity="center_vertical|center"/>
 	<TextView android:id="@+id/amt"/>
 </LinearLayout>

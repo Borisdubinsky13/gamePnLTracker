@@ -15,6 +15,43 @@
 		<TextView
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
+				android:text="R-1.5:" android:textSize="20sp" android:textStyle="bold"
+			/>
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+	 		<TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text="- Use larger fond for career total."
+		        />
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+	 		<TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text="- Fix population of the games field. Use only default ones and ones that were added by the current user."
+		        />
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+	 		<TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text="- Add first and last name to the user table for future enhancements."
+		        />
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="" android:textSize="20sp" android:textStyle="bold"
+			/>
+		</TableRow>		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+		<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
 				android:text="R-1.4:" android:textSize="20sp" android:textStyle="bold"
 			/>
 		</TableRow>

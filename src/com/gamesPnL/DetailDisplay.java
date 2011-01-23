@@ -36,7 +36,7 @@ public class DetailDisplay extends Activity
 	private static final String PREF_ID = "dataTBL_ID";
 	private static final String PREF_USERNAME = "username";
 	private String idIndex="";
-	private String name = "";
+	private String username = "";
 	private String	workRecord = "";
 	final Calendar c = Calendar.getInstance();
 	
@@ -58,8 +58,6 @@ public class DetailDisplay extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
-       
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.displayitem);
     }
@@ -68,21 +66,24 @@ public class DetailDisplay extends Activity
     protected void onResume()
     {
     	super.onPause();
-
+/*
         final ArrayAdapter<CharSequence> gmType = ArrayAdapter.createFromResource(
                 this, R.array.gameType, android.R.layout.simple_spinner_item);
+*/
         final ArrayAdapter<CharSequence> gmLimit = ArrayAdapter.createFromResource(
                 this, R.array.gameLimit, android.R.layout.simple_spinner_item);
  		
 		Log.i(TAG, SubTag + "Started.");
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
-		name = pref.getString(PREF_USERNAME, null);
+		username = pref.getString(PREF_USERNAME, null);
 		idIndex = pref.getString(PREF_ID, null);
 		int	maxI = Integer.parseInt(idIndex);
 		
-		Log.i(TAG, SubTag + "Working with record #" + idIndex + " Name: " + name );
+		this.setTitle("User: " + username);
+		
+		Log.i(TAG, SubTag + "Working with record #" + idIndex + " Name: " + username );
 		// Get the record with all the values, populate all the fields for display
-		String	query = "name = '" + name + "'";
+		String	query = "name = '" + username + "'";
 		Cursor	result;
 		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
@@ -90,9 +91,9 @@ public class DetailDisplay extends Activity
 				"_ID",
 				"name",
 				"amount",
-				"EvYear",
-				"EvMonth",
-				"EvDay",
+				"evYear",
+				"evMonth",
+				"evDay",
 				"gameType",
 				"gameLimit",
 				"eventType",
@@ -108,19 +109,25 @@ public class DetailDisplay extends Activity
 			for ( int i = 0; i < maxI && result.moveToNext(); i++ )
 				Log.i(TAG, SubTag + "Scanned record " + i);
 		}
-		Log.i(TAG, SubTag + "ID: " + result.getString(0));
-		workRecord = result.getString(0);
+		
+		workRecord = result.getString(result.getColumnIndex("_id"));
+		Log.i(TAG, SubTag + "ID: " + result.getString(result.getColumnIndex("_id")));
 		EditText amount = (EditText)findViewById(R.id.Amount);
-        amount.setText(result.getString(2));
+        amount.setText(result.getString(result.getColumnIndex("amount")));
+        Log.i(TAG, SubTag + "Amount from DB: " + result.getString(result.getColumnIndex("amount")));
         dateB = (Button)findViewById(R.id.dateButton);
-        dateB.setText(result.getString(4) + "/" + result.getString(5) + "/" + result.getString(3));
+        String tmpStr = result.getString(result.getColumnIndex("evMonth")) +
+        		"/" + result.getString(result.getColumnIndex("evDay")) +
+        		"/" + result.getString(result.getColumnIndex("evYear"));
+        Log.i(TAG, SubTag + "Date from DB: " + tmpStr);
+        dateB.setText(tmpStr);
         final int mYear = c.get(Calendar.YEAR);
         final int mMonth = c.get(Calendar.MONTH);
         final int mDay = c.get(Calendar.DAY_OF_MONTH);
     	
-        evYearS = result.getString(5);
-        evMonthS = result.getString(4);
-        evDayS = result.getString(5);
+        evYearS = result.getString(result.getColumnIndex("evYear"));
+        evMonthS = result.getString(result.getColumnIndex("evMonth"));
+        evDayS = result.getString(result.getColumnIndex("evDay"));
     	dateB.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v) 
@@ -129,7 +136,7 @@ public class DetailDisplay extends Activity
             	new DatePickerDialog(DetailDisplay.this, mDateSetListener, mYear, mMonth, mDay).show();
             }
         });
-        String evnt = result.getString(6);
+        String evnt = result.getString(result.getColumnIndex("eventType"));
     	RadioButton tourneyRB = (RadioButton) findViewById(R.id.idTourney);
     	RadioButton cashRB = (RadioButton) findViewById(R.id.idCash);
         if ( evnt.equalsIgnoreCase("Cash") )
@@ -153,27 +160,33 @@ public class DetailDisplay extends Activity
 		ArrayAdapter<String> items = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         gmTypeSp = (Spinner) findViewById(R.id.gType);
         gmTypeSp.setAdapter(items);
-		Cursor typeResult = getContentResolver().query(typeUri, null, null, null, null);
+        String	gameQuery = "addedBy = '" + username + "'" + " OR addedBy = 'gamePnL'";
+		Cursor typeResult = getContentResolver().query(typeUri, null, gameQuery, null, null);
 		startManagingCursor(typeResult);
 		Log.i(TAG, SubTag + "Everything is ready for the Spinner. # of records: " + typeResult.getCount());
 		if ( typeResult.moveToFirst() )
 		{
 			do
 			{
-				items.add(typeResult.getString(1));
+				String	tmp = typeResult.getString(typeResult.getColumnIndex("game"));
+				Log.i(TAG, SubTag + "Adding " + tmp + " to the Spinner" );
+				items.add(tmp);
 			} while (typeResult.moveToNext());
 		}
         items.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         gmTypeSp.setAdapter(items);
-        gmTypeSp.setSelection(gmType.getPosition(result.getString(7)));
+        String tmp = result.getString(result.getColumnIndex("gameType"));
+        int	indx = items.getPosition(tmp);
+        Log.i(TAG, SubTag + "Game type for this record: " + tmp + " index: " + indx);
+        gmTypeSp.setSelection(indx);
         
         gmLimitSp = (Spinner) findViewById(R.id.gLimit);
         gmLimit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gmLimitSp.setAdapter(gmLimit);
-        gmLimitSp.setSelection(gmLimit.getPosition(result.getString(8)));
+        gmLimitSp.setSelection(gmLimit.getPosition(result.getString(result.getColumnIndex("gameLimit"))));
         
         EditText nts = (EditText)findViewById(R.id.notes);
-        nts.setText(result.getString(9));
+        nts.setText(result.getString(result.getColumnIndex("notes")));
         
         // Setup buttons
         final Button deleteB = (Button)findViewById(R.id.delete);
@@ -214,9 +227,9 @@ public class DetailDisplay extends Activity
 		    		 eventStr = "Cash";
 		    	 
 		         vals.put("amount", amount.getText().toString());
-		         vals.put("EvYear", evYearS);
-		         vals.put("EvMonth", evMonthS);
-		         vals.put("EvDay", evDayS);
+		         vals.put("evYear", evYearS);
+		         vals.put("evMonth", evMonthS);
+		         vals.put("evDay", evDayS);
 		         vals.put("eventType", eventStr);
 		         vals.put("gameType", gameT);
 		         vals.put("gameLimit", gameL);

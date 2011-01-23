@@ -65,17 +65,23 @@ public class SetupWin extends Activity
             	
             	ContentValues	vals = new ContentValues();
             	EditText nm = (EditText)findViewById(R.id.nameSup);
+            	EditText fn = (EditText)findViewById(R.id.fstName);
+            	EditText ln = (EditText)findViewById(R.id.lastName);
             	EditText em = (EditText)findViewById(R.id.emailSup);
             	EditText pss = (EditText)findViewById(R.id.passSup);
             	String md5hash = getMd5Hash(pss.getText().toString());
             	
             	Log.i(TAG, SubTag + "Add button is clicked");
-            	Log.i(TAG, SubTag + "Name: " + nm.getText().toString());
+            	Log.i(TAG, SubTag + "ID: " + nm.getText().toString());
+            	Log.i(TAG, SubTag + "First name: " + fn.getText().toString());
+            	Log.i(TAG, SubTag + "Last Name: " + ln.getText().toString());
             	Log.i(TAG, SubTag + "e-mail: " + em.getText().toString());
             	Log.i(TAG, SubTag + "Pass: " + md5hash);
             	vals.put("name", nm.getText().toString());
             	vals.put("email", em.getText().toString());
             	vals.put("passwd", md5hash);
+            	vals.put("firstName", fn.getText().toString());
+            	vals.put("lastName", ln.getText().toString());
 
     			ContentResolver cr = getContentResolver();
     			Log.i(TAG, SubTag + "Got content resolver");

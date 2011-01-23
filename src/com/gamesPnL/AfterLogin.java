@@ -31,7 +31,7 @@ public class AfterLogin extends Activity
 	public String SubTag="AfterLogin: ";
 	public static final String PREFS_NAME = "gamePnLTrackerFile";
 	private static final String PREF_USERNAME = "username";
-	public String currentUser = new String();
+	// public String currentUser = new String();
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -127,14 +127,17 @@ public class AfterLogin extends Activity
 		// get all the records with the current id ad add all the amounts
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
     	String username = pref.getString(PREF_USERNAME, null);
+    	
+    	this.setTitle("User: " + username);
 
 		Cursor	result;
 		String	value;
 		double	sum = 0;
 		double	dValue;
-		DecimalFormat df = new DecimalFormat("#,###.00");
+		DecimalFormat df = new DecimalFormat("$#,##0.00");
 		final TextView pnlStr = (TextView)findViewById(R.id.PNL);
 		final String strHead = this.getString(R.string.cEarnings);
+		final TextView strHeadStr = (TextView)findViewById(R.id.PNLLabel);
 
 		String	query = "name = '" + username+ "'";
 
@@ -163,7 +166,7 @@ public class AfterLogin extends Activity
 			Log.i(TAG, SubTag + "got result back from provider");
 			do
 			{
-				value = result.getString(2);
+				value = result.getString(result.getColumnIndex("amount"));
 				Log.i(TAG, SubTag + "got Value:  " + value);
 				if ( value.equals("") )
 					dValue = 0;
@@ -177,7 +180,9 @@ public class AfterLogin extends Activity
 			Log.i(TAG, SubTag + "No Data returned from Content Provider");
 				
 		Log.i(TAG, SubTag + "Sum:  " + df.format(sum));
-		pnlStr.setText(strHead + df.format(sum));
+		strHeadStr.setText(strHead);
+		pnlStr.setTextColor(getResources().getColor(android.R.color.background_light));
+		pnlStr.setText(df.format(sum));
 		if ( sum >= 0 )
 			pnlStr.setBackgroundColor(0xFF00A000);
 		else

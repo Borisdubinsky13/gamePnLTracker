@@ -93,9 +93,19 @@ public class loginHandler extends Activity
         Log.i(TAG, SubTag + " Enter onCreate() ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        // See if user is still logged in. When user logges out, the status of the user in status table will change to false.
+        // First check if there are any users. If not, then switch to setup window to add first user.
 		Cursor	result;
 		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
+		tmpUri = Uri.withAppendedPath(tmpUri,"users");
+		result = managedQuery(tmpUri, null, null, null, null);
+		if ( result.getCount() < 1 )
+		{
+			// There are no users in the database. Start a setup intent
+			Intent iSetup = new Intent(this, SetupWin.class);
+			startActivity(iSetup);
+		}
+        // See if user is still logged in. When user logges out, the status of the user in status table will change to false.
+		tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnlstatus");
 		String[] projection = new String[] {
 				"_id",
