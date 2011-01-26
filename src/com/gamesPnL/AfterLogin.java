@@ -114,6 +114,7 @@ public class AfterLogin extends Activity
 	{
 
 		super.onPause();
+		setContentView(R.layout.afterlogin);
 /*
         AdManager.setTestDevices(new String[] 
     	{
@@ -121,9 +122,9 @@ public class AfterLogin extends Activity
         		"426F72697360732050686F6E65"
         });
 */
-        AdView	adView = (AdView)findViewById(R.id.adAfterLogin);
-        adView.requestFreshAd();
-        
+		AdView	adView = (AdView)findViewById(R.id.adAfterLogin);
+		adView.requestFreshAd();
+		
 		// get all the records with the current id ad add all the amounts
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
     	String username = pref.getString(PREF_USERNAME, null);

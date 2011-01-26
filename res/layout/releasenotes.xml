@@ -15,6 +15,45 @@
 		<TextView
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
+				android:text="R-1.7:" android:textSize="20sp" android:textStyle="bold"
+			/>
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+	 		<TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text="- Fix DB upgrade to the new version from the older version (at least 2 versions back)."
+		        />
+		        </TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">	 		
+		     <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text="- Add adds to the list view."
+		        />
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">	 		
+		     <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text="- Increase DB version to 7."
+		        />
+		</TableRow>
+		
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="" android:textSize="20sp" android:textStyle="bold"
+			/>
+		</TableRow>		
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+		<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
 				android:text="R-1.6:" android:textSize="20sp" android:textStyle="bold"
 			/>
 		</TableRow>

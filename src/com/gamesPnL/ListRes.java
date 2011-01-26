@@ -45,16 +45,6 @@ public class ListRes extends ListActivity
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-/*		
-        AdManager.setTestDevices(new String[] 
-        {
-        		AdManager.TEST_EMULATOR,
-        		"426F72697360732050686F6E65"
-        });
- 
-        AdView	adView = (AdView)findViewById(R.id.adListRes);
-        adView.requestFreshAd();
- */     
 	}
 	
 	class ShowViewBinder implements SimpleCursorAdapter.ViewBinder 
@@ -98,7 +88,27 @@ public class ListRes extends ListActivity
 	protected void onResume()
 	{
 		super.onPause();
-        
+		setContentView(R.layout.listres);
+		/*		
+        AdManager.setTestDevices(new String[] 
+        {
+        		AdManager.TEST_EMULATOR,
+        		"426F72697360732050686F6E65"
+        });
+ */
+		try
+		{
+	        AdView	adView = (AdView)findViewById(R.id.adListRes);
+	        if ( adView == null )
+	        	Log.e(TAG, SubTag + "AdView not found");
+	        else
+	        	adView.requestFreshAd();
+		}
+		catch ( Exception e)
+		{
+			Log.e(TAG, SubTag + e.getMessage());
+		}
+	        
 		Log.i(TAG, SubTag + "ListRes()"); 
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
     	String username = pref.getString(PREF_USERNAME, null);

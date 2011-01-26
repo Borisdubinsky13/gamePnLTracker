@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.gamesPnL" android:versionName="R-1.6" android:versionCode="16">
+      package="com.gamesPnL" android:versionCode="17" android:versionName="R-1.7">
     <application android:icon="@drawable/icon" android:label="@string/appname">
 		<activity android:label="@string/appname" android:name="com.gamesPnL.DataEntry">
 			<intent-filter>
@@ -70,7 +70,9 @@
 			<meta-data android:value="a14d18e1cd0e067" android:name="ADMOB_PUBLISHER_ID" />
 	        
 			<!-- AdMobActivity definition -->
-			<activity android:name="com.admob.android.ads.AdMobActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:configChanges="orientation|keyboard|keyboardHidden" />
+			<activity android:name="com.admob.android.ads.AdMobActivity" 
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen" 
+			android:configChanges="orientation|keyboard|keyboardHidden" />
 			<!-- Track Market installs -->          
 			<receiver android:name="com.admob.android.ads.analytics.InstallReceiver" android:exported="true">
 			<intent-filter>

@@ -28,7 +28,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public static String SubTag="GamePnLTrackerProvider: ";
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
-	private static final int DATABASE_VERSION = 6;
+	private static final int DATABASE_VERSION = 7;
 	
 	private static final String USER_TABLE_NAME = "gUsers";
 	private static final String PNL_TABLE_NAME = "gPNLData";
@@ -179,19 +179,44 @@ public class GamePnLTrackerProvider extends ContentProvider
 				db.execSQL(sql);
 
 				// Create a user table
-				db.execSQL("CREATE TABLE " + 
+				sql = "CREATE TABLE " + 
 						USER_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-								"name TEXT UNIQUE, " +
-								"passwd TEXT, " +
-								"firstName TEXT, " +
-								"lastName TEXT, " +
-								"email TEXT);");
+						"name TEXT UNIQUE, " +
+						"passwd TEXT, " +
+						"firstName TEXT, " +
+						"lastName TEXT, " +
+						"email TEXT);";
+				Log.i(TAG, SubTag + "exec sql: " + sql);
+				db.execSQL(sql);
 				// copy all the records from the <table>_old to <table>
 				Cursor from;
 				if ( oldVersion <= 6 )
-					from = db.rawQuery("SELECT name,email,passwd FROM " + USER_TABLE_NAME + "_OLD;", null);
+				{
+					sql = "SELECT name,email,passwd FROM " + USER_TABLE_NAME + "_OLD;";
+					Log.i(TAG, SubTag + "exec sql: " + sql);
+					from = db.rawQuery(sql,null);
+					if ( from.moveToFirst() )
+					{
+						do
+						{
+							ContentValues vals = new ContentValues();
+							vals.put("name", from.getString(0));
+							vals.put("email", from.getString(1));
+							vals.put("passwd", from.getString(2));
+							Log.i(TAG, SubTag + "adding record");
+							db.insert(USER_TABLE_NAME,null,vals);
+						} while ( from.moveToNext() );
+						// Delete the <table>_OLD
+						sql = "DROP TABLE IF EXISTS " + USER_TABLE_NAME + "_OLD;";
+						Log.i(TAG, SubTag + "exec sql: " + sql);
+						db.execSQL(sql);
+					}
+				}
+/*
 				else
-					from = db.rawQuery("SELECT name,email,passwd,lastName,firstName FROM " + USER_TABLE_NAME + "_OLD;", null);
+					sql = "SELECT name,email,passwd,lastName,firstName FROM " + USER_TABLE_NAME + "_OLD;";
+				Log.i(TAG, SubTag + "exec sql: " + sql);
+				from = db.rawQuery(sql,null);
 				if ( from.moveToFirst() )
 				{
 					do
@@ -200,24 +225,26 @@ public class GamePnLTrackerProvider extends ContentProvider
 						vals.put("name", from.getString(0));
 						vals.put("email", from.getString(1));
 						vals.put("passwd", from.getString(2));
-						if ( oldVersion > 6 )
+						if ( oldVersion >= 6 )
 						{
 							vals.put("firstName", from.getString(3));
 							vals.put("lastName", from.getString(4));
 						}
+						Log.i(TAG, SubTag + "adding record");
 						db.insert(USER_TABLE_NAME,null,vals);
 					} while ( from.moveToNext() );
 				}
-				// Delete the <table>_OLD
-				db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE_NAME + "_OLD;");
-				
+				sql = "DROP TABLE IF EXISTS " + USER_TABLE_NAME + "_OLD;";
+				Log.i(TAG, SubTag + "exec sql: " + sql);
+				db.execSQL(sql);
+*/				
 				// Next is data table
 				sql = "ALTER TABLE " + PNL_TABLE_NAME + " RENAME TO " + PNL_TABLE_NAME + "_OLD;";
 				Log.i(TAG, SubTag + "exec sql: " + sql);
 				db.execSQL(sql);
 
 				// Create the table
-				db.execSQL("CREATE TABLE " + PNL_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+				sql = "CREATE TABLE " + PNL_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
 						"uid TEXT, " +
 						"name TEXT, " +
 						"amount TEXT, " +
@@ -228,9 +255,25 @@ public class GamePnLTrackerProvider extends ContentProvider
 						"gameType TEXT, " +
 						"gameLimit TEXT, " +
 						"notes TEXT" +
-							");");
+					");";
+				Log.i(TAG, SubTag + "exec sql: " + sql);
+				db.execSQL(sql);
+				
 				// copy all the records from the <table>_old to <table>
-				from = db.rawQuery("SELECT uid,name,amount,date,eventType,gameType,gameLimit,notes FROM " + PNL_TABLE_NAME + "_OLD;", null);
+				sql = "SELECT uid,name,amount,eventType,gameType,gameLimit,notes,date FROM " + PNL_TABLE_NAME + "_OLD;";
+				boolean dateExist = true;
+				try
+				{
+					from = db.rawQuery(sql, null);
+					dateExist = true;
+				}
+				catch (Exception e)
+				{
+					sql = "SELECT uid,name,amount,eventType,gameType,gameLimit,notes,EvYear,EvMonth,EvDay FROM " + PNL_TABLE_NAME + "_OLD;";
+					from = db.rawQuery(sql,null);
+					dateExist = false;
+				}
+				
 				if ( from.moveToFirst() )
 				{
 					do
@@ -262,23 +305,33 @@ public class GamePnLTrackerProvider extends ContentProvider
 							case 3:
 							case 4:
 							case 5:
+							case 6:								
 								uidS = from.getString(0);
 								nameS = from.getString(1);
 								amountS = from.getString(2);
-								dateS = from.getString(3);
-								eventTypeS = from.getString(4);
-								gameTypeS = from.getString(5);
-								gameLimitS = from.getString(6);
-								notesS = from.getString(7);
-								// The current format of the field is mm/dd/yyyy
-								startLoc = 0;
-								endLoc = dateS.indexOf('/');
-								monthS = dateS.substring(startLoc, endLoc);
-								tmp = dateS.substring(endLoc+1);
-								startLoc = 0;
-								endLoc = tmp.indexOf('/');
-								dayS = tmp.substring(startLoc, endLoc);
-								yearS = tmp.substring(endLoc+1);
+								eventTypeS = from.getString(3);
+								gameTypeS = from.getString(4);
+								gameLimitS = from.getString(5);
+								notesS = from.getString(6);
+								if ( dateExist )
+								{
+									dateS = from.getString(7);
+									// The current format of the field is mm/dd/yyyy
+									startLoc = 0;
+									endLoc = dateS.indexOf('/');
+									monthS = dateS.substring(startLoc, endLoc);
+									tmp = dateS.substring(endLoc+1);
+									startLoc = 0;
+									endLoc = tmp.indexOf('/');
+									dayS = tmp.substring(startLoc, endLoc);
+									yearS = tmp.substring(endLoc+1);
+								}
+								else
+								{
+									yearS = from.getString(7);
+									monthS = from.getString(8);
+									dayS = from.getString(9);
+								}
 								Log.i(TAG, SubTag + "Year: " + yearS + " Month: " + monthS + " Day: " + dayS);
 								break;
 							default:
@@ -299,7 +352,9 @@ public class GamePnLTrackerProvider extends ContentProvider
 					} while ( from.moveToNext() );
 				}
 				// Delete the <table>_OLD
-				db.execSQL("DROP TABLE IF EXISTS " + PNL_TABLE_NAME + "_OLD;");
+				sql = "DROP TABLE IF EXISTS " + PNL_TABLE_NAME + "_OLD;";
+				Log.i(TAG, SubTag + "exec sql: " + sql);
+				db.execSQL(sql);
 				
 				// Fainally, status table
 				sql = "ALTER TABLE " + PNL_STATUS_TABLE_NAME + " RENAME TO " + PNL_STATUS_TABLE_NAME + "_OLD;";
@@ -307,12 +362,17 @@ public class GamePnLTrackerProvider extends ContentProvider
 				db.execSQL(sql);
 
 				// Create the table
-				db.execSQL("CREATE TABLE " + PNL_STATUS_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-						"name TEXT, " +
-						"status TEXT " +
-							");");
+				sql = "CREATE TABLE " + PNL_STATUS_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+				"name TEXT, " +
+				"status TEXT " +
+					");";
+				Log.i(TAG, SubTag + "exec sql: " + sql);
+				db.execSQL(sql);
+				
 				// copy all the records from the <table>_old to <table>
-				from = db.rawQuery("SELECT name,status FROM " + PNL_STATUS_TABLE_NAME + "_OLD;", null);
+				sql = "SELECT name,status FROM " + PNL_STATUS_TABLE_NAME + "_OLD;";
+				Log.i(TAG, SubTag + "exec sql: " + sql);
+				from = db.rawQuery(sql, null);
 				if ( from.moveToFirst() )
 				{
 					do
@@ -324,22 +384,32 @@ public class GamePnLTrackerProvider extends ContentProvider
 					} while ( from.moveToNext() );
 				}
 				// Delete the <table>_OLD
-				db.execSQL("DROP TABLE IF EXISTS " + PNL_STATUS_TABLE_NAME + "_OLD;");
+				sql = "DROP TABLE IF EXISTS " + PNL_STATUS_TABLE_NAME + "_OLD;";
+				Log.i(TAG, SubTag + "exec sql: " + sql);
+				db.execSQL(sql);
 				
 				if ( oldVersion <= 4 )
 				{
 					// Create a table that would have list of all games
-					db.execSQL("CREATE TABLE " + PNL_GAMES_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-							"game TEXT, " +
-							"description TEXT, " +
-							"addedBy TEXT" +
-								");");
+					sql = "CREATE TABLE " + PNL_GAMES_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+					"game TEXT, " +
+					"description TEXT, " +
+					"addedBy TEXT" +
+						");";
+					Log.i(TAG, SubTag + "exec sql: " + sql);
+					db.execSQL(sql);
 					// Need to populate this table with some of the games
 					Log.i(TAG, SubTag + "Populating PnL games table");
-	
-					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('TexasHold''em', 'Texas Hold''em', 'gamePnL');" );
-					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Omaha', 'Omaha', 'gamePnL');" );
-					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Stud', 'Stud', 'gamePnL');" );
+					
+					sql = "INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('TexasHold''em', 'Texas Hold''em', 'gamePnL');";
+					Log.i(TAG, SubTag + "exec sql: " + sql);
+					db.execSQL(sql);
+					sql = "INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Omaha', 'Omaha', 'gamePnL');";
+					Log.i(TAG, SubTag + "exec sql: " + sql);
+					db.execSQL(sql);
+					sql = "INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Stud', 'Stud', 'gamePnL');";
+					Log.i(TAG, SubTag + "exec sql: " + sql);
+					db.execSQL(sql);
 				}
 			}
 			catch (Exception e)

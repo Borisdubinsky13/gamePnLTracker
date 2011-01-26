@@ -5,6 +5,8 @@ package com.gamesPnL;
 
 import java.text.DecimalFormat;
 
+import com.admob.android.ads.AdView;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -32,12 +34,21 @@ public class GraphData extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
-		Log.e(TAG, SubTag + "Starting GraphData");
+		Log.i(TAG, SubTag + "Starting GraphData");
 		super.onCreate(savedInstanceState);
-/*		
-        AdView	adView = (AdView)findViewById(R.id.adAfterLogin);
-        adView.requestFreshAd();		
-*/		
+		setContentView(R.layout.graphdata);
+		try
+		{
+		    AdView	adView = (AdView)findViewById(R.id.adAfterLogin);
+		    if ( adView == null )
+		    	Log.e(TAG, SubTag + "AdView not found");
+		    else
+		    	adView.requestFreshAd();
+		}
+		catch ( Exception e)
+		{
+			Log.e(TAG, SubTag + e.getMessage());
+		}
 		setContentView(R.layout.graphdata);
 		// get all the records with the current id ad add all the amounts
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
