@@ -12,7 +12,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -34,20 +33,20 @@ public class GraphData extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
-		Log.i(TAG, SubTag + "Starting GraphData");
+		gamesLogger.i(TAG, SubTag + "Starting GraphData");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.graphdata);
 		try
 		{
 		    AdView	adView = (AdView)findViewById(R.id.adAfterLogin);
 		    if ( adView == null )
-		    	Log.e(TAG, SubTag + "AdView not found");
+		    	gamesLogger.e(TAG, SubTag + "AdView not found");
 		    else
 		    	adView.requestFreshAd();
 		}
 		catch ( Exception e)
 		{
-			Log.e(TAG, SubTag + e.getMessage());
+			gamesLogger.e(TAG, SubTag + e.getMessage());
 		}
 		setContentView(R.layout.graphdata);
 		// get all the records with the current id ad add all the amounts
@@ -71,7 +70,7 @@ public class GraphData extends Activity
 		String	query = "name = '" + username+ "'";
 		
 		Cursor result = managedQuery(tmpUri, projection, query, null, null);
-		Log.i(TAG, SubTag + "there are " + result.getCount() + " records" );
+		gamesLogger.i(TAG, SubTag + "there are " + result.getCount() + " records" );
 		if ( result.getCount() > 0 )
 		{
 			float[] values = new float[result.getCount()+1];
@@ -79,7 +78,7 @@ public class GraphData extends Activity
 			float	min = 0, max = 0;
 			if ( result.moveToFirst() )
 			{
-				Log.i(TAG, SubTag + "got result back from provider");
+				gamesLogger.i(TAG, SubTag + "got result back from provider");
 				String value;
 				float	fValue;
 				int		i=0;
@@ -110,7 +109,7 @@ public class GraphData extends Activity
 	
 			}
 			else
-				Log.i(TAG, SubTag + "No Data returned from Content Provider");
+				gamesLogger.i(TAG, SubTag + "No Data returned from Content Provider");
 			
 			String[] verlabels = new String[] { "$" + df.format(max), "$" + df.format(((min+max)/2)), "$" + df.format(min) };
 			String[] horlabels = new String[] { "", "" };

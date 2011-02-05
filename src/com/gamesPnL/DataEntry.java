@@ -15,7 +15,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -78,7 +77,7 @@ public class DataEntry extends Activity
     	username = pref.getString(PREF_USERNAME, null);
     	this.setTitle("User: " + username);
 
-    	Log.i(TAG, SubTag + " Started data entry window for user: " + username);
+    	gamesLogger.i(TAG, SubTag + " Started data entry window for user: " + username);
        
         // setup buttons
         final Button clearB = (Button)findViewById(R.id.clear);
@@ -103,7 +102,7 @@ public class DataEntry extends Activity
         {
             public void onClick(View v) 
             {
-            	Log.i(TAG, SubTag + "DATE button is clicked");
+            	gamesLogger.i(TAG, SubTag + "DATE button is clicked");
             	new DatePickerDialog(DataEntry.this, mDateSetListener, mYear, mMonth-1, mDay).show();
             }
         });
@@ -117,7 +116,7 @@ public class DataEntry extends Activity
         gmTypeSp.setSelection(0);
 		Cursor result = getContentResolver().query(tmpUri, null, query, null, null);
 		startManagingCursor(result);
-		Log.i(TAG, SubTag + "Everything is ready for the Spinner. # of records: " + result.getCount());
+		gamesLogger.i(TAG, SubTag + "Everything is ready for the Spinner. # of records: " + result.getCount());
 		if ( result.moveToFirst() )
 		{
 			do
@@ -137,7 +136,7 @@ public class DataEntry extends Activity
         {
             public void onClick(View v) 
             {
-            	Log.i(TAG, SubTag + "CLEAR button is clicked");
+            	gamesLogger.i(TAG, SubTag + "CLEAR button is clicked");
             	
             	EditText amount = (EditText)findViewById(R.id.Amount);
             	amount.setText("");
@@ -166,7 +165,7 @@ public class DataEntry extends Activity
             	ContentValues vals = new ContentValues();
             	String eventStr = "Unknown";
             	
-            	Log.i(TAG, SubTag + "WIN button is clicked");
+            	gamesLogger.i(TAG, SubTag + "WIN button is clicked");
              	EditText amount = (EditText)findViewById(R.id.Amount);
              	// String dateT = (String) dateB.getText();
             	EditText nts = (EditText)findViewById(R.id.notes);
@@ -191,12 +190,12 @@ public class DataEntry extends Activity
 	            	vals.put("gameType", gameT);
 	            	vals.put("gameLimit", gameL);
 	            	vals.put("notes", nts.getText().toString());
-	            	Log.i(TAG, SubTag + "Storing date: " + evMonthS + "/" + evDayS + "/" + evYearS);
+	            	gamesLogger.i(TAG, SubTag + "Storing date: " + evMonthS + "/" + evDayS + "/" + evYearS);
 	    			ContentResolver cr = getContentResolver();
-	    			Log.i(TAG, SubTag + "Got content resolver");
+	    			gamesLogger.i(TAG, SubTag + "Got content resolver");
 	    			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 	    			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
-	    			Log.i(TAG, SubTag + "Got URI populated");        			
+	    			gamesLogger.i(TAG, SubTag + "Got URI populated");        			
 	    			cr.insert(tmpUri, vals);            	
 	            	finish();
             	}
@@ -218,7 +217,7 @@ public class DataEntry extends Activity
             	String eventStr = "Unknown";
             	String realAmount = "-";
             	
-            	Log.i(TAG, SubTag + "LOSS button is clicked");
+            	gamesLogger.i(TAG, SubTag + "LOSS button is clicked");
              	EditText amount = (EditText)findViewById(R.id.Amount);
 
             	if ( !amount.getText().toString().equals(""))
@@ -245,12 +244,12 @@ public class DataEntry extends Activity
 	            	vals.put("gameType", gameT);
 	            	vals.put("gameLimit", gameL);
 	            	vals.put("notes", nts.getText().toString());
-	    			Log.i(TAG, SubTag + "Storing date: " + evMonthS + "/" + evDayS + "/" + evYearS);
+	            	gamesLogger.i(TAG, SubTag + "Storing date: " + evMonthS + "/" + evDayS + "/" + evYearS);
 	    			ContentResolver cr = getContentResolver();
-	    			Log.i(TAG, SubTag + "Got content resolver");
+	    			gamesLogger.i(TAG, SubTag + "Got content resolver");
 	    			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 	    			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
-	    			Log.i(TAG, SubTag + "Got URI populated");        			
+	    			gamesLogger.i(TAG, SubTag + "Got URI populated");        			
 	    			cr.insert(tmpUri, vals);            	
 	            	finish();
             	}
@@ -269,7 +268,7 @@ public class DataEntry extends Activity
     @Override
     protected Dialog onCreateDialog(int id) 
     {
-    	Log.i(TAG, SubTag + "onCreateDialog() started....");
+    	gamesLogger.i(TAG, SubTag + "onCreateDialog() started....");
     	Calendar c = Calendar.getInstance();
     	int cyear = c.get(Calendar.YEAR);
     	int cmonth = c.get(Calendar.MONTH);

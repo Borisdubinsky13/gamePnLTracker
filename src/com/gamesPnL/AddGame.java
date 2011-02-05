@@ -10,7 +10,6 @@ import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,13 +54,13 @@ public class AddGame extends Activity
     	    	SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);   
     	    	String username = pref.getString(PREF_USERNAME, null);
             	
-            	Log.i(TAG, SubTag + "AddGame button is clicked");
+    	    	gamesLogger.i(TAG, SubTag + "AddGame button is clicked");
             	vals.put("game", gameName.getText().toString());
             	vals.put("description", gameDesc.getText().toString());
             	vals.put("addedBy", username);
     			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
     			tmpUri = Uri.withAppendedPath(tmpUri,"pnlgames");
-    			Log.i(TAG, SubTag + "Got URI populated");        			
+    			gamesLogger.i(TAG, SubTag + "Got URI populated");        			
     			cr.insert(tmpUri, vals);            	
             	finish();
             }

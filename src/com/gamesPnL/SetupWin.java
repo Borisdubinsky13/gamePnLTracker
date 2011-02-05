@@ -14,7 +14,6 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,8 +43,8 @@ public class SetupWin extends Activity
            
             return md5;
         } catch(NoSuchAlgorithmException e) {
-                Log.e(TAG, SubTag + e.getMessage());
-                return null;
+        	gamesLogger.e(TAG, SubTag + e.getMessage());
+            return null;
         }
 	}
 	
@@ -71,12 +70,12 @@ public class SetupWin extends Activity
             	EditText pss = (EditText)findViewById(R.id.passSup);
             	String md5hash = getMd5Hash(pss.getText().toString());
             	
-            	Log.i(TAG, SubTag + "Add button is clicked");
-            	Log.i(TAG, SubTag + "ID: " + nm.getText().toString());
-            	Log.i(TAG, SubTag + "First name: " + fn.getText().toString());
-            	Log.i(TAG, SubTag + "Last Name: " + ln.getText().toString());
-            	Log.i(TAG, SubTag + "e-mail: " + em.getText().toString());
-            	Log.i(TAG, SubTag + "Pass: " + md5hash);
+            	gamesLogger.i(TAG, SubTag + "Add button is clicked");
+            	gamesLogger.i(TAG, SubTag + "ID: " + nm.getText().toString());
+            	gamesLogger.i(TAG, SubTag + "First name: " + fn.getText().toString());
+            	gamesLogger.i(TAG, SubTag + "Last Name: " + ln.getText().toString());
+            	gamesLogger.i(TAG, SubTag + "e-mail: " + em.getText().toString());
+            	gamesLogger.i(TAG, SubTag + "Pass: " + md5hash);
             	vals.put("name", nm.getText().toString());
             	vals.put("email", em.getText().toString());
             	vals.put("passwd", md5hash);
@@ -84,10 +83,10 @@ public class SetupWin extends Activity
             	vals.put("lastName", ln.getText().toString());
 
     			ContentResolver cr = getContentResolver();
-    			Log.i(TAG, SubTag + "Got content resolver");
+    			gamesLogger.i(TAG, SubTag + "Got content resolver");
     			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
     			tmpUri = Uri.withAppendedPath(tmpUri,"users");
-    			Log.i(TAG, SubTag + "Got URI populated");        			
+    			gamesLogger.i(TAG, SubTag + "Got URI populated");        			
     			cr.insert(tmpUri, vals);
 
             	finish();
@@ -97,7 +96,7 @@ public class SetupWin extends Activity
         {
             public void onClick(View v) 
             {
-            	Log.i(TAG, SubTag + "Cancel button is clicked");
+            	gamesLogger.i(TAG, SubTag + "Cancel button is clicked");
             	finish();
             }
         });

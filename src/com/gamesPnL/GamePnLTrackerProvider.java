@@ -11,8 +11,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
-import android.util.Log;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -68,8 +66,8 @@ public class GamePnLTrackerProvider extends ContentProvider
             return md5;
         } catch(NoSuchAlgorithmException e) 
         {
-                Log.e(TAG, SubTag + e.getMessage());
-                return null;
+        	gamesLogger.e(TAG, SubTag + e.getMessage());
+            return null;
         }
 	}
 	
@@ -94,7 +92,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 		@Override
 		public void onCreate(SQLiteDatabase db) 
 		{
-			Log.i(TAG, SubTag + "Creating Users table");
+			gamesLogger.i(TAG, SubTag + "Creating Users table");
 			try 
 			{
 				Cursor c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='" +
@@ -108,7 +106,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 								"lastName TEXT, " +
 								"email TEXT);");				}
 			
-				Log.i(TAG, SubTag + "Creating PnLdata table");
+				gamesLogger.i(TAG, SubTag + "Creating PnLdata table");
 				c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
 						PNL_TABLE_NAME + "'", null);
 
@@ -128,7 +126,7 @@ public class GamePnLTrackerProvider extends ContentProvider
  							");");
 				}
 
-				Log.i(TAG, SubTag + "Creating PnL status table");
+				gamesLogger.i(TAG, SubTag + "Creating PnL status table");
 				c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
 						PNL_STATUS_TABLE_NAME + "'", null);
 				if (c.getCount()==0) 
@@ -138,7 +136,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 							"status TEXT);");
 				}
 			
-				Log.i(TAG, SubTag + "Creating PnL games table");
+				gamesLogger.i(TAG, SubTag + "Creating PnL games table");
 				c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"  +
 					PNL_GAMES_TABLE_NAME + "'", null);
 
@@ -149,10 +147,10 @@ public class GamePnLTrackerProvider extends ContentProvider
 							"description TEXT, " +
 							"addedBy TEXT" +
  							");";
-					Log.i(TAG, SubTag + "SQL: " + sql);
+					gamesLogger.i(TAG, SubTag + "SQL: " + sql);
 					db.execSQL( sql );
 
-					Log.i(TAG, SubTag + "Populating PnL games table");
+					gamesLogger.i(TAG, SubTag + "Populating PnL games table");
 
 					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('TexasHold''em', 'Texas Hold''em', 'gamePnL');" );
 					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Omaha', 'Omaha', 'gamePnL');" );
@@ -161,21 +159,21 @@ public class GamePnLTrackerProvider extends ContentProvider
 			}
 			catch (Exception e)
 			{
-				Log.e(TAG, SubTag + e.getMessage());
+				gamesLogger.e(TAG, SubTag + e.getMessage());
 			}
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
 		{
-			Log.i(TAG , SubTag + "starting an upgrade from " + oldVersion + " to " + newVersion);
+			gamesLogger.i(TAG , SubTag + "starting an upgrade from " + oldVersion + " to " + newVersion);
 			// First rename the table to <table>_OLD
 
 			try
 			{
 				// Start with user table
 				String sql = "ALTER TABLE " + USER_TABLE_NAME + " RENAME TO " + USER_TABLE_NAME + "_OLD;";
-				Log.i(TAG, SubTag + "exec sql: " + sql);
+				gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 				db.execSQL(sql);
 
 				// Create a user table
@@ -186,14 +184,14 @@ public class GamePnLTrackerProvider extends ContentProvider
 						"firstName TEXT, " +
 						"lastName TEXT, " +
 						"email TEXT);";
-				Log.i(TAG, SubTag + "exec sql: " + sql);
+				gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 				db.execSQL(sql);
 				// copy all the records from the <table>_old to <table>
 				Cursor from;
 				if ( oldVersion <= 6 )
 				{
 					sql = "SELECT name,email,passwd FROM " + USER_TABLE_NAME + "_OLD;";
-					Log.i(TAG, SubTag + "exec sql: " + sql);
+					gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 					from = db.rawQuery(sql,null);
 					if ( from.moveToFirst() )
 					{
@@ -203,44 +201,19 @@ public class GamePnLTrackerProvider extends ContentProvider
 							vals.put("name", from.getString(0));
 							vals.put("email", from.getString(1));
 							vals.put("passwd", from.getString(2));
-							Log.i(TAG, SubTag + "adding record");
+							gamesLogger.i(TAG, SubTag + "adding record");
 							db.insert(USER_TABLE_NAME,null,vals);
 						} while ( from.moveToNext() );
 						// Delete the <table>_OLD
 						sql = "DROP TABLE IF EXISTS " + USER_TABLE_NAME + "_OLD;";
-						Log.i(TAG, SubTag + "exec sql: " + sql);
+						gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 						db.execSQL(sql);
 					}
 				}
-/*
-				else
-					sql = "SELECT name,email,passwd,lastName,firstName FROM " + USER_TABLE_NAME + "_OLD;";
-				Log.i(TAG, SubTag + "exec sql: " + sql);
-				from = db.rawQuery(sql,null);
-				if ( from.moveToFirst() )
-				{
-					do
-					{
-						ContentValues vals = new ContentValues();
-						vals.put("name", from.getString(0));
-						vals.put("email", from.getString(1));
-						vals.put("passwd", from.getString(2));
-						if ( oldVersion >= 6 )
-						{
-							vals.put("firstName", from.getString(3));
-							vals.put("lastName", from.getString(4));
-						}
-						Log.i(TAG, SubTag + "adding record");
-						db.insert(USER_TABLE_NAME,null,vals);
-					} while ( from.moveToNext() );
-				}
-				sql = "DROP TABLE IF EXISTS " + USER_TABLE_NAME + "_OLD;";
-				Log.i(TAG, SubTag + "exec sql: " + sql);
-				db.execSQL(sql);
-*/				
+		
 				// Next is data table
 				sql = "ALTER TABLE " + PNL_TABLE_NAME + " RENAME TO " + PNL_TABLE_NAME + "_OLD;";
-				Log.i(TAG, SubTag + "exec sql: " + sql);
+				gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 				db.execSQL(sql);
 
 				// Create the table
@@ -256,7 +229,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 						"gameLimit TEXT, " +
 						"notes TEXT" +
 					");";
-				Log.i(TAG, SubTag + "exec sql: " + sql);
+				gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 				db.execSQL(sql);
 				
 				// copy all the records from the <table>_old to <table>
@@ -332,7 +305,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 									monthS = from.getString(8);
 									dayS = from.getString(9);
 								}
-								Log.i(TAG, SubTag + "Year: " + yearS + " Month: " + monthS + " Day: " + dayS);
+								gamesLogger.i(TAG, SubTag + "Year: " + yearS + " Month: " + monthS + " Day: " + dayS);
 								break;
 							default:
 								break;
@@ -353,12 +326,12 @@ public class GamePnLTrackerProvider extends ContentProvider
 				}
 				// Delete the <table>_OLD
 				sql = "DROP TABLE IF EXISTS " + PNL_TABLE_NAME + "_OLD;";
-				Log.i(TAG, SubTag + "exec sql: " + sql);
+				gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 				db.execSQL(sql);
 				
 				// Fainally, status table
 				sql = "ALTER TABLE " + PNL_STATUS_TABLE_NAME + " RENAME TO " + PNL_STATUS_TABLE_NAME + "_OLD;";
-				Log.i(TAG, SubTag + "exec sql: " + sql);
+				gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 				db.execSQL(sql);
 
 				// Create the table
@@ -366,12 +339,12 @@ public class GamePnLTrackerProvider extends ContentProvider
 				"name TEXT, " +
 				"status TEXT " +
 					");";
-				Log.i(TAG, SubTag + "exec sql: " + sql);
+				gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 				db.execSQL(sql);
 				
 				// copy all the records from the <table>_old to <table>
 				sql = "SELECT name,status FROM " + PNL_STATUS_TABLE_NAME + "_OLD;";
-				Log.i(TAG, SubTag + "exec sql: " + sql);
+				gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 				from = db.rawQuery(sql, null);
 				if ( from.moveToFirst() )
 				{
@@ -385,7 +358,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 				}
 				// Delete the <table>_OLD
 				sql = "DROP TABLE IF EXISTS " + PNL_STATUS_TABLE_NAME + "_OLD;";
-				Log.i(TAG, SubTag + "exec sql: " + sql);
+				gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 				db.execSQL(sql);
 				
 				if ( oldVersion <= 4 )
@@ -396,27 +369,27 @@ public class GamePnLTrackerProvider extends ContentProvider
 					"description TEXT, " +
 					"addedBy TEXT" +
 						");";
-					Log.i(TAG, SubTag + "exec sql: " + sql);
+					gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 					db.execSQL(sql);
 					// Need to populate this table with some of the games
-					Log.i(TAG, SubTag + "Populating PnL games table");
+					gamesLogger.i(TAG, SubTag + "Populating PnL games table");
 					
 					sql = "INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('TexasHold''em', 'Texas Hold''em', 'gamePnL');";
-					Log.i(TAG, SubTag + "exec sql: " + sql);
+					gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 					db.execSQL(sql);
 					sql = "INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Omaha', 'Omaha', 'gamePnL');";
-					Log.i(TAG, SubTag + "exec sql: " + sql);
+					gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 					db.execSQL(sql);
 					sql = "INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Stud', 'Stud', 'gamePnL');";
-					Log.i(TAG, SubTag + "exec sql: " + sql);
+					gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 					db.execSQL(sql);
 				}
 			}
 			catch (Exception e)
 			{
-				Log.e(TAG, SubTag + e.getMessage());
+				gamesLogger.e(TAG, SubTag + e.getMessage());
 			}
-			Log.i(TAG , SubTag + "Upgrade is complete!");
+			gamesLogger.i(TAG , SubTag + "Upgrade is complete!");
 		}
 	}
 
@@ -429,7 +402,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public int delete(Uri uri, String where, String[] whereArgs) 
 	{
 	      SQLiteDatabase db = dbHelper.getWritableDatabase();
-	      Log.i(TAG, SubTag + "Deleting SQL: " + where);
+	      gamesLogger.i(TAG, SubTag + "Deleting SQL: " + where);
 	      int count;
 			switch (sURIMatcher.match(uri)) 
 			{
@@ -515,7 +488,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public boolean onCreate() 
 	{
 		dbHelper = new DbAdapter(getContext());
-		Log.i(TAG, SubTag + "Created dbHelper");	
+		gamesLogger.i(TAG, SubTag + "Created dbHelper");	
 		
 		return true;
 	}
@@ -534,11 +507,11 @@ public class GamePnLTrackerProvider extends ContentProvider
 			String	sqlStm = "SELECT ";
 			// final DbAdapter dba = new DbAdapter(getContext());
 			SQLiteDatabase dba = dbHelper.getReadableDatabase();
-			Log.i(TAG, SubTag + "Started Query");
+			gamesLogger.i(TAG, SubTag + "Started Query");
 			switch (sURIMatcher.match(uri)) 
 			{
 				case USER:
-					Log.i(TAG, SubTag + "building query for USER table");
+					gamesLogger.i(TAG, SubTag + "building query for USER table");
 					sqlStm += "name FROM ";
 					sqlStm += USER_TABLE_NAME;
 					if ( selection != null )
@@ -546,10 +519,10 @@ public class GamePnLTrackerProvider extends ContentProvider
 						sqlStm += " WHERE ";
 						sqlStm += selection;
 					}
-					Log.i(TAG, SubTag + "sql: " + sqlStm);
+					gamesLogger.i(TAG, SubTag + "sql: " + sqlStm);
 					break;
 				case PNLDATA:
-					Log.i(TAG, SubTag + "building query for DATA table");
+					gamesLogger.i(TAG, SubTag + "building query for DATA table");
 					sqlStm += "_id,name,amount,evYear,evMonth,evDay,eventType,gameType,gameLimit,notes FROM ";
 					sqlStm += PNL_TABLE_NAME;
 					if ( selection != null )
@@ -558,10 +531,10 @@ public class GamePnLTrackerProvider extends ContentProvider
 						sqlStm += selection;
 					}
 					sqlStm += " order by evYear asc, evMonth asc, evDay asc";
-					Log.i(TAG, SubTag + "sql: " + sqlStm);
+					gamesLogger.i(TAG, SubTag + "sql: " + sqlStm);
 					break;
 				case PNLSTATUS:
-					Log.i(TAG, SubTag + "building query for STATUS table");
+					gamesLogger.i(TAG, SubTag + "building query for STATUS table");
 					sqlStm += "_id,name,status FROM ";
 					sqlStm += PNL_STATUS_TABLE_NAME;
 					if ( selection != null )
@@ -569,10 +542,10 @@ public class GamePnLTrackerProvider extends ContentProvider
 						sqlStm += " WHERE ";
 						sqlStm += selection;
 					}
-					Log.i(TAG, SubTag + "sql: " + sqlStm);
+					gamesLogger.i(TAG, SubTag + "sql: " + sqlStm);
 					break;
 				case PNLGAMES:
-					Log.i(TAG, SubTag + "building query for GAMES table");
+					gamesLogger.i(TAG, SubTag + "building query for GAMES table");
 					sqlStm += "_id,game,description,addedBy FROM ";
 					sqlStm += PNL_GAMES_TABLE_NAME;
 					if ( selection != null )
@@ -580,20 +553,20 @@ public class GamePnLTrackerProvider extends ContentProvider
 						sqlStm += " WHERE ";
 						sqlStm += selection;
 					}
-					Log.i(TAG, SubTag + "sql: " + sqlStm);
+					gamesLogger.i(TAG, SubTag + "sql: " + sqlStm);
 					break;
 				default:
-					Log.i(TAG, SubTag + "Unknown request");
+					gamesLogger.i(TAG, SubTag + "Unknown request");
 					throw new IllegalArgumentException("Unknown URI " + uri);
 			}
-			Log.i(TAG, SubTag + "Trying to execute a query.");
+			gamesLogger.i(TAG, SubTag + "Trying to execute a query.");
 			// result = qb.query(db, projection, selection, selectionArgs, null, null, null);
 			result = dba.rawQuery(sqlStm, null);
-			Log.i(TAG, SubTag + "Returning query result");
+			gamesLogger.i(TAG, SubTag + "Returning query result");
 		}
 		catch (Exception e)
 		{
-			Log.e(TAG, SubTag + e.getMessage());
+			gamesLogger.e(TAG, SubTag + e.getMessage());
 			result = null;
 		}
 
@@ -610,7 +583,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 		int count = 0;
 		try
 		{
-			Log.i(TAG, SubTag + "Started....");
+			gamesLogger.i(TAG, SubTag + "Started....");
 			SQLiteDatabase db = dbHelper.getWritableDatabase();
 			getContext().getContentResolver().notifyChange(uri, null);	  	
 			
@@ -624,7 +597,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	            			selectionArgs);
 		    	break;
 		    case PNLDATA:
-		    	Log.i(TAG, SubTag + "Updating " + PNL_TABLE_NAME);
+		    	gamesLogger.i(TAG, SubTag + "Updating " + PNL_TABLE_NAME);
 		    	
 	            count = db.update(
 	            			PNL_TABLE_NAME, 
@@ -650,11 +623,11 @@ public class GamePnLTrackerProvider extends ContentProvider
 		      		throw new IllegalArgumentException("Unknown URI " + uri);
 		      }
 		      getContext().getContentResolver().notifyChange(uri, null);
-		      Log.i(TAG, SubTag + "Ended....");
+		      gamesLogger.i(TAG, SubTag + "Ended....");
 		}
 		catch (Exception e)
 		{
-			Log.e(TAG, SubTag + e.getMessage());
+			gamesLogger.e(TAG, SubTag + e.getMessage());
 		}
 		return count;
 	}

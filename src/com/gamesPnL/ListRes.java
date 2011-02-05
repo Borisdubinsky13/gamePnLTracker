@@ -6,7 +6,6 @@ package com.gamesPnL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import com.admob.android.ads.AdManager;
 import com.admob.android.ads.AdView;
 
 import android.app.ListActivity;
@@ -15,7 +14,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -100,16 +98,16 @@ public class ListRes extends ListActivity
 		{
 	        AdView	adView = (AdView)findViewById(R.id.adListRes);
 	        if ( adView == null )
-	        	Log.e(TAG, SubTag + "AdView not found");
+	        	gamesLogger.e(TAG, SubTag + "AdView not found");
 	        else
 	        	adView.requestFreshAd();
 		}
 		catch ( Exception e)
 		{
-			Log.e(TAG, SubTag + e.getMessage());
+			gamesLogger.e(TAG, SubTag + e.getMessage());
 		}
 	        
-		Log.i(TAG, SubTag + "ListRes()"); 
+		gamesLogger.i(TAG, SubTag + "ListRes()"); 
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
     	String username = pref.getString(PREF_USERNAME, null);
     	
@@ -137,9 +135,9 @@ public class ListRes extends ListActivity
 		String[] columns = new String[] { "amount", "evYear", "gameType"  };
 		int[] to = new int[] { android.R.id.text1, android.R.id.text2 };
 		startManagingCursor(result);
-		Log.i(TAG, SubTag + "Everything is ready for the adapter. # of records: " + result.getCount());
+		gamesLogger.i(TAG, SubTag + "Everything is ready for the adapter. # of records: " + result.getCount());
 		SimpleCursorAdapter items = new SimpleCursorAdapter(this, android.R.layout.two_line_list_item, result, columns, to);
-        Log.i(TAG, SubTag + "adapter has been created and populated");
+		gamesLogger.i(TAG, SubTag + "adapter has been created and populated");
         if ( result.getCount() > 0 )
         {
         	items.setViewBinder(new ShowViewBinder());
@@ -161,7 +159,7 @@ public class ListRes extends ListActivity
 	protected void onListItemClick(ListView l, View v, int position, long id) 
 	{
 		// TODO Auto-generated method stub
-		Log.i(TAG, SubTag + "Clicked on position: " + position );
+		gamesLogger.i(TAG, SubTag + "Clicked on position: " + position );
 		super.onListItemClick(l, v, position, id);
 		
 		// Save the entry in the preferences, so the display activity can display an appropriate record

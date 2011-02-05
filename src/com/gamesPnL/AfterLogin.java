@@ -15,7 +15,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -52,32 +51,32 @@ public class AfterLogin extends Activity
 	    switch (item.getItemId()) 
 	    {
 	    case R.id.About:
-	    	Log.i(TAG, SubTag + "trying to start ABOUT");
+	    	gamesLogger.i(TAG, SubTag + "trying to start ABOUT");
 	    	Intent iAbout = new Intent(this, AboutHandler.class);
 	        startActivity(iAbout);
 	        return true;
 	    case R.id.AddResult:
-	    	Log.i(TAG, SubTag + "trying to start SETUP");
+	    	gamesLogger.i(TAG, SubTag + "trying to start SETUP");
 	    	Intent iDataEntry = new Intent(this, DataEntry.class);
 	        startActivity(iDataEntry);
 	        return true;
 	    case R.id.ViewStats:
-	    	Log.i(TAG, SubTag + "trying to start ViewRes");
+	    	gamesLogger.i(TAG, SubTag + "trying to start ViewRes");
 			Intent iViewRes = new Intent(this, ListRes.class);
 	        startActivity(iViewRes);
 	        return true;
 	    case R.id.viewGraph:
-	    	Log.i(TAG, SubTag + "trying to start GraphData");
+	    	gamesLogger.i(TAG, SubTag + "trying to start GraphData");
 	    	Intent iViewGraph = new Intent(this, GraphData.class);
 	        startActivity(iViewGraph);
 	        return true;
 	    case R.id.AddGame:
-	    	Log.i(TAG, SubTag + "trying to start Add Game");
+	    	gamesLogger.i(TAG, SubTag + "trying to start Add Game");
 	    	Intent iViewAddGame = new Intent(this, AddGame.class);
 	        startActivity(iViewAddGame);
 	        return true;
 	    case R.id.Logout:
-	    	Log.i(TAG, SubTag + "Logging user out");
+	    	gamesLogger.i(TAG, SubTag + "Logging user out");
 	    	SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);   
 	    	String username = pref.getString(PREF_USERNAME, null);
 	    	
@@ -94,7 +93,7 @@ public class AfterLogin extends Activity
         	.putString(PREF_USERNAME, "")
         	.commit();
         	// Intent iLogin = new Intent(this,loginHandler.class);
-	    	Log.i(TAG, SubTag + "trying to logout");
+            gamesLogger.i(TAG, SubTag + "trying to logout");
 	        finish();
 	        return true;
 	    default:
@@ -160,15 +159,15 @@ public class AfterLogin extends Activity
 		
 		// result = getContentResolver().query(tmpUri, null, null, null, null);
 		result = managedQuery(tmpUri, projection, query, null, null);
-		Log.i(TAG, SubTag + "there are " + result.getCount() + " records" );
+		gamesLogger.i(TAG, SubTag + "there are " + result.getCount() + " records" );
 		
 		if ( result.moveToFirst() )
 		{
-			Log.i(TAG, SubTag + "got result back from provider");
+			gamesLogger.i(TAG, SubTag + "got result back from provider");
 			do
 			{
 				value = result.getString(result.getColumnIndex("amount"));
-				Log.i(TAG, SubTag + "got Value:  " + value);
+				gamesLogger.i(TAG, SubTag + "got Value:  " + value);
 				if ( value.equals("") )
 					dValue = 0;
 				else
@@ -178,9 +177,9 @@ public class AfterLogin extends Activity
 			} while (result.moveToNext());
 		}
 		else
-			Log.i(TAG, SubTag + "No Data returned from Content Provider");
+			gamesLogger.i(TAG, SubTag + "No Data returned from Content Provider");
 				
-		Log.i(TAG, SubTag + "Sum:  " + df.format(sum));
+		gamesLogger.i(TAG, SubTag + "Sum:  " + df.format(sum));
 		strHeadStr.setText(strHead);
 		pnlStr.setTextColor(getResources().getColor(android.R.color.background_light));
 		pnlStr.setText(df.format(sum));
@@ -189,6 +188,6 @@ public class AfterLogin extends Activity
 		else
 			pnlStr.setBackgroundColor(0xFFA00000);
 
-		Log.i(TAG, SubTag + "Done!");				
+		gamesLogger.i(TAG, SubTag + "Done!");				
 	}
 }

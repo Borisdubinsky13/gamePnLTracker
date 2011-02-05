@@ -8,7 +8,6 @@ import com.gamesPnL.R;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -46,7 +45,7 @@ public class AboutHandler extends Activity
         }
 		catch (Exception e)
 		{
-			Log.e(TAG, SubTag + e.getMessage());
+			gamesLogger.e(TAG, SubTag + e.getMessage());
 		}
         appVersion.setText(versionName);
         

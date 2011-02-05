@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -51,8 +50,8 @@ public class loginHandler extends Activity
         } 
         catch(NoSuchAlgorithmException e) 
         {
-                Log.e(TAG, SubTag + e.getMessage());
-                return null;
+        	gamesLogger.e(TAG, SubTag + e.getMessage());
+            return null;
         }
 	}
 	
@@ -74,12 +73,12 @@ public class loginHandler extends Activity
 	    switch (item.getItemId()) 
 	    {
 	    case R.id.aboutMenu:
-	    	Log.i(TAG, SubTag + "User " + "trying to start ABOUT");
+	    	gamesLogger.i(TAG, SubTag + "User " + "trying to start ABOUT");
 	    	// Intent iAbout = new Intent(new Intent(this, AboutHandler.class));
 	        startActivity(iAbout);
 	        return true;
 	    case R.id.setup:
-	    	Log.i(TAG, SubTag + "User " + "trying to start SETUP");
+	    	gamesLogger.i(TAG, SubTag + "User " + "trying to start SETUP");
 	        startActivity(iSetup);
 	        return true;
 	    default:
@@ -90,7 +89,7 @@ public class loginHandler extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
-        Log.i(TAG, SubTag + " Enter onCreate() ");
+    	gamesLogger.i(TAG, SubTag + " Enter onCreate() ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         // First check if there are any users. If not, then switch to setup window to add first user.
@@ -112,10 +111,10 @@ public class loginHandler extends Activity
 				"name",
 				"status"
 		};
-		Log.i(TAG, SubTag + "Got URI populated");
+		gamesLogger.i(TAG, SubTag + "Got URI populated");
 		String	query = " status = 'in'";
 		result = managedQuery(tmpUri, projection, query, null, null);
-		Log.i(TAG, SubTag + "got " + result.getCount() + " records");
+		gamesLogger.i(TAG, SubTag + "got " + result.getCount() + " records");
 		if ( result.getCount() >= 1 )
 		{
 			// There is an active user. Skip the login window.
@@ -136,7 +135,7 @@ public class loginHandler extends Activity
         {
         	public boolean isValidUser(String id, String pass)
         	{
-        		Log.i(TAG, SubTag + "User " + id + " is being validated");
+        		gamesLogger.i(TAG, SubTag + "User " + id + " is being validated");
         		if ( id.equals("") || pass.equals("") ) 
         		{
         			text = "Please specify user and password!";
@@ -155,16 +154,16 @@ public class loginHandler extends Activity
         			String selection = "name = '" + id + "' and passwd = '" + pass + "'";
         			
         			ContentResolver cr = getContentResolver();
-        			Log.i(TAG, SubTag + "Got content resolver");
+        			gamesLogger.i(TAG, SubTag + "Got content resolver");
         			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
         			tmpUri = Uri.withAppendedPath(tmpUri,"users");
-        			Log.i(TAG, SubTag + "Got URI populated");    
+        			gamesLogger.i(TAG, SubTag + "Got URI populated");    
         			result = cr.query(tmpUri, projection, selection, null, null);
-        			Log.i(TAG, SubTag + "Populated cursor");
+        			gamesLogger.i(TAG, SubTag + "Populated cursor");
         			cnt = result.getCount();
-        			Log.i(TAG, SubTag + "got count " + cnt);
+        			gamesLogger.i(TAG, SubTag + "got count " + cnt);
         			result.deactivate();
-        			Log.i(TAG, SubTag + "deactivating cursor");
+        			gamesLogger.i(TAG, SubTag + "deactivating cursor");
         			
         			if ( cnt > 0 )
         				return true;
@@ -180,7 +179,7 @@ public class loginHandler extends Activity
 
             public void onClick(View v) 
             {
-            	Log.i(TAG, SubTag + "Login button is clicked");
+            	gamesLogger.i(TAG, SubTag + "Login button is clicked");
             	// get password 
             	EditText idPass = (EditText)findViewById(R.id.passwd);
             	// Setup a preference class that would keep the user id
@@ -204,7 +203,7 @@ public class loginHandler extends Activity
                 	.putString(PREF_USERNAME, idName.getText().toString())
                 	.commit();
                 	Intent iDataEntry = new Intent(loginHandler.this,AfterLogin.class);
-        	    	Log.i(TAG, SubTag + "trying to start afterlogin Activity");
+                	gamesLogger.i(TAG, SubTag + "trying to start afterlogin Activity");
         	        startActivity(iDataEntry);    
                 }
             }

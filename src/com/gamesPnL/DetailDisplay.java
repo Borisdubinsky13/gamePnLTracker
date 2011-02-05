@@ -14,7 +14,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -73,7 +72,7 @@ public class DetailDisplay extends Activity
         final ArrayAdapter<CharSequence> gmLimit = ArrayAdapter.createFromResource(
                 this, R.array.gameLimit, android.R.layout.simple_spinner_item);
  		
-		Log.i(TAG, SubTag + "Started.");
+        gamesLogger.i(TAG, SubTag + "Started.");
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
 		username = pref.getString(PREF_USERNAME, null);
 		idIndex = pref.getString(PREF_ID, null);
@@ -81,14 +80,14 @@ public class DetailDisplay extends Activity
 		
 		this.setTitle("User: " + username);
 		
-		Log.i(TAG, SubTag + "Working with record #" + idIndex + " Name: " + username );
+		gamesLogger.i(TAG, SubTag + "Working with record #" + idIndex + " Name: " + username );
 		// Get the record with all the values, populate all the fields for display
 		String	query = "name = '" + username + "'";
 		Cursor	result;
 		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 		String[] projection = new String[] {
-				"_ID",
+				"_id",
 				"name",
 				"amount",
 				"evYear",
@@ -102,24 +101,24 @@ public class DetailDisplay extends Activity
 		
 		// result = getContentResolver().query(tmpUri, null, null, null, null);
 		result = managedQuery(tmpUri, projection, query, null, null);
-		Log.i(TAG, SubTag + "Number of records:  " + result.getCount());
+		gamesLogger.i(TAG, SubTag + "Number of records:  " + result.getCount());
 		
 		if ( result.moveToFirst() )
 		{
 			for ( int i = 0; i < maxI && result.moveToNext(); i++ )
-				Log.i(TAG, SubTag + "Scanned record " + i);
+				gamesLogger.i(TAG, SubTag + "Scanned record " + i);
 		}
 		
 		workRecord = result.getString(result.getColumnIndex("_id"));
-		Log.i(TAG, SubTag + "ID: " + result.getString(result.getColumnIndex("_id")));
+		gamesLogger.i(TAG, SubTag + "ID: " + result.getString(result.getColumnIndex("_id")));
 		EditText amount = (EditText)findViewById(R.id.Amount);
         amount.setText(result.getString(result.getColumnIndex("amount")));
-        Log.i(TAG, SubTag + "Amount from DB: " + result.getString(result.getColumnIndex("amount")));
+        gamesLogger.i(TAG, SubTag + "Amount from DB: " + result.getString(result.getColumnIndex("amount")));
         dateB = (Button)findViewById(R.id.dateButton);
         String tmpStr = result.getString(result.getColumnIndex("evMonth")) +
         		"/" + result.getString(result.getColumnIndex("evDay")) +
         		"/" + result.getString(result.getColumnIndex("evYear"));
-        Log.i(TAG, SubTag + "Date from DB: " + tmpStr);
+        gamesLogger.i(TAG, SubTag + "Date from DB: " + tmpStr);
         dateB.setText(tmpStr);
         final int mYear = c.get(Calendar.YEAR);
         final int mMonth = c.get(Calendar.MONTH);
@@ -132,7 +131,7 @@ public class DetailDisplay extends Activity
         {
             public void onClick(View v) 
             {
-            	Log.i(TAG, SubTag + "DATE button is clicked");
+            	gamesLogger.i(TAG, SubTag + "DATE button is clicked");
             	new DatePickerDialog(DetailDisplay.this, mDateSetListener, mYear, mMonth, mDay).show();
             }
         });
@@ -163,13 +162,13 @@ public class DetailDisplay extends Activity
         String	gameQuery = "addedBy = '" + username + "'" + " OR addedBy = 'gamePnL'";
 		Cursor typeResult = getContentResolver().query(typeUri, null, gameQuery, null, null);
 		startManagingCursor(typeResult);
-		Log.i(TAG, SubTag + "Everything is ready for the Spinner. # of records: " + typeResult.getCount());
+		gamesLogger.i(TAG, SubTag + "Everything is ready for the Spinner. # of records: " + typeResult.getCount());
 		if ( typeResult.moveToFirst() )
 		{
 			do
 			{
 				String	tmp = typeResult.getString(typeResult.getColumnIndex("game"));
-				Log.i(TAG, SubTag + "Adding " + tmp + " to the Spinner" );
+				gamesLogger.i(TAG, SubTag + "Adding " + tmp + " to the Spinner" );
 				items.add(tmp);
 			} while (typeResult.moveToNext());
 		}
@@ -177,7 +176,7 @@ public class DetailDisplay extends Activity
         gmTypeSp.setAdapter(items);
         String tmp = result.getString(result.getColumnIndex("gameType"));
         int	indx = items.getPosition(tmp);
-        Log.i(TAG, SubTag + "Game type for this record: " + tmp + " index: " + indx);
+        gamesLogger.i(TAG, SubTag + "Game type for this record: " + tmp + " index: " + indx);
         gmTypeSp.setSelection(indx);
         
         gmLimitSp = (Spinner) findViewById(R.id.gLimit);
@@ -194,7 +193,7 @@ public class DetailDisplay extends Activity
         {
         	public void onClick(View v) 
         	{
-        		Log.i(TAG, SubTag + "Deleting record with ID# " + workRecord);
+        		gamesLogger.i(TAG, SubTag + "Deleting record with ID# " + workRecord);
 		    	ContentResolver cr = getContentResolver();
 		    	String	query = "_ID = '" + workRecord + "'";
 		    	Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
@@ -213,7 +212,7 @@ public class DetailDisplay extends Activity
 		    	 String eventStr = "Unknown";
 		    	 String where = "";
             	
-		    	 Log.i(TAG, SubTag + "ACCEPT button is clicked");
+		    	 gamesLogger.i(TAG, SubTag + "ACCEPT button is clicked");
 		    	 EditText amount = (EditText)findViewById(R.id.Amount);
 		    	 // String dateT = (String) dateB.getText();
 		    	 EditText nts = (EditText)findViewById(R.id.notes);
@@ -238,10 +237,10 @@ public class DetailDisplay extends Activity
 		    	 where = "_id = " + workRecord;
 
 		    	 ContentResolver cr = getContentResolver();
-		    	 Log.i(TAG, SubTag + "Got content resolver");
+		    	 gamesLogger.i(TAG, SubTag + "Got content resolver");
 		    	 Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		    	 tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
-		    	 Log.i(TAG, SubTag + "Got URI populated");        			
+		    	 gamesLogger.i(TAG, SubTag + "Got URI populated");        			
 		    	 cr.update(tmpUri, vals, where, null);            	
 		    	 finish(); 
 		     }
@@ -252,7 +251,7 @@ public class DetailDisplay extends Activity
     @Override
     protected Dialog onCreateDialog(int id) 
     {
-    	Log.i(TAG, SubTag + "onCreateDialog() started....");
+    	gamesLogger.i(TAG, SubTag + "onCreateDialog() started....");
     	Calendar c = Calendar.getInstance();
     	int cyear = c.get(Calendar.YEAR);
     	int cmonth = c.get(Calendar.MONTH);
@@ -270,7 +269,7 @@ public class DetailDisplay extends Activity
     	// onDateSet method
     	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) 
     	{
-    		Log.i(TAG, SubTag + "onDateSet() started....");
+    		gamesLogger.i(TAG, SubTag + "onDateSet() started....");
     		dateB.setText(String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth)+"/"+String.valueOf(year));
             evYearS = String.valueOf(year);
             evMonthS = String.valueOf(monthOfYear+1);
