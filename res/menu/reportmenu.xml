@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Curr Month" android:visible="true" android:titleCondensed="Month" android:id="@+id/curMonth"></item>
+    <item android:title="Last Month" android:visible="true" android:id="@+id/lastMonth" android:enabled="true"></item>
+</menu>
