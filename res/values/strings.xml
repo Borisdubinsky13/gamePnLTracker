@@ -5,7 +5,8 @@
     <string name="viewGraph">Graph</string>
     <string name="graphViewAuthor">     Arno den Hond</string>
     <string name="graphViewLabel">GraphView provided by</string>
-    <string name="aboutName">About</string><string name="add">Add</string>
+    <string name="aboutName">About</string>
+    <string name="add">Add</string>
     <string name="AddResName">Add Result</string>
     <string name="applabl">Application:</string>
     <string name="appContVal">     dubi13@hotmail.com</string>

@@ -85,6 +85,7 @@ containing a value of this type.
         public static final int adListRes=0x7f07001d;
         public static final int add=0x7f070028;
         public static final int clear=0x7f070016;
+        public static final int curMonth=0x7f070031;
         public static final int dateButton=0x7f07000d;
         public static final int delete=0x7f070019;
         public static final int dispRelNotes=0x7f070004;
@@ -97,6 +98,7 @@ containing a value of this type.
         public static final int idCash=0x7f07000f;
         public static final int idName=0x7f07001e;
         public static final int idTourney=0x7f07000e;
+        public static final int lastMonth=0x7f070032;
         public static final int lastName=0x7f070026;
         public static final int lastRow=0x7f070012;
         public static final int loginB=0x7f070020;
@@ -129,6 +131,7 @@ containing a value of this type.
     public static final class menu {
         public static final int mainmenu=0x7f060000;
         public static final int preloginmenu=0x7f060001;
+        public static final int reportmenu=0x7f060002;
     }
     public static final class string {
         public static final int AddGameName=0x7f040028;

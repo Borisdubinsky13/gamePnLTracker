@@ -14,6 +14,8 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -43,6 +45,14 @@ public class ListRes extends ListActivity
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.reportmenu, menu);
+	    return true;
 	}
 	
 	class ShowViewBinder implements SimpleCursorAdapter.ViewBinder 
@@ -117,20 +127,7 @@ public class ListRes extends ListActivity
 		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 		this.setTitle("User: " + username);
-/*
-		String[] projection = new String[] {
-				"_id",
-				"name",
-				"amount",
-				"evYear",
-				"evMonth",
-				"evDay",
-				"gameType",
-				"gameLimit",
-				"eventType",
-				"notes"
-		};
-*/
+
 		Cursor result = getContentResolver().query(tmpUri, null, query, null, null);
 		String[] columns = new String[] { "amount", "evYear", "gameType"  };
 		int[] to = new int[] { android.R.id.text1, android.R.id.text2 };

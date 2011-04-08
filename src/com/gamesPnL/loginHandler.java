@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -89,6 +91,21 @@ public class loginHandler extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
+    	// See if this is running on the emulator
+    	String androidId = Settings.Secure.getString 
+    		(this.getContentResolver(), 
+    	 	android.provider.Settings.Secure.ANDROID_ID);
+    	if ( androidId == null )
+    	{
+    		// We are running on the emulator. Debugging should be ON.
+    		gamesLogger.enableLogging(Log.VERBOSE);
+    	}
+    	else
+    	{
+    		// We are running on a phone. Debugging should be OFF.
+    		gamesLogger.enableLogging(Log.ERROR);
+    	}
+    	 
     	gamesLogger.i(TAG, SubTag + " Enter onCreate() ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
