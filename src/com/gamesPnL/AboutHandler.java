@@ -3,8 +3,6 @@
  */
 package com.gamesPnL;
 
-import com.gamesPnL.R;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;

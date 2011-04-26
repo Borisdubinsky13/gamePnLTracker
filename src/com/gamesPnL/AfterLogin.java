@@ -5,9 +5,6 @@ package com.gamesPnL;
 
 import java.text.DecimalFormat;
 
-import com.admob.android.ads.AdView;
-import com.gamesPnL.R;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -19,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.admob.android.ads.AdView;
 
 /**
  * @author Boris

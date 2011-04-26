@@ -5,14 +5,14 @@ package com.gamesPnL;
 
 import java.text.DecimalFormat;
 
-import com.admob.android.ads.AdView;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.admob.android.ads.AdView;
 
 /**
  * @author Boris

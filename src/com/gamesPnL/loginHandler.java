@@ -5,8 +5,6 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.gamesPnL.R;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;

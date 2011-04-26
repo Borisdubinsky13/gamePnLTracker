@@ -6,8 +6,6 @@ package com.gamesPnL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import com.admob.android.ads.AdView;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +19,8 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.admob.android.ads.AdView;
 
 /**
  * @author Boris

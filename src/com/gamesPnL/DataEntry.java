@@ -5,7 +5,6 @@ package com.gamesPnL;
 
 import java.util.Calendar;
 
-import com.gamesPnL.R;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
