@@ -1,3 +1,4 @@
+
 /**
  * 
  */
@@ -5,6 +6,7 @@ package com.gamesPnL;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -14,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -34,6 +37,7 @@ public class ListRes extends ListActivity
 	
 	public static final String PREFS_NAME = "gamePnLTrackerFile";
 	private static final String PREF_USERNAME = "username";
+	private static final String PREF_MONTH = "month";
 	private static final String PREF_ID = "dataTBL_ID";
 	
 	ArrayList<String> indxNames = new ArrayList<String>();
@@ -53,6 +57,38 @@ public class ListRes extends ListActivity
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.reportmenu, menu);
 	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		Calendar c = Calendar.getInstance();
+		String	cMonth = "";
+		// Handle item selection
+	    switch (item.getItemId()) 
+	    {
+	    case R.id.curMonth:
+	    	cMonth = String.valueOf(c.get(Calendar.MONTH) + 1);
+	    	break;
+	    case R.id.lastMonth:
+	    	cMonth = String.valueOf(c.get(Calendar.MONTH));
+	    	break;
+	    default:
+	    	break;
+	    }
+	    if ( cMonth != "" )
+	    {
+	    	gamesLogger.i(TAG, SubTag + "trying to start ViewRes");
+			Intent iViewRes = new Intent(this, ListRes.class);
+        	// store needed month for everybody to access.
+			gamesLogger.i(TAG, SubTag + "Setting month to " + cMonth);
+            getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
+        	.edit()
+        	.putString(PREF_MONTH, cMonth)
+        	.commit();
+	        startActivity(iViewRes);
+	    }
+		return super.onOptionsItemSelected(item);
 	}
 	
 	class ShowViewBinder implements SimpleCursorAdapter.ViewBinder 
@@ -120,9 +156,14 @@ public class ListRes extends ListActivity
 		gamesLogger.i(TAG, SubTag + "ListRes()"); 
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
     	String username = pref.getString(PREF_USERNAME, null);
+    	String neededMonth = pref.getString(PREF_MONTH, null);
     	
 		String	query = "name = '" + username + "'";
-
+		if ( neededMonth != null )
+		{
+			query += " AND evMonth = '" + neededMonth + "'";
+		}
+		gamesLogger.i(TAG, SubTag + "Query: " + query);
  		// Cursor	result;
 		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
@@ -143,7 +184,11 @@ public class ListRes extends ListActivity
         else
         {
         	int duration = Toast.LENGTH_LONG;
-			String text = "Need to add at least one result!";
+        	String text;
+        	if ( neededMonth == null )
+        		text = "Need to add at least one result!";
+        	else
+        		text = "There are no entries for the selected month";
 			Toast toast = Toast.makeText(getApplicationContext(), text, duration);
 			toast.show();
 			finish();
