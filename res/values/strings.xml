@@ -49,4 +49,5 @@
 	<string name="dispRelNotes">Display Release Notes</string>
 	<string name="AddGameName">Add Game</string>
 <string name="addResult">Need to add at least one result</string>
+<string name="exportDB">Export DB</string>
 </resources>

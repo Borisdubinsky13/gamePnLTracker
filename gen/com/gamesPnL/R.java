@@ -62,14 +62,14 @@ containing a value of this type.
         public static final int icon=0x7f020001;
     }
     public static final class id {
-        public static final int About=0x7f07002e;
+        public static final int About=0x7f07002f;
         public static final int AddGBtn=0x7f070008;
         public static final int AddGame=0x7f07002c;
         public static final int AddResult=0x7f070029;
         public static final int Amount=0x7f07000c;
         public static final int AppVersion=0x7f070003;
         public static final int LinearLayout01=0x7f070017;
-        public static final int Logout=0x7f07002d;
+        public static final int Logout=0x7f07002e;
         public static final int Loss=0x7f070015;
         public static final int PNL=0x7f07000b;
         public static final int PNLLabel=0x7f07000a;
@@ -80,16 +80,17 @@ containing a value of this type.
         public static final int TextView02=0x7f070021;
         public static final int ViewStats=0x7f07002a;
         public static final int Win=0x7f070014;
-        public static final int aboutMenu=0x7f070030;
+        public static final int aboutMenu=0x7f070031;
         public static final int adAfterLogin=0x7f070009;
         public static final int adListRes=0x7f07001d;
         public static final int add=0x7f070028;
         public static final int clear=0x7f070016;
-        public static final int curMonth=0x7f070031;
+        public static final int curMonth=0x7f070032;
         public static final int dateButton=0x7f07000d;
         public static final int delete=0x7f070019;
         public static final int dispRelNotes=0x7f070004;
         public static final int emailSup=0x7f070027;
+        public static final int exportDB=0x7f07002d;
         public static final int fstName=0x7f070025;
         public static final int gLimit=0x7f070011;
         public static final int gType=0x7f070010;
@@ -98,7 +99,7 @@ containing a value of this type.
         public static final int idCash=0x7f07000f;
         public static final int idName=0x7f07001e;
         public static final int idTourney=0x7f07000e;
-        public static final int lastMonth=0x7f070032;
+        public static final int lastMonth=0x7f070033;
         public static final int lastName=0x7f070026;
         public static final int lastRow=0x7f070012;
         public static final int loginB=0x7f070020;
@@ -106,7 +107,7 @@ containing a value of this type.
         public static final int notes=0x7f070013;
         public static final int passSup=0x7f070024;
         public static final int passwd=0x7f07001f;
-        public static final int setup=0x7f07002f;
+        public static final int setup=0x7f070030;
         public static final int text1=0x7f07001b;
         public static final int text2=0x7f07001c;
         public static final int topTable=0x7f070005;
@@ -158,6 +159,7 @@ containing a value of this type.
         public static final int dispRelNotes=0x7f040027;
         public static final int earningsTracker=0x7f040022;
         public static final int email=0x7f040014;
+        public static final int exportDB=0x7f04002a;
         public static final int firstNameStr=0x7f040001;
         public static final int gameDescr=0x7f040015;
         public static final int gameLimit=0x7f040016;

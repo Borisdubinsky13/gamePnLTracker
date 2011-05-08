@@ -1,33 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
 	xmlns:android="http://schemas.android.com/apk/res/android">
-	<group 
-		android:id="@menu/mainmenu" 
-		android:enabled="true">
-		<item 
-			android:id="@+id/AddResult" 
-			android:title="@string/AddResName" android:icon="@android:drawable/ic_menu_add">
+	<group android:id="@menu/mainmenu" android:enabled="true">
+		<item android:id="@+id/AddResult" android:title="@string/AddResName"
+			android:icon="@android:drawable/ic_menu_add">
 		</item>
-		<item
-			android:id="@+id/ViewStats" 
-			android:title="@string/ViewStatName" android:icon="@android:drawable/ic_menu_view">
+		<item android:id="@+id/ViewStats" android:title="@string/ViewStatName"
+			android:icon="@android:drawable/ic_menu_view">
 		</item>
-		<item 
-			android:id="@+id/viewGraph" 
-			android:title="@string/viewGraph" 
+		<item android:id="@+id/viewGraph" android:title="@string/viewGraph"
 			android:icon="@drawable/ic_menu_chart">
 		</item>
-		<item 
-			android:id="@+id/AddGame" 
-			android:title="@string/AddGameName" android:icon="@android:drawable/ic_menu_add">
-		</item>		
-		<item 
-			android:id="@+id/Logout" 
-			android:title="@string/logoutStr" android:icon="@android:drawable/ic_menu_close_clear_cancel">
+		<item android:id="@+id/AddGame" android:title="@string/AddGameName"
+			android:icon="@android:drawable/ic_menu_add">
 		</item>
-		<item 
-			android:id="@+id/About" 
-			android:title="@string/aboutName" android:icon="@android:drawable/ic_menu_info_details">
+		<item android:id="@+id/exportDB" android:title="@string/exportDB"
+			android:icon="@android:drawable/ic_menu_share">
 		</item>
-</group>
+		<item android:id="@+id/Logout" android:title="@string/logoutStr"
+			android:icon="@android:drawable/ic_menu_close_clear_cancel">
+		</item>
+		<item android:id="@+id/About" android:title="@string/aboutName"
+			android:icon="@android:drawable/ic_menu_info_details">
+		</item>
+		
+	</group>
 </menu>

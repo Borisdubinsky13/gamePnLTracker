@@ -93,14 +93,16 @@ public class loginHandler extends Activity
     	String androidId = Settings.Secure.getString 
     		(this.getContentResolver(), 
     	 	android.provider.Settings.Secure.ANDROID_ID);
-    	if ( androidId == null )
+    	if ( androidId == null || androidId.equals("9774d56d682e549c"))
     	{
     		// We are running on the emulator. Debugging should be ON.
+    		gamesLogger.e(TAG, SubTag + "Enablig VERBOSE debugging. androidID = " + androidId);
     		gamesLogger.enableLogging(Log.VERBOSE);
     	}
     	else
     	{
     		// We are running on a phone. Debugging should be OFF.
+    		gamesLogger.e(TAG, SubTag + "Enablig ERRORS only debugging. androidID = " + androidId);
     		gamesLogger.enableLogging(Log.ERROR);
     	}
     	 

@@ -10,6 +10,8 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -46,6 +48,9 @@ public class AfterLogin extends Activity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
+		// get all the records with the current id ad add all the amounts
+    	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
+    	String username = pref.getString(PREF_USERNAME, null);
 		// Handle item selection
 	    switch (item.getItemId()) 
 	    {
@@ -74,10 +79,30 @@ public class AfterLogin extends Activity
 	    	Intent iViewAddGame = new Intent(this, AddGame.class);
 	        startActivity(iViewAddGame);
 	        return true;
+	    case R.id.exportDB:
+	    	gamesLogger.i(TAG, SubTag + "trying to export data");
+	      	SQLiteDatabase checkDB = null;
+	      	DatabaseAssistant dba = null;
+	        String DB_PATH = "/data/data/com.gamesPnL/databases/";   
+	        String DB_NAME = "gamepnltracker.db";
+	     	      	 
+	    	try
+	    	{
+	    		String myPath = DB_PATH + DB_NAME;
+	    		checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+	    		gamesLogger.i(TAG, SubTag + "database is open for export");
+	    		dba = new DatabaseAssistant(getBaseContext(), checkDB);
+	    		gamesLogger.i(TAG, SubTag + "db assisant is ready for export");
+	    	}
+	    	catch(SQLiteException e)
+	    	{
+	    		gamesLogger.e(TAG, SubTag + "export data FAILED");
+	    	}
+	    	if ( dba != null )
+	    		dba.exportData();
+	    	return true;
 	    case R.id.Logout:
 	    	gamesLogger.i(TAG, SubTag + "Logging user out");
-	    	SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);   
-	    	String username = pref.getString(PREF_USERNAME, null);
 	    	
    			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 			tmpUri = Uri.withAppendedPath(tmpUri,"pnlstatus");
