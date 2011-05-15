@@ -70,7 +70,7 @@ public class DetailDisplay extends Activity
                 this, R.array.gameType, android.R.layout.simple_spinner_item);
 */
         final ArrayAdapter<CharSequence> gmLimit = ArrayAdapter.createFromResource(
-                this, R.array.gameLimit, android.R.layout.simple_spinner_item);
+                this, R.array.gameLimitLst, android.R.layout.simple_spinner_item);
  		
         gamesLogger.i(TAG, SubTag + "Started.");
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   

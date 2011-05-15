@@ -65,14 +65,10 @@ public class AfterLogin extends Activity
 	        startActivity(iDataEntry);
 	        return true;
 	    case R.id.ViewStats:
-	    	gamesLogger.i(TAG, SubTag + "trying to start ViewRes");
-			Intent iViewRes = new Intent(this, ListRes.class);
+	    	gamesLogger.i(TAG, SubTag + "trying to start DisplayQueryData");
+			// Intent iViewRes = new Intent(this, ListRes.class);
+	    	Intent iViewRes = new Intent(this, DisplayQueryData.class);
 	        startActivity(iViewRes);
-	        return true;
-	    case R.id.viewGraph:
-	    	gamesLogger.i(TAG, SubTag + "trying to start GraphData");
-	    	Intent iViewGraph = new Intent(this, GraphData.class);
-	        startActivity(iViewGraph);
 	        return true;
 	    case R.id.AddGame:
 	    	gamesLogger.i(TAG, SubTag + "trying to start Add Game");

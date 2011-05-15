@@ -23,13 +23,32 @@
     <string name="email">E-Mail:</string>
     <string name="gameDescr">Description:</string>
     <string name="gameLimit">Limit: </string>
-    <string-array name="gameLimit">
+    <string-array name="gameLimitLst">
 		<item>NoLimit</item>
 		<item>Limit</item>
 		<item>PotLimit</item>
 		<item>Mixed</item>
-	</string-array><string name="gameType">Game: </string>
+	</string-array>
+	<string name="gameLimitNameSearch">Limit: </string>
+    <string-array name="gameLimitSearch">
+    	<item>All</item>
+		<item>NoLimit</item>
+		<item>Limit</item>
+		<item>PotLimit</item>
+		<item>Mixed</item>
+	</string-array>
+	<string name="gameType">Game: </string>
 	<string-array name="gameType">
+	</string-array>
+	<string name="evTypeName">Event Type:</string>
+	<string-array name="evTypeArray">
+		<item>Tourney</item>
+		<item>Cash</item>
+	</string-array>
+	<string-array name="evTypeSearch">
+		<item>All</item>
+		<item>Tourney</item>
+		<item>Cash</item>
 	</string-array>
 	<string name="logoutStr">Logout</string>
     <string name="ViewStatName">View Stats.</string>
@@ -48,6 +67,7 @@
 	<string name="updateStr">Update</string>
 	<string name="dispRelNotes">Display Release Notes</string>
 	<string name="AddGameName">Add Game</string>
-<string name="addResult">Need to add at least one result</string>
-<string name="exportDB">Export DB</string>
+	<string name="addResult">Need to add at least one result</string>
+	<string name="exportDB">Export DB</string>
+	<string name="dispquerydata">DisplayQueryData</string>
 </resources>

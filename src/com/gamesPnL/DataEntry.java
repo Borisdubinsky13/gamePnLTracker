@@ -69,7 +69,7 @@ public class DataEntry extends Activity
                 this, R.array.gameType, android.R.layout.simple_spinner_item);
 */
         final ArrayAdapter<CharSequence> gmLimit = ArrayAdapter.createFromResource(
-                this, R.array.gameLimit, android.R.layout.simple_spinner_item);
+                this, R.array.gameLimitLst, android.R.layout.simple_spinner_item);
 
         // go to data entry window
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
@@ -163,6 +163,7 @@ public class DataEntry extends Activity
             {
             	ContentValues vals = new ContentValues();
             	String eventStr = "Unknown";
+            	String	date2db = evYearS + "-" + evMonthS + "-" + evDayS;
             	
             	gamesLogger.i(TAG, SubTag + "WIN button is clicked");
              	EditText amount = (EditText)findViewById(R.id.Amount);
@@ -177,7 +178,7 @@ public class DataEntry extends Activity
             		eventStr = "Tourney";
             	else if ( cashRB.isChecked())
             		eventStr = "Cash";
-            		
+
             	if ( !amount.getText().toString().equals(""))
             	{
 	            	vals.put("name", username);
@@ -185,6 +186,7 @@ public class DataEntry extends Activity
 	            	vals.put("evYear", evYearS);
 	            	vals.put("evMonth", evMonthS);
 	            	vals.put("evDay", evDayS);
+	            	vals.put("evDate", date2db);
 	            	vals.put("eventType", eventStr);
 	            	vals.put("gameType", gameT);
 	            	vals.put("gameLimit", gameL);
@@ -215,6 +217,7 @@ public class DataEntry extends Activity
             	ContentValues vals = new ContentValues();
             	String eventStr = "Unknown";
             	String realAmount = "-";
+            	String	date2db = evYearS + "-" + evMonthS + "-" + evDayS;
             	
             	gamesLogger.i(TAG, SubTag + "LOSS button is clicked");
              	EditText amount = (EditText)findViewById(R.id.Amount);
@@ -239,6 +242,7 @@ public class DataEntry extends Activity
 	            	vals.put("evYear", evYearS);
 	            	vals.put("evMonth", evMonthS);
 	            	vals.put("evDay", evDayS);
+	            	vals.put("evDate", date2db);
 	            	vals.put("eventType", eventStr);
 	            	vals.put("gameType", gameT);
 	            	vals.put("gameLimit", gameL);

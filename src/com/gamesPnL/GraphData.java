@@ -67,8 +67,13 @@ public class GraphData extends Activity
 				"notes"
 		};
 
-		String	query = "name = '" + username+ "'";
-		
+		String	query = null;
+    	Bundle extras = getIntent().getExtras(); 
+    	if(extras !=null)
+    	{
+    		query = extras.getString("queStr");
+    	}
+    	gamesLogger.i(TAG, SubTag + "Query: " + query);
 		Cursor result = managedQuery(tmpUri, projection, query, null, null);
 		gamesLogger.i(TAG, SubTag + "there are " + result.getCount() + " records" );
 		if ( result.getCount() > 0 )

@@ -43,6 +43,13 @@
 					<category android:name="android.intent.category.DEFAULT" />
 				</intent-filter>
 		</activity>
+		<activity android:label="@string/dispquerydata" android:name="com.gamesPnL.DisplayQueryData">
+				<intent-filter>
+					<action android:name="android.intent.action.VIEW" />
+					<action android:name="android.intent.action.PICK" />
+					<category android:name="android.intent.category.DEFAULT" />
+				</intent-filter>
+		</activity>		
 		<activity android:label="@string/dispFullItem" android:name="com.gamesPnL.DetailDisplay">
 				<intent-filter>
 					<action android:name="android.intent.action.VIEW" />

@@ -27,7 +27,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public static String SubTag="GamePnLTrackerProvider: ";
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
-	private static final int DATABASE_VERSION = 7;
+	private static final int DATABASE_VERSION = 8;
 	
 	private static final String USER_TABLE_NAME = "gUsers";
 	private static final String PNL_TABLE_NAME = "gPNLData";
@@ -120,6 +120,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 							"evYear TEXT, " +
 							"evMonth TEXT, " +
 							"evDay TEXT, " +
+							"evDate DATE, " +
 							"eventType TEXT, " +
 							"gameType TEXT, " +
 							"gameLimit TEXT, " +
@@ -167,30 +168,32 @@ public class GamePnLTrackerProvider extends ContentProvider
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
 		{
+			String sql = null;
+			Cursor from;
 			gamesLogger.i(TAG , SubTag + "starting an upgrade from " + oldVersion + " to " + newVersion);
 			// First rename the table to <table>_OLD
 
 			try
 			{
-				// Start with user table
-				String sql = "ALTER TABLE " + USER_TABLE_NAME + " RENAME TO " + USER_TABLE_NAME + "_OLD;";
-				gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
-				db.execSQL(sql);
+				if ( oldVersion <= 6 )
+				{
+					// Start with user table
+					sql = "ALTER TABLE " + USER_TABLE_NAME + " RENAME TO " + USER_TABLE_NAME + "_OLD;";
+					gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
+					db.execSQL(sql);
 
-				// Create a user table
-				sql = "CREATE TABLE " + 
+					// Create a user table
+					sql = "CREATE TABLE " + 
 						USER_TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
 						"name TEXT UNIQUE, " +
 						"passwd TEXT, " +
 						"firstName TEXT, " +
 						"lastName TEXT, " +
 						"email TEXT);";
-				gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
-				db.execSQL(sql);
-				// copy all the records from the <table>_old to <table>
-				Cursor from;
-				if ( oldVersion <= 6 )
-				{
+					gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
+					db.execSQL(sql);
+					// copy all the records from the <table>_old to <table>
+
 					sql = "SELECT name,email,passwd FROM " + USER_TABLE_NAME + "_OLD;";
 					gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 					from = db.rawQuery(sql,null);
@@ -225,6 +228,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 						"evYear TEXT, " +
 						"evMonth TEXT, " +
 						"evDay TEXT, " +
+						"evDate DATE, " +
 						"eventType TEXT, " +
 						"gameType TEXT, " +
 						"gameLimit TEXT, " +
@@ -270,6 +274,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 							String	gameTypeS = null;
 							String	gameLimitS = null;
 							String	notesS = null;
+							String	newDateF = null;
 							String	tmp;
 							 
 							switch ( oldVersion )
@@ -279,7 +284,8 @@ public class GamePnLTrackerProvider extends ContentProvider
 							case 3:
 							case 4:
 							case 5:
-							case 6:								
+							case 6:
+							case 7:
 								uidS = from.getString(0);
 								nameS = from.getString(1);
 								amountS = from.getString(2);
@@ -299,29 +305,33 @@ public class GamePnLTrackerProvider extends ContentProvider
 									endLoc = tmp.indexOf('/');
 									dayS = tmp.substring(startLoc, endLoc);
 									yearS = tmp.substring(endLoc+1);
+									newDateF = dateS;
 								}
 								else
 								{
 									yearS = from.getString(7);
 									monthS = from.getString(8);
 									dayS = from.getString(9);
+									newDateF = yearS + "-" + monthS + "-" + dayS;
 								}
-								gamesLogger.i(TAG, SubTag + "Year: " + yearS + " Month: " + monthS + " Day: " + dayS);
+								vals.put("uid", uidS);
+								vals.put("name", nameS);
+								vals.put("amount", amountS);
+								vals.put("evYear", yearS);
+								vals.put("evMonth", monthS);
+								vals.put("evDay", dayS);
+								vals.put("evDate", newDateF);
+								vals.put("eventType", eventTypeS);
+								vals.put("gameType", gameTypeS);
+								vals.put("gameLimit", gameLimitS);
+								vals.put("notes", notesS);
+								db.insert(PNL_TABLE_NAME,null,vals);
+
+								gamesLogger.i(TAG, SubTag + "Year: " + yearS + " Month: " + monthS + " Day: " + dayS + "(" + newDateF + ")");
 								break;
 							default:
 								break;
 							}
-							vals.put("uid", uidS);
-							vals.put("name", nameS);
-							vals.put("amount", amountS);
-							vals.put("evYear", yearS);
-							vals.put("evMonth", monthS);
-							vals.put("evDay", dayS);
-							vals.put("eventType", eventTypeS);
-							vals.put("gameType", gameTypeS);
-							vals.put("gameLimit", gameLimitS);
-							vals.put("notes", notesS);
-							db.insert(PNL_TABLE_NAME,null,vals);
 						}
 					} while ( from.moveToNext() );
 				}

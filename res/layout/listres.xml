@@ -5,7 +5,6 @@
   android:orientation="vertical"
   android:layout_width="fill_parent" 
   android:layout_height="fill_parent">
- 
       <com.admob.android.ads.AdView
     	android:id="@+id/adListRes"
     	android:layout_width="fill_parent"
