@@ -15,7 +15,7 @@
 		<TextView
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
-				android:text="R-2.1:" android:textSize="20sp" android:textStyle="bold"
+				android:text="R-2.1 (DB Version: 8):" android:textSize="20sp" android:textStyle="bold"
 			/>
 		</TableRow>
 		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
@@ -41,7 +41,15 @@
 		        android:textSize="16sp"
 		        android:text="- Add filtering capabilites for getting graphs"
 		        />
-		</TableRow>				
+		</TableRow>		
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+	 		<TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text="- Add last month total and last event result on the first page"
+		        />
+		</TableRow>		
 		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
 	 		<TextView
 		        android:layout_width="wrap_content"
@@ -50,7 +58,13 @@
 		        android:text="- Add database export to XML file to sd card"
 		        />
 		</TableRow>				
-
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="" android:textSize="20sp" android:textStyle="bold"
+			/>
+		</TableRow>
 		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
 		<TextView
 				android:layout_width="fill_parent"

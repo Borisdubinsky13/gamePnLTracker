@@ -4,7 +4,7 @@
 package com.gamesPnL;
 
 import java.text.DecimalFormat;
-
+import java.util.Calendar;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -18,7 +18,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
-
 import com.admob.android.ads.AdView;
 
 /**
@@ -154,13 +153,14 @@ public class AfterLogin extends Activity
 		String	value;
 		double	sum = 0;
 		double	dValue;
+		double	lastResult = 0;
 		DecimalFormat df = new DecimalFormat("$#,##0.00");
-		final TextView pnlStr = (TextView)findViewById(R.id.PNL);
+		TextView pnlStr = (TextView)findViewById(R.id.PNL);
 		final String strHead = this.getString(R.string.cEarnings);
 		final TextView strHeadStr = (TextView)findViewById(R.id.PNLLabel);
 
+		// Get total career earnings
 		String	query = "name = '" + username+ "'";
-
 		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 		String[] projection = new String[] {
@@ -193,6 +193,7 @@ public class AfterLogin extends Activity
 				else
 					dValue = Double.parseDouble(value);
 				sum += dValue;
+				lastResult = dValue;
 				
 			} while (result.moveToNext());
 		}
@@ -204,6 +205,58 @@ public class AfterLogin extends Activity
 		pnlStr.setTextColor(getResources().getColor(android.R.color.background_light));
 		pnlStr.setText(df.format(sum));
 		if ( sum >= 0 )
+			pnlStr.setBackgroundColor(0xFF00A000);
+		else
+			pnlStr.setBackgroundColor(0xFFA00000);
+
+	    final Calendar c = Calendar.getInstance(); 
+	    int mYear = c.get(Calendar.YEAR); 
+	    int mMonth = c.get(Calendar.MONTH); 
+
+	    // Get this month earnings
+		query = "name = '" + username+ "'";
+        
+        query += " AND evMonth = '" + String.valueOf(mMonth) + "'";
+        query += " AND evYear = '" + String.valueOf(mYear) + "'";
+		result = managedQuery(tmpUri, projection, query, null, null);
+		gamesLogger.i(TAG, SubTag + "there are " + result.getCount() + " records" );
+		
+		if ( result.moveToFirst() )
+		{
+			gamesLogger.i(TAG, SubTag + "got result back from provider");
+			do
+			{
+				value = result.getString(result.getColumnIndex("amount"));
+				gamesLogger.i(TAG, SubTag + "got Value:  " + value);
+				if ( value.equals("") )
+					dValue = 0;
+				else
+					dValue = Double.parseDouble(value);
+				sum += dValue;
+				
+			} while (result.moveToNext());
+		}
+		else
+			gamesLogger.i(TAG, SubTag + "No Data returned from Content Provider");
+				
+		gamesLogger.i(TAG, SubTag + "Sum:  " + df.format(sum));
+		strHeadStr.setText(strHead);
+		pnlStr = (TextView)findViewById(R.id.PNLMonth);
+		pnlStr.setTextColor(getResources().getColor(android.R.color.background_light));
+		pnlStr.setText(df.format(sum));
+		if ( sum >= 0 )
+			pnlStr.setBackgroundColor(0xFF00A000);
+		else
+			pnlStr.setBackgroundColor(0xFFA00000);
+
+	    // Get last event result
+				
+		gamesLogger.i(TAG, SubTag + "Last Result:  " + df.format(lastResult));
+		strHeadStr.setText(strHead);
+		pnlStr = (TextView)findViewById(R.id.PNLLast);
+		pnlStr.setTextColor(getResources().getColor(android.R.color.background_light));
+		pnlStr.setText(df.format(lastResult));
+		if ( lastResult >= 0 )
 			pnlStr.setBackgroundColor(0xFF00A000);
 		else
 			pnlStr.setBackgroundColor(0xFFA00000);
