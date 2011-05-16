@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:myapp="http://schemas.android.com/apk/res/com.gamesPnL"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="20dip">
+
+	<com.admob.android.ads.AdView
+		android:id="@+id/adAfterLogin"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		myapp:backgroundColor="#000000"
+		myapp:primaryTextColor="#FFFFFF"
+		myapp:secondaryTextColor="#CCCCCC"
+	>
+	</com.admob.android.ads.AdView>
+    
+    <ScrollView 
+    	android:id="@+id/ScrollView01" 
+    	android:layout_width="fill_parent" 
+    	android:layout_height="fill_parent">
+	    <TableLayout
+	    	android:layout_height="fill_parent"
+		    android:gravity="top"
+			android:id="@+id/topTable" 
+			android:layout_width="fill_parent">
+			<TableRow>
+		    	<TextView android:layout_gravity="center" android:text="Start Date:"/>
+				<Button android:text="SDate" 
+					android:id="@+id/startDateButton"  
+					android:layout_height="wrap_content"
+					android:layout_width="180dp"
+					/>
+			</TableRow>
+			<TableRow>
+			    <TextView android:layout_gravity="center" android:text="End Date:"/>
+				<Button android:text="EDate" 
+					android:id="@+id/endDateButton"  
+					android:layout_height="wrap_content"
+					android:layout_width="180dp" 
+					/>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="Event Type: " android:layout_gravity="center"/>
+				<Spinner android:id="@+id/eTypeSearch" 
+					android:isScrollContainer="true"
+					android:prompt="@string/evTypeName"/>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="Game: " android:layout_gravity="center" />
+				<Spinner android:layout_width="fill_parent" 
+					android:id="@+id/gType" 
+					android:isScrollContainer="true">
+				</Spinner>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="Limit: " android:layout_gravity="center"/>
+				<Spinner android:id="@+id/gLimit"
+						android:prompt="@string/gameLimit"
+						android:isScrollContainer="true">
+				</Spinner>
+			</TableRow>
+			<TableRow>
+				<TextView android:text=" "/>
+			</TableRow>
+			<RelativeLayout android:gravity="center_horizontal">
+				<Button android:text="Report" 
+						android:id="@+id/report" 
+						android:layout_width="120px" 
+						android:layout_height="wrap_content" />
+				<Button android:layout_height="wrap_content" 
+						android:layout_toRightOf="@+id/report"
+						android:layout_width="120px" 
+						android:id="@+id/graph" 
+						android:text="Graph" />
+			</RelativeLayout>
+		</TableLayout>
+	</ScrollView>
+</LinearLayout>	
