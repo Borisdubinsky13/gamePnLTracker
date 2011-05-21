@@ -3,7 +3,8 @@
  */
 package com.gamesPnL;
 import java.util.Calendar;
-import com.admob.android.ads.AdView;
+import com.google.ads.*;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -73,17 +74,18 @@ public class DisplayQueryData extends Activity
 		
 		super.onPause();
 		setContentView(R.layout.displayquerydata);
-/*
-        AdManager.setTestDevices(new String[] 
-    	{
-        		AdManager.TEST_EMULATOR,
-        		"426F72697360732050686F6E65"
-        });
-*/
-		AdView	adView = (AdView)findViewById(R.id.adAfterLogin);
-		adView.requestFreshAd();
-        
-		gamesLogger.i(TAG, SubTag + "Start....");
+		gamesLogger.i(TAG, SubTag + "Trying to get the add");
+		AdView	adView = (AdView)findViewById(R.id.adDisplayQueryData);
+		/*
+		AdView adView = new AdView(this, AdSize.BANNER, "a14d18e1cd0e067");
+		LinearLayout layout = (LinearLayout)findViewById(R.id.afterLogin);
+		layout.addView(adView);
+		*/
+	    // Initiate a generic request to load it with an ad
+	    adView.loadAd(new AdRequest());
+	    gamesLogger.i(TAG, SubTag + "Got the add");
+
+  		gamesLogger.i(TAG, SubTag + "Start....");
 		
         ArrayAdapter<CharSequence> gmLimit = ArrayAdapter.createFromResource(
         		this, R.array.gameLimitSearch, android.R.layout.simple_spinner_item);
@@ -184,7 +186,6 @@ public class DisplayQueryData extends Activity
         	public void onClick(View v) 
         	{
         		gamesLogger.i(TAG, SubTag + "GRAPH button is clicked");
-        		gamesLogger.i(TAG, SubTag + "REPORT button is clicked");
         		populateQuesryString();
     			Intent iGraphRes = new Intent(DisplayQueryData.this,GraphData.class);
     			gamesLogger.i(TAG, SubTag + "Query: " + IntentQ);

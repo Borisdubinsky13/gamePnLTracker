@@ -142,7 +142,7 @@ public class loginHandler extends Activity
            	.edit()
         	.putString(PREF_USERNAME, result.getString(1).toString())
         	.commit();
-
+            gamesLogger.i(TAG, SubTag + "Trying to start AfterLogin intent");
 	        startActivity(iDataEntry);
 	        finish();
 		}

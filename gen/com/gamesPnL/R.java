@@ -16,114 +16,86 @@ public final class R {
         public static final int gameType=0x7f050002;
     }
     public static final class attr {
-        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int backgroundColor=0x7f010000;
-        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int keywords=0x7f010003;
-        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int primaryTextColor=0x7f010001;
-        /** <p>Must be an integer value, such as "<code>100</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int refreshInterval=0x7f010004;
-        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int secondaryTextColor=0x7f010002;
     }
     public static final class drawable {
         public static final int ic_menu_chart=0x7f020000;
         public static final int icon=0x7f020001;
     }
     public static final class id {
-        public static final int About=0x7f070036;
-        public static final int AddGBtn=0x7f070009;
-        public static final int AddGame=0x7f070033;
-        public static final int AddResult=0x7f070031;
-        public static final int Amount=0x7f07000f;
-        public static final int AppVersion=0x7f070003;
-        public static final int LinearLayout01=0x7f07001a;
-        public static final int Logout=0x7f070035;
-        public static final int Loss=0x7f070018;
-        public static final int PNL=0x7f07000c;
-        public static final int PNLLabel=0x7f07000b;
-        public static final int PNLLast=0x7f07000e;
-        public static final int PNLMonth=0x7f07000d;
-        public static final int ScrollView01=0x7f070000;
-        public static final int TableLayout01=0x7f070001;
-        public static final int TableRow01=0x7f070002;
-        public static final int TextView01=0x7f07002a;
-        public static final int TextView02=0x7f070029;
-        public static final int ViewStats=0x7f070032;
-        public static final int Win=0x7f070017;
-        public static final int aboutMenu=0x7f070038;
-        public static final int adAfterLogin=0x7f07000a;
-        public static final int adListRes=0x7f070025;
-        public static final int add=0x7f070030;
-        public static final int clear=0x7f070019;
-        public static final int curMonth=0x7f070039;
-        public static final int dateButton=0x7f070010;
-        public static final int dbVersionId=0x7f070004;
-        public static final int delete=0x7f07001c;
-        public static final int dispRelNotes=0x7f070005;
-        public static final int eTypeSearch=0x7f070020;
-        public static final int emailSup=0x7f07002f;
-        public static final int endDateButton=0x7f07001f;
-        public static final int exportDB=0x7f070034;
-        public static final int fstName=0x7f07002d;
-        public static final int gLimit=0x7f070014;
-        public static final int gType=0x7f070013;
-        public static final int gameDescr=0x7f070008;
-        public static final int gameName=0x7f070007;
-        public static final int graph=0x7f070022;
-        public static final int idCash=0x7f070012;
-        public static final int idName=0x7f070026;
-        public static final int idTourney=0x7f070011;
-        public static final int lastMonth=0x7f07003a;
-        public static final int lastName=0x7f07002e;
-        public static final int lastRow=0x7f070015;
-        public static final int loginB=0x7f070028;
-        public static final int nameSup=0x7f07002b;
-        public static final int notes=0x7f070016;
-        public static final int passSup=0x7f07002c;
-        public static final int passwd=0x7f070027;
-        public static final int report=0x7f070021;
-        public static final int setup=0x7f070037;
-        public static final int startDateButton=0x7f07001e;
-        public static final int text1=0x7f070023;
-        public static final int text2=0x7f070024;
-        public static final int topTable=0x7f070006;
-        public static final int tvDBViewRow=0x7f07001b;
-        public static final int update=0x7f07001d;
+        public static final int About=0x7f070045;
+        public static final int AddGBtn=0x7f07000b;
+        public static final int AddGame=0x7f070042;
+        public static final int AddResult=0x7f070040;
+        public static final int Amount=0x7f070013;
+        public static final int AppVersion=0x7f070004;
+        public static final int Logout=0x7f070044;
+        public static final int Loss=0x7f07001c;
+        public static final int PNL=0x7f07000f;
+        public static final int PNLLabel=0x7f07000e;
+        public static final int PNLLast=0x7f070011;
+        public static final int PNLMonth=0x7f070010;
+        public static final int ScrollView01=0x7f070001;
+        public static final int TableLayout01=0x7f070002;
+        public static final int TableRow01=0x7f070003;
+        public static final int TextView01=0x7f070039;
+        public static final int TextView02=0x7f070038;
+        public static final int ViewStats=0x7f070041;
+        public static final int Win=0x7f07001b;
+        public static final int aboutMenu=0x7f070047;
+        public static final int about_display=0x7f070000;
+        public static final int adAfterLogin=0x7f07000d;
+        public static final int adDisplayQueryData=0x7f070024;
+        public static final int adGraphData=0x7f07002e;
+        public static final int adListRes=0x7f070031;
+        public static final int add=0x7f07003f;
+        public static final int addgame=0x7f070007;
+        public static final int afterLogin=0x7f07000c;
+        public static final int chart=0x7f07002f;
+        public static final int clear=0x7f07001d;
+        public static final int curMonth=0x7f070048;
+        public static final int dataentry=0x7f070012;
+        public static final int dateButton=0x7f070014;
+        public static final int dbVersionId=0x7f070005;
+        public static final int db_view_row=0x7f07001e;
+        public static final int delete=0x7f070021;
+        public static final int dispRelNotes=0x7f070006;
+        public static final int displayitem=0x7f070020;
+        public static final int displayquerydata=0x7f070023;
+        public static final int displayrow=0x7f07002a;
+        public static final int eTypeSearch=0x7f070027;
+        public static final int emailSup=0x7f07003e;
+        public static final int endDateButton=0x7f070026;
+        public static final int exportDB=0x7f070043;
+        public static final int fstName=0x7f07003c;
+        public static final int gLimit=0x7f070018;
+        public static final int gType=0x7f070017;
+        public static final int gameDescr=0x7f07000a;
+        public static final int gameName=0x7f070009;
+        public static final int graph=0x7f070029;
+        public static final int graphdata=0x7f07002d;
+        public static final int idCash=0x7f070016;
+        public static final int idName=0x7f070033;
+        public static final int idTourney=0x7f070015;
+        public static final int lastMonth=0x7f070049;
+        public static final int lastName=0x7f07003d;
+        public static final int lastRow=0x7f070019;
+        public static final int listres=0x7f070030;
+        public static final int loginB=0x7f070035;
+        public static final int main=0x7f070032;
+        public static final int nameSup=0x7f07003a;
+        public static final int notes=0x7f07001a;
+        public static final int passSup=0x7f07003b;
+        public static final int passwd=0x7f070034;
+        public static final int releasenotes=0x7f070036;
+        public static final int report=0x7f070028;
+        public static final int setup=0x7f070046;
+        public static final int setupscr=0x7f070037;
+        public static final int startDateButton=0x7f070025;
+        public static final int text1=0x7f07002b;
+        public static final int text2=0x7f07002c;
+        public static final int topTable=0x7f070008;
+        public static final int tvDBViewRow=0x7f07001f;
+        public static final int update=0x7f070022;
     }
     public static final class layout {
         public static final int about_display=0x7f030000;
@@ -195,101 +167,4 @@ containing a value of this type.
         public static final int updateStr=0x7f040028;
         public static final int viewGraph=0x7f040002;
     }
-    public static final class styleable {
-        /** Attributes that can be used with a com_admob_android_ads_AdView.
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #com_admob_android_ads_AdView_backgroundColor com.gamesPnL:backgroundColor}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_admob_android_ads_AdView_keywords com.gamesPnL:keywords}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_admob_android_ads_AdView_primaryTextColor com.gamesPnL:primaryTextColor}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_admob_android_ads_AdView_refreshInterval com.gamesPnL:refreshInterval}</code></td><td></td></tr>
-           <tr><td><code>{@link #com_admob_android_ads_AdView_secondaryTextColor com.gamesPnL:secondaryTextColor}</code></td><td></td></tr>
-           </table>
-           @see #com_admob_android_ads_AdView_backgroundColor
-           @see #com_admob_android_ads_AdView_keywords
-           @see #com_admob_android_ads_AdView_primaryTextColor
-           @see #com_admob_android_ads_AdView_refreshInterval
-           @see #com_admob_android_ads_AdView_secondaryTextColor
-         */
-        public static final int[] com_admob_android_ads_AdView = {
-            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
-            0x7f010004
-        };
-        /**
-          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#backgroundColor}
-          attribute's value can be found in the {@link #com_admob_android_ads_AdView} array.
-
-
-          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name android:backgroundColor
-        */
-        public static final int com_admob_android_ads_AdView_backgroundColor = 0;
-        /**
-          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#keywords}
-          attribute's value can be found in the {@link #com_admob_android_ads_AdView} array.
-
-
-          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name android:keywords
-        */
-        public static final int com_admob_android_ads_AdView_keywords = 3;
-        /**
-          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#primaryTextColor}
-          attribute's value can be found in the {@link #com_admob_android_ads_AdView} array.
-
-
-          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name android:primaryTextColor
-        */
-        public static final int com_admob_android_ads_AdView_primaryTextColor = 1;
-        /**
-          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#refreshInterval}
-          attribute's value can be found in the {@link #com_admob_android_ads_AdView} array.
-
-
-          <p>Must be an integer value, such as "<code>100</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name android:refreshInterval
-        */
-        public static final int com_admob_android_ads_AdView_refreshInterval = 4;
-        /**
-          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#secondaryTextColor}
-          attribute's value can be found in the {@link #com_admob_android_ads_AdView} array.
-
-
-          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name android:secondaryTextColor
-        */
-        public static final int com_admob_android_ads_AdView_secondaryTextColor = 2;
-    };
 }

@@ -18,7 +18,8 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.admob.android.ads.AdView;
+import com.google.ads.*;
+import com.google.ads.AdRequest;
 
 /**
  * @author Boris
@@ -88,25 +89,10 @@ public class ListRes extends ListActivity
 	{
 		super.onPause();
 		setContentView(R.layout.listres);
-		/*		
-        AdManager.setTestDevices(new String[] 
-        {
-        		AdManager.TEST_EMULATOR,
-        		"426F72697360732050686F6E65"
-        });
- */
-		try
-		{
-	        AdView	adView = (AdView)findViewById(R.id.adListRes);
-	        if ( adView == null )
-	        	gamesLogger.e(TAG, SubTag + "AdView not found");
-	        else
-	        	adView.requestFreshAd();
-		}
-		catch ( Exception e)
-		{
-			gamesLogger.e(TAG, SubTag + e.getMessage());
-		}
+
+		AdView	adView = (AdView)findViewById(R.id.adListRes);
+		// Initiate a generic request to load it with an ad
+	    adView.loadAd(new AdRequest());
 	        
 		gamesLogger.i(TAG, SubTag + "ListRes()"); 
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   

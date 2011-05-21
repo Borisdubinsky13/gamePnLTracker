@@ -18,7 +18,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
-import com.admob.android.ads.AdView;
+import com.google.ads.*;
 
 /**
  * @author Boris
@@ -130,19 +130,15 @@ public class AfterLogin extends Activity
 	@Override
 	protected void onResume()
 	{
-
 		super.onPause();
 		setContentView(R.layout.afterlogin);
-/*
-        AdManager.setTestDevices(new String[] 
-    	{
-        		AdManager.TEST_EMULATOR,
-        		"426F72697360732050686F6E65"
-        });
-*/
+
+		gamesLogger.i(TAG, SubTag + "Trying to get the add");
 		AdView	adView = (AdView)findViewById(R.id.adAfterLogin);
-		adView.requestFreshAd();
-		
+
+	    // Initiate a generic request to load it with an ad
+	    adView.loadAd(new AdRequest());
+	    gamesLogger.i(TAG, SubTag + "Got the add");
 		// get all the records with the current id ad add all the amounts
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
     	String username = pref.getString(PREF_USERNAME, null);

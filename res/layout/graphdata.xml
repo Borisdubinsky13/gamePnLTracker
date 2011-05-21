@@ -3,13 +3,16 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
-  xmlns:myapp="http://schemas.android.com/apk/res/com.gamesPnL">
-  	<com.admob.android.ads.AdView
-		android:id="@+id/adAfterLogin"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		myapp:backgroundColor="#000000"
-		myapp:primaryTextColor="#FFFFFF"
-		myapp:secondaryTextColor="#CCCCCC">
-	</com.admob.android.ads.AdView>
+  xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+  android:id="@+id/graphdata">
+  <com.google.ads.AdView android:id="@+id/adGraphData" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" 
+		ads:adUnitId="a14d18e1cd0e067" 
+		ads:adSize="BANNER"/>
+	<LinearLayout android:id="@+id/chart" 
+		android:orientation="horizontal"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" 
+		android:layout_weight="1" />
 </LinearLayout>
