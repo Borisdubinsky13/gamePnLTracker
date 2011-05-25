@@ -69,6 +69,12 @@ public class AfterLogin extends Activity
 	    	Intent iViewRes = new Intent(this, DisplayQueryData.class);
 	        startActivity(iViewRes);
 	        return true;
+	    case R.id.Analysis:
+	    	gamesLogger.i(TAG, SubTag + "trying to start DataAnalysis");
+			// Intent iViewRes = new Intent(this, ListRes.class);
+	    	Intent iViewAnalysis = new Intent(this, DataAnalysis.class);
+	        startActivity(iViewAnalysis);
+	        return true;
 	    case R.id.AddGame:
 	    	gamesLogger.i(TAG, SubTag + "trying to start Add Game");
 	    	Intent iViewAddGame = new Intent(this, AddGame.class);
@@ -207,16 +213,16 @@ public class AfterLogin extends Activity
 
 	    final Calendar c = Calendar.getInstance(); 
 	    int mYear = c.get(Calendar.YEAR); 
-	    int mMonth = c.get(Calendar.MONTH); 
+	    int mMonth = c.get(Calendar.MONTH) + 1; 
 
 	    // Get this month earnings
 		query = "name = '" + username+ "'";
-        
-        query += " AND evMonth = '" + String.valueOf(mMonth) + "'";
-        query += " AND evYear = '" + String.valueOf(mYear) + "'";
+		String startDate = String.format("%04d", mYear) + "-" + String.format("%02d",mMonth) + "-01";
+        query += " AND evDate >= '" + startDate + "'";
 		result = managedQuery(tmpUri, projection, query, null, null);
 		gamesLogger.i(TAG, SubTag + "there are " + result.getCount() + " records" );
 		
+		sum = 0;
 		if ( result.moveToFirst() )
 		{
 			gamesLogger.i(TAG, SubTag + "got result back from provider");

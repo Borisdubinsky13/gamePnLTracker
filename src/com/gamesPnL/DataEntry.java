@@ -86,16 +86,13 @@ public class DataEntry extends Activity
         final int mMonth = c.get(Calendar.MONTH) + 1;
         final int mDay = c.get(Calendar.DAY_OF_MONTH);
         
-        evYearS = String.valueOf(mYear);
-        evMonthS = String.valueOf(mMonth);
-        evDayS =  String.valueOf(mDay);
-
+        evYearS = String.format("%04d", mYear);
+        evMonthS = String.format("%02d", mMonth);
+        evDayS =  String.format("%02d", mDay);
+        String eventDate = evMonthS + "/" + evDayS + " /" + evYearS;
+        
         dateB = (Button)findViewById(R.id.dateButton);
-    	dateB.setText( new StringBuilder()
-    		// Month is 0 based so add 1
-        	.append(mMonth).append("/")
-        	.append(mDay).append("/")
-        	.append(mYear).append(" "));
+    	dateB.setText( eventDate );
 
     	dateB.setOnClickListener(new View.OnClickListener()
         {
@@ -140,14 +137,17 @@ public class DataEntry extends Activity
             	EditText amount = (EditText)findViewById(R.id.Amount);
             	amount.setText("");
             	
-            	int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-            	dateB.setText( new StringBuilder()
-                    // Month is 0 based so add 1
-                    .append(mMonth+1).append("/")
-                    .append(mDay).append("/")
-                    .append(mYear).append(" "));
+                final int mYear = c.get(Calendar.YEAR);
+                final int mMonth = c.get(Calendar.MONTH) + 1;
+                final int mDay = c.get(Calendar.DAY_OF_MONTH);
+                
+                evYearS = String.format("%04d", mYear);
+                evMonthS = String.format("%02d", mMonth);
+                evDayS =  String.format("%02d", mDay);
+                String eventDate = evMonthS + "/" + evDayS + " /" + evYearS;
+                
+                dateB = (Button)findViewById(R.id.dateButton);
+            	dateB.setText( eventDate );
             	
              	gmTypeSp.setSelection(0);
              	gmLimitSp.setSelection(0);
@@ -289,11 +289,12 @@ public class DataEntry extends Activity
     	// onDateSet method
     	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) 
     	{
-    		dateB.setText(String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth)+"/"+String.valueOf(year));
-            evYearS = String.valueOf(year);
-            evMonthS = String.valueOf(monthOfYear+1);
-            evDayS = String.valueOf(dayOfMonth);
-    		
+            evYearS = String.format("%04d", year);
+            evMonthS = String.format("%02d", monthOfYear+1);
+            evDayS =  String.format("%02d", dayOfMonth);
+            
+            String eventDate = evMonthS + "/" + evDayS + "/" + evYearS;
+    		dateB.setText(eventDate);
     	}
 
     };

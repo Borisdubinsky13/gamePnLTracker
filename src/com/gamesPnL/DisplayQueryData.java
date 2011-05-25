@@ -3,6 +3,7 @@
  */
 package com.gamesPnL;
 import java.util.Calendar;
+
 import com.google.ads.*;
 
 import android.app.Activity;
@@ -76,11 +77,7 @@ public class DisplayQueryData extends Activity
 		setContentView(R.layout.displayquerydata);
 		gamesLogger.i(TAG, SubTag + "Trying to get the add");
 		AdView	adView = (AdView)findViewById(R.id.adDisplayQueryData);
-		/*
-		AdView adView = new AdView(this, AdSize.BANNER, "a14d18e1cd0e067");
-		LinearLayout layout = (LinearLayout)findViewById(R.id.afterLogin);
-		layout.addView(adView);
-		*/
+
 	    // Initiate a generic request to load it with an ad
 	    adView.loadAd(new AdRequest());
 	    gamesLogger.i(TAG, SubTag + "Got the add");
@@ -191,7 +188,6 @@ public class DisplayQueryData extends Activity
     			gamesLogger.i(TAG, SubTag + "Query: " + IntentQ);
     			iGraphRes.putExtra("queStr", IntentQ);
      	        startActivity(iGraphRes);
-    	            	
    	        };
         });
 	}
@@ -255,11 +251,14 @@ public class DisplayQueryData extends Activity
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) 
 		{
 			gamesLogger.i(TAG, SubTag + "executing onDateSet()");
-			evYearS = String.valueOf(year);
-			evMonthS = String.valueOf(monthOfYear+1);
-			evDayS = String.valueOf(dayOfMonth);
-			StartDateB.setText(String.valueOf(evMonthS)+"/"+String.valueOf(evDayS)+"/"+String.valueOf(evYearS));
-			startSearchDate = String.valueOf(evYearS) + "-" + String.valueOf(evMonthS) + "-" + String.valueOf(evDayS);
+
+			evYearS = String.format("%04d",year);
+			evMonthS = String.format("%02d", monthOfYear+1);
+			evDayS = String.format("%02d",dayOfMonth);
+			String	dateStr = evYearS + "/" + evMonthS + "/" + evDayS;
+			gamesLogger.i(TAG, SubTag + "Date String for button: " + dateStr);
+			StartDateB.setText(dateStr);
+			startSearchDate = evYearS + "-" + evMonthS + "-" + evDayS;
 		}
 	};
 
@@ -269,11 +268,13 @@ public class DisplayQueryData extends Activity
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) 
 		{
 			gamesLogger.i(TAG, SubTag + "executing onDateSet()");
-			evYearS = String.valueOf(year);
-			evMonthS = String.valueOf(monthOfYear+1);
-			evDayS = String.valueOf(dayOfMonth);
-			EndDateB.setText(String.valueOf(evMonthS)+"/"+String.valueOf(evDayS)+"/"+String.valueOf(evYearS));
-			endSearchDate = String.valueOf(evYearS) + "-" + String.valueOf(evMonthS) + "-" + String.valueOf(evDayS);
+			evYearS = String.format("%04d",year);
+			evMonthS = String.format("%02d", monthOfYear+1);
+			evDayS = String.format("%02d",dayOfMonth);
+			String	dateStr = evYearS + "/" + evMonthS + "/" + evDayS;
+			gamesLogger.i(TAG, SubTag + "Date String for button: " + dateStr);
+			EndDateB.setText(dateStr);
+			endSearchDate = evYearS + "-" + evMonthS + "-" + evDayS;
 
 		}
 	};

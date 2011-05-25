@@ -16,7 +16,7 @@
     <string name="appname">gamePnLTracker</string>
     <string name="appdescrip">     Games Profits aNd Losses Tracker</string>
     <string name="appVerLabel">Version:</string>
-    <string name="appVer">     R-2.1</string>
+    <string name="appVer">     R-2.2</string>
     <string name="Cancel">Cancel</string>
     <string name="cEarnings">Your career earnings: </string>
     <string name="dispFullItem">Result Entry: </string>
@@ -28,6 +28,13 @@
 		<item>Limit</item>
 		<item>PotLimit</item>
 		<item>Mixed</item>
+	</string-array>
+	<string name="AnalyzeBy">Analyze by</string>
+	<string-array name="analyzeByNames">
+		<item>Make a selection</item>
+		<item>Event Type</item>
+		<item>Game Type</item>
+		<item>Limit</item>
 	</string-array>
 	<string name="gameLimitNameSearch">Limit: </string>
     <string-array name="gameLimitSearch">
@@ -70,6 +77,7 @@
 	<string name="addResult">Need to add at least one result</string>
 	<string name="exportDB">Export DB</string>
 	<string name="dispquerydata">DisplayQueryData</string>
-	<string name="dbVersion">      8</string>
+	<string name="dbVersion">      9</string>
 	<string name="dbVersionLabel">Database Version: </string>
+	<string name="analysisTitle">Analysis</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.gamesPnL" android:versionCode="22" android:versionName="R-2.2">
-    <application android:icon="@drawable/icon" android:label="@string/appname">
+    <application android:icon="@drawable/icon" android:label="@string/appname" android:allowClearUserData="true">
 		<activity android:label="@string/appname" android:name="com.gamesPnL.DataEntry">
 			<intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -49,6 +49,13 @@
 					<action android:name="android.intent.action.PICK" />
 					<category android:name="android.intent.category.DEFAULT" />
 				</intent-filter>
+		</activity>
+		<activity android:label="@string/dispquerydata" android:name="com.gamesPnL.DataAnalysis">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<action android:name="android.intent.action.PICK" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
 		</activity>		
 		<activity android:label="@string/dispFullItem" android:name="com.gamesPnL.DetailDisplay">
 				<intent-filter>
@@ -71,6 +78,7 @@
 			<category android:name="android.intent.category.DEFAULT" />
 		</intent-filter>
 		</activity>
+		<activity android:name="org.achartengine.GraphicalActivity"/>
 		<activity android:name="com.google.ads.AdActivity"
               android:configChanges="keyboard|keyboardHidden|orientation"/>
 		<provider android:authorities="com.gamesPnL.provider.userContentProvider" android:name="com.gamesPnL.GamePnLTrackerProvider" />

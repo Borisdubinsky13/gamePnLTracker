@@ -6,7 +6,6 @@ package com.gamesPnL;
 import java.text.DecimalFormat;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -15,9 +14,7 @@ import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.google.ads.*;
-
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
@@ -39,7 +36,6 @@ public class GraphData extends Activity
 	private static final String PREF_USERNAME = "username";
 	public String currentUser = new String();
 	DecimalFormat df = new DecimalFormat("#,##0.00");
-	private GraphicalView mChartView;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -50,14 +46,15 @@ public class GraphData extends Activity
 		gamesLogger.i(TAG, SubTag + "Starting GraphData");
 		super.onCreate(savedInstanceState);
 	}
+	
 	protected void onResume() 
 	{
 		super.onResume();
 	
+		GraphicalView mChartView = null;
 		setContentView(R.layout.graphdata);
 		
 		AdView	adView = (AdView)findViewById(R.id.adGraphData);
-		// Initiate a generic request to load it with an ad
 	    adView.loadAd(new AdRequest());
 	    
 	    int		i=0;
@@ -91,6 +88,7 @@ public class GraphData extends Activity
 		if ( result.getCount() > 0 )
 		{
 			double[] values = new double[result.getCount()+1];
+			double[] vSeries = new double[result.getCount()+1];
 			double	sum = 0;
 			double	min = 0, max = 0;
 			if ( result.moveToFirst() )
@@ -107,7 +105,9 @@ public class GraphData extends Activity
 					else
 						fValue = Float.parseFloat(value);
 					sum += fValue;
+					vSeries[i] = fValue;
 					values[i++] = sum;
+
 					if ( i == 1 )
 					{
 						// First read value. Use it as a min and a max
@@ -132,29 +132,70 @@ public class GraphData extends Activity
 			GraphView graphView = new GraphView(this, values, "Running Total", horlabels, verlabels, GraphView.LINE);
 			setContentView(graphView);
 */
-			XYValueSeries mDataset = new XYValueSeries("Earnings");
-			XYSeriesRenderer mRenderer = new XYSeriesRenderer();
-			XYSeriesRenderer r = new XYSeriesRenderer();
-			Context	context;
-			mRenderer.setColor(Color.CYAN);
-			mRenderer.setPointStyle(PointStyle.CIRCLE);
+			XYSeries sDataset = new XYValueSeries("Earnings");
+			XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
+			
 		    int seriesLength = i;
+		    sDataset.clear();
+		    gamesLogger.i(TAG, SubTag + "Adding " + i + " elements" );
 		    for (int k = 0; k < seriesLength; k++) 
 		    {
-		    	mDataset.add(k, values[k]);
+		    	gamesLogger.i(TAG, SubTag + "Adding " + values[k]);
+		    	sDataset.add(k, values[k]);
 		    }
-		      
+		    mDataset.addSeries(sDataset);
+		    gamesLogger.i(TAG, SubTag + "Dataset has been populated");
+		    int[] colors = new int[] { Color.CYAN};
+		    PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE};
+
+		    XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
+		    mRenderer.setAxisTitleTextSize(16);
+		    mRenderer.setChartTitleTextSize(20);
+		    mRenderer.setLabelsTextSize(15);
+		    mRenderer.setLegendTextSize(15);
+		    mRenderer.setPointSize(5f);
+		    mRenderer.setXLabels(0);
+		    mRenderer.setShowGrid(true);
+		    mRenderer.setDisplayChartValues(true);
+		    mRenderer.setChartTitle("Earnings");
+		    mRenderer.setXTitle("Date");
+		    mRenderer.setYTitle("$");
+		    mRenderer.setXAxisMin(0);
+		    mRenderer.setXAxisMax(i);
+		    mRenderer.setYAxisMin((double)min);
+		    mRenderer.setYAxisMax(max);
+		    mRenderer.setAxesColor(Color.WHITE);
+		    mRenderer.setLabelsColor(Color.WHITE);
+		    
+		    // mRenderer.setMargins(new int[] { 20, 30, 15, 0 });
+		    int length = colors.length;
+		    for ( int k = 0; k < length; k++) 
+		    {
+		    	XYSeriesRenderer r = new XYSeriesRenderer();
+		    	r.setColor(colors[k]);
+		    	r.setPointStyle(styles[k]);
+		    	mRenderer.addSeriesRenderer(r);
+		    }
+		    length = mRenderer.getSeriesRendererCount();
+		    for (int k = 0; k < length; k++) 
+		    {
+		      ((XYSeriesRenderer) mRenderer.getSeriesRendererAt(k)).setFillPoints(true);
+		    }
+		    gamesLogger.i(TAG, SubTag + "mRenderer and mDataset are set");
 			if (mChartView == null) 
 			{
-			    LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
-			    mChartView = ChartFactory.getLineChartIntent(this, mDataset, mRenderer);
-			    layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-			    layout.refreshDrawableState();
+				try 
+				{
+					LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
+					gamesLogger.i(TAG, SubTag + "mDataset count: " + mDataset.getSeriesCount());
+					mChartView = ChartFactory.getLineChartView(this, mDataset, mRenderer);
+					layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+				}
+				catch (Exception e)
+				{
+					gamesLogger.e(TAG, SubTag + e.getMessage());
+				}
 			} 
-			else 
-			{
-			    mChartView.repaint();
-			}
 		}
 		else
         {

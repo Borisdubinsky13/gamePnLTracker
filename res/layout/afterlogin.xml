@@ -17,10 +17,10 @@
 		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
 			<TextView android:layout_height="wrap_content" 
 				android:layout_width="fill_parent" 
-				android:textSize="25sp" 
+				android:textSize="25sp"
 				android:text="Your career earnings:" 
 				android:id="@+id/PNLLabel" 
-				android:textStyle="normal">
+				android:textStyle="normal" android:layout_gravity="center_horizontal">
 			</TextView>
 		</TableRow>
 		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
@@ -28,7 +28,8 @@
 				android:layout_width="fill_parent" 
 				android:text="Amount" 
 				android:id="@+id/PNL" 
-				android:textSize="60sp" android:textStyle="normal|bold">
+				android:textSize="60sp" 
+				android:textStyle="normal|bold">
 			</TextView>
 		</TableRow>
 		<TableRow>
@@ -48,7 +49,7 @@
 				android:layout_width="fill_parent" 
 				android:text="Amount" 
 				android:id="@+id/PNLMonth" 
-				android:textSize="50sp" android:textStyle="normal|bold">
+				android:textSize="40sp" android:textStyle="normal|bold">
 			</TextView>
 		</TableRow>	
 		<TableRow>
@@ -68,7 +69,7 @@
 				android:layout_width="fill_parent" 
 				android:text="Amount" 
 				android:id="@+id/PNLLast" 
-				android:textSize="45sp" android:textStyle="normal|bold">
+				android:textSize="35sp" android:textStyle="normal|bold">
 			</TextView>
 		</TableRow>	
 	</TableLayout>

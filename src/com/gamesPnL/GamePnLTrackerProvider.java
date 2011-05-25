@@ -27,7 +27,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public static String SubTag="GamePnLTrackerProvider: ";
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
-	private static final int DATABASE_VERSION = 8;
+	private static final int DATABASE_VERSION = 9;
 	
 	private static final String USER_TABLE_NAME = "gUsers";
 	private static final String PNL_TABLE_NAME = "gPNLData";
@@ -286,6 +286,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 							case 5:
 							case 6:
 							case 7:
+							case 8:
 								uidS = from.getString(0);
 								nameS = from.getString(1);
 								amountS = from.getString(2);
@@ -305,15 +306,18 @@ public class GamePnLTrackerProvider extends ContentProvider
 									endLoc = tmp.indexOf('/');
 									dayS = tmp.substring(startLoc, endLoc);
 									yearS = tmp.substring(endLoc+1);
-									newDateF = dateS;
 								}
 								else
 								{
 									yearS = from.getString(7);
 									monthS = from.getString(8);
 									dayS = from.getString(9);
-									newDateF = yearS + "-" + monthS + "-" + dayS;
 								}
+								dayS = String.format("%02d", Integer.parseInt(dayS));
+								monthS = String.format("%02d", Integer.parseInt(monthS));
+								yearS = String.format("%04d", Integer.parseInt(yearS));
+								newDateF = yearS + "-" + monthS + "-" + dayS;
+								
 								vals.put("uid", uidS);
 								vals.put("name", nameS);
 								vals.put("amount", amountS);

@@ -65,10 +65,7 @@ public class DetailDisplay extends Activity
     protected void onResume()
     {
     	super.onPause();
-/*
-        final ArrayAdapter<CharSequence> gmType = ArrayAdapter.createFromResource(
-                this, R.array.gameType, android.R.layout.simple_spinner_item);
-*/
+
         final ArrayAdapter<CharSequence> gmLimit = ArrayAdapter.createFromResource(
                 this, R.array.gameLimitLst, android.R.layout.simple_spinner_item);
  		
