@@ -147,6 +147,9 @@ public class loginHandler extends Activity
 	        finish();
 		}
 		
+		if ( result != null )
+			result.close();
+		
         final Button loginB = (Button)findViewById(R.id.loginB);
         loginB.setOnClickListener(new View.OnClickListener()
         {
@@ -181,6 +184,9 @@ public class loginHandler extends Activity
         			gamesLogger.i(TAG, SubTag + "got count " + cnt);
         			result.deactivate();
         			gamesLogger.i(TAG, SubTag + "deactivating cursor");
+        			
+        			if ( result != null )
+        				result.close();
         			
         			if ( cnt > 0 )
         				return true;

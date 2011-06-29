@@ -126,6 +126,9 @@ public class GraphData extends Activity
 			}
 			else
 				gamesLogger.i(TAG, SubTag + "No Data returned from Content Provider");
+			
+			if ( result != null )
+				result.close();
 /*			
 			String[] verlabels = new String[] { "$" + df.format(max), "$" + df.format(((min+max)/2)), "$" + df.format(min) };
 			String[] horlabels = new String[] { "", "" };

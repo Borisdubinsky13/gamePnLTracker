@@ -157,6 +157,9 @@ public class DisplayQueryData extends Activity
         		items.add(result.getString(1));
         	} while (result.moveToNext());
         }
+        if ( result != null )
+        	result.close();
+        
         items.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         gmTypeSp.setAdapter(items);
         gmTypeSp.setSelection(0);

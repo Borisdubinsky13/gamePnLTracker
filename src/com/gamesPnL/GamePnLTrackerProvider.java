@@ -50,6 +50,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	private static final int PNLSTATUS = 3;
 	private static final int PNL1RECORD = 4;
 	private static final int PNLGAMES = 5;
+	private static final int PNLAMOUNTS = 6;	
 	
 	private static final UriMatcher sURIMatcher = buildUriMatcher();
 	
@@ -80,6 +81,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 		matcher.addURI(AUTHORITY, "pnlstatus", PNLSTATUS);
 		matcher.addURI(AUTHORITY, "pnl1record", PNL1RECORD);
 		matcher.addURI(AUTHORITY, "pnlgames", PNLGAMES);
+		matcher.addURI(AUTHORITY, "pnlamount", PNLAMOUNTS);
 		return matcher;
 	}
 	
@@ -459,6 +461,8 @@ public class GamePnLTrackerProvider extends ContentProvider
 	      		return "vnd.gamePnLTracker.cursor.item/pnlrecord";
 	      	case PNLGAMES:
 	      		return "vnd.gamePnLTracker.cursor.item/pnlgames";
+			case PNLAMOUNTS:
+				return "vnd.gamePnLTracker.cursor.dir/pnlamounts";
 			default:
 				throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -568,6 +572,18 @@ public class GamePnLTrackerProvider extends ContentProvider
 						sqlStm += " WHERE ";
 						sqlStm += selection;
 					}
+					gamesLogger.i(TAG, SubTag + "sql: " + sqlStm);
+					break;
+				case PNLAMOUNTS:
+					gamesLogger.i(TAG, SubTag + "building query for DATA table");
+					sqlStm += "_id,name,amount,evYear,evMonth,evDay,eventType,gameType,gameLimit,notes FROM ";
+					sqlStm += PNL_TABLE_NAME;
+					if ( selection != null )
+					{
+						sqlStm += " WHERE ";
+						sqlStm += selection;
+					}
+					sqlStm += " order by amount ASC";
 					gamesLogger.i(TAG, SubTag + "sql: " + sqlStm);
 					break;
 				default:

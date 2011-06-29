@@ -149,7 +149,6 @@ public class DataAnalysis extends Activity
 
 	private DatePickerDialog.OnDateSetListener mEndDateSetListener = new DatePickerDialog.OnDateSetListener() 
 	{
-		// onDateSet method
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) 
 		{
 			gamesLogger.i(TAG, SubTag + "executing onDateSet()");
@@ -171,7 +170,7 @@ public class DataAnalysis extends Activity
 
 		public void onItemSelected(AdapterView parent, View v, int position, long id )
     	{
-    		Cursor	result;
+    		Cursor	result = null;
             Button StartDateB;
             Button EndDateB;
             String	analyzeBy = parent.getSelectedItem().toString();
@@ -193,9 +192,9 @@ public class DataAnalysis extends Activity
        			// Start with cash
        	        populateQuesryString();
        			String	query = IntentQ + " AND eventType = 'Cash'";
-
+       			gamesLogger.i(TAG, SubTag + "Q: " + query );
        			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
-       			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
+       			tmpUri = Uri.withAppendedPath(tmpUri,"pnlamount");
         			
        			// result = getContentResolver().query(tmpUri, null, null, null, null);
        			result = managedQuery(tmpUri, projection, query, null, null);
@@ -235,6 +234,22 @@ public class DataAnalysis extends Activity
        			}
        			else
        				gamesLogger.i(TAG, SubTag + "No Data returned from Content Provider");
+       			// Adjust everything to positive numbers
+       			gamesLogger.i(TAG, SubTag + "Cash: $" + cashCount + " Tourney: $" + tourneyCount);
+       			if ( cashCount < 0 || tourneyCount < 0 )
+       			{
+       				if ( cashCount < 0 && tourneyCount > 0 )
+       				{
+       					cashCount = 0 - cashCount;
+       					tourneyCount += cashCount;
+       				}
+       				else
+       				{
+       					tourneyCount = 0 - tourneyCount;
+       					cashCount += tourneyCount;
+       				}
+       			}
+       			gamesLogger.i(TAG, SubTag + "Cash: $" + cashCount + " Tourney: $" + tourneyCount);
 				try 
 				{
 					DefaultRenderer renderer = new DefaultRenderer();
@@ -297,8 +312,14 @@ public class DataAnalysis extends Activity
 
     			CategorySeries series = new CategorySeries("Earnings");
 				DefaultRenderer renderer = new DefaultRenderer();
+	   			double[] sums = new double[numGames];
+	   			String[] names = new String[numGames];
     			Double sum;
        		    int k = 0;
+       		    
+       			for ( int cnt = 0; cnt < numGames; cnt++ )
+       				sums[cnt] = 0;       			
+
       			for ( int gk = 0; gk < numGames; gk++ )
        			{
        				String	gameName = games.getItem(gk);
@@ -306,6 +327,7 @@ public class DataAnalysis extends Activity
           			sum = (double) 0;
            				
        				gameName = gameName.replace("\'", "\'\'");
+       				names[gk] = gameName;
        				gamesLogger.i(TAG, SubTag + "Adding data for " + gameName);
        		        populateQuesryString();
        				query = IntentQ + " AND gameType = '" + gameName + "'";
@@ -325,26 +347,44 @@ public class DataAnalysis extends Activity
         						dValue = 0;
         					else
         						dValue = Double.parseDouble(value);
-        					sum += dValue;
+        					sums[gk] += dValue;
 	        					
 	        			} while (result.moveToNext());
 	        		}
 	        		else
 	        			gamesLogger.i(TAG, SubTag + "No Data returned from Content Provider");
 	        	
-       				if ( sum != 0 )
-       				{
-       					series.add(gameName, sum );
+       			}
+      			
+			    // Adjust all numbers to make sure they are all positive
+			    double	minValue = 0;
+			    for ( int cnt = 0; cnt < numGames; cnt++ )
+			    {
+			    	if ( sums[cnt] < minValue )
+			    		minValue = sums[cnt];
+			    }
+			    if ( minValue < 0 )
+			    {
+			    	for ( int cnt = 0; cnt < numGames; cnt++ )
+			    	{
+			    		if ( sums[cnt] != 0 )
+				    		sums[cnt] += (minValue +1);
+			    	}
+			    }
+			    for ( int cnt = 0; cnt < numGames; cnt++ )
+			    {
+			    	if ( sums[cnt] != 0 )
+			    	{
+       					series.add(names[cnt], sums[cnt] );
            		    	if ( k >= availableColors.length )
            		    		k = 0;
 
        				    SimpleSeriesRenderer ssr = new SimpleSeriesRenderer();
        				    ssr.setColor(availableColors[k++]);
        				    renderer.addSeriesRenderer(ssr);
+			    	}
+			    }
 
-       				}
-           		}
-           			
 			    renderer.setLabelsTextSize(20);
 			    renderer.setLegendTextSize(20);
 			    renderer.setMargins(new int[] { 0, 0, 0, 0 });
@@ -403,7 +443,8 @@ public class DataAnalysis extends Activity
         		    else
            				gamesLogger.i(TAG, SubTag + "No Data returned from Content Provider");
        			}
-
+       			if ( result!= null )
+       				result.close();
         			
 				try 
 				{
@@ -413,6 +454,21 @@ public class DataAnalysis extends Activity
 				    renderer.setLabelsTextSize(20);
 				    renderer.setLegendTextSize(20);
 				    renderer.setMargins(new int[] { 0, 0, 0, 0 });
+				    // Adjust all numbers to make sure they are all positive
+				    double	minValue = 0;
+				    for ( int cnt = 0; cnt < gmLimitName.length; cnt++ )
+				    {
+				    	if ( sums[cnt] < minValue )
+				    		minValue = sums[cnt];
+				    }
+				    if ( minValue < 0 )
+				    {
+				    	for ( int cnt = 0; cnt < gmLimitName.length; cnt++ )
+				    	{
+				    		if ( sums[cnt] != 0 )
+					    		sums[cnt] += (minValue +1);
+				    	}
+				    }
 				    for ( int cnt = 0; cnt < gmLimitName.length; cnt++ )
 				    {
 				    	if ( sums[cnt] != 0 )

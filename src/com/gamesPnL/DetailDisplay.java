@@ -80,7 +80,7 @@ public class DetailDisplay extends Activity
 		gamesLogger.i(TAG, SubTag + "Working with record #" + idIndex + " Name: " + username );
 		// Get the record with all the values, populate all the fields for display
 		String	query = "name = '" + username + "'";
-		Cursor	result;
+		Cursor	result = null;
 		Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
 		tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 		String[] projection = new String[] {
@@ -184,6 +184,8 @@ public class DetailDisplay extends Activity
         EditText nts = (EditText)findViewById(R.id.notes);
         nts.setText(result.getString(result.getColumnIndex("notes")));
         
+        if ( result != null )
+        	result.close();
         // Setup buttons
         final Button deleteB = (Button)findViewById(R.id.delete);
         deleteB.setOnClickListener(new View.OnClickListener()

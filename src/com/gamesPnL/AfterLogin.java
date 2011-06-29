@@ -263,6 +263,8 @@ public class AfterLogin extends Activity
 		else
 			pnlStr.setBackgroundColor(0xFFA00000);
 
+		if ( result != null )
+			result.close();
 		gamesLogger.i(TAG, SubTag + "Done!");				
 	}
 }
