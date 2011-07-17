@@ -352,8 +352,7 @@ public class DataAnalysis extends Activity
 	        			} while (result.moveToNext());
 	        		}
 	        		else
-	        			gamesLogger.i(TAG, SubTag + "No Data returned from Content Provider");
-	        	
+	        			gamesLogger.i(TAG, SubTag + "No Data returned from Content Provider");    	
        			}
       			
 			    // Adjust all numbers to make sure they are all positive

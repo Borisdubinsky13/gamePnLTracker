@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
-      package="com.gamesPnL" android:versionCode="25" android:versionName="R-3.1">
-=======
-      package="com.gamesPnL" android:versionCode="23" android:versionName="R-3.0">
->>>>>>> 4db8cb75e08598982abab65d46f81ad05e9a0f11
+      package="com.gamesPnL" android:versionCode="26" android:versionName="R-3.2">
     <application android:icon="@drawable/icon" android:label="@string/appname" android:allowClearUserData="true">
 		<activity android:label="@string/appname" android:name="com.gamesPnL.DataEntry">
 			<intent-filter>
@@ -87,18 +83,13 @@
               android:configChanges="keyboard|keyboardHidden|orientation"/>
 		<provider android:authorities="com.gamesPnL.provider.userContentProvider" android:name="com.gamesPnL.GamePnLTrackerProvider" />
 			
-			<!-- The application's publisher ID assigned by AdMob -->
-			<meta-data android:value="a14d18e1cd0e067" android:name="ADMOB_PUBLISHER_ID" />
+		<!-- The application's publisher ID assigned by AdMob -->
+		<meta-data android:value="a14d18e1cd0e067" android:name="ADMOB_PUBLISHER_ID" />
 	        
-			<!-- AdMobActivity definition -->
-			<activity android:name="com.google.ads.AdActivity"
+		<!-- AdMobActivity definition -->
+		<activity android:name="com.google.ads.AdActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden" />
-			<!-- Track Market installs -->          
-			<receiver android:name="com.admob.android.ads.analytics.InstallReceiver" android:exported="true">
-			<intent-filter>
-				<action android:name="com.android.vending.INSTALL_REFERRER" />
-			</intent-filter>
-		</receiver>
+
 		<meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS" />
 	</application>
 	
