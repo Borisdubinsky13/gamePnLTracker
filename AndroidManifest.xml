@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.gamesPnL" android:versionCode="26" android:versionName="R-3.2">
+      package="com.gamesPnL" android:versionCode="28" android:versionName="R-4.1">
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
     <application android:icon="@drawable/icon" android:label="@string/appname" android:allowClearUserData="true">
 		<activity android:label="@string/appname" android:name="com.gamesPnL.DataEntry">
 			<intent-filter>
@@ -16,7 +19,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 		</activity>    
-        <activity android:label="@string/appname" android:name="com.gamesPnL.loginHandler">
+        <activity android:label="@string/appname" android:name="com.gamesPnL.AfterLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

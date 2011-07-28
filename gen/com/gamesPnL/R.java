@@ -24,7 +24,7 @@ public final class R {
     }
     public static final class id {
         public static final int ATypeSpin=0x7f070016;
-        public static final int About=0x7f07004c;
+        public static final int About=0x7f07004b;
         public static final int AddGBtn=0x7f07000b;
         public static final int AddGame=0x7f070049;
         public static final int AddResult=0x7f070046;
@@ -33,7 +33,6 @@ public final class R {
         public static final int Analysis=0x7f070048;
         public static final int AppVersion=0x7f070004;
         public static final int AstartDateButton=0x7f070014;
-        public static final int Logout=0x7f07004b;
         public static final int Loss=0x7f070022;
         public static final int PNL=0x7f07000f;
         public static final int PNLLabel=0x7f07000e;
@@ -47,7 +46,7 @@ public final class R {
         public static final int ViewStats=0x7f070047;
         public static final int Win=0x7f070021;
         public static final int aChart=0x7f070017;
-        public static final int aboutMenu=0x7f07004e;
+        public static final int aboutMenu=0x7f07004d;
         public static final int about_display=0x7f070000;
         public static final int adAfterLogin=0x7f07000d;
         public static final int adDataAnalysis=0x7f070013;
@@ -59,7 +58,7 @@ public final class R {
         public static final int afterLogin=0x7f07000c;
         public static final int chart=0x7f070035;
         public static final int clear=0x7f070023;
-        public static final int curMonth=0x7f07004f;
+        public static final int curMonth=0x7f07004e;
         public static final int dataentry=0x7f070018;
         public static final int dateButton=0x7f07001a;
         public static final int dbVersionId=0x7f070005;
@@ -84,7 +83,7 @@ public final class R {
         public static final int idCash=0x7f07001c;
         public static final int idName=0x7f070039;
         public static final int idTourney=0x7f07001b;
-        public static final int lastMonth=0x7f070050;
+        public static final int lastMonth=0x7f07004f;
         public static final int lastName=0x7f070043;
         public static final int lastRow=0x7f07001f;
         public static final int listres=0x7f070036;
@@ -96,7 +95,7 @@ public final class R {
         public static final int passwd=0x7f07003a;
         public static final int releasenotes=0x7f07003c;
         public static final int report=0x7f07002e;
-        public static final int setup=0x7f07004d;
+        public static final int setup=0x7f07004c;
         public static final int setupscr=0x7f07003d;
         public static final int startDateButton=0x7f07002b;
         public static final int text1=0x7f070031;
