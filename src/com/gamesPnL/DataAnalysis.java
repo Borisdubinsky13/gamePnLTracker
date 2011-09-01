@@ -314,8 +314,7 @@ public class DataAnalysis extends Activity
 				DefaultRenderer renderer = new DefaultRenderer();
 	   			double[] sums = new double[numGames];
 	   			String[] names = new String[numGames];
-    			Double sum;
-       		    int k = 0;
+    			int k = 0;
        		    
        			for ( int cnt = 0; cnt < numGames; cnt++ )
        				sums[cnt] = 0;       			
@@ -324,9 +323,7 @@ public class DataAnalysis extends Activity
        			{
        				String	gameName = games.getItem(gk);
            			
-          			sum = (double) 0;
-           				
-       				gameName = gameName.replace("\'", "\'\'");
+          			gameName = gameName.replace("\'", "\'\'");
        				names[gk] = gameName;
        				gamesLogger.i(TAG, SubTag + "Adding data for " + gameName);
        		        populateQuesryString();

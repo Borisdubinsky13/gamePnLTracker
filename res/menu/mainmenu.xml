@@ -10,14 +10,15 @@
 		</item>
 		<item android:enabled="true" android:title="@string/analysisTitle" 
 			android:id="@+id/Analysis"
-			android:icon="@android:drawable/ic_menu_info_details">
-			android:visible="true">
-		</item>
-		<item android:id="@+id/AddGame" android:title="@string/AddGameName"
-			android:icon="@android:drawable/ic_menu_add">
+			android:icon="@android:drawable/ic_menu_help">
 		</item>
 		<item android:id="@+id/exportDB" android:title="@string/exportDB"
-			android:icon="@android:drawable/ic_menu_share">
+			android:icon="@android:drawable/ic_menu_upload">
+		</item>		
+		<item android:id="@+id/importDB" android:title="@string/importDB" android:icon="@android:drawable/ic_menu_info_details">
+		</item>
+		<item android:id="@+id/AddGame" android:title="@string/AddGameName" 
+			android:icon="@android:drawable/ic_menu_add">
 		</item>
 		<item android:id="@+id/About" android:title="@string/aboutName"
 			android:icon="@android:drawable/ic_menu_info_details">

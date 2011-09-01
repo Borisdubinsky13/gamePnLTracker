@@ -75,9 +75,12 @@
 	<string name="dispRelNotes">Display Release Notes</string>
 	<string name="AddGameName">Add Game</string>
 	<string name="addResult">Need to add at least one result</string>
-	<string name="exportDB">Export DB</string>
+	<string name="exportDB">Export DB</string><string name="importDB">Import DB</string>
 	<string name="dispquerydata">DisplayQueryData</string>
 	<string name="dbVersion">      9</string>
 	<string name="dbVersionLabel">Database Version: </string>
 	<string name="analysisTitle">Analysis</string>
+	<string name="YesString">Yes</string>
+	<string name="NoString">No</string>
+	<string name="CancelString">Cancel</string>
 </resources>
