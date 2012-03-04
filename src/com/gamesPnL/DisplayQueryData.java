@@ -174,7 +174,9 @@ public class DisplayQueryData extends Activity
         	{
         		gamesLogger.i(TAG, SubTag + "REPORT button is clicked");
         		populateQuesryString();
-    			Intent iViewRes = new Intent(DisplayQueryData.this,ListRes.class);
+    			// Intent iViewRes = new Intent(DisplayQueryData.this,ListRes.class);
+        		Intent iViewRes = new Intent(DisplayQueryData.this,ListRes.class);
+
     			gamesLogger.i(TAG, SubTag + "Query: " + IntentQ);
     			iViewRes.putExtra("queStr", IntentQ);
      	        startActivity(iViewRes);

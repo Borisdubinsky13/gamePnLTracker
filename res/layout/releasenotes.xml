@@ -16,6 +16,68 @@
 			<TextView
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
+				android:text="R-5.0 (DB Version: 10):" android:textSize="20sp" android:textStyle="bold"
+			/>
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+	 		<TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text="- Add blackjack as one of the games."
+		        />
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+	 		<TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text="- Change layout of the games report."
+		        />
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+	 		<TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text="- Fix the bug of improper record update in filtered report."
+		        />
+		</TableRow>
+		 <TableRow>
+		 <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text=" "
+		        />
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:text="R-4.3 (DB Version: 9):" android:textSize="20sp" android:textStyle="bold"
+			/>
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+	 		<TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text="- Update AdMob library."
+		        />
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+ 		<TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text=" "
+		        />
+		</TableRow>
+		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
 				android:text="R-4.2 (DB Version: 9):" android:textSize="20sp" android:textStyle="bold"
 			/>
 		</TableRow>

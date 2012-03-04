@@ -19,7 +19,7 @@
     <string name="appVer">     R-2.2</string>
     <string name="Cancel">Cancel</string>
     <string name="cEarnings">Your career earnings: </string>
-    <string name="dispFullItem">Result Entry: </string>
+    <string name="dispList">Display List</string>
     <string name="email">E-Mail:</string>
     <string name="gameDescr">Description:</string>
     <string name="gameLimit">Limit: </string>
@@ -77,10 +77,11 @@
 	<string name="addResult">Need to add at least one result</string>
 	<string name="exportDB">Export DB</string><string name="importDB">Import DB</string>
 	<string name="dispquerydata">DisplayQueryData</string>
-	<string name="dbVersion">      9</string>
+	<string name="dbVersion">     10</string>
 	<string name="dbVersionLabel">Database Version: </string>
 	<string name="analysisTitle">Analysis</string>
 	<string name="YesString">Yes</string>
 	<string name="NoString">No</string>
 	<string name="CancelString">Cancel</string>
+	<string name="dispItem">Display Item</string>
 </resources>

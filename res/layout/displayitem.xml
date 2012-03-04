@@ -40,7 +40,7 @@
 		<TableRow>
 			<TextView android:text="Limit: " android:layout_gravity="left|center_vertical"/>
 			<Spinner android:id="@+id/gLimit"
-					android:prompt="@string/gameLimit"
+					android:prompt="@string/gameLimitNameSearch"
 					/>
 		</TableRow>
 		<TableRow android:id="@+id/lastRow">

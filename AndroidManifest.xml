@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.gamesPnL" android:versionName="R-4.3" android:versionCode="30">
+      package="com.gamesPnL" android:versionCode="32" android:versionName="R-5.0">
     <uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
@@ -39,7 +39,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 		</activity>
-		<activity android:label="@string/listRes" android:name="com.gamesPnL.ListRes">
+		<activity android:label="@string/listRes" android:name=".ListRes_origina">
 				<intent-filter>
 					<action android:name="android.intent.action.VIEW" />
 					<action android:name="android.intent.action.PICK" />
@@ -60,21 +60,29 @@
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>		
-		<activity android:label="@string/dispFullItem" android:name="com.gamesPnL.DetailDisplay">
+		<activity android:name="com.gamesPnL.ListRes" android:label="@string/dispList">
 				<intent-filter>
 					<action android:name="android.intent.action.VIEW" />
 					<action android:name="android.intent.action.PICK" />
 					<category android:name="android.intent.category.DEFAULT" />
 				</intent-filter>
 		</activity>
-		<activity android:label="@string/dispFullItem" android:name="com.gamesPnL.AddGame">
+		<activity android:name="com.gamesPnL.DisplayItem" android:label="@string/dispItem">
+				<intent-filter>
+					<action android:name="android.intent.action.VIEW" />
+					<action android:name="android.intent.action.PICK" />
+					<category android:name="android.intent.category.DEFAULT" />
+				</intent-filter>
+		</activity>
+
+		<activity android:label="@string/dispList" android:name="com.gamesPnL.AddGame">
 		<intent-filter>
 			<action android:name="android.intent.action.VIEW" />
 			<action android:name="android.intent.action.PICK" />
 			<category android:name="android.intent.category.DEFAULT" />
 		</intent-filter>
 		</activity>
-		<activity android:label="@string/dispFullItem" android:name="com.gamesPnL.GraphData">
+		<activity android:label="@string/dispList" android:name="com.gamesPnL.GraphData">
 		<intent-filter>
 			<action android:name="android.intent.action.VIEW" />
 			<action android:name="android.intent.action.PICK" />
@@ -106,6 +114,6 @@
 	<!-- AdMob SDK requires Internet permission -->
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-sdk android:minSdkVersion="8">
+	<uses-sdk android:minSdkVersion="7">
 	</uses-sdk>
 </manifest> 

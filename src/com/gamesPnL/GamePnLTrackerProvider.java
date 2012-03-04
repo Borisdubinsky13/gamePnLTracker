@@ -27,7 +27,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public static String SubTag="GamePnLTrackerProvider: ";
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
-	private static final int DATABASE_VERSION = 9;
+	private static final int DATABASE_VERSION = 10;
 	
 	private static final String USER_TABLE_NAME = "gUsers";
 	private static final String PNL_TABLE_NAME = "gPNLData";
@@ -42,8 +42,8 @@ public class GamePnLTrackerProvider extends ContentProvider
 	public static final String AUTHORITY = 
 		"com.gamesPnL.provider.userContentProvider";
 
-	static String[] gms = { "TexasHold'em", "Omaha", "Stud" };
-	static String[] desc = { "Texas Holdem", "Omaha", "Stud" };
+	static String[] gms = { "TexasHold'em", "Omaha", "Stud", "BlackJack" };
+	static String[] desc = { "Texas Holdem", "Omaha", "Stud", "BlackJack" };
 
 	private static final int USER = 1;
 	private static final int PNLDATA = 2;
@@ -159,6 +159,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('TexasHold''em', 'Texas Hold''em', 'gamePnL');" );
 					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Omaha', 'Omaha', 'gamePnL');" );
 					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Stud', 'Stud', 'gamePnL');" );
+					db.execSQL("INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Blackjack', 'BlackJack', 'gamePnL');" );
 				}
 			}
 			catch (Exception e)
@@ -335,6 +336,9 @@ public class GamePnLTrackerProvider extends ContentProvider
 
 								gamesLogger.i(TAG, SubTag + "Year: " + yearS + " Month: " + monthS + " Day: " + dayS + "(" + newDateF + ")");
 								break;
+							case 9:
+								/* Format does not change, just adding one more game */
+								break;
 							default:
 								break;
 							}
@@ -398,6 +402,12 @@ public class GamePnLTrackerProvider extends ContentProvider
 					gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 					db.execSQL(sql);
 					sql = "INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('Stud', 'Stud', 'gamePnL');";
+					gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
+					db.execSQL(sql);
+				}
+				if ( oldVersion <= 9 )
+				{
+					sql = "INSERT INTO " + PNL_GAMES_TABLE_NAME + " (game,description,addedBy) values ('blackjack', 'Black Jack', 'gamePnL');";
 					gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 					db.execSQL(sql);
 				}
