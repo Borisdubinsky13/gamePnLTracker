@@ -21,6 +21,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -359,12 +360,13 @@ public class AfterLogin extends Activity
 				
 		gamesLogger.i(TAG, SubTag + "Sum:  " + df.format(sum));
 		strHeadStr.setText(strHead);
-		pnlStr.setTextColor(getResources().getColor(android.R.color.background_light));
 		pnlStr.setText(df.format(sum));
+		// pnlStr.setTextColor(Color.BLACK);
 		if ( sum >= 0 )
-			pnlStr.setBackgroundColor(0xFF00A000);
+			pnlStr.setBackgroundColor(Color.rgb(193, 255, 193));
 		else
-			pnlStr.setBackgroundColor(0xFFA00000);
+			pnlStr.setBackgroundColor(Color.rgb(150, 0, 0));
+		pnlStr.setTextColor(getResources().getColor(android.R.color.background_dark));
 
 	    final Calendar c = Calendar.getInstance(); 
 	    int mYear = c.get(Calendar.YEAR); 
@@ -399,13 +401,13 @@ public class AfterLogin extends Activity
 		gamesLogger.i(TAG, SubTag + "Sum:  " + df.format(sum));
 		strHeadStr.setText(strHead);
 		pnlStr = (TextView)findViewById(R.id.PNLMonth);
-		pnlStr.setTextColor(getResources().getColor(android.R.color.background_light));
 		pnlStr.setText(df.format(sum));
+		// pnlStr.setTextColor(Color.BLACK);
 		if ( sum >= 0 )
-			pnlStr.setBackgroundColor(0xFF00A000);
+			pnlStr.setBackgroundColor(Color.rgb(193, 255, 193));
 		else
-			pnlStr.setBackgroundColor(0xFFA00000);
-
+			pnlStr.setBackgroundColor(Color.rgb(150, 0, 0));
+		pnlStr.setTextColor(getResources().getColor(android.R.color.background_dark));
 	    // Get last event result
 				
 		gamesLogger.i(TAG, SubTag + "Last Result:  " + df.format(lastResult));
@@ -413,11 +415,12 @@ public class AfterLogin extends Activity
 		pnlStr = (TextView)findViewById(R.id.PNLLast);
 		pnlStr.setTextColor(getResources().getColor(android.R.color.background_light));
 		pnlStr.setText(df.format(lastResult));
+		// pnlStr.setTextColor(Color.BLACK);
 		if ( lastResult >= 0 )
-			pnlStr.setBackgroundColor(0xFF00A000);
+			pnlStr.setBackgroundColor(Color.rgb(193, 255, 193));
 		else
-			pnlStr.setBackgroundColor(0xFFA00000);
-
+			pnlStr.setBackgroundColor(Color.rgb(150, 0, 0));
+		pnlStr.setTextColor(getResources().getColor(android.R.color.background_dark));
 		if ( result != null )
 			result.close();
 		gamesLogger.i(TAG, SubTag + "Done!");				

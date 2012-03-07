@@ -98,11 +98,11 @@ public class ListRes extends ListActivity
 
                 	if ( (o.getAmount()) >= 0 )
                     {
-                    	v.setBackgroundColor(Color.GREEN);
+                    	v.setBackgroundColor(Color.rgb(193, 255, 193));
                     }
                     else
                     {
-                    	v.setBackgroundColor(Color.RED);
+                    	v.setBackgroundColor(Color.rgb(255, 100, 100));
                     }
                 	dt.setText(o.getDateTime() + ":  ");
                 	dt.setTextColor(Color.BLACK);
