@@ -16,7 +16,7 @@
     <string name="appname">gamePnLTracker</string>
     <string name="appdescrip">     Games Profits aNd Losses Tracker</string>
     <string name="appVerLabel">Version:</string>
-    <string name="appVer">     R-2.2</string>
+    <string name="appVer">     R-6.0</string>
     <string name="Cancel">Cancel</string>
     <string name="cEarnings">Your career earnings: </string>
     <string name="dispList">Display List</string>
@@ -77,7 +77,7 @@
 	<string name="addResult">Need to add at least one result</string>
 	<string name="exportDB">Export DB</string><string name="importDB">Import DB</string>
 	<string name="dispquerydata">DisplayQueryData</string>
-	<string name="dbVersion">     10</string>
+	<string name="dbVersion">     11</string>
 	<string name="dbVersionLabel">Database Version: </string>
 	<string name="analysisTitle">Analysis</string>
 	<string name="YesString">Yes</string>

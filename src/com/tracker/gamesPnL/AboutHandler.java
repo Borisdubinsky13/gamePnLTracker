@@ -1,7 +1,9 @@
 /**
  * 
  */
-package com.gamesPnL;
+package com.tracker.gamesPnL;
+
+import com.tracker.gamesPnL.R;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

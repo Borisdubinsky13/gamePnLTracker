@@ -1,11 +1,13 @@
 /**
  * 
  */
-package com.gamesPnL;
+package com.tracker.gamesPnL;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import com.tracker.gamesPnL.R;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

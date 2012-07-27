@@ -1,11 +1,10 @@
 /**
  * 
  */
-package com.gamesPnL;
+package com.tracker.gamesPnL;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -13,11 +12,8 @@ import java.util.Calendar;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -33,11 +29,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tracker.gamesPnL.R;
 import com.google.ads.*;
-
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.BufferedReader;
 /**
  * @author Boris
  *
@@ -252,37 +245,40 @@ public class AfterLogin extends Activity
 			}
 	        Account[] accounts = AccountManager.get(this).getAccountsByType("com.google");
 	        gamesLogger.i(TAG, SubTag + "Got account list. Number of entries: " + accounts.length);
+	        String	username;
 	        if ( accounts.length <= 0 )
 	        {
 	        	int duration = Toast.LENGTH_SHORT;
 				String text = "Primary account is not setup. Please setup Google account first.";
 				Toast toast = Toast.makeText(getApplicationContext(), text, duration);
 				toast.show();
+				username = "Nobody"; 
 	        }
 	        else
 	        {
-		        String username = accounts[0].name; 
-	            getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
-	           	.edit()
-	        	.putString(PREF_USERNAME, username)
-	        	.commit();
-		        gamesLogger.i(TAG, SubTag + "My email id that I want: " + username); 
-		 
-		        // update database to make sure that all entries have username = primary google account.
-		        // See if there are any data that has name other then current username
-		        
-	   			tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
-    			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
-    			
-    			// Update the table with the new id
-            	ContentValues vals = new ContentValues();
-            	ContentResolver cr = getContentResolver();
-            	vals.put("name", username);
-            	if ( oldUsr == null )
-            		cr.update(tmpUri, vals, "name != '" + username + "'", null);
-            	else
-            		cr.update(tmpUri, vals, "name = '" + oldUsr + "'", null);
+		        username = accounts[0].name;
 	        }
+	        gamesLogger.i(TAG, SubTag + "Name is assigned to " + username );
+            getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
+           	.edit()
+        	.putString(PREF_USERNAME, username)
+        	.commit();
+	        gamesLogger.i(TAG, SubTag + "My email id that I want: " + username); 
+	 
+	        // update database to make sure that all entries have username = primary google account.
+	        // See if there are any data that has name other then current username
+	        
+   			tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
+			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
+			
+			// Update the table with the new id
+        	ContentValues vals = new ContentValues();
+        	ContentResolver cr = getContentResolver();
+        	vals.put("name", username);
+        	if ( oldUsr == null )
+        		cr.update(tmpUri, vals, "name != '" + username + "'", null);
+        	else
+        		cr.update(tmpUri, vals, "name = '" + oldUsr + "'", null);
 		}
 		catch (Exception e)
 		{

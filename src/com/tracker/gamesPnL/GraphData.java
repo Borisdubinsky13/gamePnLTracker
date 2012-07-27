@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gamesPnL;
+package com.tracker.gamesPnL;
 
 import java.text.DecimalFormat;
 
@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.tracker.gamesPnL.R;
 import com.google.ads.*;
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;

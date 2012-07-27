@@ -1,9 +1,11 @@
 /**
  * 
  */
-package com.gamesPnL;
+package com.tracker.gamesPnL;
 
 import java.util.Calendar;
+
+import com.tracker.gamesPnL.R;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;

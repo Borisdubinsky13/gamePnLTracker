@@ -1,11 +1,13 @@
 /**
  * 
  */
-package com.gamesPnL;
+package com.tracker.gamesPnL;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import com.tracker.gamesPnL.R;
 
 import android.app.Activity;
 import android.content.ContentResolver;

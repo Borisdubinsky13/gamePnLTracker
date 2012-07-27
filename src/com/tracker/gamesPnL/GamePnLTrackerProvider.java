@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gamesPnL;
+package com.tracker.gamesPnL;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
