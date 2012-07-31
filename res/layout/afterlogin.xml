@@ -12,19 +12,21 @@
 	    android:layout_height="wrap_content"
 	    ads:adSize="BANNER"
 	    ads:adUnitId="a14d18e1cd0e067" />
-
+	
 	<ScrollView android:id="@+id/ScrollView01" 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content">
 	<TableLayout android:id="@+id/TableLayout01" android:layout_width="wrap_content" android:layout_height="wrap_content">
 		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-			<TextView android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:textSize="25sp"
-				android:text="Your career earnings:" 
-				android:id="@+id/PNLLabel" 
-				android:textStyle="normal" android:layout_gravity="center_horizontal">
-			</TextView>
+
+			<TextView
+			    android:id="@+id/PNLLabel"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:text="Career earnings:"
+			    android:textSize="25sp"
+			    android:textStyle="normal" />
+
 		</TableRow>
 		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
 			<TextView android:layout_height="wrap_content" 
@@ -77,22 +79,4 @@
 		</TableRow>	
 	</TableLayout>
 	</ScrollView>
-
-	<ProgressBar
-	    android:id="@+id/progressBar"
-	    style="?android:attr/progressBarStyleHorizontal"
-	    android:layout_width="264dp"
-	    android:layout_height="wrap_content" android:visibility="invisible"/>
-
-	<LinearLayout
-	    android:id="@+id/linearLayout1"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content" >
-		<ProgressBar
-	    android:id="@+id/progressBar"
-	    style="?android:attr/progressBarStyleHorizontal"
-	    android:layout_width="264dp"
-	    android:layout_height="wrap_content" android:visibility="invisible"/>
-	</LinearLayout>
-
 </LinearLayout>

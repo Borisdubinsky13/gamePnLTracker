@@ -185,7 +185,7 @@ public class AfterLogin extends Activity
 	        return true; 
 	    case R.id.importDB:
 	    	gamesLogger.i(TAG, SubTag + "trying to import data");
-	    	Intent importAct = new Intent(this, ImportActivity.class);
+	    	Intent importAct = new Intent(this, ImportActivityYN.class);
 	    	startActivity(importAct);
 	    	// doImport();
 	    	return true;

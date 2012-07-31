@@ -75,7 +75,6 @@
 					<category android:name="android.intent.category.DEFAULT" />
 				</intent-filter>
 		</activity>
-
 		<activity android:label="@string/dispList" android:name="com.tracker.gamesPnL.AddGame">
 		<intent-filter>
 			<action android:name="android.intent.action.VIEW" />
@@ -90,7 +89,14 @@
 			<category android:name="android.intent.category.DEFAULT" />
 		</intent-filter>
 		</activity>
-		<activity android:label="@string/appname" android:name="com.tracker.gamesPnL.ImportActivity">
+		<activity android:label="@string/appname" android:name="com.tracker.gamesPnL.ImportActivityYN">
+			<intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.PICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+		</activity>
+		<activity android:label="@string/appname" android:name="com.tracker.gamesPnL.ImportDoWork">
 			<intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.PICK" />
@@ -100,7 +106,8 @@
 		<activity android:name="org.achartengine.GraphicalActivity"/>
 		<activity android:name="com.google.ads.AdActivity"
               android:configChanges="keyboard|keyboardHidden|orientation"/>
-		<provider android:authorities="com.gamesPnL.provider.userContentProvider" android:name="com.tracker.gamesPnL.GamePnLTrackerProvider" />
+		<provider android:authorities="com.gamesPnL.provider.userContentProvider" 
+		    android:name="com.tracker.gamesPnL.GamePnLTrackerProvider" />
 			
 		<!-- The application's publisher ID assigned by AdMob -->
 		<meta-data android:value="a14d18e1cd0e067" android:name="ADMOB_PUBLISHER_ID" />
