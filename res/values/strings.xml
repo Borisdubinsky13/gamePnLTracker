@@ -16,7 +16,7 @@
     <string name="appname">gamePnLTracker</string>
     <string name="appdescrip">     Games Profits aNd Losses Tracker</string>
     <string name="appVerLabel">Version:</string>
-    <string name="appVer">     R-6.0</string>
+    <string name="appVer">     R-6.1</string>
     <string name="Cancel">Cancel</string>
     <string name="cEarnings">Your career earnings: </string>
     <string name="dispList">Display List</string>
@@ -84,4 +84,8 @@
 	<string name="NoString">No</string>
 	<string name="CancelString">Cancel</string>
 	<string name="dispItem">Display Item</string>
+	<string name="CleanDBStr">Overwrite the Database?</string>
+	<string name="ImportDB">Importing file: </string>
+	<string name="space"></string>
+	<string name="csvFile">/mnt/sdcard/gamesPnL.csv</string>
 </resources>

@@ -5,13 +5,16 @@ package com.tracker.gamesPnL;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -21,11 +24,13 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,80 +59,129 @@ public class AfterLogin extends Activity
 	// public String currentUser = new String();
 	private static String	fname = "/mnt/sdcard/gamesPnL.csv";
 	private static String	fnoSDName = "/gamesPnL.csv";
+	private	ProgressDialog	progressDialog;
+	private int		percentDone;
+	private View	v;
+	private Handler mHandler = new Handler();
 	
 	private void doExport()
 	{
     	try
     	{
     		// String	fname = "/mnt/sdcard/gamesPnL.csv";
-    		int	step;
-    		int	countRec = 0;
+        	progressDialog = new ProgressDialog(v.getContext());
+			progressDialog.setCancelable(true);
+			progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			progressDialog.setProgress(0);
+			progressDialog.setMax(100);
+			progressDialog.setMessage("Exporting " + Environment.getExternalStorageDirectory() + fnoSDName + " ...");
+			progressDialog.show();
+
     		gamesLogger.i(TAG, SubTag + "User " + "Trying to export data to CSV. File: " + fname);
-			File f = new File(Environment.getExternalStorageDirectory()+fnoSDName);
-			f.createNewFile();
-			FileOutputStream fOut =  new FileOutputStream(f);
-			BufferedOutputStream bos = new BufferedOutputStream( fOut );
-			
-   			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
-			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
-			
-			String query = "name = '" + username + "'";
-			gamesLogger.i(TAG, SubTag + "Query: " + query);
-			Cursor result = managedQuery(tmpUri, projection, query, null, null);
-			if ( result.getCount() > 100 )
-				step = result.getCount() / 100;
-			else
-				step = 1;
-			gamesLogger.i(TAG, SubTag + "there are " + result.getCount() + " records" );
-			if ( result.getCount() > 0 )
-			{
-				if ( result.moveToFirst() )
-				{
-					String	strOut = "Date,EventType,GameType,GameLimit,Amount,Name,Note\n";	
-					bos.write(strOut.getBytes());
-
-					do
+        	new Thread(new Runnable() 
+        	{
+                public void run() 
+                {
+            		int	countRec = 0;
+            		int	totalRecs = 0;
+					File f = new File(Environment.getExternalStorageDirectory()+fnoSDName);
+					try 
 					{
-						String	nameStr = "";
-						String	evDateStr = "";
-						String	evTypeStr = "";
-						String	gameTypeStr = "";
-						String	gameLimitStr = "";
-						String	amountStr = "";
-						String	noteStr = "";
-						
-						nameStr = result.getString(result.getColumnIndex("name"));
-						evDateStr = result.getString(result.getColumnIndex("evMonth")) + "/" + 
-									result.getString(result.getColumnIndex("evDay")) + "/" +
-									result.getString(result.getColumnIndex("evYear"));
-						evTypeStr = result.getString(result.getColumnIndex("eventType"));
-						gameTypeStr = result.getString(result.getColumnIndex("gameType"));
-						gameLimitStr = result.getString(result.getColumnIndex("gameLimit"));
-						amountStr = result.getString(result.getColumnIndex("amount"));
-						noteStr = result.getString(result.getColumnIndex("notes"));
-						
-						strOut = evDateStr + "," + evTypeStr + "," + gameTypeStr  + "," + gameLimitStr + "," + 
-										amountStr + "," + nameStr + "," + noteStr + "\n";	
-						gamesLogger.i(TAG, SubTag + "Writing: " + strOut);
-						bos.write(strOut.getBytes());
-						countRec++;
-					} while (result.moveToNext());
-				}
-				result.close();
-				bos.close();
+						f.createNewFile();
+					
+						FileOutputStream fOut;
 
-				int duration = Toast.LENGTH_LONG;
-    			String text = "Data has been exported into " + fname;
-    			Toast toast = Toast.makeText(getApplicationContext(), text, duration);
-    			toast.show();
-			}
-			else
-			{
-				int duration = Toast.LENGTH_SHORT;
-    			String text = "No data to export";
-    			Toast toast = Toast.makeText(getApplicationContext(), text, duration);
-    			toast.show();
-			}
+						fOut = new FileOutputStream(f);
+
+						BufferedOutputStream bos = new BufferedOutputStream( fOut );
+						
+			   			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
+						tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
+						
+						String query = "name = '" + username + "'";
+						gamesLogger.i(TAG, SubTag + "Query: " + query);
+						Cursor result = managedQuery(tmpUri, projection, query, null, null);
+						gamesLogger.i(TAG, SubTag + "there are " + result.getCount() + " records" );
+						if ( result.getCount() > 0 )
+						{
+							totalRecs = result.getCount();
+							if ( result.moveToFirst() )
+							{
+								String	strOut = "Date,EventType,GameType,GameLimit,Amount,Name,Note\n";	
+								bos.write(strOut.getBytes());
+								int	cPercent = 0;
+								do
+								{
+									String	nameStr = "";
+									String	evDateStr = "";
+									String	evTypeStr = "";
+									String	gameTypeStr = "";
+									String	gameLimitStr = "";
+									String	amountStr = "";
+									String	noteStr = "";
+									
+									nameStr = result.getString(result.getColumnIndex("name"));
+									evDateStr = result.getString(result.getColumnIndex("evMonth")) + "/" + 
+												result.getString(result.getColumnIndex("evDay")) + "/" +
+												result.getString(result.getColumnIndex("evYear"));
+									evTypeStr = result.getString(result.getColumnIndex("eventType"));
+									gameTypeStr = result.getString(result.getColumnIndex("gameType"));
+									gameLimitStr = result.getString(result.getColumnIndex("gameLimit"));
+									amountStr = result.getString(result.getColumnIndex("amount"));
+									noteStr = result.getString(result.getColumnIndex("notes"));
+									
+									strOut = evDateStr + "," + evTypeStr + "," + gameTypeStr  + "," + gameLimitStr + "," + 
+													amountStr + "," + nameStr + "," + noteStr + "\n";	
+									gamesLogger.i(TAG, SubTag + "Writing: " + strOut);
+									bos.write(strOut.getBytes());
+									countRec++;
+						    		// Update the progress bar if needed
+						    		percentDone = (int) (countRec * 100 / totalRecs);
+						    		gamesLogger.i(TAG, SubTag + "currentCount: " + countRec + " Percent: " + percentDone + "%");
+						    		if ( cPercent < percentDone )
+						    		{
+						    			cPercent = percentDone;
+			    			    		if ( percentDone < 100 )
+			    			    		{
+			    			    			gamesLogger.i(TAG, SubTag + "Updating progress bar to " + percentDone);
+			    			    			percentDone++;
+			    			               	// Update the progress bar
+			    		                	mHandler.post(new Runnable() 
+			    		                	{
+			    		                		public void run() 
+			    		                		{
+			    		                			progressDialog.setProgress(percentDone);
+			    		                		}
+			    		                	});
+			    			    		}
+						    		}
+								} while (result.moveToNext());
+								gamesLogger.i(TAG, SubTag + "Turning off progress bar");
+								progressDialog.dismiss();
+							}
+	
+							result.close();
+							bos.close();
+			
+/*
+ 							int duration = Toast.LENGTH_LONG;
+							String text = "Data has been exported into " + fname;
+							Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+							toast.show();
+*/
+			        	}
+						else
+						{
+							int duration = Toast.LENGTH_SHORT;
+			    			String text = "No data to export";
+			    			Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+			    			toast.show();
+						}
+					} catch (Exception e) {
+						gamesLogger.e(TAG, SubTag + e.getMessage());
+					}
+                }
+    	   	}).start();
     	}
     	catch (Exception e)
     	{
@@ -260,9 +314,9 @@ public class AfterLogin extends Activity
 	        }
 	        gamesLogger.i(TAG, SubTag + "Name is assigned to " + username );
             getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
-           	.edit()
-        	.putString(PREF_USERNAME, username)
-        	.commit();
+           		.edit()
+           			.putString(PREF_USERNAME, username)
+           				.commit();
 	        gamesLogger.i(TAG, SubTag + "My email id that I want: " + username); 
 	 
 	        // update database to make sure that all entries have username = primary google account.
@@ -291,12 +345,14 @@ public class AfterLogin extends Activity
 	{
 		super.onPause();
 		setContentView(R.layout.afterlogin);
+		
+		v = (View)findViewById(R.id.afterLogin);
 
 		gamesLogger.i(TAG, SubTag + " onResume: Trying to get the add");
 		AdView	adView = (AdView)findViewById(R.id.adAfterLogin);
-
 	    // Initiate a generic request to load it with an ad
 	    adView.loadAd(new AdRequest());
+   	
 	    gamesLogger.i(TAG, SubTag + "Got the add");
 		// get all the records with the current id ad add all the amounts
     	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
