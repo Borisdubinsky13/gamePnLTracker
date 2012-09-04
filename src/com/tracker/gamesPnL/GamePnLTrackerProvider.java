@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
-
+import android.app.backup.BackupManager;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
@@ -54,6 +54,9 @@ public class GamePnLTrackerProvider extends ContentProvider
 	
 	private static final UriMatcher sURIMatcher = buildUriMatcher();
 	
+	// private static final MyBackupAgent bkpAgent = new MyBackupAgent();
+	private static BackupManager bkpMgm = null;
+	
 	public static String getMd5Hash(String input) 
 	{
         try {
@@ -87,9 +90,10 @@ public class GamePnLTrackerProvider extends ContentProvider
 	
 	private static class DbAdapter extends SQLiteOpenHelper
 	{
-		public DbAdapter(Context context) 
+		public DbAdapter(Context context)
 		{
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
+			bkpMgm = new BackupManager(context);;
 		}
 
 		@Override
@@ -416,6 +420,8 @@ public class GamePnLTrackerProvider extends ContentProvider
 			{
 				gamesLogger.e(TAG, SubTag + e.getMessage());
 			}
+			/* Backup the data */
+			bkpMgm.dataChanged();
 			gamesLogger.i(TAG , SubTag + "Upgrade is complete!");
 		}
 	}
@@ -428,29 +434,39 @@ public class GamePnLTrackerProvider extends ContentProvider
 	@Override
 	public int delete(Uri uri, String where, String[] whereArgs) 
 	{
-	      SQLiteDatabase db = dbHelper.getWritableDatabase();
-	      gamesLogger.i(TAG, SubTag + "Deleting SQL: " + where);
-	      int count;
+		int count = -1;
+		try
+		{
+			SQLiteDatabase db = dbHelper.getWritableDatabase();
+			gamesLogger.i(TAG, SubTag + "Deleting SQL: " + where);
+
 			switch (sURIMatcher.match(uri)) 
 			{
-	      	case USER:
-	      		count = db.delete(USER_TABLE_NAME, where, whereArgs);
-	      		break;
-	      	case PNLDATA:
-	      	case PNL1RECORD:
-	      		count = db.delete(PNL_TABLE_NAME, where, whereArgs);
-	      		break;
-	      	case PNLSTATUS:
-	      		count = db.delete(PNL_STATUS_TABLE_NAME, where, whereArgs);
-	      		break;
-	      	case PNLGAMES:
-	      		count = db.delete(PNL_GAMES_TABLE_NAME, where, whereArgs);
-	      		break;
-	      	default:
-	      		throw new IllegalArgumentException("Unknown URI " + uri);
-	      }
-	      getContext().getContentResolver().notifyChange(uri, null);
-	      return count;
+			case USER:
+				count = db.delete(USER_TABLE_NAME, where, whereArgs);
+				break;
+			case PNLDATA:
+			case PNL1RECORD:
+				count = db.delete(PNL_TABLE_NAME, where, whereArgs);
+				break;
+			case PNLSTATUS:
+				count = db.delete(PNL_STATUS_TABLE_NAME, where, whereArgs);
+				break;
+			case PNLGAMES:
+				count = db.delete(PNL_GAMES_TABLE_NAME, where, whereArgs);
+				break;
+			default:
+				throw new IllegalArgumentException("Unknown URI " + uri);
+			}
+			getContext().getContentResolver().notifyChange(uri, null);
+		}
+		catch (Exception e)
+		{
+			gamesLogger.e(TAG, SubTag + e.getMessage());
+		}
+		/* Backup the data */
+		bkpMgm.dataChanged();
+		return count;
 	}
 
 	/* (non-Javadoc)
@@ -489,24 +505,23 @@ public class GamePnLTrackerProvider extends ContentProvider
 		{
 			case USER:
             	db.insert(USER_TABLE_NAME,null,values);
-            	db.close();
 				break;
 			case PNLDATA:
 			case PNL1RECORD:
             	db.insert(PNL_TABLE_NAME ,null,values);
-            	db.close();
 				break;
 			case PNLSTATUS:
 				db.insert(PNL_STATUS_TABLE_NAME ,null,values);
-            	db.close();
 				break;
 			case PNLGAMES:
 				db.insert(PNL_GAMES_TABLE_NAME, null, values);
-				db.close();
 				break;
 			default:
 				throw new IllegalArgumentException("Unknown URI " + uri);
 		}
+		// db.close();
+		/* Backup the data */
+		// bkpMgm.dataChanged();
 		return null;
 	}
 
@@ -670,6 +685,8 @@ public class GamePnLTrackerProvider extends ContentProvider
 		{
 			gamesLogger.e(TAG, SubTag + e.getMessage());
 		}
+		/* Backup the data */
+		bkpMgm.dataChanged();
 		return count;
 	}
 	

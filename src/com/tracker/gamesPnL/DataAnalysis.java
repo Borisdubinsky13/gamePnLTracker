@@ -17,6 +17,7 @@ import com.google.ads.AdView;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -75,6 +76,8 @@ public class DataAnalysis extends Activity
     Button EndDateB;
     
     boolean viewPresent;
+    
+    private	Context	mContext = null;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -84,6 +87,9 @@ public class DataAnalysis extends Activity
 	{
 		gamesLogger.i(TAG, SubTag + "Starting GraphData");
 		super.onCreate(savedInstanceState);
+		mContext = this;    // since Activity extends Context
+		mContext = getApplicationContext();
+		mContext = getBaseContext();
 		viewPresent = false;
 	}
 	
@@ -169,7 +175,7 @@ public class DataAnalysis extends Activity
     {
     	private GraphicalView mChartView = null;
 
-		public void onItemSelected(AdapterView parent, View v, int position, long id )
+		public void onItemSelected(AdapterView<?> parent, View v, int position, long id )
     	{
     		Cursor	result = null;
             Button StartDateB;
@@ -198,7 +204,7 @@ public class DataAnalysis extends Activity
        			tmpUri = Uri.withAppendedPath(tmpUri,"pnlamount");
         			
        			// result = getContentResolver().query(tmpUri, null, null, null, null);
-       			result = managedQuery(tmpUri, projection, query, null, null);
+       			result = mContext.getContentResolver().query(tmpUri, projection, query, null, null);
        			if ( result.moveToFirst() )
        			{
        				do
@@ -218,7 +224,7 @@ public class DataAnalysis extends Activity
 
        			// Do the count for NoLimit
        			query = IntentQ + " AND eventType = 'Tourney'";
-           		result = managedQuery(tmpUri, projection, query, null, null);
+           		result = mContext.getContentResolver().query(tmpUri, projection, query, null, null);
        			if ( result.moveToFirst() )
        			{
        				do
@@ -298,8 +304,8 @@ public class DataAnalysis extends Activity
     			tmpUri = Uri.withAppendedPath(tmpUri,"pnlgames");
     			String	query = "addedBy = '" + username + "'" + " OR addedBy = 'gamePnL'";
     			result = getContentResolver().query(tmpUri, null, query, null, null);
-    			startManagingCursor(result);
-
+    			// startManagingCursor(result);
+    			result = mContext.getContentResolver().query(tmpUri, projection, query, null, null);
     			gamesLogger.i(TAG, SubTag + "Everything is ready for the Spinner. # of records: " + result.getCount());
     			int	numGames = result.getCount();
     			ArrayAdapter<String> games = new ArrayAdapter<String>(DataAnalysis.this, result.getCount());
@@ -334,7 +340,7 @@ public class DataAnalysis extends Activity
        				tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
 
        				// result = getContentResolver().query(tmpUri, null, null, null, null);
-       				result = managedQuery(tmpUri, projection, query, null, null);
+       				result = mContext.getContentResolver().query(tmpUri, projection, query, null, null);
        				if ( result.moveToFirst() )
        				{
        					do
@@ -423,7 +429,7 @@ public class DataAnalysis extends Activity
            			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
            			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
             			
-           			result = managedQuery(tmpUri, projection, query, null, null);
+           			result = mContext.getContentResolver().query(tmpUri, projection, query, null, null);
         		    if ( result.moveToFirst() )
         		    {
 	       		    	do

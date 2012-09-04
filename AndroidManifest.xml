@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.tracker.gamesPnL" android:versionCode="34" android:versionName="R-6.0">
+      package="com.tracker.gamesPnL" android:versionCode="34" android:versionName="R-4.2">
     <uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
     <application android:icon="@drawable/icon" android:label="@string/appname" 
         android:allowClearUserData="true" android:name=".GamesPnL">
+	<meta-data android:name="com.google.android.backup.api_key"
+    		android:value="AEdPqrEAAAAIGMeyBzhRDvWGD-qbBNK3c9kgR9_K6IKb-AYwqQ" 
+    		android:restoreAnyVersion="true"/>
 		<activity android:label="@string/appname" android:name="com.tracker.gamesPnL.DataEntry">
 			<intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -33,13 +36,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 	    </activity>
-	    <activity android:label="@string/appname" android:name="com.tracker.gamesPnL.AfterLogin">
-			<intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.PICK" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-		</activity>
 		<activity android:label="@string/listRes" android:name="com.tracker.gamesPnL.ListRes_original">
 				<intent-filter>
 					<action android:name="android.intent.action.VIEW" />
@@ -104,8 +100,7 @@
             </intent-filter>
 		</activity>
 		<activity android:name="org.achartengine.GraphicalActivity"/>
-		<activity android:name="com.google.ads.AdActivity"
-              android:configChanges="keyboard|keyboardHidden|orientation"/>
+
 		<provider android:authorities="com.gamesPnL.provider.userContentProvider" 
 		    android:name="com.tracker.gamesPnL.GamePnLTrackerProvider" />
 			
@@ -118,10 +113,11 @@
 
 		<meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS" />
 	</application>
-	
-	<!-- AdMob SDK requires Internet permission -->
+
+    	<!-- AdMob SDK requires Internet permission -->
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-sdk android:minSdkVersion="7">
+	<uses-sdk android:minSdkVersion="16">
+	    
 	</uses-sdk>
 </manifest> 

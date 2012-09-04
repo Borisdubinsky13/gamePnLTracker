@@ -113,7 +113,7 @@ public class DataEntry extends Activity
         gmTypeSp.setAdapter(items);
         gmTypeSp.setSelection(0);
 		Cursor result = getContentResolver().query(tmpUri, null, query, null, null);
-		startManagingCursor(result);
+		// startManagingCursor(result);
 		gamesLogger.i(TAG, SubTag + "Everything is ready for the Spinner. # of records: " + result.getCount());
 		if ( result.moveToFirst() )
 		{

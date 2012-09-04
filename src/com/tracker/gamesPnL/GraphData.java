@@ -6,6 +6,7 @@ package com.tracker.gamesPnL;
 import java.text.DecimalFormat;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -38,6 +39,7 @@ public class GraphData extends Activity
 	private static final String PREF_USERNAME = "username";
 	public String currentUser = new String();
 	DecimalFormat df = new DecimalFormat("#,##0.00");
+	private	Context	mContext = null;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -47,6 +49,9 @@ public class GraphData extends Activity
 	{
 		gamesLogger.i(TAG, SubTag + "Starting GraphData");
 		super.onCreate(savedInstanceState);
+		mContext = this;    // since Activity extends Context
+		mContext = getApplicationContext();
+		mContext = getBaseContext();
 	}
 	
 	protected void onResume() 
@@ -85,7 +90,7 @@ public class GraphData extends Activity
     		query = extras.getString("queStr");
     	}
     	gamesLogger.i(TAG, SubTag + "Query: " + query);
-		Cursor result = managedQuery(tmpUri, projection, query, null, null);
+		Cursor result = mContext.getContentResolver().query(tmpUri, projection, query, null, null);
 		gamesLogger.i(TAG, SubTag + "there are " + result.getCount() + " records" );
 		if ( result.getCount() > 0 )
 		{

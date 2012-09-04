@@ -5,27 +5,25 @@ package com.tracker.gamesPnL;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Calendar;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -63,6 +61,7 @@ public class AfterLogin extends Activity
 	private int		percentDone;
 	private View	v;
 	private Handler mHandler = new Handler();
+	private	Context	mContext = null;
 	
 	private void doExport()
 	{
@@ -100,7 +99,7 @@ public class AfterLogin extends Activity
 						
 						String query = "name = '" + username + "'";
 						gamesLogger.i(TAG, SubTag + "Query: " + query);
-						Cursor result = managedQuery(tmpUri, projection, query, null, null);
+						Cursor result = mContext.getContentResolver().query(tmpUri, projection, query, null, null);
 						gamesLogger.i(TAG, SubTag + "there are " + result.getCount() + " records" );
 						if ( result.getCount() > 0 )
 						{
@@ -241,6 +240,7 @@ public class AfterLogin extends Activity
 	    	gamesLogger.i(TAG, SubTag + "trying to import data");
 	    	Intent importAct = new Intent(this, ImportActivityYN.class);
 	    	startActivity(importAct);
+	    	gamesLogger.i(TAG, SubTag + "import is done!");
 	    	// doImport();
 	    	return true;
 	    case R.id.exportDB:
@@ -255,21 +255,18 @@ public class AfterLogin extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
-		
     	// See if this is running on the emulator
-    	String androidId = Settings.Secure.getString 
-    		(this.getContentResolver(), 
-    	 	android.provider.Settings.Secure.ANDROID_ID);
-    	if ( androidId == null || androidId.equals("9774d56d682e549c"))
+        gamesLogger.e(TAG, SubTag + "Build.MANUFACTURER is " + Build.MANUFACTURER.toString());
+    	if ( Build.MANUFACTURER.equals("unknown") )
     	{
     		// We are running on the emulator. Debugging should be ON.
-    		gamesLogger.e(TAG, SubTag + "Enablig VERBOSE debugging. androidID = " + androidId);
+    		gamesLogger.e(TAG, SubTag + "Enablig VERBOSE debugging.");
     		gamesLogger.enableLogging(Log.VERBOSE);
     	}
     	else
     	{
     		// We are running on a phone. Debugging should be OFF.
-    		gamesLogger.e(TAG, SubTag + "Enablig ERRORS only debugging. androidID = " + androidId);
+    		gamesLogger.e(TAG, SubTag + "Enablig ERRORS only debugging.");
     		gamesLogger.enableLogging(Log.ERROR);
     	}
     	
@@ -289,7 +286,7 @@ public class AfterLogin extends Activity
 			};
 			String	query = " status = 'in'";
 			String	oldUsr = null;
-			Cursor result = managedQuery(tmpUri, projection, query, null, null);
+			Cursor result = mContext.getContentResolver().query(tmpUri, projection, query, null, null);
 			gamesLogger.i(TAG, SubTag + "got " + result.getCount() + " records");
 			if ( result.getCount() >= 1 )
 			{
@@ -345,6 +342,10 @@ public class AfterLogin extends Activity
 	{
 		super.onPause();
 		setContentView(R.layout.afterlogin);
+	    
+		mContext = this;    // since Activity extends Context
+		mContext = getApplicationContext();
+		mContext = getBaseContext();
 		
 		v = (View)findViewById(R.id.afterLogin);
 
@@ -389,7 +390,7 @@ public class AfterLogin extends Activity
 		};
 		
 		// result = getContentResolver().query(tmpUri, null, null, null, null);
-		result = managedQuery(tmpUri, projection, query, null, null);
+		result = mContext.getContentResolver().query(tmpUri, projection, query, null, null);
 		gamesLogger.i(TAG, SubTag + "there are " + result.getCount() + " records" );
 		
 		if ( result.moveToFirst() )
@@ -428,7 +429,7 @@ public class AfterLogin extends Activity
 		query = "name = '" + username+ "'";
 		String startDate = String.format("%04d", mYear) + "-" + String.format("%02d",mMonth) + "-01";
         query += " AND evDate >= '" + startDate + "'";
-		result = managedQuery(tmpUri, projection, query, null, null);
+		result = mContext.getContentResolver().query(tmpUri, projection, query, null, null);
 		gamesLogger.i(TAG, SubTag + "there are " + result.getCount() + " records" );
 		
 		sum = 0;

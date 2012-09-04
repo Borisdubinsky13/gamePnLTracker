@@ -148,7 +148,6 @@ public class DisplayQueryData extends Activity
         gmTypeSp.setAdapter(items);
         gmTypeSp.setSelection(0);
         Cursor result = getContentResolver().query(tmpUri, null, query, null, null);
-        startManagingCursor(result);
         gamesLogger.i(TAG, SubTag + "Everything is ready for the game Spinner. # of records: " + result.getCount());
         items.add("All");
         if ( result.moveToFirst() )

@@ -12,6 +12,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
@@ -58,6 +59,8 @@ public class DisplayItem extends Activity
     String	recId;
     Cursor	result;
     
+    private	Context	mContext = null;
+    
     /** Called when the activity is first created. */
 
     @Override
@@ -65,6 +68,9 @@ public class DisplayItem extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.displayitem);
+		mContext = this;    // since Activity extends Context
+		mContext = getApplicationContext();
+		mContext = getBaseContext();
     }
     
     @Override
@@ -130,7 +136,7 @@ public class DisplayItem extends Activity
 		};
 		
 		// result = getContentResolver().query(tmpUri, null, null, null, null);
-		result = managedQuery(tmpUri, projection, query, null, null);
+		result = mContext.getContentResolver().query(tmpUri, projection, query, null, null);
 		gamesLogger.i(TAG, SubTag + "Read all the records with id: " + recId + "# of records:" + result.getCount());
 		if ( result.moveToFirst() )
 		{
@@ -164,7 +170,6 @@ public class DisplayItem extends Activity
 			query = "addedBy = '" + username + "'" + " OR addedBy = 'gamePnL'";
 			ArrayAdapter<String> items = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
 			result = getContentResolver().query(tmpUri, null, query, null, null);
-			startManagingCursor(result);
 			if ( result.moveToFirst() )
 			{
 				do
@@ -209,7 +214,6 @@ public class DisplayItem extends Activity
     			Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
     			tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");
     	    	cr.delete(tmpUri, query, null);
-    	    	result.requery();
     	    	finish();
             }
         });

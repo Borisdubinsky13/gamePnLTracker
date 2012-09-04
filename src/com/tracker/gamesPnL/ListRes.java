@@ -6,14 +6,10 @@ package com.tracker.gamesPnL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import com.tracker.gamesPnL.R;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,9 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +58,8 @@ public class ListRes extends ListActivity
     String	evYearS;
     String	evDayS;
     String	evMonthS;
+    
+    private	Context	mContext = null;
     
    	class ResultDataAdapter extends ArrayAdapter<ResultData> {
 
@@ -138,6 +134,9 @@ public class ListRes extends ListActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listres);
+		mContext = this;    // since Activity extends Context
+		mContext = getApplicationContext();
+		mContext = getBaseContext();
 	}
 	
     @Override
@@ -145,10 +144,10 @@ public class ListRes extends ListActivity
     {
     	super.onResume();
     	setContentView(R.layout.listres);
-
+/*
         final ArrayAdapter<CharSequence> gmLimit = ArrayAdapter.createFromResource(
                 this, R.array.gameLimitLst, android.R.layout.simple_spinner_item);
- 		
+ */		
         gamesLogger.i(TAG, SubTag + "Started.");
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);   
 		username = pref.getString(PREF_USERNAME, null);
@@ -185,7 +184,7 @@ public class ListRes extends ListActivity
 		};
 		
 		// result = getContentResolver().query(tmpUri, null, null, null, null);
-		result = managedQuery(tmpUri, projection, query, null, null);
+		result = mContext.getContentResolver().query(tmpUri, projection, query, null, null);
 		gamesLogger.i(TAG, SubTag + "Number of records:  " + result.getCount());
 		
 		m_results = new ArrayList<ResultData>();

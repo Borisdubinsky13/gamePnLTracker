@@ -1,560 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:padding="20dip"
-    android:id="@+id/releasenotes">	
-	<ScrollView android:id="@+id/ScrollView01" 
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content">
-	<TableLayout android:id="@+id/TableLayout01" 
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content">
-	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-6.0 (DB Version: 11):" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Add progress bar for import/export"
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="@string/space"
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-5.1 (DB Version: 10):" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Make colors a little softer. Any input is welcome."
-		        />
-		</TableRow>
-		 <TableRow>
-		 <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="@string/space"
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-5.0 (DB Version: 10):" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Add blackjack as one of the games."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Change layout of the games report."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Fix the bug of improper record update in filtered report."
-		        />
-		</TableRow>
-		 <TableRow>
-		 <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text=" "
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-4.3 (DB Version: 9):" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Update AdMob library."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
- 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text=" "
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-4.2 (DB Version: 9):" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Add data import functionality."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
- 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text=" "
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-4.1 (DB Version: 9):" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Fix saving username for other activities."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
- 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text=" "
-		        />
-		</TableRow>				
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-4.0 (DB Version: 9):" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Remove login/logout functionality."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Eliminate internal user account. Switch to Google primary account."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Add export of the user's data into an CSV file for spreadsheet import"
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
- 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text=" "
-		        />
-		</TableRow>
-	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-3.2 (DB Version: 9):" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
- 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Fix crashes due to adMob library"
-		        />
-		</TableRow>
-	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
- 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Update to use SDK version 2.2"
-		        />
-		</TableRow>
-	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
- 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text=" "
-		        />
-		</TableRow>
-	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-3.1 (DB Version: 9):" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Make all the values positive for the pie charts, so graphs look correct"
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text=" "
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-3.0 (DB Version: 9):" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Update to use SDK version 2.2"
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text=" "
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-2.2 (DB Version: 9):" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Fix date field to make sure it's constant size. That fixes date handling in search and reports"
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Add color to the report"
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Add analytical pie charts"
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text=" "
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-2.1 (DB Version: 8):" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Add date field to the DB, so it's easier to filter and search."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Add filtering capabilites for getting reports"
-		        />
-		</TableRow>				
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Add filtering capabilites for getting graphs"
-		        />
-		</TableRow>		
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Add last month total and last event result on the first page"
-		        />
-		</TableRow>		
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Add database export to XML file to sd card"
-		        />
-		</TableRow>				
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+	<LinearLayout android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+	    android:orientation="vertical"
+    	android:padding="20dip"
+    	android:id="@+id/releasenotes">
+	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content"> 	    
+	<TextView
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:text="" android:textSize="20sp" android:textStyle="bold"
+			android:text="@string/relLblR42" android:textSize="20sp" android:textStyle="bold"
 			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+	</TableRow>
+	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
 		<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-1.7:" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Fix DB upgrade to the new version from the older version (at least 2 versions back)."
-		        />
-		        </TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">	 		
-		     <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Add adds to the list view."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">	 		
-		     <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Increase DB version to 7."
-		        />
-		</TableRow>
-		
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>		
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-1.6:" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Fix DB upgrade to the new version."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-1.5:" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>		
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Fix population of the games field. Use only default ones and ones that were added by the current user."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Add first and last name to the user table for future enhancements."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>		
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-1.4:" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Generate graph based on the date of the event."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-1.3:" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Add 'running total' graph."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="R-1.2:" android:textSize="20sp" android:textStyle="bold"
-			/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 		<TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="16sp"
-		        android:text="- Fix empty game type field issue in the update screen."
-		        />
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 	<TextView
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:textSize="16sp"
-	        android:text="- Use version id in About screen from the application manifest."
+	        android:text="@string/relNote421"
 	        />
-	</TableRow>	
-	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="" android:textSize="20sp" android:textStyle="bold"
-			/>
 	</TableRow>
-	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="R-1.1:" android:textSize="20sp" android:textStyle="bold"
-			/>
-	</TableRow>
-	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-	 	<TextView
+	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+ 		<TextView
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:textSize="16sp"
-	        android:text="- Official first release. Check web site 'http://gamepnltracker.dyndns.org' for list of features."
+	        android:text="@string/relNote422"
 	        />
 	</TableRow>
-	</TableLayout>
-</ScrollView>
+	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+	<TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="16sp"
+	        android:text=""
+	        />
+	</TableRow>
+	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/relLblR41" android:textSize="20sp" android:textStyle="bold"
+		/>
+	</TableRow>
+	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+ 		<TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="16sp"
+	        android:text="@string/relNote411"
+	        />
+	</TableRow>
+	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+	<TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="16sp"
+	        android:text=""
+	        />
+	</TableRow>
+	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/relLblR40" android:textSize="20sp" android:textStyle="bold"
+		/>
+	</TableRow>
+	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+ 		<TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="16sp"
+	        android:text="@string/relNote401"
+	        />
+	</TableRow>
+	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+ 		<TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="16sp"
+	        android:text="@string/relNote402"
+	        />
+	</TableRow>
+	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+ 		<TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="16sp"
+	        android:text="@string/relNote403"
+	        />
+	</TableRow>
 </LinearLayout>
+</ScrollView>

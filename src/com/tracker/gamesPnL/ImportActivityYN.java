@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import com.tracker.gamesPnL.R;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -36,6 +35,7 @@ public class ImportActivityYN extends Activity
 	private	ProgressDialog	progressDialog;
 	// private	ProgressBar progressBar;
 	private int		percentDone;
+	private	long	currentCount = 0;
 
 	private Handler mHandler = new Handler();
 	
@@ -45,15 +45,19 @@ public class ImportActivityYN extends Activity
         gamesLogger.i(TAG, SubTag + "Creating progress dialog" );
 
         try {
+			final File	f = new File(Environment.getExternalStorageDirectory()+fnoSDName);
+			final long	fSize = f.length();
+
         	progressDialog = new ProgressDialog(v.getContext());
 			progressDialog.setCancelable(true);
 			progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			progressDialog.setProgress(0);
-			progressDialog.setMax(100);
 			progressDialog.setMessage("Importing " + Environment.getExternalStorageDirectory() + fnoSDName + " ...");
+			progressDialog.setMax((int)fSize);
 			progressDialog.show();
 			
         	gamesLogger.i(TAG, SubTag + "Starting the work" );
+
         	new Thread(new Runnable() 
         	{
                 public void run() 
@@ -69,9 +73,11 @@ public class ImportActivityYN extends Activity
             			ContentResolver cr = getContentResolver();
             			gamesLogger.i(TAG, SubTag + "Got URI populated");
             			// open the file for reading
+/*
             			File	f = new File(Environment.getExternalStorageDirectory()+fnoSDName);
             			long	fSize = f.length();
             			long	currentCount = 0;
+*/
 
             			gamesLogger.i(TAG, SubTag + "File: " + Environment.getExternalStorageDirectory()+fnoSDName);
             			gamesLogger.i(TAG, SubTag + "File size: " + fSize);
@@ -83,20 +89,21 @@ public class ImportActivityYN extends Activity
             		    	// prepare the file for reading
             		    	InputStreamReader inputreader = new InputStreamReader(instream);
             		    	BufferedReader buffreader = new BufferedReader(inputreader);
-            		    	
+            		    
             		    	SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
             		    	String username = pref.getString(PREF_USERNAME, null);
-            		 
+             		    	
             		    	String line;
             		    	int	lineNumber = 0;
             		    	String	delimeter = null;
-            		    	
+            		    	currentCount = 0;
+                			
             		    	// read every line of the file into the line-variable, on line at the time
             		    	while (( line = buffreader.readLine()) != null) 
             		    	{
             		    		int	startExt;
             		    		int endExt;
-            		    	
+                		    	gamesLogger.i(TAG, SubTag + "Read line:" + line);            		    	
             		    		currentCount += line.length();
             		    		// Figure out the separation field. First line only is the heading, so the first word is "Date". 
             		    		// extract the 5th character and that should be the separation character
@@ -140,8 +147,9 @@ public class ImportActivityYN extends Activity
             		            	vals.put("eventType", evType);
             		            	vals.put("gameType", gameType);
             		            	vals.put("gameLimit", gameLimit);
-                    			
-            		    			cr.insert(tmpUri, vals);            	
+            		            	gamesLogger.i(TAG, SubTag + "Inserting a record");
+           		            		cr.insert(tmpUri, vals);
+
             			    		lineNumber++;
             			    		
             			    		// Update the progress bar if needed
@@ -160,23 +168,23 @@ public class ImportActivityYN extends Activity
 	            		                	{
 	            		                		public void run() 
 	            		                		{
-	            		                			progressDialog.setProgress(percentDone);
+	            		                			progressDialog.setProgress((int) currentCount);
 	            		                		}
 	            		                	});
 	            			    		}
             			    		}
             		    		}
             		    	}
+                		    // close the file
+                		    instream.close();
+                		    finish();
             		    }
-            		    // close the file
-            		    instream.close();
-            		    progressDialog.dismiss();
-		    			finish();
             		}
             		catch (Exception e) 
             		{
             			gamesLogger.e(TAG, SubTag + e.getMessage());
-            		}
+            		    progressDialog.dismiss();
+		    		}
                  }
             }).start();
         }
@@ -213,13 +221,19 @@ public class ImportActivityYN extends Activity
 			{
 				gamesLogger.i(TAG, SubTag + "Removing the database");
 
-				ContentResolver cr = getContentResolver();
-				gamesLogger.i(TAG, SubTag + "Got content resolver");
-				Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
-				tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");        			
-				cr.delete(tmpUri, null, null);
-				gamesLogger.i(TAG, SubTag + "Results data is removed");
-
+				try
+				{
+					ContentResolver cr = getContentResolver();
+					gamesLogger.i(TAG, SubTag + "Got content resolver");
+					Uri	tmpUri = Uri.parse("content://com.gamesPnL.provider.userContentProvider");
+					tmpUri = Uri.withAppendedPath(tmpUri,"pnldata");        			
+					cr.delete(tmpUri, null, null);
+					gamesLogger.i(TAG, SubTag + "Results data is removed");
+				}
+				catch (Exception e) 
+			   	{
+			   		gamesLogger.i(TAG, SubTag + e);
+			   	}
 				actualDoImport(v);
 			}
 		});
