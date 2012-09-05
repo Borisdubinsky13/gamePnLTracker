@@ -62,6 +62,7 @@ public class AfterLogin extends Activity
 	private View	v;
 	private Handler mHandler = new Handler();
 	private	Context	mContext = null;
+	private int	countRec = 0;
 	
 	private void doExport()
 	{
@@ -81,7 +82,6 @@ public class AfterLogin extends Activity
         	{
                 public void run() 
                 {
-            		int	countRec = 0;
             		int	totalRecs = 0;
 					File f = new File(Environment.getExternalStorageDirectory()+fnoSDName);
 					try 
@@ -104,6 +104,7 @@ public class AfterLogin extends Activity
 						if ( result.getCount() > 0 )
 						{
 							totalRecs = result.getCount();
+							progressDialog.setMax((int)totalRecs);
 							if ( result.moveToFirst() )
 							{
 								String	strOut = "Date,EventType,GameType,GameLimit,Amount,Name,Note\n";	
@@ -149,7 +150,7 @@ public class AfterLogin extends Activity
 			    		                	{
 			    		                		public void run() 
 			    		                		{
-			    		                			progressDialog.setProgress(percentDone);
+			    		                			progressDialog.setProgress(countRec);
 			    		                		}
 			    		                	});
 			    			    		}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.tracker.gamesPnL" android:versionCode="34" android:versionName="R-4.2">
+      package="com.tracker.gamesPnL" android:versionCode="35" android:versionName="R-4.2">
     <uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>

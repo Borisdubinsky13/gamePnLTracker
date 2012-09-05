@@ -55,7 +55,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 	private static final UriMatcher sURIMatcher = buildUriMatcher();
 	
 	// private static final MyBackupAgent bkpAgent = new MyBackupAgent();
-	private static BackupManager bkpMgm = null;
+	// private static BackupManager bkpMgm = null;
 	
 	public static String getMd5Hash(String input) 
 	{
@@ -93,7 +93,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 		public DbAdapter(Context context)
 		{
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
-			bkpMgm = new BackupManager(context);;
+			// bkpMgm = new BackupManager(context);;
 		}
 
 		@Override
@@ -421,7 +421,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 				gamesLogger.e(TAG, SubTag + e.getMessage());
 			}
 			/* Backup the data */
-			bkpMgm.dataChanged();
+			// bkpMgm.dataChanged();
 			gamesLogger.i(TAG , SubTag + "Upgrade is complete!");
 		}
 	}
@@ -465,7 +465,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 			gamesLogger.e(TAG, SubTag + e.getMessage());
 		}
 		/* Backup the data */
-		bkpMgm.dataChanged();
+		// bkpMgm.dataChanged();
 		return count;
 	}
 
@@ -686,7 +686,7 @@ public class GamePnLTrackerProvider extends ContentProvider
 			gamesLogger.e(TAG, SubTag + e.getMessage());
 		}
 		/* Backup the data */
-		bkpMgm.dataChanged();
+		// bkpMgm.dataChanged();
 		return count;
 	}
 	
