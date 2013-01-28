@@ -1,88 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
-    android:id="@+id/afterLogin"
-    android:layout_width="wrap_content"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
-	<com.google.ads.AdView
-	    android:id="@+id/adAfterLogin"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    ads:adSize="BANNER"
-	    ads:adUnitId="a14d18e1cd0e067" />
-	
-	<ScrollView android:id="@+id/ScrollView01" 
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content">
-	<TableLayout android:id="@+id/TableLayout01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+              xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+              android:id="@+id/afterLogin"
+              android:layout_width="wrap_content"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
 
-			<TextView
-			    android:id="@+id/PNLLabel"
-			    android:layout_width="fill_parent"
-			    android:layout_height="wrap_content"
-			    android:text="Career earnings:"
-			    android:textSize="25sp"
-			    android:textStyle="normal" />
 
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-			<TextView android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:text="Amount" 
-				android:id="@+id/PNL" 
-				android:textSize="60sp" 
-				android:textStyle="normal|bold">
-			</TextView>
-		</TableRow>
-		<TableRow>
-			<TextView android:text=" "/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView android:layout_height="wrap_content" 
-			android:layout_width="fill_parent" 
-			android:textSize="20sp" 
-			android:text="Current month earnings:" 
-			android:id="@+id/PNLLabel" 
-			android:textStyle="normal">
-		</TextView>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-			<TextView android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:text="Amount" 
-				android:id="@+id/PNLMonth" 
-				android:textSize="40sp" android:textStyle="normal|bold">
-			</TextView>
-		</TableRow>	
-		<TableRow>
-			<TextView android:text=" "/>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView android:layout_height="wrap_content" 
-			android:layout_width="fill_parent" 
-			android:textSize="15sp" 
-			android:text="Last event result:" 
-			android:id="@+id/PNLLabel" 
-			android:textStyle="normal">
-		</TextView>
-		</TableRow>
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
-			<TextView android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:text="Amount" 
-				android:id="@+id/PNLLast" 
-				android:textSize="35sp" android:textStyle="normal|bold">
-			</TextView>
-		</TableRow>	
-	</TableLayout>
-	</ScrollView>
-	<ProgressBar
-		android:id="@+id/progressBar"
-		style="?android:attr/progressBarStyleHorizontal"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" 
-		android:visibility="invisible"/>
+    <com.google.ads.AdView
+            android:id="@+id/adAfterLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="a14d18e1cd0e067"/>
+
+    <ScrollView android:id="@+id/ScrollView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+        <TableLayout android:id="@+id/TableLayout01" android:layout_width="wrap_content"
+                     android:layout_height="wrap_content">
+            <TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/PNLLabel"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Career earnings:"
+                        android:textSize="25sp"
+                        android:textStyle="normal"/>
+
+            </TableRow>
+            <TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+                <TextView android:layout_height="wrap_content"
+                          android:layout_width="fill_parent"
+                          android:text="Amount"
+                          android:id="@+id/PNL"
+                          android:textSize="60sp"
+                          android:textStyle="normal|bold">
+                </TextView>
+            </TableRow>
+            <TableRow>
+                <TextView android:text=" "/>
+            </TableRow>
+            <TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+                <TextView android:layout_height="wrap_content"
+                          android:layout_width="fill_parent"
+                          android:textSize="20sp"
+                          android:text="Current month earnings:"
+                          android:id="@+id/PNLLabel"
+                          android:textStyle="normal">
+                </TextView>
+            </TableRow>
+            <TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+                <TextView android:layout_height="wrap_content"
+                          android:layout_width="fill_parent"
+                          android:text="Amount"
+                          android:id="@+id/PNLMonth"
+                          android:textSize="40sp" android:textStyle="normal|bold">
+                </TextView>
+            </TableRow>
+            <TableRow>
+                <TextView android:text=" "/>
+            </TableRow>
+            <TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+                <TextView android:layout_height="wrap_content"
+                          android:layout_width="fill_parent"
+                          android:textSize="15sp"
+                          android:text="Last event result:"
+                          android:id="@+id/PNLLabel"
+                          android:textStyle="normal">
+                </TextView>
+            </TableRow>
+            <TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+                <TextView android:layout_height="wrap_content"
+                          android:layout_width="fill_parent"
+                          android:text="Amount"
+                          android:id="@+id/PNLLast"
+                          android:textSize="35sp" android:textStyle="normal|bold">
+                </TextView>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+    <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"/>
 </LinearLayout>

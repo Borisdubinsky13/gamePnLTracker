@@ -1,123 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.tracker.gamesPnL" android:versionCode="35" android:versionName="R-4.2">
+          package="com.tracker.gamesPnL" android:versionCode="36" android:versionName="R-4.3">
     <uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-    <application android:icon="@drawable/icon" android:label="@string/appname" 
-        android:allowClearUserData="true" android:name=".GamesPnL">
-	<meta-data android:name="com.google.android.backup.api_key"
-    		android:value="AEdPqrEAAAAIGMeyBzhRDvWGD-qbBNK3c9kgR9_K6IKb-AYwqQ" 
-    		android:restoreAnyVersion="true"/>
-		<activity android:label="@string/appname" android:name="com.tracker.gamesPnL.DataEntry">
-			<intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.PICK" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-	    </activity>
-		<activity android:label="@string/setupName" android:name="com.tracker.gamesPnL.SetupWin">
-			<intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.PICK" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-		</activity>    
-        <activity android:label="@string/appname" android:name="com.tracker.gamesPnL.AfterLogin">
+    <application android:icon="@drawable/icon" android:label="@string/appname"
+                 android:allowClearUserData="true" android:name=".GamesPnL"
+                 android:backupAgent="MyBackupAgent"
+                 android:allowBackup="true" android:killAfterRestore="true">
+        <meta-data android:name="com.google.android.backup.api_key"
+                   android:value="AEdPqrEAAAAIGMeyBzhRDvWGD-qbBNK3c9kgR9_K6IKb-AYwqQ"
+                   android:restoreAnyVersion="true"/>
+        <activity android:label="@string/appname" android:name="com.tracker.gamesPnL.DataEntry">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.PICK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-	    <activity android:label="@string/appname" android:name="com.tracker.gamesPnL.AboutHandler">
-			<intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.PICK" />
-                <category android:name="android.intent.category.DEFAULT" />
+        <activity android:label="@string/setupName" android:name="com.tracker.gamesPnL.SetupWin">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.PICK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-	    </activity>
-		<activity android:label="@string/listRes" android:name="com.tracker.gamesPnL.ListRes_original">
-				<intent-filter>
-					<action android:name="android.intent.action.VIEW" />
-					<action android:name="android.intent.action.PICK" />
-					<category android:name="android.intent.category.DEFAULT" />
-				</intent-filter>
-		</activity>
-		<activity android:label="@string/dispquerydata" android:name="com.tracker.gamesPnL.DisplayQueryData">
-				<intent-filter>
-					<action android:name="android.intent.action.VIEW" />
-					<action android:name="android.intent.action.PICK" />
-					<category android:name="android.intent.category.DEFAULT" />
-				</intent-filter>
-		</activity>
-		<activity android:label="@string/dispquerydata" android:name="com.tracker.gamesPnL.DataAnalysis">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<action android:name="android.intent.action.PICK" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>		
-		<activity android:name="com.tracker.gamesPnL.ListRes" android:label="@string/dispList">
-				<intent-filter>
-					<action android:name="android.intent.action.VIEW" />
-					<action android:name="android.intent.action.PICK" />
-					<category android:name="android.intent.category.DEFAULT" />
-				</intent-filter>
-		</activity>
-		<activity android:name="com.tracker.gamesPnL.DisplayItem" android:label="@string/dispItem">
-				<intent-filter>
-					<action android:name="android.intent.action.VIEW" />
-					<action android:name="android.intent.action.PICK" />
-					<category android:name="android.intent.category.DEFAULT" />
-				</intent-filter>
-		</activity>
-		<activity android:label="@string/dispList" android:name="com.tracker.gamesPnL.AddGame">
-		<intent-filter>
-			<action android:name="android.intent.action.VIEW" />
-			<action android:name="android.intent.action.PICK" />
-			<category android:name="android.intent.category.DEFAULT" />
-		</intent-filter>
-		</activity>
-		<activity android:label="@string/dispList" android:name="com.tracker.gamesPnL.GraphData">
-		<intent-filter>
-			<action android:name="android.intent.action.VIEW" />
-			<action android:name="android.intent.action.PICK" />
-			<category android:name="android.intent.category.DEFAULT" />
-		</intent-filter>
-		</activity>
-		<activity android:label="@string/appname" android:name="com.tracker.gamesPnL.ImportActivityYN">
-			<intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.PICK" />
-                <category android:name="android.intent.category.DEFAULT" />
+        </activity>
+        <activity android:label="@string/appname" android:name="com.tracker.gamesPnL.AfterLogin">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-		</activity>
-		<activity android:label="@string/appname" android:name="com.tracker.gamesPnL.ImportDoWork">
-			<intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.PICK" />
-                <category android:name="android.intent.category.DEFAULT" />
+        </activity>
+        <activity android:label="@string/appname" android:name="com.tracker.gamesPnL.AboutHandler">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.PICK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-		</activity>
-		<activity android:name="org.achartengine.GraphicalActivity"/>
+        </activity>
+        <activity android:label="@string/listRes" android:name="com.tracker.gamesPnL.ListRes_original">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.PICK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:label="@string/dispquerydata" android:name="com.tracker.gamesPnL.DisplayQueryData">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.PICK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:label="@string/dispquerydata" android:name="com.tracker.gamesPnL.DataAnalysis">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.PICK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.tracker.gamesPnL.ListRes" android:label="@string/dispList">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.PICK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.tracker.gamesPnL.DisplayItem" android:label="@string/dispItem">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.PICK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:label="@string/dispList" android:name="com.tracker.gamesPnL.AddGame">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.PICK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:label="@string/dispList" android:name="com.tracker.gamesPnL.GraphData">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.PICK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:label="@string/appname" android:name="com.tracker.gamesPnL.ImportActivityYN">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.PICK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:label="@string/appname" android:name="com.tracker.gamesPnL.ImportDoWork">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.PICK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="org.achartengine.GraphicalActivity"/>
 
-		<provider android:authorities="com.gamesPnL.provider.userContentProvider" 
-		    android:name="com.tracker.gamesPnL.GamePnLTrackerProvider" />
-			
-		<!-- The application's publisher ID assigned by AdMob -->
-		<meta-data android:value="a14d18e1cd0e067" android:name="ADMOB_PUBLISHER_ID" />
-	        
-		<!-- AdMobActivity definition -->
-		<activity android:name="com.google.ads.AdActivity"
-			android:configChanges="orientation|keyboard|keyboardHidden" />
+        <provider android:authorities="com.gamesPnL.provider.userContentProvider"
+                  android:name="com.tracker.gamesPnL.GamePnLTrackerProvider"/>
 
-		<meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS" />
+        <!-- The application's publisher ID assigned by AdMob -->
+        <meta-data android:value="a14d18e1cd0e067" android:name="ADMOB_PUBLISHER_ID"/>
+
+        <!-- AdMobActivity definition -->
+        <activity android:name="com.google.ads.AdActivity"
+                  android:configChanges="orientation|keyboard|keyboardHidden"/>
+
+        <meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS"/>
 	</application>
-
-    	<!-- AdMob SDK requires Internet permission -->
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-sdk android:minSdkVersion="16">
-	    
-	</uses-sdk>
+    <!-- AdMob SDK requires Internet permission -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-sdk android:minSdkVersion="16">
+    </uses-sdk>
 </manifest> 

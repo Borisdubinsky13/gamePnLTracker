@@ -210,6 +210,7 @@ public final class R {
         public static final int relNote411=0x7f040040;
         public static final int relNote421=0x7f040042;
         public static final int relNote422=0x7f040043;
+        public static final int relNote423=0x7f040044;
         public static final int setupName=0x7f040023;
         public static final int setupTitle=0x7f04001f;
         public static final int space=0x7f040039;

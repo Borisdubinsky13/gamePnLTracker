@@ -1,99 +1,101 @@
 <resources>
-    <string name="lastNameStr">Last Name: </string>
-    <string name="firstNameStr">First Name: </string>
+    <string name="lastNameStr">Last Name:</string>
+    <string name="firstNameStr">First Name:</string>
     <string name="viewGraph">Graph</string>
-    <string name="graphViewAuthor">     Arno den Hond</string>
+    <string name="graphViewAuthor">Arno den Hond</string>
     <string name="graphViewLabel">GraphView provided by</string>
     <string name="aboutName">About</string>
     <string name="add">Add</string>
     <string name="AddResName">Add Result</string>
     <string name="applabl">Application:</string>
-    <string name="appContVal">     dubi13@hotmail.com</string>
-    <string name="appNote">NOTE: </string>
-    <string name="appNoteVal">     Please specify \'gamePnLTracker\' in the subject of your e-mail.</string>
+    <string name="appContVal">dubi13@hotmail.com</string>
+    <string name="appNote">NOTE:</string>
+    <string name="appNoteVal">Please specify \'gamePnLTracker\' in the subject of your e-mail.</string>
     <string name="appContact">Contact:</string>
     <string name="appname">gamePnLTracker</string>
-    <string name="appdescrip">     Games Profits aNd Losses Tracker</string>
+    <string name="appdescrip">Games Profits aNd Losses Tracker</string>
     <string name="appVerLabel">Version:</string>
-    <string name="appVer">     R-6.1</string>
+    <string name="appVer">R-6.1</string>
     <string name="Cancel">Cancel</string>
-    <string name="cEarnings">Your career earnings: </string>
+    <string name="cEarnings">Your career earnings:</string>
     <string name="dispList">Display List</string>
     <string name="email">E-Mail:</string>
     <string name="gameDescr">Description:</string>
-    <string name="gameLimit">Limit: </string>
+    <string name="gameLimit">Limit:</string>
     <string-array name="gameLimitLst">
-		<item>NoLimit</item>
-		<item>Limit</item>
-		<item>PotLimit</item>
-		<item>Mixed</item>
-	</string-array>
-	<string name="AnalyzeBy">Analyze by</string>
-	<string-array name="analyzeByNames">
-		<item>Make a selection</item>
-		<item>Event Type</item>
-		<item>Game Type</item>
-		<item>Limit</item>
-	</string-array>
-	<string name="gameLimitNameSearch">Limit: </string>
+        <item>NoLimit</item>
+        <item>Limit</item>
+        <item>PotLimit</item>
+        <item>Mixed</item>
+    </string-array>
+    <string name="AnalyzeBy">Analyze by</string>
+    <string-array name="analyzeByNames">
+        <item>Make a selection</item>
+        <item>Event Type</item>
+        <item>Game Type</item>
+        <item>Limit</item>
+    </string-array>
+    <string name="gameLimitNameSearch">Limit:</string>
     <string-array name="gameLimitSearch">
-    	<item>All</item>
-		<item>NoLimit</item>
-		<item>Limit</item>
-		<item>PotLimit</item>
-		<item>Mixed</item>
-	</string-array>
-	<string name="gameType">Game: </string>
-	<string-array name="gameType">
-	</string-array>
-	<string name="evTypeName">Event Type:</string>
-	<string-array name="evTypeArray">
-		<item>Tourney</item>
-		<item>Cash</item>
-	</string-array>
-	<string-array name="evTypeSearch">
-		<item>All</item>
-		<item>Tourney</item>
-		<item>Cash</item>
-	</string-array>
-	<string name="logoutStr">Logout</string>
+        <item>All</item>
+        <item>NoLimit</item>
+        <item>Limit</item>
+        <item>PotLimit</item>
+        <item>Mixed</item>
+    </string-array>
+    <string name="gameType">Game:</string>
+    <string-array name="gameType">
+    </string-array>
+    <string name="evTypeName">Event Type:</string>
+    <string-array name="evTypeArray">
+        <item>Tourney</item>
+        <item>Cash</item>
+    </string-array>
+    <string-array name="evTypeSearch">
+        <item>All</item>
+        <item>Tourney</item>
+        <item>Cash</item>
+    </string-array>
+    <string name="logoutStr">Logout</string>
     <string name="ViewStatName">View Stats.</string>
-    <string name="Name">Name: </string>
+    <string name="Name">Name:</string>
     <string name="okStr">OK</string>
     <string name="setupTitle">Setup an Account</string>
-	<string name="passStr">Password:</string>
-	<string name="newid">Setup New ID</string>
-	<string name="login">Login</string>
-	<string name="setupName">Setup</string>
-   	<string name="passwordLabel">Password:</string>
+    <string name="passStr">Password:</string>
+    <string name="newid">Setup New ID</string>
+    <string name="login">Login</string>
+    <string name="setupName">Setup</string>
+    <string name="passwordLabel">Password:</string>
     <string name="earningsTracker">earningsTracker</string>
-    <string name="Setup">Setup</string> 	
-	<string name="listRes">Results:</string>
-	<string name="deleteStr">Delete</string>
-	<string name="updateStr">Update</string>
-	<string name="dispRelNotes">Display Release Notes</string>
-	<string name="AddGameName">Add Game</string>
-	<string name="addResult">Need to add at least one result</string>
-	<string name="exportDB">Export DB</string><string name="importDB">Import DB</string>
-	<string name="dispquerydata">DisplayQueryData</string>
-	<string name="dbVersion">     10</string>
-	<string name="dbVersionLabel">Database Version: </string>
-	<string name="analysisTitle">Analysis</string>
-	<string name="YesString">Yes</string>
-	<string name="NoString">No</string>
-	<string name="CancelString">Cancel</string>
-	<string name="dispItem">Display Item</string>
-	<string name="CleanDBStr">Overwrite the Database?</string>
-	<string name="ImportDB">Importing file: </string>
-	<string name="space"></string>
-	<string name="csvFile">/mnt/sdcard/gamesPnL.csv</string>
-	<string name="relLblR40">R-4.0 (DB Version: 10):</string>
-	<string name="relNote401">- Add blackjack as one of the games.</string>
-	<string name="relNote402">- Change layout of the games report.</string>
-	<string name="relNote403">- Fix the bug of improper record update in filtered report.</string>
-	<string name="relLblR41">R-4.1 (DB Version: 10):</string>
-	<string name="relNote411">- Make colors a little softer. Any input is welcome.</string>
-	<string name="relLblR42">R-4.2 (DB Version: 10):</string>
-	<string name="relNote421">- Add progress bar for import/export</string>
-	<string name="relNote422">- Cleanup and organize release notes</string>	
+    <string name="Setup">Setup</string>
+    <string name="listRes">Results:</string>
+    <string name="deleteStr">Delete</string>
+    <string name="updateStr">Update</string>
+    <string name="dispRelNotes">Display Release Notes</string>
+    <string name="AddGameName">Add Game</string>
+    <string name="addResult">Need to add at least one result</string>
+    <string name="exportDB">Export DB</string>
+    <string name="importDB">Import DB</string>
+    <string name="dispquerydata">DisplayQueryData</string>
+    <string name="dbVersion">10</string>
+    <string name="dbVersionLabel">Database Version:</string>
+    <string name="analysisTitle">Analysis</string>
+    <string name="YesString">Yes</string>
+    <string name="NoString">No</string>
+    <string name="CancelString">Cancel</string>
+    <string name="dispItem">Display Item</string>
+    <string name="CleanDBStr">Overwrite the Database?</string>
+    <string name="ImportDB">Importing file:</string>
+    <string name="space"></string>
+    <string name="csvFile">/mnt/sdcard/gamesPnL.csv</string>
+    <string name="relLblR40">R-4.0 (DB Version: 10):</string>
+    <string name="relNote401">- Add blackjack as one of the games.</string>
+    <string name="relNote402">- Change layout of the games report.</string>
+    <string name="relNote403">- Fix the bug of improper record update in filtered report.</string>
+    <string name="relLblR41">R-4.1 (DB Version: 10):</string>
+    <string name="relNote411">- Make colors a little softer. Any input is welcome.</string>
+    <string name="relLblR42">R-4.2 (DB Version: 10):</string>
+    <string name="relNote421">- Add progress bar for import/export</string>
+    <string name="relNote422">- Cleanup and organize release notes</string>
+    <string name="relNote423">- Add backup of the data</string>
 </resources>

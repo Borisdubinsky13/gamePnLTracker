@@ -1,79 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:layout_gravity="center_horizontal"
-  android:id="@+id/displayitem">
-      <ScrollView android:id="@+id/ScrollView01" 
-      				android:layout_width="fill_parent" 
-      				android:layout_height="fill_parent">
-	    <TableLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:gravity="top"
-		android:id="@+id/topTable">
-		<TableRow>
-			<TextView android:text="Amount: " android:layout_gravity="left|center_vertical"/>
-			<EditText android:id="@+id/Amount" android:layout_width="250sp" android:inputType="number|numberSigned|numberDecimal"/>
-		</TableRow>
-		<TableRow>
-		    <TextView android:text="Date: " android:layout_gravity="left|center_vertical"/>
-			<Button android:text="Date" 
-				android:id="@+id/dateButton"  
-				android:layout_height="wrap_content" 
-				/>
-		</TableRow>
-		<TableRow>
-		<TextView android:text="Event Type: " android:layout_gravity="center"/>
-			<RadioGroup android:orientation="horizontal" android:layout_width="fill_parent">
-				<RadioButton android:id="@+id/idTourney" android:checked="true" android:text="Tourney"/>
-				<RadioButton android:id="@+id/idCash" android:checked="false" android:text="Cash"/>
-			</RadioGroup>
-		</TableRow>
-		<TableRow>
-			<TextView android:text="Game: " android:layout_gravity="left|center_vertical"/>
-			<Spinner android:id="@+id/gType"
-					android:prompt="@string/gameType"
-					/>
-		</TableRow>
-		<TableRow>
-			<TextView android:text="Limit: " android:layout_gravity="left|center_vertical"/>
-			<Spinner android:id="@+id/gLimit"
-					android:prompt="@string/gameLimitNameSearch"
-					/>
-		</TableRow>
-		<TableRow android:id="@+id/lastRow">
-			<TextView android:text="Notes:" android:layout_gravity="left|center_vertical"/>
-			<EditText android:id="@+id/notes"
-					android:singleLine="false"
-					android:gravity="top"
-					android:lines="1" 
-					android:maxLines="4" 
-					android:scrollHorizontally="true"/>
-		</TableRow>
-		<TableRow>
-			<TextView android:text=" "/>
-		</TableRow>
-		<TableRow>
-			<TextView android:text=" "/>
-		</TableRow>
-		<TableRow>
-			<TextView android:text=" "/>
-		</TableRow>
-		<RelativeLayout android:gravity="center_horizontal" >
-		<Button android:text="@string/deleteStr" 
-				android:id="@+id/delete" 
-				android:layout_width="160px" 
-				android:layout_height="wrap_content" 
-				/>
-		<Button android:layout_toRightOf="@id/delete" 
-				android:text="@string/updateStr" 
-				android:id="@+id/update" 
-				android:layout_width="160px" 
-				android:layout_height="wrap_content"
-				/>
-		</RelativeLayout>
-		</TableLayout>
-	</ScrollView>
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/displayitem">
+    <ScrollView android:id="@+id/ScrollView01"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+        <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="top"
+                android:id="@+id/topTable">
+            <TableRow>
+                <TextView android:text="Amount: " android:layout_gravity="left|center_vertical"/>
+                <EditText android:id="@+id/Amount" android:layout_width="250sp"
+                          android:inputType="number|numberSigned|numberDecimal"/>
+            </TableRow>
+            <TableRow>
+                <TextView android:text="Date: " android:layout_gravity="left|center_vertical"/>
+                <Button android:text="Date"
+                        android:id="@+id/dateButton"
+                        android:layout_height="wrap_content"
+                        />
+            </TableRow>
+            <TableRow>
+                <TextView android:text="Event Type: " android:layout_gravity="center"/>
+                <RadioGroup android:orientation="horizontal" android:layout_width="fill_parent">
+                    <RadioButton android:id="@+id/idTourney" android:checked="true" android:text="Tourney"/>
+                    <RadioButton android:id="@+id/idCash" android:checked="false" android:text="Cash"/>
+                </RadioGroup>
+            </TableRow>
+            <TableRow>
+                <TextView android:text="Game: " android:layout_gravity="left|center_vertical"/>
+                <Spinner android:id="@+id/gType"
+                         android:prompt="@string/gameType"
+                        />
+            </TableRow>
+            <TableRow>
+                <TextView android:text="Limit: " android:layout_gravity="left|center_vertical"/>
+                <Spinner android:id="@+id/gLimit"
+                         android:prompt="@string/gameLimitNameSearch"
+                        />
+            </TableRow>
+            <TableRow android:id="@+id/lastRow">
+                <TextView android:text="Notes:" android:layout_gravity="left|center_vertical"/>
+                <EditText android:id="@+id/notes"
+                          android:singleLine="false"
+                          android:gravity="top"
+                          android:lines="1"
+                          android:maxLines="4"
+                          android:scrollHorizontally="true"/>
+            </TableRow>
+            <TableRow>
+                <TextView android:text=" "/>
+            </TableRow>
+            <TableRow>
+                <TextView android:text=" "/>
+            </TableRow>
+            <TableRow>
+                <TextView android:text=" "/>
+            </TableRow>
+            <RelativeLayout android:gravity="center_horizontal">
+                <Button android:text="@string/deleteStr"
+                        android:id="@+id/delete"
+                        android:layout_width="160px"
+                        android:layout_height="wrap_content"
+                        />
+                <Button android:layout_toRightOf="@id/delete"
+                        android:text="@string/updateStr"
+                        android:id="@+id/update"
+                        android:layout_width="160px"
+                        android:layout_height="wrap_content"
+                        />
+            </RelativeLayout>
+        </TableLayout>
+    </ScrollView>
 </LinearLayout>

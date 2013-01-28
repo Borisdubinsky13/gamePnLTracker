@@ -1,97 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollView01"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
-	<LinearLayout android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-	    android:orientation="vertical"
-    	android:padding="20dip"
-    	android:id="@+id/releasenotes">
-	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content"> 	    
-	<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="@string/relLblR42" android:textSize="20sp" android:textStyle="bold"
-			/>
-	</TableRow>
-	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textSize="16sp"
-	        android:text="@string/relNote421"
-	        />
-	</TableRow>
-	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
- 		<TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textSize="16sp"
-	        android:text="@string/relNote422"
-	        />
-	</TableRow>
-	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
-	<TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textSize="16sp"
-	        android:text=""
-	        />
-	</TableRow>
-	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="@string/relLblR41" android:textSize="20sp" android:textStyle="bold"
-		/>
-	</TableRow>
-	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
- 		<TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textSize="16sp"
-	        android:text="@string/relNote411"
-	        />
-	</TableRow>
-	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
-	<TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textSize="16sp"
-	        android:text=""
-	        />
-	</TableRow>
-	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="@string/relLblR40" android:textSize="20sp" android:textStyle="bold"
-		/>
-	</TableRow>
-	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
- 		<TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textSize="16sp"
-	        android:text="@string/relNote401"
-	        />
-	</TableRow>
-	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
- 		<TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textSize="16sp"
-	        android:text="@string/relNote402"
-	        />
-	</TableRow>
-	<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
- 		<TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textSize="16sp"
-	        android:text="@string/relNote403"
-	        />
-	</TableRow>
-</LinearLayout>
+            android:id="@+id/ScrollView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:padding="20dip"
+                  android:id="@+id/releasenotes">
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/relLblR42" android:textSize="20sp" android:textStyle="bold"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/relNote421"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/relNote422"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/relNote423"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text=""
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/relLblR41" android:textSize="20sp" android:textStyle="bold"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/relNote411"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text=""
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/relLblR40" android:textSize="20sp" android:textStyle="bold"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/relNote401"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/relNote402"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/relNote403"
+                    />
+        </TableRow>
+    </LinearLayout>
 </ScrollView>

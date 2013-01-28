@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <TextView android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:textSize="25sp"
-				android:text="@string/ImportDB" 
-				android:id="@+id/PNLLabel" 
-				android:textStyle="normal" android:layout_gravity="center_horizontal">
-			</TextView>
-	<TextView android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:textSize="25sp"
-				android:text="@string/space" 
-				android:id="@+id/PNLLabel1" 
-				android:textStyle="normal" android:layout_gravity="center_horizontal">
-			</TextView>
-    <TextView android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:textSize="20sp"
-				android:text="@string/csvFile" 
-				android:id="@+id/PNLLabe2" 
-				android:textStyle="normal|bold" android:layout_gravity="center_horizontal">
-			</TextView>
-	<TextView android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:textSize="25sp"
-				android:text="@string/space" 
-				android:id="@+id/PNLLabel3" 
-				android:textStyle="normal" android:layout_gravity="center_horizontal">
-			</TextView>
-    <TextView android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:textSize="20sp"
-				android:text="@string/CleanDBStr" 
-				android:id="@+id/CleanDB" 
-				android:textStyle="normal" android:layout_gravity="center_horizontal">
-			</TextView>
-	<TextView android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:textSize="25sp"
-				android:text="@string/space" 
-				android:id="@+id/PNLLabel2" 
-				android:textStyle="normal" android:layout_gravity="center_horizontal">
-			</TextView>
+    <TextView android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:textSize="25sp"
+              android:text="@string/ImportDB"
+              android:id="@+id/PNLLabel"
+              android:textStyle="normal" android:layout_gravity="center_horizontal">
+    </TextView>
+    <TextView android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:textSize="25sp"
+              android:text="@string/space"
+              android:id="@+id/PNLLabel1"
+              android:textStyle="normal" android:layout_gravity="center_horizontal">
+    </TextView>
+    <TextView android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:textSize="20sp"
+              android:text="@string/csvFile"
+              android:id="@+id/PNLLabe2"
+              android:textStyle="normal|bold" android:layout_gravity="center_horizontal">
+    </TextView>
+    <TextView android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:textSize="25sp"
+              android:text="@string/space"
+              android:id="@+id/PNLLabel3"
+              android:textStyle="normal" android:layout_gravity="center_horizontal">
+    </TextView>
+    <TextView android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:textSize="20sp"
+              android:text="@string/CleanDBStr"
+              android:id="@+id/CleanDB"
+              android:textStyle="normal" android:layout_gravity="center_horizontal">
+    </TextView>
+    <TextView android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:textSize="25sp"
+              android:text="@string/space"
+              android:id="@+id/PNLLabel2"
+              android:textStyle="normal" android:layout_gravity="center_horizontal">
+    </TextView>
 
-	<LinearLayout
-	    android:id="@+id/linearLayout1"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content" >
+    <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-	    <Button
-	        android:id="@+id/YesButton"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center_horizontal"
-	        android:layout_weight="1"
-	        android:text="@string/YesString" />
+        <Button
+                android:id="@+id/YesButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/YesString"/>
 
-	    <Button
-	        android:id="@+id/NoButton"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/NoString" />
-	</LinearLayout>
+        <Button
+                android:id="@+id/NoButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/NoString"/>
+    </LinearLayout>
 
 </LinearLayout>
