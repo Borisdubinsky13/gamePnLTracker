@@ -1,5 +1,5 @@
 
-package com.tracker.gamesPnL;
+package com.gamesPnL;
 
 import android.content.Context;
 import android.database.Cursor;

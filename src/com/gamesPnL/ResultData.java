@@ -1,4 +1,4 @@
-package com.tracker.gamesPnL;
+package com.gamesPnL;
 
 public class ResultData {
     private String dateTime;

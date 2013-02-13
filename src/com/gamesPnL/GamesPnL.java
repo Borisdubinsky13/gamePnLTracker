@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.tracker.gamesPnL;
+package com.gamesPnL;
 
 import android.app.Application;
 import android.content.Context;

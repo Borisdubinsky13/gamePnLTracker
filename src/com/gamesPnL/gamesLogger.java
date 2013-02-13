@@ -1,4 +1,4 @@
-package com.tracker.gamesPnL;
+package com.gamesPnL;
 
 import android.util.Log;
 

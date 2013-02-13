@@ -1,5 +1,6 @@
-package com.tracker.gamesPnL;
+package com.gamesPnL;
 
+import java.io.File;
 import java.io.IOException;
 
 import android.app.backup.BackupAgentHelper;
@@ -13,6 +14,7 @@ public class MyBackupAgent extends BackupAgentHelper {
 	private static final String DB_NAME = "gamepnltracker.db";
 	public String TAG = "gamePnLTracker";
 	public String SubTag = "MyBackupAgent: ";
+	static final String FILE_HELPER_KEY = "gamepnltracker.db";
 
 	/*
 	 * (non-Javadoc)
@@ -44,8 +46,15 @@ public class MyBackupAgent extends BackupAgentHelper {
 	@Override
 	public void onCreate() {
 		gamesLogger.i(TAG, SubTag + "OnCreate()...");
-		FileBackupHelper helper = new FileBackupHelper(this, getDatabasePath(
-				DB_NAME).getAbsolutePath());
-		addHelper("dbs", helper);
+		FileBackupHelper helper = new FileBackupHelper(this, DB_NAME);
+		addHelper(FILE_HELPER_KEY, helper);
 	}
+
+	@Override
+	public File getFilesDir() {
+		File path = getDatabasePath(DB_NAME);
+		gamesLogger.i(TAG, SubTag + "The path for DB: " + path.getParentFile());
+		return path.getParentFile();
+	}
+
 }

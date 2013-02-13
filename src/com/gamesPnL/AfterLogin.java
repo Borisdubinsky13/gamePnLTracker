@@ -1,7 +1,7 @@
 /*
  *
  */
-package com.tracker.gamesPnL;
+package com.gamesPnL;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
