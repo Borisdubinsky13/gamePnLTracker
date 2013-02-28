@@ -38,6 +38,8 @@ public class AddGame extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addgame);
 
+		mBackupManager = new BackupManager(this);
+
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		String username = pref.getString(PREF_USERNAME, null);
 

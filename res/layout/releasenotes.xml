@@ -12,6 +12,37 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:text="@string/relLblR43" android:textSize="20sp" android:textStyle="bold"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/relNote431"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/relNote432"
+                    />
+        </TableRow>
+		<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text=""
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:text="@string/relLblR42" android:textSize="20sp" android:textStyle="bold"
                     />
         </TableRow>

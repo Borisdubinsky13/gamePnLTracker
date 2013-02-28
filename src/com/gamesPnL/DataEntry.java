@@ -8,7 +8,6 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.backup.BackupManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
@@ -39,8 +38,6 @@ public class DataEntry extends Activity {
 	static final int DATE_DIALOG_ID = 1;
 	static final int GAME_SELECTION_DIALOG_ID = 2;
 
-	BackupManager mBackupManager;
-
 	String date_selected;
 	CharSequence text = "No text";
 	int duration = Toast.LENGTH_SHORT;
@@ -58,7 +55,6 @@ public class DataEntry extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		mBackupManager = new BackupManager(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dataentry);
 	}
@@ -202,8 +198,6 @@ public class DataEntry extends Activity {
 					tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
 					gamesLogger.i(TAG, SubTag + "Got URI populated");
 					cr.insert(tmpUri, vals);
-					mBackupManager.dataChanged();
-					gamesLogger.i(TAG, SubTag + "Data has changed");
 					finish();
 				} else {
 					String text = "Please enter the amount!";
@@ -258,8 +252,6 @@ public class DataEntry extends Activity {
 					tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
 					gamesLogger.i(TAG, SubTag + "Got URI populated");
 					cr.insert(tmpUri, vals);
-					mBackupManager.dataChanged();
-					gamesLogger.i(TAG, SubTag + "Data has changed");
 					finish();
 				} else {
 					String text = "Please enter the amount!";

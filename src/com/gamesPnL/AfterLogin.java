@@ -13,8 +13,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -266,8 +264,6 @@ public class AfterLogin extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Uri tmpUri;
-		String oldUsr = null;
-
 		// See if this is running on the emulator
 		gamesLogger.e(TAG, SubTag + "Build.MANUFACTURER is "
 				+ Build.MANUFACTURER.toString());
@@ -293,14 +289,12 @@ public class AfterLogin extends Activity {
 			tmpUri = Uri.withAppendedPath(tmpUri, "pnlstatus");
 			String[] projection = new String[] { "_id", "name", "status" };
 			String query = " status = 'in'";
-			oldUsr = null;
 			Cursor result = mContext.getContentResolver().query(tmpUri,
 					projection, query, null, null);
 			gamesLogger
 					.i(TAG, SubTag + "got " + result.getCount() + " records");
 			if (result.getCount() >= 1) {
 				result.moveToFirst();
-				oldUsr = result.getString(result.getColumnIndex("name"));
 				gamesLogger.i(TAG, SubTag + "ID of the user ");
 			}
 		} catch (Exception e) {
@@ -331,22 +325,18 @@ public class AfterLogin extends Activity {
 		// primary google account.
 		// See if there are any data that has name other then current
 		// username
-		try {
-			tmpUri = Uri
-					.parse("content://com.gamesPnL.provider.userContentProvider");
-			tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
-
-			// Update the table with the new id
-			ContentValues vals = new ContentValues();
-			ContentResolver cr = getContentResolver();
-			vals.put("name", username);
-			if (oldUsr == null)
-				cr.update(tmpUri, vals, "name != '" + username + "'", null);
-			else
-				cr.update(tmpUri, vals, "name = '" + oldUsr + "'", null);
-		} catch (Exception e) {
-			gamesLogger.e(TAG, SubTag + e.getMessage());
-		}
+		/*
+		 * try { tmpUri = Uri
+		 * .parse("content://com.gamesPnL.provider.userContentProvider"); tmpUri
+		 * = Uri.withAppendedPath(tmpUri, "pnldata");
+		 * 
+		 * // Update the table with the new id ContentValues vals = new
+		 * ContentValues(); ContentResolver cr = getContentResolver();
+		 * vals.put("name", username); if (oldUsr == null) cr.update(tmpUri,
+		 * vals, "name != '" + username + "'", null); else cr.update(tmpUri,
+		 * vals, "name = '" + oldUsr + "'", null); } catch (Exception e) {
+		 * gamesLogger.e(TAG, SubTag + e.getMessage()); }
+		 */
 	}
 
 	@Override

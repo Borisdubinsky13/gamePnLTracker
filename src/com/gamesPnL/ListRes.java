@@ -171,14 +171,14 @@ public class ListRes extends ListActivity {
 		// result = getContentResolver().query(tmpUri, null, null, null, null);
 		result = mContext.getContentResolver().query(tmpUri, projection, query,
 				null, null);
-		gamesLogger.i(TAG, SubTag + "Number of records:  " + result.getCount());
+		int i = result.getCount();
+		gamesLogger.i(TAG, SubTag + "Number of records:  " + i);
 
 		m_results = new ArrayList<ResultData>();
 		m_adapter = new ResultDataAdapter(this, R.layout.rowmyresult, m_results);
 
-		int i = 0;
 		if (result.moveToFirst()) {
-			for (i = 0; result.moveToNext(); i++) {
+			do {
 				ResultData tmp = new ResultData();
 
 				workRecord = result.getString(result.getColumnIndex("_id"));
@@ -198,9 +198,12 @@ public class ListRes extends ListActivity {
 				tmp.setLimit(result.getString(result
 						.getColumnIndex("gameLimit")));
 				m_results.add(tmp);
-			}
+				i--;
+				gamesLogger.i(TAG,
+						SubTag + "Processing record # "
+								+ (result.getCount() - i));
+			} while (result.moveToNext());
 		}
-		gamesLogger.i(TAG, SubTag + "Number of record processed: " + i);
 		if (result.getCount() > 0) {
 			setListAdapter(m_adapter);
 			gamesLogger.i(TAG, SubTag + "Adapter has been set!");

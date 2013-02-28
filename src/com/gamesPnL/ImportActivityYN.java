@@ -32,6 +32,7 @@ public class ImportActivityYN extends Activity {
 	// private ProgressBar progressBar;
 	private int percentDone;
 	private long currentCount = 0;
+	private int lineNumber = 0;
 
 	private Handler mHandler = new Handler();
 
@@ -100,7 +101,6 @@ public class ImportActivityYN extends Activity {
 									null);
 
 							String line;
-							int lineNumber = 0;
 							String delimeter = null;
 							currentCount = 0;
 
@@ -199,7 +199,7 @@ public class ImportActivityYN extends Activity {
 				}
 			}).start();
 		} catch (Exception e) {
-			gamesLogger.i(TAG, SubTag + e);
+			gamesLogger.e(TAG, SubTag + e);
 		}
 	}
 
@@ -218,6 +218,7 @@ public class ImportActivityYN extends Activity {
 			public void onClick(View v) {
 				/* Perform actual import */
 				actualDoImport(v);
+				gamesLogger.i(TAG, SubTag + "Changing data for backup");
 			}
 		});
 
@@ -235,9 +236,10 @@ public class ImportActivityYN extends Activity {
 					cr.delete(tmpUri, null, null);
 					gamesLogger.i(TAG, SubTag + "Results data is removed");
 				} catch (Exception e) {
-					gamesLogger.i(TAG, SubTag + e);
+					gamesLogger.e(TAG, SubTag + e);
 				}
 				actualDoImport(v);
+				gamesLogger.i(TAG, SubTag + "Changing data for backup");
 			}
 		});
 		// doImport();

@@ -8,7 +8,6 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.backup.BackupManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -55,7 +54,6 @@ public class DisplayItem extends Activity {
 	String evDay;
 	String recId;
 	Cursor result;
-	BackupManager mBackupManager;
 
 	private Context mContext = null;
 
@@ -203,7 +201,6 @@ public class DisplayItem extends Activity {
 						.parse("content://com.gamesPnL.provider.userContentProvider");
 				tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
 				cr.delete(tmpUri, query, null);
-				mBackupManager.dataChanged();
 				finish();
 			}
 		});
@@ -248,7 +245,6 @@ public class DisplayItem extends Activity {
 				tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
 				gamesLogger.i(TAG, SubTag + "Got URI populated");
 				cr.update(tmpUri, vals, "_id = " + recId, null);
-				mBackupManager.dataChanged();
 				finish();
 			}
 		});

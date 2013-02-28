@@ -98,4 +98,7 @@
     <string name="relNote421">- Add progress bar for import/export</string>
     <string name="relNote422">- Cleanup and organize release notes</string>
     <string name="relNote423">- Add backup of the data</string>
+    <string name="relLblR43">R-4.3 (DB Version: 10):</string>
+    <string name="relNote431">- Fix error on update/delete results</string>
+    <string name="relNote432">- Fix not desplaying first result</string>
 </resources>
