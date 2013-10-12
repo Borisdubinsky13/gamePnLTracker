@@ -1,4 +1,5 @@
 <resources>
+    <string name="Empty"> </string>
     <string name="lastNameStr">Last Name:</string>
     <string name="firstNameStr">First Name:</string>
     <string name="viewGraph">Graph</string>
@@ -17,11 +18,25 @@
     <string name="appVerLabel">Version:</string>
     <string name="appVer">R-6.1</string>
     <string name="Cancel">Cancel</string>
-    <string name="cEarnings">Your career earnings:</string>
+    <string name="cEarnings">Career earnings:</string>
     <string name="dispList">Display List</string>
     <string name="email">E-Mail:</string>
     <string name="gameDescr">Description:</string>
     <string name="gameLimit">Limit:</string>
+    <string name="cEarnLbl">Career earnings: </string>
+    <string name="Amount">Amount:</string>
+    <string name="AmountMonth">Amount this month</string>
+    <string name="AmountLast">Amount from last event</string>
+    <string name="CMA">Current month earnings: </string>
+    <string name="LER">Last event result: </string>
+    <string name="AddResult">Add Event Result</string>
+    <string name="Notes">Notes: </string>
+    <string name="Date">Date: </string>
+    <string name="Win">Win</string>
+    <string name="Loss">Loss</string>
+    <string name="Clear">Clear</string>
+    <string name="StartDate">Start Date:</string>
+    <string name="EndDate">End Date:</string>
     <string-array name="gameLimitLst">
         <item>NoLimit</item>
         <item>Limit</item>
@@ -43,10 +58,12 @@
         <item>PotLimit</item>
         <item>Mixed</item>
     </string-array>
-    <string name="gameType">Game:</string>
+    <string name="gameType">Game: </string>
     <string-array name="gameType">
     </string-array>
-    <string name="evTypeName">Event Type:</string>
+	<string name="Tourney">Tourney: </string>
+	<string name="Cash">Cash</string>
+    <string name="evTypeName">Event Type: </string>
     <string-array name="evTypeArray">
         <item>Tourney</item>
         <item>Cash</item>

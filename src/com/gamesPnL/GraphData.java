@@ -54,6 +54,7 @@ public class GraphData extends Activity {
 		mContext = getBaseContext();
 	}
 
+	@SuppressWarnings("deprecation")
 	protected void onResume() {
 		super.onResume();
 

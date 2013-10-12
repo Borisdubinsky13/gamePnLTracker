@@ -5,7 +5,6 @@
               android:layout_height="fill_parent"
               android:orientation="vertical"
               android:id="@+id/graphanalysis">
-    >
     <com.google.ads.AdView android:id="@+id/adDataAnalysis"
                            android:layout_width="fill_parent" android:layout_height="wrap_content"
                            ads:adUnitId="a14d18e1cd0e067" ads:adSize="BANNER"/>
@@ -15,23 +14,28 @@
             android:id="@+id/topTable"
             android:layout_width="wrap_content">
         <TableRow>
-            <TextView android:layout_gravity="center" android:text="Start Date:"/>
-            <Button android:text="Start Date"
+            <TextView android:layout_gravity="center" android:text="@string/StartDate"/>
+            <Button android:text="@string/StartDate"
                     android:id="@+id/AstartDateButton"
                     android:layout_height="wrap_content"
                     android:layout_width="180dp"
                     />
         </TableRow>
         <TableRow>
-            <TextView android:layout_gravity="center" android:text="End Date:"/>
-            <Button android:text="End Date"
+
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:text="@string/EndDate" />
+
+            <Button android:text="@string/EndDate"
                     android:id="@+id/AendDateButton"
                     android:layout_height="wrap_content"
                     android:layout_width="180dp"
                     />
         </TableRow>
         <TableRow>
-            <TextView android:text="Analyze By: " android:layout_gravity="left|center_vertical"/>
+            <TextView android:text="@string/AnalyzeBy" android:layout_gravity="left|center_vertical"/>
             <Spinner android:id="@+id/ATypeSpin"
                      android:prompt="@string/AnalyzeBy"
                     />

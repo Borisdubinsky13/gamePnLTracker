@@ -28,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +48,7 @@ public class AfterLogin extends Activity {
 			"sPrsr", "pulse" };
 
 	// public String currentUser = new String();
-	private static String fname = "/mnt/sdcard/gamesPnL.csv";
+	private static String fname; // = "/mnt/sdcard/gamesPnL.csv";
 	private static String fnoSDName = "/gamesPnL.csv";
 	private ProgressDialog progressDialog;
 	private int percentDone;
@@ -55,6 +56,9 @@ public class AfterLogin extends Activity {
 	private Handler mHandler = new Handler();
 	private Context mContext = null;
 	private int countRec = 0;
+	private final Calendar c = Calendar.getInstance();
+	private double lastResult;
+	private String lastRecord;
 
 	private void doExport() {
 		try {
@@ -69,6 +73,7 @@ public class AfterLogin extends Activity {
 					+ " ...");
 			progressDialog.show();
 
+			fname = Environment.getExternalStorageDirectory().toString();
 			gamesLogger.i(TAG, SubTag + "User "
 					+ "Trying to export data to CSV. File: " + fname);
 			new Thread(new Runnable() {
@@ -224,7 +229,7 @@ public class AfterLogin extends Activity {
 			startActivity(iAbout);
 			return true;
 		case R.id.AddResult:
-			gamesLogger.i(TAG, SubTag + "trying to start SETUP");
+			gamesLogger.i(TAG, SubTag + "trying to start AddResult");
 			Intent iDataEntry = new Intent(this, DataEntry.class);
 			startActivity(iDataEntry);
 			return true;
@@ -276,6 +281,8 @@ public class AfterLogin extends Activity {
 			gamesLogger.e(TAG, SubTag + "Enablig ERRORS only debugging.");
 			gamesLogger.enableLogging(Log.ERROR);
 		}
+
+		gamesLogger.enableLogging(Log.VERBOSE);
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.afterlogin);
@@ -350,6 +357,34 @@ public class AfterLogin extends Activity {
 
 		v = (View) findViewById(R.id.afterLogin);
 
+		Button buttonPNL = (Button) findViewById(R.id.PNL);
+		buttonPNL.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View vw) {
+				totalAmount(vw);
+			}
+		});
+
+		Button buttonLastMonth = (Button) findViewById(R.id.PNLMonth);
+		buttonLastMonth.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View vw) {
+				LastMonthAmount(vw);
+			}
+		});
+
+		Button buttonLastEvent = (Button) findViewById(R.id.PNLLast);
+		buttonLastEvent.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View vw) {
+				LastEventAmount(vw);
+			}
+		});
+
+		Button buttonAddEvent = (Button) findViewById(R.id.AddScore);
+		buttonAddEvent.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View vw) {
+				AddResult(vw);
+			}
+		});
+
 		gamesLogger.i(TAG, SubTag + " onResume: Trying to get the add");
 		AdView adView = (AdView) findViewById(R.id.adAfterLogin);
 		// Initiate a generic request to load it with an ad
@@ -366,9 +401,9 @@ public class AfterLogin extends Activity {
 		String value;
 		double sum = 0;
 		double dValue;
-		double lastResult = 0;
+		lastResult = 0;
 		DecimalFormat df = new DecimalFormat("$#,##0.00");
-		TextView pnlStr = (TextView) findViewById(R.id.PNL);
+		// Button pnlStr = (Button) findViewById(R.id.PNL);
 		final String strHead = this.getString(R.string.cEarnings);
 		final TextView strHeadStr = (TextView) findViewById(R.id.PNLLabel);
 
@@ -386,7 +421,6 @@ public class AfterLogin extends Activity {
 				null, null);
 		gamesLogger.i(TAG, SubTag + "there are " + result.getCount()
 				+ " records");
-
 		if (result.moveToFirst()) {
 			gamesLogger.i(TAG, SubTag + "got result back from provider");
 			do {
@@ -397,7 +431,7 @@ public class AfterLogin extends Activity {
 					dValue = Double.parseDouble(value);
 				sum += dValue;
 				lastResult = dValue;
-
+				lastRecord = result.getString(result.getColumnIndex("_id"));
 			} while (result.moveToNext());
 		} else
 			gamesLogger.i(TAG, SubTag
@@ -405,16 +439,18 @@ public class AfterLogin extends Activity {
 
 		gamesLogger.i(TAG, SubTag + "Sum:  " + df.format(sum));
 		strHeadStr.setText(strHead);
-		pnlStr.setText(df.format(sum));
+		buttonPNL.setText(df.format(sum));
 		// pnlStr.setTextColor(Color.BLACK);
-		if (sum >= 0)
-			pnlStr.setBackgroundColor(Color.rgb(193, 255, 193));
-		else
-			pnlStr.setBackgroundColor(Color.rgb(150, 0, 0));
-		pnlStr.setTextColor(getResources().getColor(
-				android.R.color.background_dark));
+		if (sum >= 0) {
+			buttonPNL.setBackgroundColor(Color.rgb(193, 255, 193));
+			buttonPNL.setTextColor(getResources().getColor(
+					android.R.color.background_dark));
+		} else {
+			buttonPNL.setBackgroundColor(Color.rgb(150, 0, 0));
+			buttonPNL.setTextColor(getResources().getColor(
+					android.R.color.background_light));
+		}
 
-		final Calendar c = Calendar.getInstance();
 		int mYear = c.get(Calendar.YEAR);
 		int mMonth = c.get(Calendar.MONTH) + 1;
 
@@ -447,32 +483,77 @@ public class AfterLogin extends Activity {
 
 		gamesLogger.i(TAG, SubTag + "Sum:  " + df.format(sum));
 		strHeadStr.setText(strHead);
-		pnlStr = (TextView) findViewById(R.id.PNLMonth);
-		pnlStr.setText(df.format(sum));
+		// pnlStr = (Button) findViewById(R.id.PNLMonth);
+		buttonLastMonth.setText(df.format(sum));
 		// pnlStr.setTextColor(Color.BLACK);
-		if (sum >= 0)
-			pnlStr.setBackgroundColor(Color.rgb(193, 255, 193));
-		else
-			pnlStr.setBackgroundColor(Color.rgb(150, 0, 0));
-		pnlStr.setTextColor(getResources().getColor(
-				android.R.color.background_dark));
+		if (sum >= 0) {
+			buttonLastMonth.setBackgroundColor(Color.rgb(193, 255, 193));
+			buttonLastMonth.setTextColor(getResources().getColor(
+					android.R.color.background_dark));
+		} else {
+			buttonLastMonth.setBackgroundColor(Color.rgb(150, 0, 0));
+			buttonLastMonth.setTextColor(getResources().getColor(
+					android.R.color.background_light));
+		}
 		// Get last event result
-
 		gamesLogger.i(TAG, SubTag + "Last Result:  " + df.format(lastResult));
 		strHeadStr.setText(strHead);
-		pnlStr = (TextView) findViewById(R.id.PNLLast);
-		pnlStr.setTextColor(getResources().getColor(
+		// pnlStr = (Button) findViewById(R.id.PNLLast);
+		buttonLastEvent.setTextColor(getResources().getColor(
 				android.R.color.background_light));
-		pnlStr.setText(df.format(lastResult));
+		buttonLastEvent.setText(df.format(lastResult));
 		// pnlStr.setTextColor(Color.BLACK);
-		if (lastResult >= 0)
-			pnlStr.setBackgroundColor(Color.rgb(193, 255, 193));
-		else
-			pnlStr.setBackgroundColor(Color.rgb(150, 0, 0));
-		pnlStr.setTextColor(getResources().getColor(
-				android.R.color.background_dark));
+		if (lastResult >= 0) {
+			buttonLastEvent.setBackgroundColor(Color.rgb(193, 255, 193));
+			buttonLastEvent.setTextColor(getResources().getColor(
+					android.R.color.background_dark));
+		} else {
+			buttonLastEvent.setBackgroundColor(Color.rgb(150, 0, 0));
+			buttonLastEvent.setTextColor(getResources().getColor(
+					android.R.color.background_light));
+		}
 		if (result != null)
 			result.close();
 		gamesLogger.i(TAG, SubTag + "Done!");
+	}
+
+	/** Called when the user "career" button */
+	public void totalAmount(View view) {
+		gamesLogger.i(TAG, SubTag + "Starting totalAmount ...");
+		String IntentQ = null;
+		Intent iGraphRes = new Intent(this, GraphData.class);
+		iGraphRes.putExtra("queStr", IntentQ);
+		startActivity(iGraphRes);
+	}
+
+	/** Called when the user "last month" button */
+	public void LastMonthAmount(View view) {
+		gamesLogger.i(TAG, SubTag + "Starting Current month ...");
+		int mYear = c.get(Calendar.YEAR);
+		int mMonth = c.get(Calendar.MONTH) + 1;
+		String IntentQ = "evMonth = " + mMonth + " AND evYear = " + mYear;
+		Intent iDispRes = new Intent(this, ListRes.class);
+		iDispRes.putExtra("queStr", IntentQ);
+		startActivity(iDispRes);
+	}
+
+	/** Called when the user "last event" button */
+	public void LastEventAmount(View view) {
+		gamesLogger.i(TAG, SubTag + "Starting LastEventAmount ...");
+
+		// Save the entry in the preferences, so the display activity can
+		// display an appropriate record
+		getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().commit();
+		Intent iDataEntry = new Intent(this, DisplayItem.class);
+		gamesLogger.i(TAG, SubTag + "Editing record # " + lastRecord);
+		iDataEntry.putExtra("recID", lastRecord);
+		startActivity(iDataEntry);
+	}
+
+	/** Called when the user "last month" button */
+	public void AddResult(View view) {
+		gamesLogger.i(TAG, SubTag + "trying to start AddResult");
+		Intent iDataEntry = new Intent(this, DataEntry.class);
+		startActivity(iDataEntry);
 	}
 }

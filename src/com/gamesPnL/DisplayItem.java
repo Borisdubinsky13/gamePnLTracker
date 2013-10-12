@@ -70,6 +70,7 @@ public class DisplayItem extends Activity {
 		mContext = getBaseContext();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -171,7 +172,8 @@ public class DisplayItem extends Activity {
 			items.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			gmTypeSp = (Spinner) findViewById(R.id.gType);
 			gmTypeSp.setAdapter(items);
-			ArrayAdapter myAdap = (ArrayAdapter) gmTypeSp.getAdapter();
+			ArrayAdapter<String> myAdap = (ArrayAdapter<String>) gmTypeSp
+					.getAdapter();
 			int spinnerPosition = myAdap.getPosition(gm);
 			gmTypeSp.setSelection(spinnerPosition);
 			gamesLogger.i(TAG, SubTag + "Games spinner is set up");
@@ -179,7 +181,7 @@ public class DisplayItem extends Activity {
 			gmLimit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			gmLimitSp = (Spinner) findViewById(R.id.gLimit);
 			gmLimitSp.setAdapter(gmLimit);
-			myAdap = (ArrayAdapter) gmTypeSp.getAdapter();
+			myAdap = (ArrayAdapter<String>) gmTypeSp.getAdapter();
 			spinnerPosition = myAdap.getPosition(lm);
 			gmLimitSp.setSelection(spinnerPosition);
 
