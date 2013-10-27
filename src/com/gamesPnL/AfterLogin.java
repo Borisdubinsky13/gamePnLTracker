@@ -18,7 +18,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -39,6 +38,7 @@ import com.google.ads.AdView;
  * @author Boris
  */
 public class AfterLogin extends Activity {
+
 	public String TAG = "gamePnLTracker";
 	public String SubTag = "AfterLogin: ";
 	public static final String PREFS_NAME = "gamePnLTrackerFile";
@@ -91,14 +91,10 @@ public class AfterLogin extends Activity {
 						BufferedOutputStream bos = new BufferedOutputStream(
 								fOut);
 
-						Uri tmpUri = Uri
-								.parse("content://com.gamesPnL.provider.userContentProvider");
-						tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
-
+						DbHelper db = new DbHelper(mContext);
 						String query = "name = '" + username + "'";
 						gamesLogger.i(TAG, SubTag + "Query: " + query);
-						Cursor result = mContext.getContentResolver().query(
-								tmpUri, projection, query, null, null);
+						Cursor result = db.getData("gPNLData", query);
 						gamesLogger.i(TAG,
 								SubTag + "there are " + result.getCount()
 										+ " records");
@@ -268,7 +264,6 @@ public class AfterLogin extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Uri tmpUri;
 		// See if this is running on the emulator
 		gamesLogger.e(TAG, SubTag + "Build.MANUFACTURER is "
 				+ Build.MANUFACTURER.toString());
@@ -290,14 +285,10 @@ public class AfterLogin extends Activity {
 		// First check if there are any users. If not, then switch to setup
 		// window to add first user.
 		try {
-			tmpUri = Uri
-					.parse("content://com.gamesPnL.provider.userContentProvider");
 
-			tmpUri = Uri.withAppendedPath(tmpUri, "pnlstatus");
-			String[] projection = new String[] { "_id", "name", "status" };
 			String query = " status = 'in'";
-			Cursor result = mContext.getContentResolver().query(tmpUri,
-					projection, query, null, null);
+			DbHelper db = new DbHelper(mContext);
+			Cursor result = db.getData("pnlstatus", query);
 			gamesLogger
 					.i(TAG, SubTag + "got " + result.getCount() + " records");
 			if (result.getCount() >= 1) {
@@ -305,7 +296,7 @@ public class AfterLogin extends Activity {
 				gamesLogger.i(TAG, SubTag + "ID of the user ");
 			}
 		} catch (Exception e) {
-			gamesLogger.e(TAG, SubTag + e.getMessage());
+			gamesLogger.e(TAG, SubTag + " Problem: " + e.getMessage());
 		}
 
 		Account[] accounts = AccountManager.get(this).getAccountsByType(
@@ -332,18 +323,6 @@ public class AfterLogin extends Activity {
 		// primary google account.
 		// See if there are any data that has name other then current
 		// username
-		/*
-		 * try { tmpUri = Uri
-		 * .parse("content://com.gamesPnL.provider.userContentProvider"); tmpUri
-		 * = Uri.withAppendedPath(tmpUri, "pnldata");
-		 * 
-		 * // Update the table with the new id ContentValues vals = new
-		 * ContentValues(); ContentResolver cr = getContentResolver();
-		 * vals.put("name", username); if (oldUsr == null) cr.update(tmpUri,
-		 * vals, "name != '" + username + "'", null); else cr.update(tmpUri,
-		 * vals, "name = '" + oldUsr + "'", null); } catch (Exception e) {
-		 * gamesLogger.e(TAG, SubTag + e.getMessage()); }
-		 */
 	}
 
 	@Override
@@ -409,16 +388,9 @@ public class AfterLogin extends Activity {
 
 		// Get total career earnings
 		String query = "name = '" + username + "'";
-		Uri tmpUri = Uri
-				.parse("content://com.gamesPnL.provider.userContentProvider");
-		tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
-		String[] projection = new String[] { "_id", "uid", "name", "amount",
-				"year", "month", "day", "gameType", "gameLimit", "eventType",
-				"notes" };
-
-		// result = getContentResolver().query(tmpUri, null, null, null, null);
-		result = mContext.getContentResolver().query(tmpUri, projection, query,
-				null, null);
+		DbHelper db = new DbHelper(mContext);
+		gamesLogger.i(TAG, SubTag + "Query: " + query);
+		result = db.getData("gPNLData", query);
 		gamesLogger.i(TAG, SubTag + "there are " + result.getCount()
 				+ " records");
 		if (result.moveToFirst()) {
@@ -459,8 +431,9 @@ public class AfterLogin extends Activity {
 		String startDate = String.format("%04d", mYear) + "-"
 				+ String.format("%02d", mMonth) + "-01";
 		query += " AND evDate >= '" + startDate + "'";
-		result = mContext.getContentResolver().query(tmpUri, projection, query,
-				null, null);
+
+		gamesLogger.i(TAG, SubTag + "Query: " + query);
+		result = db.getData("gPNLData", query);
 		gamesLogger.i(TAG, SubTag + "there are " + result.getCount()
 				+ " records");
 

@@ -8,11 +8,10 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -49,6 +48,9 @@ public class DataEntry extends Activity {
 	String evDayS;
 	String evMonthS;
 
+	private Context mContext;
+	private DbHelper db;
+
 	/*
 	 * Called when the activity is first created.
 	 */
@@ -57,6 +59,8 @@ public class DataEntry extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dataentry);
+		mContext = this;
+		db = new DbHelper(mContext);
 	}
 
 	@Override
@@ -102,25 +106,21 @@ public class DataEntry extends Activity {
 			}
 		});
 
-		Uri tmpUri = Uri
-				.parse("content://com.gamesPnL.provider.userContentProvider");
-		tmpUri = Uri.withAppendedPath(tmpUri, "pnlgames");
-		String query = "addedBy = '" + username + "'"
-				+ " OR addedBy = 'gamePnL'";
+		String query = "name = '" + username + "'" + " OR name = 'gamePnL'";
 		ArrayAdapter<String> items = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item);
 		gmTypeSp = (Spinner) findViewById(R.id.gType);
 		gmTypeSp.setAdapter(items);
 		gmTypeSp.setSelection(0);
-		Cursor result = getContentResolver().query(tmpUri, null, query, null,
-				null);
-		// startManagingCursor(result);
+
+		gamesLogger.i(TAG, SubTag + "Query: " + query);
+		Cursor result = db.getData("gPNLData", query, " Distinct gameType ");
 		gamesLogger.i(TAG, SubTag
 				+ "Everything is ready for the Spinner. # of records: "
 				+ result.getCount());
 		if (result.moveToFirst()) {
 			do {
-				items.add(result.getString(1));
+				items.add(result.getString(0));
 			} while (result.moveToNext());
 		}
 		items.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -191,13 +191,7 @@ public class DataEntry extends Activity {
 					vals.put("notes", nts.getText().toString());
 					gamesLogger.i(TAG, SubTag + "Storing date: " + evMonthS
 							+ "/" + evDayS + "/" + evYearS);
-					ContentResolver cr = getContentResolver();
-					gamesLogger.i(TAG, SubTag + "Got content resolver");
-					Uri tmpUri = Uri
-							.parse("content://com.gamesPnL.provider.userContentProvider");
-					tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
-					gamesLogger.i(TAG, SubTag + "Got URI populated");
-					cr.insert(tmpUri, vals);
+					db.insert("gPNLData", vals);
 					finish();
 				} else {
 					String text = "Please enter the amount!";
@@ -245,13 +239,8 @@ public class DataEntry extends Activity {
 					vals.put("notes", nts.getText().toString());
 					gamesLogger.i(TAG, SubTag + "Storing date: " + evMonthS
 							+ "/" + evDayS + "/" + evYearS);
-					ContentResolver cr = getContentResolver();
-					gamesLogger.i(TAG, SubTag + "Got content resolver");
-					Uri tmpUri = Uri
-							.parse("content://com.gamesPnL.provider.userContentProvider");
-					tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
-					gamesLogger.i(TAG, SubTag + "Got URI populated");
-					cr.insert(tmpUri, vals);
+
+					db.insert("gPNLData", vals);
 					finish();
 				} else {
 					String text = "Please enter the amount!";

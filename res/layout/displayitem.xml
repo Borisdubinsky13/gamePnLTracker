@@ -65,13 +65,13 @@
             <RelativeLayout android:gravity="center_horizontal">
                 <Button android:text="@string/deleteStr"
                         android:id="@+id/delete"
-                        android:layout_width="160px"
+                        android:layout_width="200px"
                         android:layout_height="wrap_content"
                         />
                 <Button android:layout_toRightOf="@id/delete"
                         android:text="@string/updateStr"
                         android:id="@+id/update"
-                        android:layout_width="160px"
+                        android:layout_width="200px"
                         android:layout_height="wrap_content"
                         />
             </RelativeLayout>

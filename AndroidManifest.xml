@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.gamesPnL" android:versionCode="38" android:versionName="R-4.3">
+          package="com.gamesPnL" android:versionCode="39" android:versionName="R-5.0">
     <uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
@@ -103,8 +103,8 @@
         </activity>
         <activity android:name="org.achartengine.GraphicalActivity"/>
 
-        <provider android:authorities="com.gamesPnL.provider.userContentProvider"
-                  android:name="com.gamesPnL.GamePnLTrackerProvider"/>
+        <!-- provider android:authorities="com.gamesPnL.provider.userContentProvider"
+                  android:name="com.gamesPnL.GamePnLTrackerProvider"/ -->
 
         <!-- The application's publisher ID assigned by AdMob -->
         <meta-data android:value="a14d18e1cd0e067" android:name="ADMOB_PUBLISHER_ID"/>

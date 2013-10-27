@@ -8,12 +8,10 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -56,6 +54,7 @@ public class DisplayItem extends Activity {
 	Cursor result;
 
 	private Context mContext = null;
+	private DbHelper db;
 
 	/**
 	 * Called when the activity is first created.
@@ -116,18 +115,10 @@ public class DisplayItem extends Activity {
 		final int mMonth = c.get(Calendar.MONTH) + 1;
 		final int mDay = c.get(Calendar.DAY_OF_MONTH);
 
-		Uri tmpUri = Uri
-				.parse("content://com.gamesPnL.provider.userContentProvider");
-		tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
+		db = new DbHelper(mContext);
 		query = "_id = '" + recId + "'";
-		result = null;
-		String[] projection = new String[] { "_id", "name", "amount", "evYear",
-				"evMonth", "evDay", "gameType", "gameLimit", "eventType",
-				"notes" };
-
-		// result = getContentResolver().query(tmpUri, null, null, null, null);
-		result = mContext.getContentResolver().query(tmpUri, projection, query,
-				null, null);
+		gamesLogger.i(TAG, SubTag + "Query: " + query);
+		Cursor result = db.getData("gPNLData", query);
 		gamesLogger.i(TAG, SubTag + "Read all the records with id: " + recId
 				+ "# of records:" + result.getCount());
 		if (result.moveToFirst()) {
@@ -156,17 +147,14 @@ public class DisplayItem extends Activity {
 			});
 
 			// populate game spinner and set the visible value from the record
-			tmpUri = Uri
-					.parse("content://com.gamesPnL.provider.userContentProvider");
-			tmpUri = Uri.withAppendedPath(tmpUri, "pnlgames");
 			query = "addedBy = '" + username + "'" + " OR addedBy = 'gamePnL'";
+			result = db.getData("gGames", query, " Distinct game ");
 			ArrayAdapter<String> items = new ArrayAdapter<String>(this,
 					android.R.layout.simple_spinner_item);
-			result = getContentResolver()
-					.query(tmpUri, null, query, null, null);
+
 			if (result.moveToFirst()) {
 				do {
-					items.add(result.getString(1));
+					items.add(result.getString(0));
 				} while (result.moveToNext());
 			}
 			items.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -197,12 +185,9 @@ public class DisplayItem extends Activity {
 		deleteB.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				gamesLogger.i(TAG, SubTag + "DELETE button is clicked");
-				ContentResolver cr = getContentResolver();
 				String query = "_ID = '" + recId + "'";
-				Uri tmpUri = Uri
-						.parse("content://com.gamesPnL.provider.userContentProvider");
-				tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
-				cr.delete(tmpUri, query, null);
+
+				db.deleteRecord("gPNLData", query);
 				finish();
 			}
 		});
@@ -240,13 +225,9 @@ public class DisplayItem extends Activity {
 				vals.put("notes", nts.getText().toString());
 				gamesLogger.i(TAG, SubTag + "Storing date: " + evMonth + "/"
 						+ evDay + "/" + evYear);
-				ContentResolver cr = getContentResolver();
-				gamesLogger.i(TAG, SubTag + "Got content resolver");
-				Uri tmpUri = Uri
-						.parse("content://com.gamesPnL.provider.userContentProvider");
-				tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
-				gamesLogger.i(TAG, SubTag + "Got URI populated");
-				cr.update(tmpUri, vals, "_id = " + recId, null);
+
+				DbHelper db = new DbHelper(mContext);
+				db.updateDataRecord("gPNLData", vals, "_id = " + recId);
 				finish();
 			}
 		});
@@ -280,6 +261,5 @@ public class DisplayItem extends Activity {
 			String eventDate = evMonth + "/" + evDay + "/" + evYear;
 			dateB.setText(eventDate);
 		}
-
 	};
 }

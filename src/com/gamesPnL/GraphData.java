@@ -19,7 +19,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
@@ -39,6 +38,7 @@ public class GraphData extends Activity {
 	public String currentUser = new String();
 	DecimalFormat df = new DecimalFormat("#,##0.00");
 	private Context mContext = null;
+	private DbHelper db;
 
 	/*
 	 * (non-Javadoc)
@@ -52,6 +52,7 @@ public class GraphData extends Activity {
 		mContext = this; // since Activity extends Context
 		mContext = getApplicationContext();
 		mContext = getBaseContext();
+		db = new DbHelper(mContext);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -70,20 +71,13 @@ public class GraphData extends Activity {
 		String username = pref.getString(PREF_USERNAME, null);
 		this.setTitle("User: " + username);
 
-		Uri tmpUri = Uri
-				.parse("content://com.gamesPnL.provider.userContentProvider");
-		tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
-		String[] projection = new String[] { "_id", "name", "amount", "date",
-				"gameType", "gameLimit", "eventType", "notes" };
-
 		String query = null;
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			query = extras.getString("queStr");
 		}
 		gamesLogger.i(TAG, SubTag + "Query: " + query);
-		Cursor result = mContext.getContentResolver().query(tmpUri, projection,
-				query, null, null);
+		Cursor result = db.getData("gPNLData", query);
 		gamesLogger.i(TAG, SubTag + "there are " + result.getCount()
 				+ " records");
 		if (result.getCount() > 0) {

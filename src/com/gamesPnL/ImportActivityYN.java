@@ -7,10 +7,9 @@ import java.io.InputStreamReader;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -33,7 +32,7 @@ public class ImportActivityYN extends Activity {
 	private int percentDone;
 	private long currentCount = 0;
 	private int lineNumber = 0;
-
+	private Context mContext;
 	private Handler mHandler = new Handler();
 
 	private void actualDoImport(View v) {
@@ -63,20 +62,9 @@ public class ImportActivityYN extends Activity {
 					// try opening the myfilename.txt
 					try {
 						gamesLogger.i(TAG, SubTag + "Starting an import");
+						DbHelper db = new DbHelper(mContext);
 
-						Uri tmpUri = Uri
-								.parse("content://com.gamesPnL.provider.userContentProvider");
-						tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
-						ContentResolver cr = getContentResolver();
-						gamesLogger.i(TAG, SubTag + "Got URI populated");
 						// open the file for reading
-						/*
-						 * File f = new
-						 * File(Environment.getExternalStorageDirectory
-						 * ()+fnoSDName); long fSize = f.length(); long
-						 * currentCount = 0;
-						 */
-
 						gamesLogger.i(
 								TAG,
 								SubTag
@@ -159,7 +147,7 @@ public class ImportActivityYN extends Activity {
 									vals.put("gameLimit", gameLimit);
 									gamesLogger.i(TAG, SubTag
 											+ "Inserting a record");
-									cr.insert(tmpUri, vals);
+									db.insert("gPNLData", vals);
 
 									lineNumber++;
 
@@ -228,12 +216,8 @@ public class ImportActivityYN extends Activity {
 				gamesLogger.i(TAG, SubTag + "Removing the database");
 
 				try {
-					ContentResolver cr = getContentResolver();
-					gamesLogger.i(TAG, SubTag + "Got content resolver");
-					Uri tmpUri = Uri
-							.parse("content://com.gamesPnL.provider.userContentProvider");
-					tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
-					cr.delete(tmpUri, null, null);
+					DbHelper db = new DbHelper(mContext);
+					db.deleteTbl("gPNLData");
 					gamesLogger.i(TAG, SubTag + "Results data is removed");
 				} catch (Exception e) {
 					gamesLogger.e(TAG, SubTag + e);
@@ -242,6 +226,5 @@ public class ImportActivityYN extends Activity {
 				gamesLogger.i(TAG, SubTag + "Changing data for backup");
 			}
 		});
-		// doImport();
 	}
 }

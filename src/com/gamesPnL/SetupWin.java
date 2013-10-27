@@ -8,9 +8,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.net.Uri;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +21,7 @@ import android.widget.EditText;
 public class SetupWin extends Activity {
 	public static String TAG = "gamePnLTracker";
 	public static String SubTag = "setupHandler: ";
+	private Context mContext;
 
 	/*
 	 * (non-Javadoc)
@@ -49,6 +49,7 @@ public class SetupWin extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		mContext = this;
 		setContentView(R.layout.setupscr);
 		final Button addB = (Button) findViewById(R.id.add);
 		final Button cancelB = (Button) findViewById(R.id.clear);
@@ -79,13 +80,8 @@ public class SetupWin extends Activity {
 				vals.put("firstName", fn.getText().toString());
 				vals.put("lastName", ln.getText().toString());
 
-				ContentResolver cr = getContentResolver();
-				gamesLogger.i(TAG, SubTag + "Got content resolver");
-				Uri tmpUri = Uri
-						.parse("content://com.gamesPnL.provider.userContentProvider");
-				tmpUri = Uri.withAppendedPath(tmpUri, "users");
-				gamesLogger.i(TAG, SubTag + "Got URI populated");
-				cr.insert(tmpUri, vals);
+				DbHelper db = new DbHelper(mContext);
+				db.insert("gUsers", vals);
 
 				finish();
 			}

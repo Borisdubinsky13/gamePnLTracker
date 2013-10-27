@@ -17,7 +17,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -50,9 +49,6 @@ public class DataAnalysis extends Activity {
 	final private int[] availableColors = { Color.RED, Color.CYAN,
 			Color.YELLOW, Color.GREEN, Color.GRAY, Color.WHITE, Color.LTGRAY,
 			Color.MAGENTA, Color.BLACK, Color.DKGRAY, Color.BLUE };
-	final private String[] projection = new String[] { "_id", "uid", "name",
-			"amount", "year", "month", "day", "gameType", "gameLimit",
-			"eventType", "notes" };
 
 	Button StartDateB;
 	Button EndDateB;
@@ -60,6 +56,7 @@ public class DataAnalysis extends Activity {
 	boolean viewPresent;
 
 	private Context mContext = null;
+	private DbHelper db;
 
 	/*
 	 * (non-Javadoc)
@@ -74,6 +71,7 @@ public class DataAnalysis extends Activity {
 		mContext = getApplicationContext();
 		mContext = getBaseContext();
 		viewPresent = false;
+		db = new DbHelper(mContext);
 	}
 
 	protected void onResume() {
@@ -175,14 +173,11 @@ public class DataAnalysis extends Activity {
 				populateQuesryString();
 				String query = IntentQ + " AND eventType = 'Cash'";
 				gamesLogger.i(TAG, SubTag + "Q: " + query);
-				Uri tmpUri = Uri
-						.parse("content://com.gamesPnL.provider.userContentProvider");
-				tmpUri = Uri.withAppendedPath(tmpUri, "pnlamount");
 
-				// result = getContentResolver().query(tmpUri, null, null, null,
-				// null);
-				result = mContext.getContentResolver().query(tmpUri,
-						projection, query, null, null);
+				db = new DbHelper(mContext);
+				gamesLogger.i(TAG, SubTag + "Query: " + query);
+				result = db.getData("gPNLData", query);
+
 				if (result.moveToFirst()) {
 					do {
 						double dValue;
@@ -201,8 +196,10 @@ public class DataAnalysis extends Activity {
 
 				// Do the count for NoLimit
 				query = IntentQ + " AND eventType = 'Tourney'";
-				result = mContext.getContentResolver().query(tmpUri,
-						projection, query, null, null);
+
+				db = new DbHelper(mContext);
+				gamesLogger.i(TAG, SubTag + "Query: " + query);
+				result = db.getData("gPNLData", query);
 				if (result.moveToFirst()) {
 					do {
 						double dValue;
@@ -273,16 +270,11 @@ public class DataAnalysis extends Activity {
 			} else if (analyzeBy.equalsIgnoreCase("Game Type")) {
 				gamesLogger.i(TAG, SubTag + "Analyzing by Game Type");
 
-				Uri tmpUri = Uri
-						.parse("content://com.gamesPnL.provider.userContentProvider");
-				tmpUri = Uri.withAppendedPath(tmpUri, "pnlgames");
 				String query = "addedBy = '" + username + "'"
 						+ " OR addedBy = 'gamePnL'";
-				result = getContentResolver().query(tmpUri, null, query, null,
-						null);
-				// startManagingCursor(result);
-				result = mContext.getContentResolver().query(tmpUri,
-						projection, query, null, null);
+				DbHelper db = new DbHelper(mContext);
+				gamesLogger.i(TAG, SubTag + "Query: " + query);
+				result = db.getData("gGames", query);
 				gamesLogger.i(TAG, SubTag
 						+ "Everything is ready for the Spinner. # of records: "
 						+ result.getCount());
@@ -312,15 +304,10 @@ public class DataAnalysis extends Activity {
 					gamesLogger.i(TAG, SubTag + "Adding data for " + gameName);
 					populateQuesryString();
 					query = IntentQ + " AND gameType = '" + gameName + "'";
+					// db = new DbHelper(mContext);
+					gamesLogger.i(TAG, SubTag + "Query: " + query);
+					result = db.getData("gPNLData", query);
 
-					tmpUri = Uri
-							.parse("content://com.gamesPnL.provider.userContentProvider");
-					tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
-
-					// result = getContentResolver().query(tmpUri, null, null,
-					// null, null);
-					result = mContext.getContentResolver().query(tmpUri,
-							projection, query, null, null);
 					if (result.moveToFirst()) {
 						do {
 							double dValue;
@@ -397,13 +384,10 @@ public class DataAnalysis extends Activity {
 					populateQuesryString();
 					String query = IntentQ + " AND gameLimit = '"
 							+ gmLimitName[cnt] + "'";
-					gamesLogger.i(TAG, SubTag + "Query: " + query);
-					Uri tmpUri = Uri
-							.parse("content://com.gamesPnL.provider.userContentProvider");
-					tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
 
-					result = mContext.getContentResolver().query(tmpUri,
-							projection, query, null, null);
+					DbHelper db = new DbHelper(mContext);
+					gamesLogger.i(TAG, SubTag + "Query: " + query);
+					result = db.getData("gPNLData", query);
 					if (result.moveToFirst()) {
 						do {
 							double dValue;

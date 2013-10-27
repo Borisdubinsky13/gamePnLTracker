@@ -12,6 +12,46 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:text="@string/relLblR50" android:textSize="20sp" android:textStyle="bold"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/relNote501"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/relNote502"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/relNote503"
+                    />
+        </TableRow>
+		<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text=""
+                    />
+        </TableRow>
+        
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:text="@string/relLblR43" android:textSize="20sp" android:textStyle="bold"
                     />
         </TableRow>

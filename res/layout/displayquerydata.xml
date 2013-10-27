@@ -16,59 +16,64 @@
             android:layout_height="fill_parent">
 
         <TableLayout
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:gravity="top"
                 android:id="@+id/topTable"
                 android:layout_width="fill_parent">
             <TableRow>
-                <TextView android:layout_gravity="center" android:text="Start Date:"/>
-                <Button android:text="SDate"
+                <TextView android:layout_gravity="center" 
+                    android:text="@string/StartDate"/>
+                <Button android:text="@string/SDate"
                         android:id="@+id/startDateButton"
                         android:layout_height="wrap_content"
                         android:layout_width="180dp"
                         />
             </TableRow>
             <TableRow>
-                <TextView android:layout_gravity="center" android:text="End Date:"/>
-                <Button android:text="EDate"
+                <TextView android:layout_gravity="center" 
+                    android:text="@string/EndDate"/>
+                <Button android:text="@string/EDate"
                         android:id="@+id/endDateButton"
                         android:layout_height="wrap_content"
                         android:layout_width="180dp"
                         />
             </TableRow>
             <TableRow>
-                <TextView android:text="Event Type: " android:layout_gravity="center"/>
+                <TextView android:text="@string/evTypeName"
+                    android:layout_gravity="center"/>
                 <Spinner android:id="@+id/eTypeSearch"
                          android:isScrollContainer="true"
                          android:prompt="@string/evTypeName"/>
             </TableRow>
             <TableRow>
-                <TextView android:text="Game: " android:layout_gravity="center"/>
+                <TextView android:text="@string/gameType" 
+                    android:layout_gravity="center"/>
                 <Spinner android:layout_width="fill_parent"
                          android:id="@+id/gType"
                          android:isScrollContainer="true">
                 </Spinner>
             </TableRow>
             <TableRow>
-                <TextView android:text="Limit: " android:layout_gravity="center"/>
+                <TextView android:text="@string/gameLimit"
+                    android:layout_gravity="center"/>
                 <Spinner android:id="@+id/gLimit"
                          android:prompt="@string/gameLimit"
                          android:isScrollContainer="true">
                 </Spinner>
             </TableRow>
             <TableRow>
-                <TextView android:text=" "/>
+                <TextView android:text="@string/space"/>
             </TableRow>
             <RelativeLayout android:gravity="center_horizontal">
-                <Button android:text="Report"
+                <Button android:text="@string/report"
                         android:id="@+id/report"
-                        android:layout_width="120px"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"/>
                 <Button android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/report"
-                        android:layout_width="120px"
+                        android:layout_width="200dp"
                         android:id="@+id/graph"
-                        android:text="Graph"/>
+                        android:text="@string/viewGraph"/>
             </RelativeLayout>
         </TableLayout>
     </ScrollView>

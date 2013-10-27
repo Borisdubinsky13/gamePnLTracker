@@ -4,11 +4,8 @@
 package com.gamesPnL;
 
 import android.app.Activity;
-import android.app.backup.BackupManager;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,8 +22,6 @@ public class AddGame extends Activity {
 	public static final String PREFS_NAME = "gamePnLTrackerFile";
 	private static final String PREF_USERNAME = "username";
 
-	BackupManager mBackupManager;
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -34,11 +29,8 @@ public class AddGame extends Activity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addgame);
-
-		mBackupManager = new BackupManager(this);
 
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		String username = pref.getString(PREF_USERNAME, null);
@@ -51,7 +43,7 @@ public class AddGame extends Activity {
 		addGButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				ContentValues vals = new ContentValues();
-				ContentResolver cr = getContentResolver();
+				// ContentResolver cr = getContentResolver();
 				SharedPreferences pref = getSharedPreferences(PREFS_NAME,
 						MODE_PRIVATE);
 				String username = pref.getString(PREF_USERNAME, null);
@@ -60,16 +52,12 @@ public class AddGame extends Activity {
 				vals.put("game", gameName.getText().toString());
 				vals.put("description", gameDesc.getText().toString());
 				vals.put("addedBy", username);
-				Uri tmpUri = Uri
-						.parse("content://com.gamesPnL.provider.userContentProvider");
-				tmpUri = Uri.withAppendedPath(tmpUri, "pnlgames");
-				gamesLogger.i(TAG, SubTag + "Got URI populated");
-				cr.insert(tmpUri, vals);
-				mBackupManager.dataChanged();
+
+				// GamesPnL app = new GamesPnL();
+				DbHelper db = new DbHelper(getBaseContext());
+				db.insert("gGames", vals);
 				finish();
 			}
 		});
-
 	}
-
 }

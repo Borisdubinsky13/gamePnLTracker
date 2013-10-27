@@ -15,7 +15,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +44,7 @@ public class ListRes extends ListActivity {
 	final Calendar c = Calendar.getInstance();
 	private ArrayList<ResultData> m_results;
 	private ResultDataAdapter m_adapter;
+	private DbHelper db;
 
 	Spinner gmTypeSp;
 	Spinner gmLimitSp;
@@ -131,6 +131,7 @@ public class ListRes extends ListActivity {
 		mContext = this; // since Activity extends Context
 		mContext = getApplicationContext();
 		mContext = getBaseContext();
+		db = new DbHelper(mContext);
 	}
 
 	@Override
@@ -161,16 +162,18 @@ public class ListRes extends ListActivity {
 			query = "name = '" + username + "'";
 		}
 		Cursor result = null;
-		Uri tmpUri = Uri
-				.parse("content://com.gamesPnL.provider.userContentProvider");
-		tmpUri = Uri.withAppendedPath(tmpUri, "pnldata");
-		String[] projection = new String[] { "_id", "name", "amount", "evYear",
-				"evMonth", "evDay", "gameType", "gameLimit", "eventType",
-				"notes" };
-
-		// result = getContentResolver().query(tmpUri, null, null, null, null);
-		result = mContext.getContentResolver().query(tmpUri, projection, query,
-				null, null);
+		/*
+		 * Uri tmpUri = Uri
+		 * .parse("content://com.gamesPnL.provider.userContentProvider"); tmpUri
+		 * = Uri.withAppendedPath(tmpUri, "pnldata"); String[] projection = new
+		 * String[] { "_id", "name", "amount", "evYear", "evMonth", "evDay",
+		 * "gameType", "gameLimit", "eventType", "notes" };
+		 * 
+		 * // result = getContentResolver().query(tmpUri, null, null, null,
+		 * null); result = mContext.getContentResolver().query(tmpUri,
+		 * projection, query, null, null); int i = result.getCount();
+		 */
+		result = db.getData("gPNLData", query);
 		int i = result.getCount();
 		gamesLogger.i(TAG, SubTag + "Number of records:  " + i);
 

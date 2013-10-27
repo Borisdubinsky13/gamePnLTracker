@@ -105,6 +105,10 @@
     <string name="ImportDB">Importing file:</string>
     <string name="space"></string>
     <string name="csvFile">/mnt/sdcard/gamesPnL.csv</string>
+    <string name="SDate">SDate</string>
+	<string name="EDate">EDate</string>
+	<string name="report">Report</string>
+    
     <string name="relLblR40">R-4.0 (DB Version: 10):</string>
     <string name="relNote401">- Add blackjack as one of the games.</string>
     <string name="relNote402">- Change layout of the games report.</string>
@@ -118,4 +122,8 @@
     <string name="relLblR43">R-4.3 (DB Version: 10):</string>
     <string name="relNote431">- Fix error on update/delete results</string>
     <string name="relNote432">- Fix not desplaying first result</string>
+    <string name="relLblR50">R-5.0 (DB Version: 10):</string>
+    <string name="relNote501">- Change main screen layout/functionality</string>
+    <string name="relNote502">- Replace content provider with DB Helper</string>
+    <string name="relNote503">- Get rid of all warnings in code and XML</string>
 </resources>

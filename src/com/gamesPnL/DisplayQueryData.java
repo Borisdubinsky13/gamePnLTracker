@@ -10,7 +10,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -55,6 +54,8 @@ public class DisplayQueryData extends Activity {
 	String startSearchDate = null;
 	String endSearchDate = null;
 
+	private DbHelper db;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -70,6 +71,7 @@ public class DisplayQueryData extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.displayquerydata);
+		db = new DbHelper(this);
 	}
 
 	@Override
@@ -142,25 +144,23 @@ public class DisplayQueryData extends Activity {
 		evTypeSp.setAdapter(evType);
 
 		gamesLogger.i(TAG, SubTag + "Setting up Game Type spinner");
-		Uri tmpUri = Uri
-				.parse("content://com.gamesPnL.provider.userContentProvider");
-		tmpUri = Uri.withAppendedPath(tmpUri, "pnlgames");
-		String query = "addedBy = '" + username + "'"
-				+ " OR addedBy = 'gamePnL'";
+
 		ArrayAdapter<String> items = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item);
 		gmTypeSp = (Spinner) findViewById(R.id.gType);
 		gmTypeSp.setAdapter(items);
 		gmTypeSp.setSelection(0);
-		Cursor result = getContentResolver().query(tmpUri, null, query, null,
-				null);
+
+		String query = "addedBy = '" + username + "'"
+				+ " OR addedBy = 'gamePnL'";
+		Cursor result = db.getData("gGames", query, " Distinct game ");
 		gamesLogger.i(TAG, SubTag
 				+ "Everything is ready for the game Spinner. # of records: "
 				+ result.getCount());
 		items.add("All");
 		if (result.moveToFirst()) {
 			do {
-				items.add(result.getString(1));
+				items.add(result.getString(0));
 			} while (result.moveToNext());
 		}
 		if (result != null)
