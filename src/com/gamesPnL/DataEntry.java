@@ -110,17 +110,15 @@ public class DataEntry extends Activity {
 		ArrayAdapter<String> items = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item);
 		gmTypeSp = (Spinner) findViewById(R.id.gType);
-		gmTypeSp.setAdapter(items);
-		gmTypeSp.setSelection(0);
 
 		gamesLogger.i(TAG, SubTag + "Query: " + query);
-		Cursor result = db.getData("gPNLData", query, " Distinct gameType ");
+		Cursor result = db.getData("gGames");
 		gamesLogger.i(TAG, SubTag
 				+ "Everything is ready for the Spinner. # of records: "
 				+ result.getCount());
 		if (result.moveToFirst()) {
 			do {
-				items.add(result.getString(0));
+				items.add(result.getString(1));
 			} while (result.moveToNext());
 		}
 		items.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -208,7 +206,7 @@ public class DataEntry extends Activity {
 				ContentValues vals = new ContentValues();
 				String eventStr = "Unknown";
 				String realAmount = "-";
-				String date2db = evYearS + "-" + evMonthS + "-" + evDayS;
+				String date2db = evYearS + "/" + evMonthS + "/" + evDayS;
 
 				gamesLogger.i(TAG, SubTag + "LOSS button is clicked");
 				EditText amount = (EditText) findViewById(R.id.Amount);

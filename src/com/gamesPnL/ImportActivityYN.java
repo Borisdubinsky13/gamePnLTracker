@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,7 +31,7 @@ public class ImportActivityYN extends Activity {
 	private int percentDone;
 	private long currentCount = 0;
 	private int lineNumber = 0;
-	private Context mContext;
+	private DbHelper db;
 	private Handler mHandler = new Handler();
 
 	private void actualDoImport(View v) {
@@ -62,7 +61,6 @@ public class ImportActivityYN extends Activity {
 					// try opening the myfilename.txt
 					try {
 						gamesLogger.i(TAG, SubTag + "Starting an import");
-						DbHelper db = new DbHelper(mContext);
 
 						// open the file for reading
 						gamesLogger.i(
@@ -135,12 +133,13 @@ public class ImportActivityYN extends Activity {
 									String amount = line.substring(0, endExt);
 
 									ContentValues vals = new ContentValues();
+
 									vals.put("name", username);
 									vals.put("amount", amount);
 									vals.put("evYear", evYear);
 									vals.put("evMonth", evMonth);
 									vals.put("evDay", evDay);
-									date = evYear + "-" + evMonth + "-" + evDay;
+									date = evYear + "/" + evMonth + "/" + evDay;
 									vals.put("evDate", date);
 									vals.put("eventType", evType);
 									vals.put("gameType", gameType);
@@ -200,6 +199,7 @@ public class ImportActivityYN extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.importdb);
+		db = new DbHelper(this);
 
 		Button nButton = (Button) findViewById(R.id.NoButton);
 		nButton.setOnClickListener(new View.OnClickListener() {
@@ -216,7 +216,6 @@ public class ImportActivityYN extends Activity {
 				gamesLogger.i(TAG, SubTag + "Removing the database");
 
 				try {
-					DbHelper db = new DbHelper(mContext);
 					db.deleteTbl("gPNLData");
 					gamesLogger.i(TAG, SubTag + "Results data is removed");
 				} catch (Exception e) {

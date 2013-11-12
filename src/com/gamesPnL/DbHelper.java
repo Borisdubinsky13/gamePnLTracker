@@ -440,6 +440,16 @@ public class DbHelper extends SQLiteOpenHelper {
 		}
 	}
 
+	public Cursor getData(String table) {
+		SubTag = "getData(): ";
+		String countQuery;
+
+		countQuery = "Select * FROM " + table + ";";
+		SQLiteDatabase db = this.getReadableDatabase();
+		gamesLogger.i(TAG, SubTag + "SQL: " + countQuery);
+		return db.rawQuery(countQuery, null);
+	}
+
 	public Cursor getData(String table, String query) {
 		SubTag = "getData(): ";
 		String countQuery;
