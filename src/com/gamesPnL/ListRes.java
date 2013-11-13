@@ -32,7 +32,7 @@ import android.widget.Toast;
  */
 public class ListRes extends ListActivity {
 
-	public String TAG = "gamePnLTracker";
+	public String TAG = "ListRes";
 	public String SubTag = "ListRes: ";
 
 	public static final String PREFS_NAME = "gamePnLTrackerFile";
@@ -162,17 +162,7 @@ public class ListRes extends ListActivity {
 			query = "name = '" + username + "'";
 		}
 		Cursor result = null;
-		/*
-		 * Uri tmpUri = Uri
-		 * .parse("content://com.gamesPnL.provider.userContentProvider"); tmpUri
-		 * = Uri.withAppendedPath(tmpUri, "pnldata"); String[] projection = new
-		 * String[] { "_id", "name", "amount", "evYear", "evMonth", "evDay",
-		 * "gameType", "gameLimit", "eventType", "notes" };
-		 * 
-		 * // result = getContentResolver().query(tmpUri, null, null, null,
-		 * null); result = mContext.getContentResolver().query(tmpUri,
-		 * projection, query, null, null); int i = result.getCount();
-		 */
+
 		result = db.getData("gPNLData", query);
 		int i = result.getCount();
 		gamesLogger.i(TAG, SubTag + "Number of records:  " + i);

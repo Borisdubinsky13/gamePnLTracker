@@ -33,7 +33,7 @@ import com.google.ads.AdView;
  * @author boris
  */
 public class DataAnalysis extends Activity {
-	public String TAG = "gamePnLTracker";
+	public String TAG = "DataAnalysis";
 	public String SubTag = "DataAnalysis: ";
 	public static final String PREFS_NAME = "gamePnLTrackerFile";
 	private static final String PREF_USERNAME = "username";
@@ -127,7 +127,7 @@ public class DataAnalysis extends Activity {
 			String dateStr = evYearS + "/" + evMonthS + "/" + evDayS;
 			gamesLogger.i(TAG, SubTag + "Date String for button: " + dateStr);
 			StartDateB.setText(dateStr);
-			startSearchDate = evYearS + "-" + evMonthS + "-" + evDayS;
+			startSearchDate = evYearS + "/" + evMonthS + "/" + evDayS;
 		}
 	};
 
@@ -141,7 +141,7 @@ public class DataAnalysis extends Activity {
 			String dateStr = evYearS + "/" + evMonthS + "/" + evDayS;
 			gamesLogger.i(TAG, SubTag + "Date String for button: " + dateStr);
 			EndDateB.setText(dateStr);
-			endSearchDate = evYearS + "-" + evMonthS + "-" + evDayS;
+			endSearchDate = evYearS + "/" + evMonthS + "/" + evDayS;
 
 		}
 	};
@@ -363,11 +363,7 @@ public class DataAnalysis extends Activity {
 							DataAnalysis.this, series, renderer);
 					layout.addView(mChartView);
 					viewPresent = true;
-					/*
-					 * Intent mChartView =
-					 * ChartFactory.getLineChartIntent(DataAnalysis.this,
-					 * mDataset, mRenderer); startActivity(mChartView);
-					 */
+
 				} catch (Exception e) {
 					gamesLogger.e(TAG, SubTag + e.getMessage());
 				}
@@ -437,13 +433,6 @@ public class DataAnalysis extends Activity {
 
 					LinearLayout layout = (LinearLayout) findViewById(R.id.aChart);
 
-					// Intent mChartView =
-					// ChartFactory.getPieChartIntent(DataAnalysis.this, series,
-					// renderer, "Profit/Loss");
-					// Intent mChartView =
-					// ChartFactory.getLineChartIntent(DataAnalysis.this,
-					// mDataset, mRenderer);
-					// startActivity(mChartView);
 					if (viewPresent && mChartView != null)
 						layout.removeView(mChartView);
 

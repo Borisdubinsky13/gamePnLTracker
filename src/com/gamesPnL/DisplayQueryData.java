@@ -261,7 +261,7 @@ public class DisplayQueryData extends Activity {
 			String dateStr = evYearS + "/" + evMonthS + "/" + evDayS;
 			gamesLogger.i(TAG, SubTag + "Date String for button: " + dateStr);
 			StartDateB.setText(dateStr);
-			startSearchDate = evYearS + "-" + evMonthS + "-" + evDayS;
+			startSearchDate = evYearS + "/" + evMonthS + "/" + evDayS;
 		}
 	};
 
@@ -276,7 +276,7 @@ public class DisplayQueryData extends Activity {
 			String dateStr = evYearS + "/" + evMonthS + "/" + evDayS;
 			gamesLogger.i(TAG, SubTag + "Date String for button: " + dateStr);
 			EndDateB.setText(dateStr);
-			endSearchDate = evYearS + "-" + evMonthS + "-" + evDayS;
+			endSearchDate = evYearS + "/" + evMonthS + "/" + evDayS;
 
 		}
 	};

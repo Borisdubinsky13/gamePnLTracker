@@ -128,4 +128,6 @@
     <string name="relNote503">- Get rid of all warnings in code and XML</string>
     <string name="relLblR51">R-5.1 (DB Version: 10):</string>
     <string name="relNote511">- Fix a problem of no games</string>
+    <string name="relLblR52">R-5.2 (DB Version: 10):</string>
+    <string name="relNote521">- Fix a problem filtering by date</string>
 </resources>

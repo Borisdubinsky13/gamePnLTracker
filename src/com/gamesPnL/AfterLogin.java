@@ -39,7 +39,7 @@ import com.google.ads.AdView;
  */
 public class AfterLogin extends Activity {
 
-	public String TAG = "gamePnLTracker";
+	public String TAG = "AfterLogin";
 	public String SubTag = "AfterLogin: ";
 	public static final String PREFS_NAME = "gamePnLTrackerFile";
 	public String username;
@@ -428,8 +428,8 @@ public class AfterLogin extends Activity {
 
 		// Get this month earnings
 		query = "name = '" + username + "'";
-		String startDate = String.format("%04d", mYear) + "-"
-				+ String.format("%02d", mMonth) + "-01";
+		String startDate = String.format("%04d", mYear) + "/"
+				+ String.format("%02d", mMonth) + "/01";
 		query += " AND evDate >= '" + startDate + "'";
 
 		gamesLogger.i(TAG, SubTag + "Query: " + query);

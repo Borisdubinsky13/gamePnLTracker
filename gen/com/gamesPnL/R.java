@@ -234,6 +234,7 @@ public final class R {
         public static final int relLblR43=0x7f040059;
         public static final int relLblR50=0x7f04005c;
         public static final int relLblR51=0x7f040060;
+        public static final int relLblR52=0x7f040062;
         public static final int relNote401=0x7f040050;
         public static final int relNote402=0x7f040051;
         public static final int relNote403=0x7f040052;
@@ -247,6 +248,7 @@ public final class R {
         public static final int relNote502=0x7f04005e;
         public static final int relNote503=0x7f04005f;
         public static final int relNote511=0x7f040061;
+        public static final int relNote521=0x7f040063;
         public static final int report=0x7f04004e;
         public static final int setupName=0x7f040034;
         public static final int setupTitle=0x7f040030;
