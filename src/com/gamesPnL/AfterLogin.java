@@ -504,7 +504,8 @@ public class AfterLogin extends Activity {
 		gamesLogger.i(TAG, SubTag + "Starting Current month ...");
 		int mYear = c.get(Calendar.YEAR);
 		int mMonth = c.get(Calendar.MONTH) + 1;
-		String IntentQ = "evMonth = " + mMonth + " AND evYear = " + mYear;
+		String evMonthS = String.format("%02d", mMonth);
+		String IntentQ = "evMonth = \"" + evMonthS + "\" AND evYear = " + mYear;
 		Intent iDispRes = new Intent(this, ListRes.class);
 		iDispRes.putExtra("queStr", IntentQ);
 		startActivity(iDispRes);
