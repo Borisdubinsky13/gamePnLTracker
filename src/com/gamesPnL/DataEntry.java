@@ -160,7 +160,7 @@ public class DataEntry extends Activity {
 			public void onClick(View v) {
 				ContentValues vals = new ContentValues();
 				String eventStr = "Unknown";
-				String date2db = evYearS + "-" + evMonthS + "-" + evDayS;
+				String date2db = evYearS + "/" + evMonthS + "/" + evDayS;
 
 				gamesLogger.i(TAG, SubTag + "WIN button is clicked");
 				EditText amount = (EditText) findViewById(R.id.Amount);
@@ -188,7 +188,8 @@ public class DataEntry extends Activity {
 					vals.put("gameLimit", gameL);
 					vals.put("notes", nts.getText().toString());
 					gamesLogger.i(TAG, SubTag + "Storing date: " + evMonthS
-							+ "/" + evDayS + "/" + evYearS);
+							+ "/" + evDayS + "/" + evYearS + "(" + date2db
+							+ ")");
 					db.insert("gPNLData", vals);
 					finish();
 				} else {
@@ -236,7 +237,8 @@ public class DataEntry extends Activity {
 					vals.put("gameLimit", gameL);
 					vals.put("notes", nts.getText().toString());
 					gamesLogger.i(TAG, SubTag + "Storing date: " + evMonthS
-							+ "/" + evDayS + "/" + evYearS);
+							+ "/" + evDayS + "/" + evYearS + "(" + date2db
+							+ ")");
 
 					db.insert("gPNLData", vals);
 					finish();

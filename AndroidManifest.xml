@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.gamesPnL" android:versionCode="42" android:versionName="R-6.0">
+   package="com.gamesPnL" android:versionCode="42" android:versionName="R-6.0">
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
    	<uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application android:icon="@drawable/icon" android:label="@string/appname"
 			android:allowClearUserData="true" android:name=".GamesPnL"
 			android:backupAgent="MyBackupAgent"

@@ -522,6 +522,7 @@ public class AfterLogin extends Activity {
 		int mYear = c.get(Calendar.YEAR);
 		int mMonth = c.get(Calendar.MONTH) + 1;
 		String IntentQ = String.format("evMonth = '%02d' AND evYear = '%04d'",mMonth, mYear);
+
 		Intent iDispRes = new Intent(this, ListRes.class);
 		iDispRes.putExtra("queStr", IntentQ);
 		startActivity(iDispRes);
