@@ -94,7 +94,7 @@
     <string name="exportDB">Export DB</string>
     <string name="importDB">Import DB</string>
     <string name="dispquerydata">DisplayQueryData</string>
-    <string name="dbVersion">10</string>
+    <string name="dbVersion">11</string>
     <string name="dbVersionLabel">Database Version:</string>
     <string name="analysisTitle">Analysis</string>
     <string name="YesString">Yes</string>
@@ -130,4 +130,7 @@
     <string name="relNote511">- Fix a problem of no games</string>
     <string name="relLblR52">R-5.2 (DB Version: 10):</string>
     <string name="relNote521">- Fix a problem filtering by date</string>
+    <string name="relLblR60">R-6.0 (DB Version: 11):</string>
+    <string name="relNote601">- Fix a problem pulling current month value</string>
+    <string name="relNote602">- Fix a date format</string>
 </resources>

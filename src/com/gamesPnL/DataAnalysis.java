@@ -11,6 +11,9 @@ import org.achartengine.model.CategorySeries;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -26,8 +29,6 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
 
 /**
  * @author boris
@@ -85,9 +86,17 @@ public class DataAnalysis extends Activity {
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		username = pref.getString(PREF_USERNAME, null);
 		this.setTitle("User: " + username);
-
-		AdView adView = (AdView) findViewById(R.id.adDataAnalysis);
-		adView.loadAd(new AdRequest());
+		/*
+		AdView adView = new AdView(this);
+	    adView.setAdUnitId("a14d18e1cd0e067");
+	    adView.setAdSize(AdSize.BANNER);
+	    */
+		AdView adView = (AdView) findViewById(R.id.adAfterLogin);
+		// Initiate a generic request to load it with an ad
+	    // Initiate a generic request.
+	    AdRequest adRequest = new AdRequest.Builder().build();
+	    // Load the adView with the ad request.
+	    adView.loadAd(adRequest);
 
 		final Spinner aBy = (Spinner) findViewById(R.id.ATypeSpin);
 		ArrayAdapter<CharSequence> strs = ArrayAdapter.createFromResource(this,

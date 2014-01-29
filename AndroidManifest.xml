@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.gamesPnL" android:versionCode="41" android:versionName="R-5.2">
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+          package="com.gamesPnL" android:versionCode="42" android:versionName="R-6.0">
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+   	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application android:icon="@drawable/icon" android:label="@string/appname"
-                 android:allowClearUserData="true" android:name=".GamesPnL"
-                 android:backupAgent="MyBackupAgent"
-                 android:allowBackup="true" android:killAfterRestore="false">
+			android:allowClearUserData="true" android:name=".GamesPnL"
+			android:backupAgent="MyBackupAgent"
+			android:allowBackup="true" android:killAfterRestore="false">
         <meta-data android:name="com.google.android.backup.api_key"
-                   android:value="AEdPqrEAAAAISZVm1kGVQFNfEeFJN-E2EcJlsJR-xFmnxvkefw"
-                   android:restoreAnyVersion="true"/>
+			android:value="AEdPqrEAAAAISZVm1kGVQFNfEeFJN-E2EcJlsJR-xFmnxvkefw"
+			android:restoreAnyVersion="true"/>
+		<meta-data android:name="com.google.android.gms.version"
+			android:value="@integer/google_play_services_version"/>
         <activity android:label="@string/appname" android:name="com.gamesPnL.DataEntry">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -107,16 +111,15 @@
                   android:name="com.gamesPnL.GamePnLTrackerProvider"/ -->
 
         <!-- The application's publisher ID assigned by AdMob -->
-        <meta-data android:value="a14d18e1cd0e067" android:name="ADMOB_PUBLISHER_ID"/>
+        <!--  meta-data android:value="a14d18e1cd0e067" android:name="ADMOB_PUBLISHER_ID"/ -->
 
    		<activity android:name="com.google.ads.AdActivity"
               android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 
         <meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS"/>
+		<activity android:name="com.google.android.gms.ads.AdActivity"
+			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 	</application>
-    <!-- AdMob SDK requires Internet permission -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-sdk android:minSdkVersion="16">
     </uses-sdk>
 </manifest> 

@@ -14,6 +14,9 @@ import org.achartengine.model.XYValueSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,8 +27,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
 
 /**
  * @author Boris
@@ -62,8 +63,17 @@ public class GraphData extends Activity {
 		GraphicalView mChartView = null;
 		setContentView(R.layout.graphdata);
 
-		AdView adView = (AdView) findViewById(R.id.adGraphData);
-		adView.loadAd(new AdRequest());
+		/*
+		AdView adView = new AdView(this);
+	    adView.setAdUnitId("a14d18e1cd0e067");
+	    adView.setAdSize(AdSize.BANNER);
+	    */
+		AdView adView = (AdView) findViewById(R.id.adAfterLogin);
+		// Initiate a generic request to load it with an ad
+	    // Initiate a generic request.
+	    AdRequest adRequest = new AdRequest.Builder().build();
+	    // Load the adView with the ad request.
+	    adView.loadAd(adRequest);
 
 		int i = 0;
 		// get all the records with the current id ad add all the amounts

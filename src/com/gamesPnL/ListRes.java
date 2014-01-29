@@ -7,6 +7,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -143,7 +146,15 @@ public class ListRes extends ListActivity {
 		 * ArrayAdapter.createFromResource( this, R.array.gameLimitLst,
 		 * android.R.layout.simple_spinner_item);
 		 */
-		gamesLogger.i(TAG, SubTag + "Started.");
+		AdView adView = (AdView) findViewById(R.id.adAfterLogin);
+	    AdRequest adRequest = new AdRequest.Builder()
+	    	.addTestDevice("1C9D5807CADB9259EB3804DDC582DC3C")
+	    	.addTestDevice("5AECA86F6A4E6EB1C1B6907DDFB5086D")
+	    	.build();
+	    // Load the adView with the ad request.
+	    adView.loadAd(adRequest);
+
+  		gamesLogger.i(TAG, SubTag + "Started.");
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		username = pref.getString(PREF_USERNAME, null);
 		idIndex = pref.getString(PREF_ID, null);

@@ -19,8 +19,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
 
 /**
  * @author Boris
@@ -79,12 +77,6 @@ public class DisplayQueryData extends Activity {
 
 		super.onPause();
 		setContentView(R.layout.displayquerydata);
-		gamesLogger.i(TAG, SubTag + "Trying to get the add");
-		AdView adView = (AdView) findViewById(R.id.adDisplayQueryData);
-
-		// Initiate a generic request to load it with an ad
-		adView.loadAd(new AdRequest());
-		gamesLogger.i(TAG, SubTag + "Got the add");
 
 		gamesLogger.i(TAG, SubTag + "Start....");
 

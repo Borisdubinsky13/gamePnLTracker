@@ -11,6 +11,7 @@ import java.util.Calendar;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -31,8 +32,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 /*
  * @author Boris
@@ -218,48 +219,53 @@ public class AfterLogin extends Activity {
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		username = pref.getString(PREF_USERNAME, null);
 		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.About:
+		int	getItemId = item.getItemId();
+		if (getItemId == R.id.About) {
 			gamesLogger.i(TAG, SubTag + "trying to start ABOUT");
 			Intent iAbout = new Intent(this, AboutHandler.class);
 			startActivity(iAbout);
 			return true;
-		case R.id.AddResult:
+		}
+		if (getItemId == R.id.AddResult) {
 			gamesLogger.i(TAG, SubTag + "trying to start AddResult");
 			Intent iDataEntry = new Intent(this, DataEntry.class);
 			startActivity(iDataEntry);
 			return true;
-		case R.id.ViewStats:
+		}
+		if ( getItemId == R.id.ViewStats ) {
 			gamesLogger.i(TAG, SubTag + "trying to start DisplayQueryData");
 			// Intent iViewRes = new Intent(this, ListRes.class);
 			Intent iViewRes = new Intent(this, DisplayQueryData.class);
 			startActivity(iViewRes);
 			return true;
-		case R.id.Analysis:
+		}
+		if ( getItemId == R.id.Analysis ) {
 			gamesLogger.i(TAG, SubTag + "trying to start DataAnalysis");
 			// Intent iViewRes = new Intent(this, ListRes.class);
 			Intent iViewAnalysis = new Intent(this, DataAnalysis.class);
 			startActivity(iViewAnalysis);
 			return true;
-		case R.id.AddGame:
+		}
+		if ( getItemId == R.id.AddGame ) {
 			gamesLogger.i(TAG, SubTag + "trying to start Add Game");
 			Intent iViewAddGame = new Intent(this, AddGame.class);
 			startActivity(iViewAddGame);
 			return true;
-		case R.id.importDB:
+		}
+		if ( getItemId == R.id.importDB ) {
 			gamesLogger.i(TAG, SubTag + "trying to import data");
 			Intent importAct = new Intent(this, ImportActivityYN.class);
 			startActivity(importAct);
 			gamesLogger.i(TAG, SubTag + "import is done!");
 			// doImport();
 			return true;
-		case R.id.exportDB:
+		}
+		if ( getItemId == R.id.exportDB ) {
 			gamesLogger.i(TAG, SubTag + "trying to export data");
 			doExport();
 			return true;
-		default:
-			return super.onOptionsItemSelected(item);
 		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -281,7 +287,7 @@ public class AfterLogin extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.afterlogin);
-
+/*
 		// First check if there are any users. If not, then switch to setup
 		// window to add first user.
 		try {
@@ -298,7 +304,7 @@ public class AfterLogin extends Activity {
 		} catch (Exception e) {
 			gamesLogger.e(TAG, SubTag + " Problem: " + e.getMessage());
 		}
-
+*/
 		Account[] accounts = AccountManager.get(this).getAccountsByType(
 				"com.google");
 		gamesLogger.i(TAG, SubTag + "Got account list. Number of entries: "
@@ -318,7 +324,8 @@ public class AfterLogin extends Activity {
 		getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit()
 				.putString(PREF_USERNAME, username).commit();
 		gamesLogger.i(TAG, SubTag + "My email id that I want: " + username);
-
+		DbHelper db = new DbHelper(this);
+		gamesLogger.i(TAG, SubTag + "DB Version: " + db.getDBVersion());
 		// update database to make sure that all entries have username =
 		// primary google account.
 		// See if there are any data that has name other then current
@@ -364,10 +371,19 @@ public class AfterLogin extends Activity {
 			}
 		});
 
-		gamesLogger.i(TAG, SubTag + " onResume: Trying to get the add");
-		AdView adView = (AdView) findViewById(R.id.adAfterLogin);
+		gamesLogger.i(TAG, SubTag + " onResume: Trying to get an add");
 		// Initiate a generic request to load it with an ad
-		adView.loadAd(new AdRequest());
+	    // Initiate a generic request.
+		// AdView adView = new AdView(this);
+	    // adView.setAdUnitId("a14d18e1cd0e067");
+	    // adView.setAdSize(AdSize.BANNER);
+		AdView adView = (AdView) findViewById(R.id.adAfterLogin);
+	    AdRequest adRequest = new AdRequest.Builder()
+	    	.addTestDevice("1C9D5807CADB9259EB3804DDC582DC3C")
+	    	.addTestDevice("5AECA86F6A4E6EB1C1B6907DDFB5086D")
+	    	.build();
+	    // Load the adView with the ad request.
+	    adView.loadAd(adRequest);
 
 		gamesLogger.i(TAG, SubTag + "Got the add");
 		// get all the records with the current id ad add all the amounts
@@ -500,11 +516,12 @@ public class AfterLogin extends Activity {
 	}
 
 	/** Called when the user "last month" button */
+	@SuppressLint("DefaultLocale")
 	public void LastMonthAmount(View view) {
 		gamesLogger.i(TAG, SubTag + "Starting Current month ...");
 		int mYear = c.get(Calendar.YEAR);
 		int mMonth = c.get(Calendar.MONTH) + 1;
-		String IntentQ = "evMonth = " + mMonth + " AND evYear = " + mYear;
+		String IntentQ = String.format("evMonth = '%02d' AND evYear = '%04d'",mMonth, mYear);
 		Intent iDispRes = new Intent(this, ListRes.class);
 		iDispRes.putExtra("queStr", IntentQ);
 		startActivity(iDispRes);

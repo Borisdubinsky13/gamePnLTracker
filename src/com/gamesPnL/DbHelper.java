@@ -24,7 +24,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static String SubTag;
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
-	private static final int DATABASE_VERSION = 10;
+	private static final int DATABASE_VERSION = 11;
 
 	private static final String ID_KEY = "_id";
 	private static final String USER_TABLE_NAME = "gUsers";
@@ -46,6 +46,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 	public DbHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
 		bkpMgm = new BackupManager(context);
 	}
 
@@ -272,6 +273,11 @@ public class DbHelper extends SQLiteOpenHelper {
 						case 6:
 						case 7:
 						case 8:
+						case 9:
+							// There is no change in format, it's a bug fix.
+							// the bug was that sometimes the date was stored with '-' instead
+							// of '/'
+						case 10:
 							uidS = from.getString(0);
 							nameS = from.getString(1);
 							amountS = from.getString(2);
@@ -283,6 +289,8 @@ public class DbHelper extends SQLiteOpenHelper {
 								dateS = from.getString(7);
 								// The current format of the field is
 								// mm/dd/yyyy
+								// Make sure that the date does not have '-'
+								dateS = dateS.replace('-','/');
 								startLoc = 0;
 								endLoc = dateS.indexOf('/');
 								monthS = dateS.substring(startLoc, endLoc);
@@ -302,7 +310,7 @@ public class DbHelper extends SQLiteOpenHelper {
 									Integer.parseInt(monthS));
 							yearS = String.format(Locale.getDefault(), "%04d",
 									Integer.parseInt(yearS));
-							newDateF = yearS + "-" + monthS + "-" + dayS;
+							newDateF = yearS + "/" + monthS + "/" + dayS;
 
 							vals.put("uid", uidS);
 							vals.put("name", nameS);
@@ -321,11 +329,6 @@ public class DbHelper extends SQLiteOpenHelper {
 									+ " Month: " + monthS + " Day: " + dayS
 									+ "(" + newDateF + ")");
 							break;
-						case 9:
-							/*
-							 * Format does not change, just adding one more game
-							 */
-							break;
 						default:
 							break;
 						}
@@ -337,7 +340,7 @@ public class DbHelper extends SQLiteOpenHelper {
 			gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 			db.execSQL(sql);
 
-			// Fainally, status table
+			// Finally, status table
 			sql = "ALTER TABLE " + PNL_STATUS_TABLE_NAME + " RENAME TO "
 					+ PNL_STATUS_TABLE_NAME + "_OLD;";
 			gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
@@ -404,7 +407,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		} catch (Exception e) {
 			gamesLogger.e(TAG, SubTag + e.getMessage());
 		}
-		/* Backup the data */
+
 		gamesLogger.i(TAG, SubTag + "Backup: dataChanged() after db upgrade");
 		bkpMgm.dataChanged();
 		gamesLogger.i(TAG, SubTag + "Upgrade is complete!");
@@ -537,5 +540,10 @@ public class DbHelper extends SQLiteOpenHelper {
 
 		bkpMgm.dataChanged();
 		return rc;
+	}
+	
+	public int getDBVersion() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		return db.getVersion();
 	}
 }

@@ -9,126 +9,327 @@ package com.gamesPnL;
 
 public final class R {
     public static final class array {
-        public static final int analyzeByNames=0x7f050001;
-        public static final int evTypeArray=0x7f050004;
-        public static final int evTypeSearch=0x7f050005;
-        public static final int gameLimitLst=0x7f050000;
-        public static final int gameLimitSearch=0x7f050002;
-        public static final int gameType=0x7f050003;
+        public static final int analyzeByNames=0x7f080001;
+        public static final int evTypeArray=0x7f080004;
+        public static final int evTypeSearch=0x7f080005;
+        public static final int gameLimitLst=0x7f080000;
+        public static final int gameLimitSearch=0x7f080002;
+        public static final int gameType=0x7f080003;
     }
     public static final class attr {
+        /** 
+    The size of the ad. It must be one of BANNER, FULL_BANNER, LEADERBOARD,
+    MEDIUM_RECTANGLE, SMART_BANNER, WIDE_SKYSCRAPER, or
+    &lt;width&gt;x&lt;height&gt;.
+    
+         <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int adSize=0x7f010000;
+        /** 
+    A comma-separated list of the supported ad sizes. The sizes must be one of
+    BANNER, FULL_BANNER, LEADERBOARD, MEDIUM_RECTANGLE, SMART_BANNER,
+    WIDE_SKYSCRAPER, or &lt;width&gt;x&lt;height&gt;.
+    
+         <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int adSizes=0x7f010001;
+        /**  The ad unit ID. 
+         <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int adUnitId=0x7f010002;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraBearing=0x7f010004;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraTargetLat=0x7f010005;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraTargetLng=0x7f010006;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraTilt=0x7f010007;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraZoom=0x7f010008;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>none</code></td><td>0</td><td></td></tr>
+<tr><td><code>normal</code></td><td>1</td><td></td></tr>
+<tr><td><code>satellite</code></td><td>2</td><td></td></tr>
+<tr><td><code>terrain</code></td><td>3</td><td></td></tr>
+<tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
+</table>
+         */
+        public static final int mapType=0x7f010003;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiCompass=0x7f010009;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiRotateGestures=0x7f01000a;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiScrollGestures=0x7f01000b;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiTiltGestures=0x7f01000c;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiZoomControls=0x7f01000d;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiZoomGestures=0x7f01000e;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int useViewLifecycle=0x7f01000f;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int zOrderOnTop=0x7f010010;
+    }
+    public static final class color {
+        public static final int common_action_bar_splitter=0x7f040009;
+        /**  Sign-in Button Colors 
+         */
+        public static final int common_signin_btn_dark_text_default=0x7f040000;
+        public static final int common_signin_btn_dark_text_disabled=0x7f040002;
+        public static final int common_signin_btn_dark_text_focused=0x7f040003;
+        public static final int common_signin_btn_dark_text_pressed=0x7f040001;
+        public static final int common_signin_btn_default_background=0x7f040008;
+        public static final int common_signin_btn_light_text_default=0x7f040004;
+        public static final int common_signin_btn_light_text_disabled=0x7f040006;
+        public static final int common_signin_btn_light_text_focused=0x7f040007;
+        public static final int common_signin_btn_light_text_pressed=0x7f040005;
+        public static final int common_signin_btn_text_dark=0x7f04000a;
+        public static final int common_signin_btn_text_light=0x7f04000b;
     }
     public static final class drawable {
-        public static final int ic_menu_chart=0x7f020000;
-        public static final int icon=0x7f020001;
+        public static final int common_signin_btn_icon_dark=0x7f020000;
+        public static final int common_signin_btn_icon_disabled_dark=0x7f020001;
+        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f020002;
+        public static final int common_signin_btn_icon_disabled_focus_light=0x7f020003;
+        public static final int common_signin_btn_icon_disabled_light=0x7f020004;
+        public static final int common_signin_btn_icon_focus_dark=0x7f020005;
+        public static final int common_signin_btn_icon_focus_light=0x7f020006;
+        public static final int common_signin_btn_icon_light=0x7f020007;
+        public static final int common_signin_btn_icon_normal_dark=0x7f020008;
+        public static final int common_signin_btn_icon_normal_light=0x7f020009;
+        public static final int common_signin_btn_icon_pressed_dark=0x7f02000a;
+        public static final int common_signin_btn_icon_pressed_light=0x7f02000b;
+        public static final int common_signin_btn_text_dark=0x7f02000c;
+        public static final int common_signin_btn_text_disabled_dark=0x7f02000d;
+        public static final int common_signin_btn_text_disabled_focus_dark=0x7f02000e;
+        public static final int common_signin_btn_text_disabled_focus_light=0x7f02000f;
+        public static final int common_signin_btn_text_disabled_light=0x7f020010;
+        public static final int common_signin_btn_text_focus_dark=0x7f020011;
+        public static final int common_signin_btn_text_focus_light=0x7f020012;
+        public static final int common_signin_btn_text_light=0x7f020013;
+        public static final int common_signin_btn_text_normal_dark=0x7f020014;
+        public static final int common_signin_btn_text_normal_light=0x7f020015;
+        public static final int common_signin_btn_text_pressed_dark=0x7f020016;
+        public static final int common_signin_btn_text_pressed_light=0x7f020017;
+        public static final int ic_menu_chart=0x7f020018;
+        public static final int ic_plusone_medium_off_client=0x7f020019;
+        public static final int ic_plusone_small_off_client=0x7f02001a;
+        public static final int ic_plusone_standard_off_client=0x7f02001b;
+        public static final int ic_plusone_tall_off_client=0x7f02001c;
+        public static final int icon=0x7f02001d;
     }
     public static final class id {
-        public static final int ATypeSpin=0x7f070020;
-        public static final int About=0x7f070065;
-        public static final int AddGBtn=0x7f070009;
-        public static final int AddGame=0x7f070064;
-        public static final int AddResult=0x7f07005f;
-        public static final int AddScore=0x7f07001a;
-        public static final int AendDateButton=0x7f07001f;
-        public static final int Amount=0x7f070022;
-        public static final int Analysis=0x7f070061;
-        public static final int AppVersion=0x7f070003;
-        public static final int AstartDateButton=0x7f07001e;
-        public static final int CleanDB=0x7f070042;
-        public static final int Loss=0x7f07002b;
-        public static final int NoButton=0x7f070046;
-        public static final int PNL=0x7f07000f;
-        public static final int PNLLabe2=0x7f070040;
-        public static final int PNLLabel=0x7f07000d;
-        public static final int PNLLabel1=0x7f07003f;
-        public static final int PNLLabel2=0x7f070043;
-        public static final int PNLLabel3=0x7f070041;
-        public static final int PNLLabelLast=0x7f070015;
-        public static final int PNLLabelMonth=0x7f070011;
-        public static final int PNLLast=0x7f070017;
-        public static final int PNLMonth=0x7f070013;
-        public static final int ScrollView01=0x7f070000;
-        public static final int TableLayout01=0x7f07000c;
-        public static final int TableRow01=0x7f070002;
-        public static final int TableRow02=0x7f07000e;
-        public static final int TableRow03=0x7f070010;
-        public static final int TableRow04=0x7f070012;
-        public static final int TableRow05=0x7f070014;
-        public static final int TableRow06=0x7f070016;
-        public static final int TableRow07=0x7f070018;
-        public static final int TableRow08=0x7f070019;
-        public static final int TextView01=0x7f070058;
-        public static final int TextView02=0x7f070057;
-        public static final int ViewStats=0x7f070060;
-        public static final int Win=0x7f07002a;
-        public static final int YesButton=0x7f070045;
-        public static final int aChart=0x7f070021;
-        public static final int aboutMenu=0x7f070067;
-        public static final int about_display=0x7f070001;
-        public static final int adAfterLogin=0x7f07000b;
-        public static final int adDataAnalysis=0x7f07001d;
-        public static final int adDisplayQueryData=0x7f070033;
-        public static final int adGraphData=0x7f07003d;
-        public static final int adListRes=0x7f070048;
-        public static final int add=0x7f07005e;
-        public static final int afterLogin=0x7f07000a;
-        public static final int amnt=0x7f070052;
-        public static final int chart=0x7f07003e;
-        public static final int clear=0x7f07002c;
-        public static final int curMonth=0x7f070068;
-        public static final int dateButton=0x7f070023;
-        public static final int dbVersionId=0x7f070004;
-        public static final int db_view_row=0x7f07002d;
-        public static final int delete=0x7f070030;
-        public static final int dispRelNotes=0x7f070005;
-        public static final int displayitem=0x7f07002f;
-        public static final int displayquerydata=0x7f070032;
-        public static final int displayrow=0x7f070039;
-        public static final int dt=0x7f070051;
-        public static final int eTypeSearch=0x7f070036;
-        public static final int emailSup=0x7f07005d;
-        public static final int endDateButton=0x7f070035;
-        public static final int ev=0x7f070055;
-        public static final int exportDB=0x7f070062;
-        public static final int fstName=0x7f07005b;
-        public static final int gLimit=0x7f070027;
-        public static final int gType=0x7f070026;
-        public static final int gameDescr=0x7f070008;
-        public static final int gameName=0x7f070007;
-        public static final int gm=0x7f070053;
-        public static final int graph=0x7f070038;
-        public static final int graphanalysis=0x7f07001c;
-        public static final int graphdata=0x7f07003c;
-        public static final int idCash=0x7f070025;
-        public static final int idName=0x7f07004a;
-        public static final int idTourney=0x7f070024;
-        public static final int importDB=0x7f070063;
-        public static final int lastMonth=0x7f070069;
-        public static final int lastName=0x7f07005c;
-        public static final int lastRow=0x7f070028;
-        public static final int linearLayout1=0x7f070044;
-        public static final int linearLayout2=0x7f07004d;
-        public static final int linearLayout3=0x7f07004e;
-        public static final int listres=0x7f070047;
-        public static final int lm=0x7f070054;
-        public static final int loginB=0x7f07004c;
-        public static final int main=0x7f070049;
-        public static final int nameSup=0x7f070059;
-        public static final int notes=0x7f070029;
-        public static final int passSup=0x7f07005a;
-        public static final int passwd=0x7f07004b;
-        public static final int progressBar=0x7f07001b;
-        public static final int recId=0x7f070050;
-        public static final int releasenotes=0x7f07004f;
-        public static final int report=0x7f070037;
-        public static final int setup=0x7f070066;
-        public static final int setupscr=0x7f070056;
-        public static final int startDateButton=0x7f070034;
-        public static final int text1=0x7f07003a;
-        public static final int text2=0x7f07003b;
-        public static final int topTable=0x7f070006;
-        public static final int tvDBViewRow=0x7f07002e;
-        public static final int update=0x7f070031;
+        public static final int ATypeSpin=0x7f050024;
+        public static final int About=0x7f050066;
+        public static final int AddGBtn=0x7f05000e;
+        public static final int AddGame=0x7f050065;
+        public static final int AddResult=0x7f050060;
+        public static final int AddScore=0x7f05001f;
+        public static final int AendDateButton=0x7f050023;
+        public static final int Amount=0x7f050026;
+        public static final int Analysis=0x7f050062;
+        public static final int AppVersion=0x7f050008;
+        public static final int AstartDateButton=0x7f050022;
+        public static final int CleanDB=0x7f050044;
+        public static final int Loss=0x7f05002f;
+        public static final int NoButton=0x7f050048;
+        public static final int PNL=0x7f050014;
+        public static final int PNLLabe2=0x7f050042;
+        public static final int PNLLabel=0x7f050012;
+        public static final int PNLLabel1=0x7f050041;
+        public static final int PNLLabel2=0x7f050045;
+        public static final int PNLLabel3=0x7f050043;
+        public static final int PNLLabelLast=0x7f05001a;
+        public static final int PNLLabelMonth=0x7f050016;
+        public static final int PNLLast=0x7f05001c;
+        public static final int PNLMonth=0x7f050018;
+        public static final int ScrollView01=0x7f050005;
+        public static final int TableLayout01=0x7f050011;
+        public static final int TableRow01=0x7f050007;
+        public static final int TableRow02=0x7f050013;
+        public static final int TableRow03=0x7f050015;
+        public static final int TableRow04=0x7f050017;
+        public static final int TableRow05=0x7f050019;
+        public static final int TableRow06=0x7f05001b;
+        public static final int TableRow07=0x7f05001d;
+        public static final int TableRow08=0x7f05001e;
+        public static final int TextView01=0x7f050059;
+        public static final int TextView02=0x7f050058;
+        public static final int ViewStats=0x7f050061;
+        public static final int Win=0x7f05002e;
+        public static final int YesButton=0x7f050047;
+        public static final int aChart=0x7f050025;
+        public static final int aboutMenu=0x7f050068;
+        public static final int about_display=0x7f050006;
+        public static final int adAfterLogin=0x7f050010;
+        public static final int add=0x7f05005f;
+        public static final int afterLogin=0x7f05000f;
+        public static final int amnt=0x7f050053;
+        public static final int chart=0x7f050040;
+        public static final int clear=0x7f050030;
+        public static final int curMonth=0x7f050069;
+        public static final int dateButton=0x7f050027;
+        public static final int dbVersionId=0x7f050009;
+        public static final int db_view_row=0x7f050031;
+        public static final int delete=0x7f050034;
+        public static final int dispRelNotes=0x7f05000a;
+        public static final int displayitem=0x7f050033;
+        public static final int displayquerydata=0x7f050036;
+        public static final int displayrow=0x7f05003c;
+        public static final int dt=0x7f050052;
+        public static final int eTypeSearch=0x7f050039;
+        public static final int emailSup=0x7f05005e;
+        public static final int endDateButton=0x7f050038;
+        public static final int ev=0x7f050056;
+        public static final int exportDB=0x7f050063;
+        public static final int fstName=0x7f05005c;
+        public static final int gLimit=0x7f05002b;
+        public static final int gType=0x7f05002a;
+        public static final int gameDescr=0x7f05000d;
+        public static final int gameName=0x7f05000c;
+        public static final int gm=0x7f050054;
+        public static final int graph=0x7f05003b;
+        public static final int graphanalysis=0x7f050021;
+        public static final int graphdata=0x7f05003f;
+        public static final int hybrid=0x7f050004;
+        public static final int idCash=0x7f050029;
+        public static final int idName=0x7f05004b;
+        public static final int idTourney=0x7f050028;
+        public static final int importDB=0x7f050064;
+        public static final int lastMonth=0x7f05006a;
+        public static final int lastName=0x7f05005d;
+        public static final int lastRow=0x7f05002c;
+        public static final int linearLayout1=0x7f050046;
+        public static final int linearLayout2=0x7f05004e;
+        public static final int linearLayout3=0x7f05004f;
+        public static final int listres=0x7f050049;
+        public static final int lm=0x7f050055;
+        public static final int loginB=0x7f05004d;
+        public static final int main=0x7f05004a;
+        public static final int nameSup=0x7f05005a;
+        public static final int none=0x7f050000;
+        public static final int normal=0x7f050001;
+        public static final int notes=0x7f05002d;
+        public static final int passSup=0x7f05005b;
+        public static final int passwd=0x7f05004c;
+        public static final int progressBar=0x7f050020;
+        public static final int recId=0x7f050051;
+        public static final int releasenotes=0x7f050050;
+        public static final int report=0x7f05003a;
+        public static final int satellite=0x7f050002;
+        public static final int setup=0x7f050067;
+        public static final int setupscr=0x7f050057;
+        public static final int startDateButton=0x7f050037;
+        public static final int terrain=0x7f050003;
+        public static final int text1=0x7f05003d;
+        public static final int text2=0x7f05003e;
+        public static final int topTable=0x7f05000b;
+        public static final int tvDBViewRow=0x7f050032;
+        public static final int update=0x7f050035;
+    }
+    public static final class integer {
+        public static final int google_play_services_version=0x7f070000;
     }
     public static final class layout {
         public static final int about_display=0x7f030000;
@@ -150,110 +351,528 @@ public final class R {
         public static final int setupscr=0x7f030010;
     }
     public static final class menu {
-        public static final int mainmenu=0x7f060000;
-        public static final int preloginmenu=0x7f060001;
-        public static final int reportmenu=0x7f060002;
+        public static final int mainmenu=0x7f090000;
+        public static final int preloginmenu=0x7f090001;
+        public static final int reportmenu=0x7f090002;
     }
     public static final class string {
-        public static final int AddGameName=0x7f04003c;
-        public static final int AddResName=0x7f040008;
-        public static final int AddResult=0x7f04001e;
-        public static final int Amount=0x7f040019;
-        public static final int AmountLast=0x7f04001b;
-        public static final int AmountMonth=0x7f04001a;
-        public static final int AnalyzeBy=0x7f040026;
-        public static final int CMA=0x7f04001c;
-        public static final int Cancel=0x7f040012;
-        public static final int CancelString=0x7f040046;
-        public static final int Cash=0x7f04002a;
-        public static final int CleanDBStr=0x7f040048;
-        public static final int Clear=0x7f040023;
-        public static final int Date=0x7f040020;
-        public static final int EDate=0x7f04004d;
-        public static final int Empty=0x7f040000;
-        public static final int EndDate=0x7f040025;
-        public static final int ImportDB=0x7f040049;
-        public static final int LER=0x7f04001d;
-        public static final int Loss=0x7f040022;
-        public static final int Name=0x7f04002e;
-        public static final int NoString=0x7f040045;
-        public static final int Notes=0x7f04001f;
-        public static final int SDate=0x7f04004c;
-        public static final int Setup=0x7f040037;
-        public static final int StartDate=0x7f040024;
-        public static final int Tourney=0x7f040029;
-        public static final int ViewStatName=0x7f04002d;
-        public static final int Win=0x7f040021;
-        public static final int YesString=0x7f040044;
-        public static final int aboutName=0x7f040006;
-        public static final int add=0x7f040007;
-        public static final int addResult=0x7f04003d;
-        public static final int analysisTitle=0x7f040043;
-        public static final int appContVal=0x7f04000a;
-        public static final int appContact=0x7f04000d;
-        public static final int appNote=0x7f04000b;
-        public static final int appNoteVal=0x7f04000c;
-        public static final int appVer=0x7f040011;
-        public static final int appVerLabel=0x7f040010;
-        public static final int appdescrip=0x7f04000f;
-        public static final int applabl=0x7f040009;
-        public static final int appname=0x7f04000e;
-        public static final int cEarnLbl=0x7f040018;
-        public static final int cEarnings=0x7f040013;
-        public static final int csvFile=0x7f04004b;
-        public static final int dbVersion=0x7f040041;
-        public static final int dbVersionLabel=0x7f040042;
-        public static final int deleteStr=0x7f040039;
-        public static final int dispItem=0x7f040047;
-        public static final int dispList=0x7f040014;
-        public static final int dispRelNotes=0x7f04003b;
-        public static final int dispquerydata=0x7f040040;
-        public static final int earningsTracker=0x7f040036;
-        public static final int email=0x7f040015;
-        public static final int evTypeName=0x7f04002b;
-        public static final int exportDB=0x7f04003e;
-        public static final int firstNameStr=0x7f040002;
-        public static final int gameDescr=0x7f040016;
-        public static final int gameLimit=0x7f040017;
-        public static final int gameLimitNameSearch=0x7f040027;
-        public static final int gameType=0x7f040028;
-        public static final int graphViewAuthor=0x7f040004;
-        public static final int graphViewLabel=0x7f040005;
-        public static final int importDB=0x7f04003f;
-        public static final int lastNameStr=0x7f040001;
-        public static final int listRes=0x7f040038;
-        public static final int login=0x7f040033;
-        public static final int logoutStr=0x7f04002c;
-        public static final int newid=0x7f040032;
-        public static final int okStr=0x7f04002f;
-        public static final int passStr=0x7f040031;
-        public static final int passwordLabel=0x7f040035;
-        public static final int relLblR40=0x7f04004f;
-        public static final int relLblR41=0x7f040053;
-        public static final int relLblR42=0x7f040055;
-        public static final int relLblR43=0x7f040059;
-        public static final int relLblR50=0x7f04005c;
-        public static final int relLblR51=0x7f040060;
-        public static final int relLblR52=0x7f040062;
-        public static final int relNote401=0x7f040050;
-        public static final int relNote402=0x7f040051;
-        public static final int relNote403=0x7f040052;
-        public static final int relNote411=0x7f040054;
-        public static final int relNote421=0x7f040056;
-        public static final int relNote422=0x7f040057;
-        public static final int relNote423=0x7f040058;
-        public static final int relNote431=0x7f04005a;
-        public static final int relNote432=0x7f04005b;
-        public static final int relNote501=0x7f04005d;
-        public static final int relNote502=0x7f04005e;
-        public static final int relNote503=0x7f04005f;
-        public static final int relNote511=0x7f040061;
-        public static final int relNote521=0x7f040063;
-        public static final int report=0x7f04004e;
-        public static final int setupName=0x7f040034;
-        public static final int setupTitle=0x7f040030;
-        public static final int space=0x7f04004a;
-        public static final int updateStr=0x7f04003a;
-        public static final int viewGraph=0x7f040003;
+        public static final int AddGameName=0x7f060056;
+        public static final int AddResName=0x7f060022;
+        public static final int AddResult=0x7f060038;
+        public static final int Amount=0x7f060033;
+        public static final int AmountLast=0x7f060035;
+        public static final int AmountMonth=0x7f060034;
+        public static final int AnalyzeBy=0x7f060040;
+        public static final int CMA=0x7f060036;
+        public static final int Cancel=0x7f06002c;
+        public static final int CancelString=0x7f060060;
+        public static final int Cash=0x7f060044;
+        public static final int CleanDBStr=0x7f060062;
+        public static final int Clear=0x7f06003d;
+        public static final int Date=0x7f06003a;
+        public static final int EDate=0x7f060067;
+        public static final int Empty=0x7f06001a;
+        public static final int EndDate=0x7f06003f;
+        public static final int ImportDB=0x7f060063;
+        public static final int LER=0x7f060037;
+        public static final int Loss=0x7f06003c;
+        public static final int Name=0x7f060048;
+        public static final int NoString=0x7f06005f;
+        public static final int Notes=0x7f060039;
+        public static final int SDate=0x7f060066;
+        public static final int Setup=0x7f060051;
+        public static final int StartDate=0x7f06003e;
+        public static final int Tourney=0x7f060043;
+        public static final int ViewStatName=0x7f060047;
+        public static final int Win=0x7f06003b;
+        public static final int YesString=0x7f06005e;
+        public static final int aboutName=0x7f060020;
+        public static final int add=0x7f060021;
+        public static final int addResult=0x7f060057;
+        public static final int analysisTitle=0x7f06005d;
+        public static final int appContVal=0x7f060024;
+        public static final int appContact=0x7f060027;
+        public static final int appNote=0x7f060025;
+        public static final int appNoteVal=0x7f060026;
+        public static final int appVer=0x7f06002b;
+        public static final int appVerLabel=0x7f06002a;
+        public static final int appdescrip=0x7f060029;
+        public static final int applabl=0x7f060023;
+        public static final int appname=0x7f060028;
+        /**   Title for notification shown when GooglePlayServices needs to be
+        enabled for a application to work. [CHAR LIMIT=70] 
+         */
+        public static final int auth_client_needs_enabling_title=0x7f060015;
+        /**   Title for notification shown when GooglePlayServices needs to be
+        installed for a application to work. [CHAR LIMIT=70] 
+         */
+        public static final int auth_client_needs_installation_title=0x7f060016;
+        /**   Title for notification shown when GooglePlayServices needs to be
+        udpated for a application to work. [CHAR LIMIT=70] 
+         */
+        public static final int auth_client_needs_update_title=0x7f060017;
+        /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=42] 
+         */
+        public static final int auth_client_play_services_err_notification_msg=0x7f060018;
+        /**   Requested by string saying which app requested the notification. [CHAR LIMIT=42] 
+         */
+        public static final int auth_client_requested_by_msg=0x7f060019;
+        /**   Title for notification shown when a bad version of GooglePlayServices
+        has been installed and needs correction for an application to work.
+        [CHAR LIMIT=70] 
+         */
+        public static final int auth_client_using_bad_version_title=0x7f060014;
+        public static final int cEarnLbl=0x7f060032;
+        public static final int cEarnings=0x7f06002d;
+        /**  Button in confirmation dialog to enable Google Play services.  Clicking it
+        will direct user to application settings of Google Play services where they
+        can enable it [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_enable_button=0x7f060006;
+        /**  Message in confirmation dialog informing user they need to enable
+        Google Play services in application settings [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_enable_text=0x7f060005;
+        /**  Title of confirmation dialog informing user they need to enable
+        Google Play services in application settings [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_enable_title=0x7f060004;
+        /**  Button in confirmation dialog for installing Google Play services [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_install_button=0x7f060003;
+        /**  (For phones) Message in confirmation dialog informing user that
+        they need to install Google Play services (from Play Store) [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_install_text_phone=0x7f060001;
+        /**  (For tablets) Message in confirmation dialog informing user that
+        they need to install Google Play services (from Play Store) [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_install_text_tablet=0x7f060002;
+        /**  Title of confirmation dialog informing user that they need to install
+        Google Play services (from Play Store) [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_install_title=0x7f060000;
+        /**  Message in confirmation dialog informing the user that they provided an invalid account. [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_invalid_account_text=0x7f06000c;
+        /**  Title of confirmation dialog informing the user that they provided an invalid account. [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_invalid_account_title=0x7f06000b;
+        /**  Message in confirmation dialog informing the user that a network error occurred. [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_network_error_text=0x7f06000a;
+        /**  Title of confirmation dialog informing the user that a network error occurred. [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_network_error_title=0x7f060009;
+        /**  Message in confirmation dialog informing user there is an unknown issue in Google Play
+        services [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_unknown_issue=0x7f06000d;
+        /**  Message in confirmation dialog informing user that date on the device is not correct,
+    causing certificate checks to fail. [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_unsupported_date_text=0x7f060010;
+        /**  Message in confirmation dialog informing user that Google Play services is not supported on their device [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_unsupported_text=0x7f06000f;
+        /**  Title of confirmation dialog informing user that Google Play services is not supported on their device [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_unsupported_title=0x7f06000e;
+        /**  Button in confirmation dialog for updating Google Play services [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_update_button=0x7f060011;
+        /**  Message in confirmation dialog informing user that they need to update
+        Google Play services (from Play Store) [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_update_text=0x7f060008;
+        /**  Title of confirmation dialog informing user that they need to update
+        Google Play services (from Play Store) [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_update_title=0x7f060007;
+        /**  Sign-in button text [CHAR LIMIT=15] 
+         */
+        public static final int common_signin_button_text=0x7f060012;
+        /**  Long form sign-in button text [CHAR LIMIT=30] 
+         */
+        public static final int common_signin_button_text_long=0x7f060013;
+        public static final int csvFile=0x7f060065;
+        public static final int dbVersion=0x7f06005b;
+        public static final int dbVersionLabel=0x7f06005c;
+        public static final int deleteStr=0x7f060053;
+        public static final int dispItem=0x7f060061;
+        public static final int dispList=0x7f06002e;
+        public static final int dispRelNotes=0x7f060055;
+        public static final int dispquerydata=0x7f06005a;
+        public static final int earningsTracker=0x7f060050;
+        public static final int email=0x7f06002f;
+        public static final int evTypeName=0x7f060045;
+        public static final int exportDB=0x7f060058;
+        public static final int firstNameStr=0x7f06001c;
+        public static final int gameDescr=0x7f060030;
+        public static final int gameLimit=0x7f060031;
+        public static final int gameLimitNameSearch=0x7f060041;
+        public static final int gameType=0x7f060042;
+        public static final int graphViewAuthor=0x7f06001e;
+        public static final int graphViewLabel=0x7f06001f;
+        public static final int importDB=0x7f060059;
+        public static final int lastNameStr=0x7f06001b;
+        public static final int listRes=0x7f060052;
+        public static final int login=0x7f06004d;
+        public static final int logoutStr=0x7f060046;
+        public static final int newid=0x7f06004c;
+        public static final int okStr=0x7f060049;
+        public static final int passStr=0x7f06004b;
+        public static final int passwordLabel=0x7f06004f;
+        public static final int relLblR40=0x7f060069;
+        public static final int relLblR41=0x7f06006d;
+        public static final int relLblR42=0x7f06006f;
+        public static final int relLblR43=0x7f060073;
+        public static final int relLblR50=0x7f060076;
+        public static final int relLblR51=0x7f06007a;
+        public static final int relLblR52=0x7f06007c;
+        public static final int relLblR60=0x7f06007e;
+        public static final int relNote401=0x7f06006a;
+        public static final int relNote402=0x7f06006b;
+        public static final int relNote403=0x7f06006c;
+        public static final int relNote411=0x7f06006e;
+        public static final int relNote421=0x7f060070;
+        public static final int relNote422=0x7f060071;
+        public static final int relNote423=0x7f060072;
+        public static final int relNote431=0x7f060074;
+        public static final int relNote432=0x7f060075;
+        public static final int relNote501=0x7f060077;
+        public static final int relNote502=0x7f060078;
+        public static final int relNote503=0x7f060079;
+        public static final int relNote511=0x7f06007b;
+        public static final int relNote521=0x7f06007d;
+        public static final int relNote601=0x7f06007f;
+        public static final int relNote602=0x7f060080;
+        public static final int report=0x7f060068;
+        public static final int setupName=0x7f06004e;
+        public static final int setupTitle=0x7f06004a;
+        public static final int space=0x7f060064;
+        public static final int updateStr=0x7f060054;
+        public static final int viewGraph=0x7f06001d;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a AdsAttrs.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #AdsAttrs_adSize com.gamesPnL:adSize}</code></td><td>
+    The size of the ad.</td></tr>
+           <tr><td><code>{@link #AdsAttrs_adSizes com.gamesPnL:adSizes}</code></td><td>
+    A comma-separated list of the supported ad sizes.</td></tr>
+           <tr><td><code>{@link #AdsAttrs_adUnitId com.gamesPnL:adUnitId}</code></td><td> The ad unit ID.</td></tr>
+           </table>
+           @see #AdsAttrs_adSize
+           @see #AdsAttrs_adSizes
+           @see #AdsAttrs_adUnitId
+         */
+        public static final int[] AdsAttrs = {
+            0x7f010000, 0x7f010001, 0x7f010002
+        };
+        /**
+          <p>
+          @attr description
+          
+    The size of the ad. It must be one of BANNER, FULL_BANNER, LEADERBOARD,
+    MEDIUM_RECTANGLE, SMART_BANNER, WIDE_SKYSCRAPER, or
+    &lt;width&gt;x&lt;height&gt;.
+    
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.gamesPnL:adSize
+        */
+        public static final int AdsAttrs_adSize = 0;
+        /**
+          <p>
+          @attr description
+          
+    A comma-separated list of the supported ad sizes. The sizes must be one of
+    BANNER, FULL_BANNER, LEADERBOARD, MEDIUM_RECTANGLE, SMART_BANNER,
+    WIDE_SKYSCRAPER, or &lt;width&gt;x&lt;height&gt;.
+    
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.gamesPnL:adSizes
+        */
+        public static final int AdsAttrs_adSizes = 1;
+        /**
+          <p>
+          @attr description
+           The ad unit ID. 
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.gamesPnL:adUnitId
+        */
+        public static final int AdsAttrs_adUnitId = 2;
+        /** Attributes that can be used with a MapAttrs.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #MapAttrs_cameraBearing com.gamesPnL:cameraBearing}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTargetLat com.gamesPnL:cameraTargetLat}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTargetLng com.gamesPnL:cameraTargetLng}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTilt com.gamesPnL:cameraTilt}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraZoom com.gamesPnL:cameraZoom}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_mapType com.gamesPnL:mapType}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiCompass com.gamesPnL:uiCompass}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiRotateGestures com.gamesPnL:uiRotateGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiScrollGestures com.gamesPnL:uiScrollGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiTiltGestures com.gamesPnL:uiTiltGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiZoomControls com.gamesPnL:uiZoomControls}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiZoomGestures com.gamesPnL:uiZoomGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_useViewLifecycle com.gamesPnL:useViewLifecycle}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_zOrderOnTop com.gamesPnL:zOrderOnTop}</code></td><td></td></tr>
+           </table>
+           @see #MapAttrs_cameraBearing
+           @see #MapAttrs_cameraTargetLat
+           @see #MapAttrs_cameraTargetLng
+           @see #MapAttrs_cameraTilt
+           @see #MapAttrs_cameraZoom
+           @see #MapAttrs_mapType
+           @see #MapAttrs_uiCompass
+           @see #MapAttrs_uiRotateGestures
+           @see #MapAttrs_uiScrollGestures
+           @see #MapAttrs_uiTiltGestures
+           @see #MapAttrs_uiZoomControls
+           @see #MapAttrs_uiZoomGestures
+           @see #MapAttrs_useViewLifecycle
+           @see #MapAttrs_zOrderOnTop
+         */
+        public static final int[] MapAttrs = {
+            0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006,
+            0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a,
+            0x7f01000b, 0x7f01000c, 0x7f01000d, 0x7f01000e,
+            0x7f01000f, 0x7f010010
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#cameraBearing}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.gamesPnL:cameraBearing
+        */
+        public static final int MapAttrs_cameraBearing = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#cameraTargetLat}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.gamesPnL:cameraTargetLat
+        */
+        public static final int MapAttrs_cameraTargetLat = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#cameraTargetLng}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.gamesPnL:cameraTargetLng
+        */
+        public static final int MapAttrs_cameraTargetLng = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#cameraTilt}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.gamesPnL:cameraTilt
+        */
+        public static final int MapAttrs_cameraTilt = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#cameraZoom}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.gamesPnL:cameraZoom
+        */
+        public static final int MapAttrs_cameraZoom = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#mapType}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>none</code></td><td>0</td><td></td></tr>
+<tr><td><code>normal</code></td><td>1</td><td></td></tr>
+<tr><td><code>satellite</code></td><td>2</td><td></td></tr>
+<tr><td><code>terrain</code></td><td>3</td><td></td></tr>
+<tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
+</table>
+          @attr name com.gamesPnL:mapType
+        */
+        public static final int MapAttrs_mapType = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#uiCompass}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.gamesPnL:uiCompass
+        */
+        public static final int MapAttrs_uiCompass = 6;
+        /**
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#uiRotateGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.gamesPnL:uiRotateGestures
+        */
+        public static final int MapAttrs_uiRotateGestures = 7;
+        /**
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#uiScrollGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.gamesPnL:uiScrollGestures
+        */
+        public static final int MapAttrs_uiScrollGestures = 8;
+        /**
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#uiTiltGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.gamesPnL:uiTiltGestures
+        */
+        public static final int MapAttrs_uiTiltGestures = 9;
+        /**
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#uiZoomControls}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.gamesPnL:uiZoomControls
+        */
+        public static final int MapAttrs_uiZoomControls = 10;
+        /**
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#uiZoomGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.gamesPnL:uiZoomGestures
+        */
+        public static final int MapAttrs_uiZoomGestures = 11;
+        /**
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#useViewLifecycle}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.gamesPnL:useViewLifecycle
+        */
+        public static final int MapAttrs_useViewLifecycle = 12;
+        /**
+          <p>This symbol is the offset where the {@link com.gamesPnL.R.attr#zOrderOnTop}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.gamesPnL:zOrderOnTop
+        */
+        public static final int MapAttrs_zOrderOnTop = 13;
+    };
 }

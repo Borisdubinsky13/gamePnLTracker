@@ -30,6 +30,7 @@ public class AboutHandler extends Activity {
 
 		final String PREFS_NAME = "gamePnLTrackerFile";
 		final String PREF_USERNAME = "username";
+		DbHelper db = new DbHelper(this);
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		String username = pref.getString(PREF_USERNAME, null);
 
@@ -45,6 +46,10 @@ public class AboutHandler extends Activity {
 		}
 		appVersion.setText(versionName);
 
+		final TextView dbVersion = (TextView) findViewById(R.id.dbVersionId);
+		String dbId = String.valueOf(db.getDBVersion());
+		dbVersion.setText(dbId);
+		
 		final Button dispB = (Button) findViewById(R.id.dispRelNotes);
 		dispB.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
