@@ -531,6 +531,7 @@ containing a value of this type.
         public static final int relLblR51=0x7f06007a;
         public static final int relLblR52=0x7f06007c;
         public static final int relLblR60=0x7f06007e;
+        public static final int relLblR61=0x7f060081;
         public static final int relNote401=0x7f06006a;
         public static final int relNote402=0x7f06006b;
         public static final int relNote403=0x7f06006c;
@@ -547,6 +548,7 @@ containing a value of this type.
         public static final int relNote521=0x7f06007d;
         public static final int relNote601=0x7f06007f;
         public static final int relNote602=0x7f060080;
+        public static final int relNote611=0x7f060082;
         public static final int report=0x7f060068;
         public static final int setupName=0x7f06004e;
         public static final int setupTitle=0x7f06004a;

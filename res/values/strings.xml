@@ -133,4 +133,6 @@
     <string name="relLblR60">R-6.0 (DB Version: 11):</string>
     <string name="relNote601">- Fix a problem pulling current month value</string>
     <string name="relNote602">- Fix a date format</string>
+	<string name="relLblR61">R-6.1 (DB Version: 11):</string>
+    <string name="relNote611">- Make main screen scrollable.</string>
 </resources>

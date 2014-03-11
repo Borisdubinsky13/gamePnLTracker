@@ -11,119 +11,123 @@
             android:layout_height="wrap_content"
             ads:adSize="BANNER"
             ads:adUnitId="a14d18e1cd0e067"/>
-        <TableLayout android:id="@+id/TableLayout01" 
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content">
-            <TableRow android:id="@+id/TableRow01" 
-                android:layout_width="wrap_content"
-				android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/PNLLabel"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|fill_horizontal"
-                    android:text="@string/cEarnLbl"
-                    android:textSize="25sp"
-                    android:textStyle="normal" />
-
-            </TableRow>
-            <TableRow android:id="@+id/TableRow02" 
+        <ScrollView android:id="@+id/ScrollView01"
                 android:layout_width="fill_parent"
-				android:layout_height="wrap_content">
-                <Button
-                    android:id="@+id/PNL"
-                    android:layout_width="0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|fill_horizontal"
-					android:layout_weight="1"
-                    android:text="@string/Amount"
-                    android:textSize="50sp" />
-
-            </TableRow>
-            <TableRow>
-                <TextView android:text="@string/Empty"/>
-            </TableRow>
-            <TableRow android:id="@+id/TableRow03"
-                android:layout_width="fill_parent"
-				android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/PNLLabelMonth"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|fill_horizontal"
-                    android:text="@string/CMA"
-                    android:textSize="20sp"
-                    android:textStyle="normal" >
-
-                </TextView>
-            </TableRow>
-            <TableRow android:id="@+id/TableRow04" 
-                android:layout_width="fill_parent"
-				android:layout_height="wrap_content">
-                <Button
-                    android:id="@+id/PNLMonth"
-                    android:layout_width="0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|fill_horizontal"
-					android:layout_weight="1"
-                    android:text="@string/AmountMonth"
-                    android:textSize="40sp" />
-
-            </TableRow>
-            <TableRow>
-                <TextView android:text="@string/Empty"/>
-            </TableRow>
-            <TableRow android:id="@+id/TableRow05" 
+                android:layout_height="fill_parent">
+	        <TableLayout android:id="@+id/TableLayout01" 
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/PNLLabelLast"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|fill_horizontal"
-                    android:text="@string/LER"
-                    android:textSize="20sp"
-                    android:textStyle="normal" >
-
-                </TextView>
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/TableRow06"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <Button
-                    android:id="@+id/PNLLast"
-                    android:layout_width="0dip"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|fill_horizontal"
-                    android:text="@string/AmountLast"
-                    android:textSize="30sp" />
-
-            </TableRow>
-			<TableRow
-                android:id="@+id/TableRow07"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-                <TextView> </TextView>
-            </TableRow>
-            <TableRow
-                android:id="@+id/TableRow08"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <Button
-                    android:id="@+id/AddScore"
-                    android:layout_width="0dip"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|fill_horizontal"
-                    android:text="@string/AddResult"
-                    android:textSize="30sp" />
-            </TableRow>
-        </TableLayout>
+	            <TableRow android:id="@+id/TableRow01" 
+	                android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+	                <TextView
+	                    android:id="@+id/PNLLabel"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal|fill_horizontal"
+	                    android:text="@string/cEarnLbl"
+	                    android:textSize="25sp"
+	                    android:textStyle="normal" />
+	
+	            </TableRow>
+	            <TableRow android:id="@+id/TableRow02" 
+	                android:layout_width="fill_parent"
+					android:layout_height="wrap_content">
+	                <Button
+	                    android:id="@+id/PNL"
+	                    android:layout_width="0dip"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal|fill_horizontal"
+						android:layout_weight="1"
+	                    android:text="@string/Amount"
+	                    android:textSize="50sp" />
+	
+	            </TableRow>
+	            <TableRow>
+	                <TextView android:text="@string/Empty"/>
+	            </TableRow>
+	            <TableRow android:id="@+id/TableRow03"
+	                android:layout_width="fill_parent"
+					android:layout_height="wrap_content">
+	                <TextView
+	                    android:id="@+id/PNLLabelMonth"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal|fill_horizontal"
+	                    android:text="@string/CMA"
+	                    android:textSize="20sp"
+	                    android:textStyle="normal" >
+	
+	                </TextView>
+	            </TableRow>
+	            <TableRow android:id="@+id/TableRow04" 
+	                android:layout_width="fill_parent"
+					android:layout_height="wrap_content">
+	                <Button
+	                    android:id="@+id/PNLMonth"
+	                    android:layout_width="0dip"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal|fill_horizontal"
+						android:layout_weight="1"
+	                    android:text="@string/AmountMonth"
+	                    android:textSize="40sp" />
+	
+	            </TableRow>
+	            <TableRow>
+	                <TextView android:text="@string/Empty"/>
+	            </TableRow>
+	            <TableRow android:id="@+id/TableRow05" 
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content">
+	                <TextView
+	                    android:id="@+id/PNLLabelLast"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal|fill_horizontal"
+	                    android:text="@string/LER"
+	                    android:textSize="20sp"
+	                    android:textStyle="normal" >
+	
+	                </TextView>
+	            </TableRow>
+	
+	            <TableRow
+	                android:id="@+id/TableRow06"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content" >
+	
+	                <Button
+	                    android:id="@+id/PNLLast"
+	                    android:layout_width="0dip"
+	                    android:layout_weight="1"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal|fill_horizontal"
+	                    android:text="@string/AmountLast"
+	                    android:textSize="30sp" />
+	
+	            </TableRow>
+				<TableRow
+	                android:id="@+id/TableRow07"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content" >
+	                <TextView> </TextView>
+	            </TableRow>
+	            <TableRow
+	                android:id="@+id/TableRow08"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content" >
+	
+	                <Button
+	                    android:id="@+id/AddScore"
+	                    android:layout_width="0dip"
+	                    android:layout_weight="1"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal|fill_horizontal"
+	                    android:text="@string/AddResult"
+	                    android:textSize="30sp" />
+	            </TableRow>
+	        </TableLayout>
+	</ScrollView>
     <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"

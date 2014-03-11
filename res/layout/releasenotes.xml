@@ -8,6 +8,29 @@
                   android:orientation="vertical"
                   android:padding="20dip"
                   android:id="@+id/releasenotes">
+       <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/relLblR61" android:textSize="20sp" android:textStyle="bold"
+                    />
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/relNote611"
+                    />
+        </TableRow>
+		<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text=""
+                    />
+        </TableRow>        
         <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
             <TextView
                     android:layout_width="fill_parent"
