@@ -82,7 +82,8 @@ public class ListRes extends ListActivity {
 			DecimalFormat df = new DecimalFormat("#,##0.00");
 			try {
 				if (v == null) {
-					LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+					LayoutInflater vi = 
+							(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 					v = vi.inflate(R.layout.rowmyresult, null);
 				}
 
@@ -159,18 +160,16 @@ public class ListRes extends ListActivity {
 		username = pref.getString(PREF_USERNAME, null);
 		idIndex = pref.getString(PREF_ID, null);
 
-		this.setTitle("User: " + username);
+		this.setTitle("");
 
 		gamesLogger.i(TAG, SubTag + "Working with record #" + idIndex
 				+ " Name: " + username);
 		// Get the record with all the values, populate all the fields for
 		// display
-		String query;
+		String query = null;
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			query = extras.getString("queStr");
-		} else {
-			query = "name = '" + username + "'";
 		}
 		Cursor result = null;
 

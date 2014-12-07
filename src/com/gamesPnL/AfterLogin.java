@@ -93,7 +93,7 @@ public class AfterLogin extends Activity {
 								fOut);
 
 						DbHelper db = new DbHelper(mContext);
-						String query = "name = '" + username + "'";
+						String query = null;
 						gamesLogger.i(TAG, SubTag + "Query: " + query);
 						Cursor result = db.getData("gPNLData", query);
 						gamesLogger.i(TAG,
@@ -390,7 +390,7 @@ public class AfterLogin extends Activity {
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		String username = pref.getString(PREF_USERNAME, null);
 
-		this.setTitle("User: " + username);
+		this.setTitle("");
 
 		Cursor result;
 		String value;
@@ -403,7 +403,7 @@ public class AfterLogin extends Activity {
 		final TextView strHeadStr = (TextView) findViewById(R.id.PNLLabel);
 
 		// Get total career earnings
-		String query = "name = '" + username + "'";
+		String query = null;
 		DbHelper db = new DbHelper(mContext);
 		gamesLogger.i(TAG, SubTag + "Query: " + query);
 		result = db.getData("gPNLData", query);
@@ -443,10 +443,10 @@ public class AfterLogin extends Activity {
 		int mMonth = c.get(Calendar.MONTH) + 1;
 
 		// Get this month earnings
-		query = "name = '" + username + "'";
+		query = null;
 		String startDate = String.format("%04d", mYear) + "/"
 				+ String.format("%02d", mMonth) + "/01";
-		query += " AND evDate >= '" + startDate + "'";
+		query = "evDate >= '" + startDate + "'";
 
 		gamesLogger.i(TAG, SubTag + "Query: " + query);
 		result = db.getData("gPNLData", query);

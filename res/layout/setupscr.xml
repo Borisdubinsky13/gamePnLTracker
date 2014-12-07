@@ -9,7 +9,7 @@
                  android:layout_height="fill_parent">
         <TableRow>
             <TextView>Setup an account</TextView>
-            <TextView android:id="@+id/TextView02"
+            <TextView android:id="@+id/TextView01"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:text="@string/setupTitle"
@@ -17,7 +17,7 @@
             </TextView>
         </TableRow>
         <TableRow>
-            <TextView android:id="@+id/TextView01"
+            <TextView android:id="@+id/TextView02"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content" android:text="@string/Name">
             </TextView>
@@ -27,7 +27,7 @@
             </EditText>
         </TableRow>
         <TableRow>
-            <TextView android:id="@+id/TextView01"
+            <TextView android:id="@+id/TextView03"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:text="Password:">
@@ -38,7 +38,7 @@
             </EditText>
         </TableRow>
         <TableRow>
-            <TextView android:id="@+id/TextView01"
+            <TextView android:id="@+id/TextView04"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content" android:text="@string/firstNameStr">
             </TextView>
@@ -47,7 +47,7 @@
             </EditText>
         </TableRow>
         <TableRow>
-            <TextView android:id="@+id/TextView01"
+            <TextView android:id="@+id/TextView05"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content" android:text="@string/lastNameStr">
             </TextView>
@@ -56,7 +56,7 @@
             </EditText>
         </TableRow>
         <TableRow>
-            <TextView android:id="@+id/TextView01"
+            <TextView android:id="@+id/TextView06"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content" android:text="@string/email">
             </TextView>

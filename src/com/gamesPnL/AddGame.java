@@ -35,7 +35,7 @@ public class AddGame extends Activity {
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		String username = pref.getString(PREF_USERNAME, null);
 
-		this.setTitle("User: " + username);
+		this.setTitle("");
 
 		final Button addGButton = (Button) findViewById(R.id.AddGBtn);
 		final EditText gameName = (EditText) findViewById(R.id.gameName);

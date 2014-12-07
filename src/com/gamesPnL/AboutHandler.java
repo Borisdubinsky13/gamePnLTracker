@@ -34,7 +34,7 @@ public class AboutHandler extends Activity {
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		String username = pref.getString(PREF_USERNAME, null);
 
-		this.setTitle("User: " + username);
+		this.setTitle("");
 
 		final TextView appVersion = (TextView) findViewById(R.id.AppVersion);
 		String versionName = "";

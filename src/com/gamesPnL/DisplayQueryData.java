@@ -92,7 +92,7 @@ public class DisplayQueryData extends Activity {
 		// go to data entry window
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		username = pref.getString(PREF_USERNAME, null);
-		this.setTitle("User: " + username);
+		this.setTitle("");
 
 		gamesLogger.i(TAG, SubTag + "Started data entry window for user: "
 				+ username);
@@ -145,6 +145,7 @@ public class DisplayQueryData extends Activity {
 
 		String query = "addedBy = '" + username + "'"
 				+ " OR addedBy = 'gamePnL'";
+		query = null;
 		Cursor result = db.getData("gGames", query, " Distinct game ");
 		gamesLogger.i(TAG, SubTag
 				+ "Everything is ready for the game Spinner. # of records: "

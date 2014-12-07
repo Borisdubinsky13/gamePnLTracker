@@ -79,7 +79,7 @@ public class GraphData extends Activity {
 		// get all the records with the current id ad add all the amounts
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		String username = pref.getString(PREF_USERNAME, null);
-		this.setTitle("User: " + username);
+		this.setTitle("");
 
 		String query = null;
 		Bundle extras = getIntent().getExtras();

@@ -24,7 +24,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static String SubTag;
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
-	private static final int DATABASE_VERSION = 11;
+	private static final int DATABASE_VERSION = 12;
 
 	private static final String ID_KEY = "_id";
 	private static final String USER_TABLE_NAME = "gUsers";
@@ -466,8 +466,12 @@ public class DbHelper extends SQLiteOpenHelper {
 	}
 
 	public Cursor getData(String table, String query, String fields) {
+		String countQuery = null;
 		SubTag = "getData(): ";
-		String countQuery = "Select " + fields + "FROM " + table + " WHERE "
+		if (query == null)
+			countQuery = "Select " + fields + "FROM " + table + ";";
+		else
+			countQuery = "Select " + fields + "FROM " + table + " WHERE "
 				+ query + ";";
 		SQLiteDatabase db = this.getReadableDatabase();
 		gamesLogger.i(TAG, SubTag + "SQL: " + countQuery);

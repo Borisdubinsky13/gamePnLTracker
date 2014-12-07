@@ -135,4 +135,7 @@
     <string name="relNote602">- Fix a date format</string>
 	<string name="relLblR61">R-6.1 (DB Version: 11):</string>
     <string name="relNote611">- Make main screen scrollable.</string>
+    <string name="relLblR71">R-7.1 (DB Version: 12):</string>
+    <string name="relNote71">- Get rid of displaying user name.</string>
+    <string name="banner_ad_unit_id">ca-app-pub-7354433000620160/5229900142</string>
 </resources>

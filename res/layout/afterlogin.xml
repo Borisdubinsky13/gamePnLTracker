@@ -10,7 +10,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             ads:adSize="BANNER"
-            ads:adUnitId="a14d18e1cd0e067"/>
+            ads:adUnitId="@string/banner_ad_unit_id"/>
         <ScrollView android:id="@+id/ScrollView01"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">

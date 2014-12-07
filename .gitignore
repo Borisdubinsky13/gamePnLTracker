@@ -1,7 +1,10 @@
 bin
+gen
 *.class
 *.apk
 *.ap_
 *.dex
 *.jar
 *.swp
+*.backup
+!/libs/*

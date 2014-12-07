@@ -12,7 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             ads:adSize="BANNER"
-            ads:adUnitId="a14d18e1cd0e067"/>
+            ads:adUnitId="@string/banner_ad_unit_id"/>
     <ListView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:id="@android:id/list"/>

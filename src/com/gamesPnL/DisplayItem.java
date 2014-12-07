@@ -101,7 +101,7 @@ public class DisplayItem extends Activity {
 			finish();
 		}
 
-		this.setTitle("User: " + username);
+		this.setTitle("");
 
 		gamesLogger.i(TAG, SubTag + " Started data update for user: "
 				+ username + "Record id: " + recId);
@@ -148,7 +148,7 @@ public class DisplayItem extends Activity {
 
 			// populate game spinner and set the visible value from the record
 			query = "addedBy = '" + username + "'" + " OR addedBy = 'gamePnL'";
-			result = db.getData("gGames", query, " Distinct game ");
+			result = db.getData("gGames", null, " Distinct game ");
 			ArrayAdapter<String> items = new ArrayAdapter<String>(this,
 					android.R.layout.simple_spinner_item);
 

@@ -85,7 +85,7 @@ public class DataAnalysis extends Activity {
 
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		username = pref.getString(PREF_USERNAME, null);
-		this.setTitle("User: " + username);
+		this.setTitle("");
 		/*
 		AdView adView = new AdView(this);
 	    adView.setAdUnitId("a14d18e1cd0e067");
@@ -180,7 +180,12 @@ public class DataAnalysis extends Activity {
 				gamesLogger.i(TAG, SubTag + "Analyzing by Event Type");
 				// Start with cash
 				populateQuesryString();
-				String query = IntentQ + " AND eventType = 'Cash'";
+				String query;
+				
+				if (IntentQ.isEmpty())
+					query = IntentQ + "eventType = 'Cash'";
+				else
+					query = IntentQ + " AND eventType = 'Cash'";
 				gamesLogger.i(TAG, SubTag + "Q: " + query);
 
 				db = new DbHelper(mContext);
@@ -204,7 +209,10 @@ public class DataAnalysis extends Activity {
 							+ "No Data returned from Content Provider");
 
 				// Do the count for NoLimit
-				query = IntentQ + " AND eventType = 'Tourney'";
+				if (IntentQ.isEmpty())
+					query = IntentQ + "eventType = 'Tourney'";
+				else
+					query = IntentQ + " AND eventType = 'Tourney'";
 
 				db = new DbHelper(mContext);
 				gamesLogger.i(TAG, SubTag + "Query: " + query);
@@ -279,8 +287,7 @@ public class DataAnalysis extends Activity {
 			} else if (analyzeBy.equalsIgnoreCase("Game Type")) {
 				gamesLogger.i(TAG, SubTag + "Analyzing by Game Type");
 
-				String query = "addedBy = '" + username + "'"
-						+ " OR addedBy = 'gamePnL'";
+				String query = null;
 				DbHelper db = new DbHelper(mContext);
 				gamesLogger.i(TAG, SubTag + "Query: " + query);
 				result = db.getData("gGames", query);
@@ -312,7 +319,11 @@ public class DataAnalysis extends Activity {
 					names[gk] = gameName;
 					gamesLogger.i(TAG, SubTag + "Adding data for " + gameName);
 					populateQuesryString();
-					query = IntentQ + " AND gameType = '" + gameName + "'";
+					if (IntentQ.isEmpty())
+						query = IntentQ + "gameType = '" + gameName + "'";
+					else
+						query = IntentQ + " AND gameType = '" + gameName + "'";
+
 					// db = new DbHelper(mContext);
 					gamesLogger.i(TAG, SubTag + "Query: " + query);
 					result = db.getData("gPNLData", query);
@@ -387,8 +398,12 @@ public class DataAnalysis extends Activity {
 
 				for (int cnt = 0; cnt < gmLimitName.length; cnt++) {
 					populateQuesryString();
-					String query = IntentQ + " AND gameLimit = '"
-							+ gmLimitName[cnt] + "'";
+					String query;
+					
+					if (IntentQ.isEmpty())
+						query = "gameLimit = '"	+ gmLimitName[cnt] + "'";
+					else
+						query = IntentQ + " AND gameLimit = '" + gmLimitName[cnt] + "'";
 
 					DbHelper db = new DbHelper(mContext);
 					gamesLogger.i(TAG, SubTag + "Query: " + query);
@@ -462,16 +477,16 @@ public class DataAnalysis extends Activity {
 
 	private void populateQuesryString() {
 		// Build a query string that will be sent to the intent
-		IntentQ = "name = '" + username + "'";
+		IntentQ = "";
 
 		if (!StartDateB.getText().equals("Start Date")) {
-			IntentQ += " AND ";
 			IntentQ += "evDate >= '";
 			IntentQ += startSearchDate;
 			IntentQ += "'";
 		}
 		if (!EndDateB.getText().equals("End Date")) {
-			IntentQ += " AND ";
+			if (!IntentQ.isEmpty())
+				IntentQ += " AND ";
 			IntentQ += "evDate <= '";
 			IntentQ += endSearchDate;
 			IntentQ += "'";
