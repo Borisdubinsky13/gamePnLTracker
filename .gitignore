@@ -7,4 +7,11 @@ gen
 *.jar
 *.swp
 *.backup
+.gradle
+local.properties
+.idea/workspace.xml
+.idea/libraries
+.DS_Store
+build
+captures
 !/libs/*

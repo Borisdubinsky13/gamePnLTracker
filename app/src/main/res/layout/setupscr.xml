@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/setupscr">
+    <TableLayout android:id="@+id/TableLayout01"
+                 android:layout_width="fill_parent"
+                 android:layout_height="fill_parent">
+        <TableRow>
+            <TextView>Setup an account</TextView>
+            <TextView android:id="@+id/TextView01"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@string/setupTitle"
+                      android:textSize="25sp">
+            </TextView>
+        </TableRow>
+        <TableRow>
+            <TextView android:id="@+id/TextView02"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content" android:text="@string/Name">
+            </TextView>
+            <EditText android:layout_height="wrap_content"
+                      android:id="@+id/nameSup"
+                      android:layout_width="200sp" android:inputType="textPersonName">
+            </EditText>
+        </TableRow>
+        <TableRow>
+            <TextView android:id="@+id/TextView03"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Password:">
+            </TextView>
+            <EditText android:layout_height="wrap_content"
+                      android:id="@+id/passSup"
+                      android:layout_width="200sp" android:inputType="textPassword">
+            </EditText>
+        </TableRow>
+        <TableRow>
+            <TextView android:id="@+id/TextView04"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content" android:text="@string/firstNameStr">
+            </TextView>
+            <EditText android:layout_height="wrap_content"
+                      android:layout_width="200sp" android:inputType="textPersonName" android:id="@+id/fstName">
+            </EditText>
+        </TableRow>
+        <TableRow>
+            <TextView android:id="@+id/TextView05"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content" android:text="@string/lastNameStr">
+            </TextView>
+            <EditText android:layout_height="wrap_content"
+                      android:layout_width="200sp" android:inputType="textPersonName" android:id="@+id/lastName">
+            </EditText>
+        </TableRow>
+        <TableRow>
+            <TextView android:id="@+id/TextView06"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content" android:text="@string/email">
+            </TextView>
+            <EditText android:layout_height="wrap_content"
+                      android:id="@+id/emailSup"
+                      android:layout_width="200sp"
+                      android:inputType="textEmailAddress">
+            </EditText>
+        </TableRow>
+        <RelativeLayout android:gravity="center_horizontal">
+            <Button android:text="@string/add"
+                    android:id="@+id/add"
+                    android:layout_width="160sp"
+                    android:layout_height="wrap_content"
+                    />
+            <Button android:layout_toRightOf="@+id/add"
+                    android:text="@string/Cancel"
+                    android:id="@+id/clear"
+                    android:layout_width="160sp"
+                    android:layout_height="wrap_content"
+                    />
+        </RelativeLayout>
+    </TableLayout>
+</LinearLayout>

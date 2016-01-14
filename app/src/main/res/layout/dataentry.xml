@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="top"
+		android:id="@+id/topTable">
+		<TableRow>
+            <TextView android:text="@string/Amount" 
+                android:layout_gravity="left|center_vertical"/>
+            <EditText android:id="@+id/Amount" android:layout_width="250sp"
+                      android:inputType="number|numberDecimal"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/Date" 
+                android:layout_gravity="left|center_vertical"/>
+            <Button android:id="@+id/dateButton"
+                    android:layout_height="wrap_content"
+                    />
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/evTypeName" android:layout_gravity="center"/>
+            <RadioGroup android:orientation="horizontal" android:layout_width="fill_parent">
+                <RadioButton android:id="@+id/idTourney" android:checked="true" android:text="@string/Tourney"/>
+                <RadioButton android:id="@+id/idCash" android:checked="false" android:text="@string/Cash"/>
+            </RadioGroup>
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/gameType" android:layout_gravity="left|center_vertical"/>
+            <Spinner android:id="@+id/gType" android:isScrollContainer="true"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/gameLimit" android:layout_gravity="left|center_vertical"/>
+            <Spinner android:id="@+id/gLimit"
+                     android:prompt="@string/gameLimitNameSearch"
+                    />
+        </TableRow>
+        <TableRow>
+           <TextView android:text="@string/eventLocation" android:layout_gravity="left|center_vertical"/>
+           <Spinner android:id="@+id/gLocation"
+                 android:prompt="@string/gameLimitNameSearch"
+            />
+        </TableRow>
+        <TableRow android:id="@+id/lastRow">
+            <TextView android:text="@string/Notes" android:layout_gravity="left|center_vertical"/>
+
+            <EditText
+                android:id="@+id/notes"
+                android:gravity="top"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="4"
+                android:scrollHorizontally="true"
+                android:singleLine="false" />
+
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/Empty"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/Empty"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/Empty"/>
+        </TableRow>
+        <RelativeLayout android:gravity="center_horizontal">
+            <Button android:text="@string/Win"
+                    android:id="@+id/Win"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    />
+            <Button android:layout_toRightOf="@id/Win"
+                    android:text="@string/Loss"
+                    android:id="@+id/Loss"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    />
+            <Button android:layout_toRightOf="@id/Loss"
+                    android:text="@string/Clear"
+                    android:id="@+id/clear"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    />
+        </RelativeLayout>
+ </TableLayout>
+ 
