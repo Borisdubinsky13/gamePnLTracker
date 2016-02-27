@@ -24,7 +24,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static String SubTag;
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
-	private static final int DATABASE_VERSION = 14;
+	private static final int DATABASE_VERSION = 13;
 
 	private static final String ID_KEY = "_id";
 	private static final String USER_TABLE_NAME = "gUsers";
@@ -108,7 +108,8 @@ public class DbHelper extends SQLiteOpenHelper {
 						+ "uid TEXT, " + "name TEXT, " + "amount TEXT, "
 						+ "evYear TEXT, " + "evMonth TEXT, " + "evDay TEXT, "
 						+ "evDate DATE, " + "eventType TEXT, "
-						+ "gameType TEXT, " + "gameLimit TEXT, " + "location TEXT,"
+						+ "gameType TEXT, " + "gameLimit TEXT, " + "location TEXT, "
+                        + "timePlayed TEXT, "
 						+ "notes TEXT"
 						+ ");");
 			}
@@ -138,9 +139,9 @@ public class DbHelper extends SQLiteOpenHelper {
 
 				gamesLogger.i(TAG, SubTag + "Populating PnLgames table");
 
-				db.execSQL("INSERT INTO "
-						+ PNL_GAMES_TABLE_NAME
-						+ " (game,description,addedBy) values ('TexasHold''em', 'Texas Hold''em', 'gamePnL');");
+                db.execSQL("INSERT INTO "
+                        + PNL_GAMES_TABLE_NAME
+                        + " (game,description,addedBy) values ('TexasHold''em', 'Texas Hold''em', 'gamePnL');");
 				db.execSQL("INSERT INTO "
 						+ PNL_GAMES_TABLE_NAME
 						+ " (game,description,addedBy) values ('Omaha', 'Omaha', 'gamePnL');");
@@ -161,8 +162,18 @@ public class DbHelper extends SQLiteOpenHelper {
 				String sql = "CREATE TABLE " + PNL_LOCATIONS_TABLE_NAME
 						+ " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 						+ "location TEXT UNIQUE, " + "description TEXT, "
-						+ "latitude TEXT, " + "longitude TEXT" + ");";
-			}
+						+ "type TEXT, " + ");";
+                gamesLogger.i(TAG, SubTag + "SQL: " + sql);
+                db.execSQL(sql);
+
+                gamesLogger.i(TAG, SubTag + "Populating PnLgames table");
+                db.execSQL("INSERT INTO "
+                        + PNL_LOCATIONS_TABLE_NAME
+                        + " (location,description,type) values ('Home', 'Home night fun', 'Home');");
+                db.execSQL("INSERT INTO "
+                        + PNL_LOCATIONS_TABLE_NAME
+                        + " (location,description,type) values ('PH', 'Planet Hollywood', 'Casino');");
+            }
 			/*
 			 * gamesLogger.i(TAG, SubTag + "Backup: dataChanged()");
 			 * bkpMgm.dataChanged();
@@ -234,11 +245,14 @@ public class DbHelper extends SQLiteOpenHelper {
 
 			// Create the table
 			sql = "CREATE TABLE " + PNL_TABLE_NAME
-					+ " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ "uid TEXT, " + "name TEXT, " + "amount TEXT, "
-					+ "evYear TEXT, " + "evMonth TEXT, " + "evDay TEXT, "
-					+ "evDate DATE, " + "eventType TEXT, " + "gameType TEXT, "
-					+ "gameLimit TEXT, " + "notes TEXT" + ");";
+                    + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "uid TEXT, " + "name TEXT, " + "amount TEXT, "
+                    + "evYear TEXT, " + "evMonth TEXT, " + "evDay TEXT, "
+                    + "evDate DATE, " + "eventType TEXT, "
+                    + "gameType TEXT, " + "gameLimit TEXT, " + "location TEXT, "
+                    + "timePlayed TEXT, "
+                    + "notes TEXT"
+                    + ");";
 			gamesLogger.i(TAG, SubTag + "exec sql: " + sql);
 			db.execSQL(sql);
 
@@ -326,27 +340,28 @@ public class DbHelper extends SQLiteOpenHelper {
 									Integer.parseInt(yearS));
 							newDateF = yearS + "/" + monthS + "/" + dayS;
 
-							vals.put("uid", uidS);
-							vals.put("name", nameS);
-							vals.put("amount", amountS);
-							vals.put("evYear", yearS);
-							vals.put("evMonth", monthS);
-							vals.put("evDay", dayS);
-							vals.put("evDate", newDateF);
-							vals.put("eventType", eventTypeS);
-							vals.put("gameType", gameTypeS);
-							vals.put("gameLimit", gameLimitS);
-							vals.put("notes", notesS);
-							db.insert(PNL_TABLE_NAME, null, vals);
-
-							gamesLogger.i(TAG, SubTag + "Year: " + yearS
-									+ " Month: " + monthS + " Day: " + dayS
-									+ "(" + newDateF + ")");
 							break;
 						default:
 							break;
 						}
-					}
+                        vals.put("uid", uidS);
+                        vals.put("name", nameS);
+                        vals.put("amount", amountS);
+                        vals.put("evYear", yearS);
+                        vals.put("evMonth", monthS);
+                        vals.put("evDay", dayS);
+                        vals.put("evDate", newDateF);
+                        vals.put("eventType", eventTypeS);
+                        vals.put("gameType", gameTypeS);
+                        vals.put("gameLimit", gameLimitS);
+                        vals.put("notes", notesS);
+                        vals.put("timePlayed", "0");
+                        db.insert(PNL_TABLE_NAME, null, vals);
+
+                        gamesLogger.i(TAG, SubTag + "Year: " + yearS
+                                + " Month: " + monthS + " Day: " + dayS
+                                + "(" + newDateF + ")");
+                    }
 				} while (from.moveToNext());
 			}
 			// Delete the <table>_OLD

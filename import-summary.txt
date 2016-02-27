@@ -1,0 +1,158 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Manifest Merging:
+-----------------
+Your project uses libraries that provide manifests, and your Eclipse
+project did not explicitly turn on manifest merging. In Android Gradle
+projects, manifests are always merged (meaning that contents from your
+libraries' manifests will be merged into the app manifest. If you had
+manually copied contents from library manifests into your app manifest
+you may need to remove these for the app to build correctly.
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .gitignore
+* .idea\
+* .idea\.name
+* .idea\compiler.xml
+* .idea\copyright\
+* .idea\copyright\profiles_settings.xml
+* .idea\misc.xml
+* .idea\modules.xml
+* .idea\vcs.xml
+* .idea\workspace.xml
+* MarketIcon.png
+* MarketKeystore
+* addScr.png
+* app\
+* app\build.gradle
+* app\libs\
+* app\libs\achartengine-0.7.0.r180.jar
+* app\lint.xml
+* app\src\
+* app\src\main\
+* app\src\main\AndroidManifest.xml
+* app\src\main\java\
+* app\src\main\java\com\
+* app\src\main\java\com\gamesPnL\
+* app\src\main\java\com\gamesPnL\AboutHandler.java
+* app\src\main\java\com\gamesPnL\AddGame.java
+* app\src\main\java\com\gamesPnL\AfterLogin.java
+* app\src\main\java\com\gamesPnL\DataAnalysis.java
+* app\src\main\java\com\gamesPnL\DataEntry.java
+* app\src\main\java\com\gamesPnL\DatabaseAssistant.java
+* app\src\main\java\com\gamesPnL\DbHelper.java
+* app\src\main\java\com\gamesPnL\DisplayItem.java
+* app\src\main\java\com\gamesPnL\DisplayQueryData.java
+* app\src\main\java\com\gamesPnL\GamesPnL.java
+* app\src\main\java\com\gamesPnL\GraphData.java
+* app\src\main\java\com\gamesPnL\ImportActivityYN.java
+* app\src\main\java\com\gamesPnL\ListRes.java
+* app\src\main\java\com\gamesPnL\MyBackupAgent.java
+* app\src\main\java\com\gamesPnL\ResultData.java
+* app\src\main\java\com\gamesPnL\SetupWin.java
+* app\src\main\java\com\gamesPnL\gamesLogger.java
+* app\src\main\res\
+* app\src\main\res\drawable\
+* app\src\main\res\drawable\1024x500Gambling.jpg
+* app\src\main\res\drawable\Screenshot_analysis.png
+* app\src\main\res\drawable\Screenshot_graph.png
+* app\src\main\res\drawable\Screenshot_list.png
+* app\src\main\res\drawable\Screenshot_main.png
+* app\src\main\res\drawable\ic_menu_chart.png
+* app\src\main\res\drawable\icon.png
+* app\src\main\res\layout\
+* app\src\main\res\layout\about_display.xml
+* app\src\main\res\layout\addgame.xml
+* app\src\main\res\layout\afterlogin.xml
+* app\src\main\res\layout\dataanalysis.xml
+* app\src\main\res\layout\dataentry.xml
+* app\src\main\res\layout\db_view_row.xml
+* app\src\main\res\layout\displayitem.xml
+* app\src\main\res\layout\displayquerydata.xml
+* app\src\main\res\layout\displayrow.xml
+* app\src\main\res\layout\graphdata.xml
+* app\src\main\res\layout\importdb.xml
+* app\src\main\res\layout\listres.xml
+* app\src\main\res\layout\main.xml
+* app\src\main\res\layout\prgrssbar.xml
+* app\src\main\res\layout\releasenotes.xml
+* app\src\main\res\layout\rowmyresult.xml
+* app\src\main\res\layout\setupscr.xml
+* app\src\main\res\menu\
+* app\src\main\res\menu\mainmenu.xml
+* app\src\main\res\menu\preloginmenu.xml
+* app\src\main\res\menu\reportmenu.xml
+* app\src\main\res\values\
+* app\src\main\res\values\attrs.xml
+* app\src\main\res\values\strings.xml
+* build.gradle
+* gamePnLTracker.apk
+* gradle\
+* gradle\.gradle\
+* gradle\.gradle\1.8-rc-1\
+* gradle\.gradle\1.8-rc-1\taskArtifacts\
+* gradle\.gradle\1.8-rc-1\taskArtifacts\cache.properties
+* gradle\.gradle\1.8-rc-1\taskArtifacts\cache.properties.lock
+* gradle\.gradle\1.8-rc-1\taskArtifacts\fileHashes.bin
+* gradle\.gradle\1.8-rc-1\taskArtifacts\fileSnapshots.bin
+* gradle\.gradle\1.8-rc-1\taskArtifacts\outputFileStates.bin
+* gradle\.gradle\1.8-rc-1\taskArtifacts\taskArtifacts.bin
+* gradle\gradle.iml
+* gradle\gradle\
+* gradle\gradle\wrapper\
+* gradle\gradle\wrapper\gradle-wrapper.properties
+* gradle\gradlew
+* gradle\gradlew.bat
+* gradle\wrapper\
+* gradle\wrapper\gradle-wrapper.jar
+* gradle\wrapper\gradle-wrapper.properties
+* gradlew
+* gradlew.bat
+* settings.gradle
+* spadeDollar.gif
+
+Replaced Libraries with Dependencies:
+-------------------------------------
+The importer recognized the following library projects as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the source files in your project were of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the library replacement in the import wizard and try
+again:
+
+google-play-services_lib => [com.google.android.gms:play-services:+]
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app\src\main\AndroidManifest.xml
+* assets\ => app\src\main\assets
+* libs\achartengine-0.7.0.r180.jar => app\libs\achartengine-0.7.0.r180.jar
+* lint.xml => app\lint.xml
+* res\ => app\src\main\res\
+* src\ => app\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
