@@ -75,10 +75,6 @@ public class DataEntry extends Activity {
 				.createFromResource(this, R.array.gameLimitLst,
 						android.R.layout.simple_spinner_item);
 
-		final ArrayAdapter<CharSequence> gmLocation = ArrayAdapter
-				.createFromResource(this, R.array.gameLocLst,
-						android.R.layout.simple_spinner_item);
-
 		// go to data entry window
 		SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		username = pref.getString(PREF_USERNAME, null);
@@ -134,10 +130,6 @@ public class DataEntry extends Activity {
 		gmLimit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		gmLimitSp.setAdapter(gmLimit);
 
-		gmLocSp = (Spinner) findViewById(R.id.gLocation);
-		gmLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		gmLocSp.setAdapter(gmLocation);
-
 		clearB.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				gamesLogger.i(TAG, SubTag + "CLEAR button is clicked");
@@ -178,7 +170,6 @@ public class DataEntry extends Activity {
 				EditText nts = (EditText) findViewById(R.id.notes);
 				String gameT = (String) gmTypeSp.getSelectedItem().toString();
 				String gameL = (String) gmLimitSp.getSelectedItem().toString();
-				String gameLoc = (String) gmLocSp.getSelectedItem().toString();
 				RadioButton tourneyRB = (RadioButton) findViewById(R.id.idTourney);
 				RadioButton cashRB = (RadioButton) findViewById(R.id.idCash);
 
@@ -228,7 +219,6 @@ public class DataEntry extends Activity {
 					EditText nts = (EditText) findViewById(R.id.notes);
 					String gameT = gmTypeSp.getSelectedItem().toString();
 					String gameL = gmLimitSp.getSelectedItem().toString();
-					String gameLoc = gmLoctSp.getSelectedItem().toString();
 					RadioButton tourneyRB = (RadioButton) findViewById(R.id.idTourney);
 					RadioButton cashRB = (RadioButton) findViewById(R.id.idCash);
 

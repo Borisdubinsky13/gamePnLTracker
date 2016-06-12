@@ -158,7 +158,7 @@ public class GraphData extends Activity {
 			mRenderer.setPointSize(5f);
 			mRenderer.setXLabels(0);
 			mRenderer.setShowGrid(true);
-			mRenderer.setDisplayChartValues(true);
+			// mRenderer.setDisplayChartValues(true);
 			mRenderer.setChartTitle("Earnings");
 			mRenderer.setXTitle("Date");
 			mRenderer.setYTitle("$");
