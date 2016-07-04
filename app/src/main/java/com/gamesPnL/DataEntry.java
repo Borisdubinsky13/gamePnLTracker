@@ -48,6 +48,7 @@ public class DataEntry extends Activity {
 	String evYearS;
 	String evDayS;
 	String evMonthS;
+	String timePlayed;
 
 	private Context mContext;
 	private DbHelper db;
@@ -137,6 +138,9 @@ public class DataEntry extends Activity {
 				EditText amount = (EditText) findViewById(R.id.Amount);
 				amount.setText("");
 
+				EditText timePlayed = (EditText) findViewById(R.id.TimePlayed);
+				timePlayed.setText("");
+
 				final int mYear = c.get(Calendar.YEAR);
 				final int mMonth = c.get(Calendar.MONTH) + 1;
 				final int mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -168,8 +172,8 @@ public class DataEntry extends Activity {
 				EditText amount = (EditText) findViewById(R.id.Amount);
 				// String dateT = (String) dateB.getText();
 				EditText nts = (EditText) findViewById(R.id.notes);
-				String gameT = (String) gmTypeSp.getSelectedItem().toString();
-				String gameL = (String) gmLimitSp.getSelectedItem().toString();
+				String gameT = gmTypeSp.getSelectedItem().toString();
+				String gameL = gmLimitSp.getSelectedItem().toString();
 				RadioButton tourneyRB = (RadioButton) findViewById(R.id.idTourney);
 				RadioButton cashRB = (RadioButton) findViewById(R.id.idCash);
 
@@ -178,16 +182,20 @@ public class DataEntry extends Activity {
 				else if (cashRB.isChecked())
 					eventStr = "Cash";
 
+				EditText timePlayed = (EditText) findViewById(R.id.TimePlayed);
+
 				if (!amount.getText().toString().equals("")) {
 					vals.put("name", username);
 					vals.put("amount", amount.getText().toString());
 					vals.put("evYear", evYearS);
  					vals.put("evDay", evDayS);
+					vals.put("eVMonth", evMonthS);
 					vals.put("evDate", date2db);
 					vals.put("eventType", eventStr);
 					vals.put("gameType", gameT);
 					vals.put("gameLimit", gameL);
 					vals.put("notes", nts.getText().toString());
+					vals.put("timePlayed", timePlayed.getText().toString());
 					gamesLogger.i(TAG, SubTag + "Storing date: " + evMonthS
 							+ "/" + evDayS + "/" + evYearS + "(" + date2db
 							+ ")");
@@ -212,6 +220,7 @@ public class DataEntry extends Activity {
 
 				gamesLogger.i(TAG, SubTag + "LOSS button is clicked");
 				EditText amount = (EditText) findViewById(R.id.Amount);
+				EditText timePlayed = (EditText) findViewById(R.id.TimePlayed);
 
 				if (!amount.getText().toString().equals("")) {
 					realAmount += amount.getText().toString();
@@ -237,6 +246,7 @@ public class DataEntry extends Activity {
 					vals.put("gameType", gameT);
 					vals.put("gameLimit", gameL);
 					vals.put("notes", nts.getText().toString());
+					vals.put("timePlayed", timePlayed.getText().toString());
 					gamesLogger.i(TAG, SubTag + "Storing date: " + evMonthS
 							+ "/" + evDayS + "/" + evYearS + "(" + date2db
 							+ ")");

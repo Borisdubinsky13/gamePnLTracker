@@ -180,5 +180,4 @@ public class DatabaseAssistant {
     class Importer {
 
     }
-
 }

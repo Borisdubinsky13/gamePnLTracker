@@ -7,6 +7,7 @@ public class ResultData {
     private String limit;
     private String event;
     private int recId;
+    private int timePlayed;
 
     public ResultData() {
         amount = 0;
@@ -14,6 +15,7 @@ public class ResultData {
         limit = "";
         dateTime = "";
         event = "";
+        timePlayed = 0;
 
         return;
     }
@@ -75,5 +77,14 @@ public class ResultData {
 
     public String getDateTime() {
         return dateTime;
+    }
+
+    public int getTimePlayed() {
+        return timePlayed;
+    }
+
+    public void setTimePlayed(int t) {
+        timePlayed = t;
+        return;
     }
 }

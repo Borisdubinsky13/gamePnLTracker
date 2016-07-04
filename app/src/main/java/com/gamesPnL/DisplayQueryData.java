@@ -75,7 +75,7 @@ public class DisplayQueryData extends Activity {
 	@Override
 	protected void onResume() {
 
-		super.onPause();
+		super.onResume();
 		setContentView(R.layout.displayquerydata);
 
 		gamesLogger.i(TAG, SubTag + "Start....");
@@ -215,7 +215,7 @@ public class DisplayQueryData extends Activity {
 		if (!evTypeSp.getSelectedItem().toString().equalsIgnoreCase("All")) {
 			IntentQ += " AND ";
 			IntentQ += "eventType = '";
-			t = (String) evTypeSp.getSelectedItem().toString();
+			t = evTypeSp.getSelectedItem().toString();
 			t = t.replace("\'", "\'\'");
 			IntentQ += t;
 			IntentQ += "'";
@@ -225,7 +225,7 @@ public class DisplayQueryData extends Activity {
 		if (!gmTypeSp.getSelectedItem().toString().equalsIgnoreCase("All")) {
 			IntentQ += " AND ";
 			IntentQ += "gameType = '";
-			t = (String) gmTypeSp.getSelectedItem().toString();
+			t = gmTypeSp.getSelectedItem().toString();
 			t = t.replace("\'", "\'\'");
 			IntentQ += t;
 			IntentQ += "'";
@@ -234,7 +234,7 @@ public class DisplayQueryData extends Activity {
 		if (!gmLimitSp.getSelectedItem().toString().equalsIgnoreCase("All")) {
 			IntentQ += " AND ";
 			IntentQ += "gameLimit = '";
-			t = (String) gmLimitSp.getSelectedItem().toString();
+			t = gmLimitSp.getSelectedItem().toString();
 			t = t.replace("\'", "\'\'");
 			IntentQ += t;
 			IntentQ += "'";

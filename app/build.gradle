@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
 
     defaultConfig {
         applicationId "com.gamesPnL"
         minSdkVersion 16
         targetSdkVersion 16
+        multiDexEnabled true
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_5
             targetCompatibility JavaVersion.VERSION_1_5
@@ -23,6 +24,7 @@ android {
 }
 
 dependencies {
-    compile 'com.google.android.gms:play-services:+'
     compile files('libs/achartengine-1.2.0.jar')
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.google.android.gms:play-services:9.2.0'
 }

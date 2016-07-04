@@ -95,6 +95,7 @@ public class ListRes extends ListActivity {
 					TextView lm = (TextView) v.findViewById(R.id.lm);
 					TextView ev = (TextView) v.findViewById(R.id.ev);
 					TextView recId = (TextView) v.findViewById(R.id.recId);
+					TextView tmPlayed = (TextView) v.findViewById(R.id.timePl);
 
 					if ((o.getAmount()) >= 0) {
 						v.setBackgroundColor(Color.rgb(193, 255, 193));
@@ -112,6 +113,8 @@ public class ListRes extends ListActivity {
 					lm.setTextColor(Color.BLACK);
 					ev.setText(o.getEvent());
 					ev.setTextColor(Color.BLACK);
+					tmPlayed.setText(Integer.toString(o.getTimePlayed()) + " mins");
+					tmPlayed.setTextColor(Color.BLACK);
 
 					recId.setText(String.valueOf(o.getRecId()));
 				}
@@ -200,6 +203,8 @@ public class ListRes extends ListActivity {
 				tmp.setGame(result.getString(result.getColumnIndex("gameType")));
 				tmp.setLimit(result.getString(result
 						.getColumnIndex("gameLimit")));
+				tmp.setTimePlayed(Integer.parseInt(result.getString(
+						result.getColumnIndex("timePlayed"))));
 				m_results.add(tmp);
 				i--;
 				gamesLogger.i(TAG,

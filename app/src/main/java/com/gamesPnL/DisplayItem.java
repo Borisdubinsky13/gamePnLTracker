@@ -125,6 +125,8 @@ public class DisplayItem extends Activity {
 			// Start populating fields from the result of the query
 			TextView amnt = (TextView) findViewById(R.id.Amount);
 			amnt.setText(result.getString(result.getColumnIndex("amount")));
+			TextView timePlay = (TextView) findViewById(R.id.TimePlayed);
+			timePlay.setText(result.getString(result.getColumnIndex("timePlayed")));
 			dateB = (Button) findViewById(R.id.dateButton);
 			evYear = result.getString(result.getColumnIndex("evYear"));
 			evMonth = result.getString(result.getColumnIndex("evMonth"));
@@ -135,6 +137,7 @@ public class DisplayItem extends Activity {
 			String ev = result.getString(result.getColumnIndex("eventType"));
 			String gm = result.getString(result.getColumnIndex("gameType"));
 			String lm = result.getString(result.getColumnIndex("gameLimit"));
+			String pt = result.getString(result.getColumnIndex("timePlayed"));
 
 			gamesLogger.i(TAG, SubTag + "Record with id #" + recId
 					+ " has been read");
@@ -201,10 +204,11 @@ public class DisplayItem extends Activity {
 				String date2db = evYear + "-" + evMonth + "-" + evDay;
 
 				EditText amount = (EditText) findViewById(R.id.Amount);
+				EditText pt = (EditText) findViewById(R.id.TimePlayed);
 				// String dateT = (String) dateB.getText();
 				EditText nts = (EditText) findViewById(R.id.notes);
-				String gameT = (String) gmTypeSp.getSelectedItem().toString();
-				String gameL = (String) gmLimitSp.getSelectedItem().toString();
+				String gameT = gmTypeSp.getSelectedItem().toString();
+				String gameL = gmLimitSp.getSelectedItem().toString();
 				RadioButton tourneyRB = (RadioButton) findViewById(R.id.idTourney);
 				RadioButton cashRB = (RadioButton) findViewById(R.id.idCash);
 
@@ -223,6 +227,7 @@ public class DisplayItem extends Activity {
 				vals.put("gameType", gameT);
 				vals.put("gameLimit", gameL);
 				vals.put("notes", nts.getText().toString());
+				vals.put("timePlayed", pt.getText().toString());
 				gamesLogger.i(TAG, SubTag + "Storing date: " + evMonth + "/"
 						+ evDay + "/" + evYear);
 

@@ -24,14 +24,13 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static String SubTag;
 
 	private static final String DATABASE_NAME = "gamepnltracker.db";
-	private static final int DATABASE_VERSION = 13;
+	private static final int DATABASE_VERSION = 14;
 
 	private static final String ID_KEY = "_id";
 	private static final String USER_TABLE_NAME = "gUsers";
 	private static final String PNL_TABLE_NAME = "gPNLData";
 	private static final String PNL_STATUS_TABLE_NAME = "gStatus";
 	private static final String PNL_GAMES_TABLE_NAME = "gGames";
-	private static final String PNL_LOCATIONS_TABLE_NAME = "gLocations";
 	/*
 	 * private static HashMap<String, String> USER_PROJECTION_MAP; private
 	 * static HashMap<String, String> PNL_PROJECTION_MAP; private static
@@ -108,8 +107,8 @@ public class DbHelper extends SQLiteOpenHelper {
 						+ "uid TEXT, " + "name TEXT, " + "amount TEXT, "
 						+ "evYear TEXT, " + "evMonth TEXT, " + "evDay TEXT, "
 						+ "evDate DATE, " + "eventType TEXT, "
-						+ "gameType TEXT, " + "gameLimit TEXT, " + "location TEXT, "
-                        + "timePlayed TEXT, "
+								   + "gameType TEXT, " + "gameLimit TEXT, "
+								   + "timePlayed TEXT, " + "location TEXT, "
 						+ "notes TEXT"
 						+ ");");
 			}
@@ -152,7 +151,7 @@ public class DbHelper extends SQLiteOpenHelper {
 						+ PNL_GAMES_TABLE_NAME
 						+ " (game,description,addedBy) values ('Blackjack', 'BlackJack', 'gamePnL');");
 			}
-
+/*
 			gamesLogger.i(TAG, SubTag + "Creating PnL location table");
 			c = db.rawQuery(
 					"SELECT name FROM sqlite_master WHERE type='table' AND name='"
@@ -174,6 +173,7 @@ public class DbHelper extends SQLiteOpenHelper {
                         + PNL_LOCATIONS_TABLE_NAME
                         + " (location,description,type) values ('PH', 'Planet Hollywood', 'Casino');");
             }
+*/
 			/*
 			 * gamesLogger.i(TAG, SubTag + "Backup: dataChanged()");
 			 * bkpMgm.dataChanged();
@@ -273,9 +273,10 @@ public class DbHelper extends SQLiteOpenHelper {
 			if (from.moveToFirst()) {
 				do {
 					ContentValues vals = new ContentValues();
-
+/*
 					if (!from.getString(2).equals("")
 							&& !from.getString(2).equals("-")) {
+*/
 						int startLoc;
 						int endLoc;
 						String uidS = null;
@@ -306,6 +307,8 @@ public class DbHelper extends SQLiteOpenHelper {
 							// the bug was that sometimes the date was stored with '-' instead
 							// of '/'
 						case 10:
+						case 12:
+						case 13:
 							uidS = from.getString(0);
 							nameS = from.getString(1);
 							amountS = from.getString(2);
@@ -356,12 +359,13 @@ public class DbHelper extends SQLiteOpenHelper {
                         vals.put("gameLimit", gameLimitS);
                         vals.put("notes", notesS);
                         vals.put("timePlayed", "0");
-                        db.insert(PNL_TABLE_NAME, null, vals);
+						vals.put("location", "none");
+						db.insert(PNL_TABLE_NAME, null, vals);
 
                         gamesLogger.i(TAG, SubTag + "Year: " + yearS
                                 + " Month: " + monthS + " Day: " + dayS
                                 + "(" + newDateF + ")");
-                    }
+//                    }
 				} while (from.moveToNext());
 			}
 			// Delete the <table>_OLD

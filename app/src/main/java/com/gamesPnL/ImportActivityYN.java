@@ -131,6 +131,27 @@ public class ImportActivityYN extends Activity {
 									line = line.substring(endExt + 1);
 									endExt = line.indexOf(delimeter);
 									String amount = line.substring(0, endExt);
+									line = line.substring(endExt + 1);
+									endExt = line.indexOf(delimeter);
+									String emailAddr = line.substring(0, endExt);
+									line = line.substring(endExt + 1);
+									endExt = line.indexOf(delimeter);
+									String note = null;
+									String timePlayedStr = null;
+									try {
+										line = line.substring(endExt + 1);
+										endExt = line.indexOf(delimeter);
+										note = line.substring(0, endExt);
+										line = line.substring(endExt + 1);
+										endExt = line.indexOf(delimeter);
+										timePlayedStr = line.substring(0, endExt);
+
+									} catch (Exception e) {
+										if (note == null)
+											note = new String("");
+										if (timePlayedStr == null )
+											timePlayedStr = new String("0");
+									}
 
 									ContentValues vals = new ContentValues();
 
@@ -144,6 +165,7 @@ public class ImportActivityYN extends Activity {
 									vals.put("eventType", evType);
 									vals.put("gameType", gameType);
 									vals.put("gameLimit", gameLimit);
+									vals.put("timePlayed", timePlayedStr);
 									gamesLogger.i(TAG, SubTag
 											+ "Inserting a record");
 									db.insert("gPNLData", vals);

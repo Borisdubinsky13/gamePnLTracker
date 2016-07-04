@@ -18,7 +18,7 @@
     <string name="appVerLabel">Version:</string>
     <string name="appVer">R-6.1</string>
     <string name="Cancel">Cancel</string>
-    <string name="cEarnings">Career earnings:</string>
+    <string name="cEarnings">Career earnings(rate per hour):</string>
     <string name="dispList">Display List</string>
     <string name="email">E-Mail:</string>
     <string name="gameDescr">Description:</string>
@@ -27,8 +27,8 @@
     <string name="Amount">Amount:</string>
     <string name="AmountMonth">Amount this month</string>
     <string name="AmountLast">Amount from last event</string>
-    <string name="CMA">Current month earnings: </string>
-    <string name="LER">Last event result: </string>
+    <string name="CMA">Current month earnings(rate per hour): </string>
+    <string name="LER">Last event result(rate per hour): </string>
     <string name="AddResult">Add Event Result</string>
     <string name="Notes">Notes: </string>
     <string name="Date">Date: </string>
@@ -137,6 +137,9 @@
     <string name="relNote611">- Make main screen scrollable.</string>
     <string name="relLblR71">R-7.1 (DB Version: 12):</string>
     <string name="relNote71">- Get rid of displaying user name.</string>
+    <string name="relLblR81">R-8.1 (DB Version: 13):</string>
+    <string name="relNote81">- Add per hours calculations.</string>
     <string name="banner_ad_unit_id">ca-app-pub-7354433000620160/5229900142</string>
     <string name="eventLocation">Location:</string>
+    <string name="timePlayed">Play Time (in mins):</string>
 </resources>

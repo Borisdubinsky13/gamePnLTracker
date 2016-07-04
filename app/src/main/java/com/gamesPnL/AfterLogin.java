@@ -60,6 +60,7 @@ public class AfterLogin extends Activity {
 	private final Calendar c = Calendar.getInstance();
 	private double lastResult;
 	private String lastRecord;
+	private float lastTime;
 
 	private void doExport() {
 		try {
@@ -101,9 +102,9 @@ public class AfterLogin extends Activity {
 										+ " records");
 						if (result.getCount() > 0) {
 							totalRecs = result.getCount();
-							progressDialog.setMax((int) totalRecs);
+							progressDialog.setMax(totalRecs);
 							if (result.moveToFirst()) {
-								String strOut = "Date,EventType,GameType,GameLimit,Amount,Name,Note\n";
+								String strOut = "Date,EventType,GameType,GameLimit,Amount,Name,Note,timePlayed\n";
 								bos.write(strOut.getBytes());
 								int cPercent = 0;
 								do {
@@ -114,6 +115,7 @@ public class AfterLogin extends Activity {
 									String gameLimitStr = "";
 									String amountStr = "";
 									String noteStr = "";
+									String timePlayedStr = "";
 
 									nameStr = result.getString(result
 											.getColumnIndex("name"));
@@ -135,17 +137,20 @@ public class AfterLogin extends Activity {
 											.getColumnIndex("amount"));
 									noteStr = result.getString(result
 											.getColumnIndex("notes"));
+									timePlayedStr = result.getString(result
+											.getColumnIndex("timePlayed"));
 
 									strOut = evDateStr + "," + evTypeStr + ","
 											+ gameTypeStr + "," + gameLimitStr
 											+ "," + amountStr + "," + nameStr
-											+ "," + noteStr + "\n";
+											+ "," + noteStr + "," + timePlayedStr
+											+  "\n";
 									gamesLogger.i(TAG, SubTag + "Writing: "
 											+ strOut);
 									bos.write(strOut.getBytes());
 									countRec++;
 									// Update the progress bar if needed
-									percentDone = (int) (countRec * 100 / totalRecs);
+									percentDone = countRec * 100 / totalRecs;
 									gamesLogger.i(TAG, SubTag
 											+ "currentCount: " + countRec
 											+ " Percent: " + percentDone + "%");
@@ -334,14 +339,15 @@ public class AfterLogin extends Activity {
 
 	@Override
 	protected void onResume() {
-		super.onPause();
+
+		super.onResume();
 		setContentView(R.layout.afterlogin);
 
 		mContext = this; // since Activity extends Context
 		mContext = getApplicationContext();
 		mContext = getBaseContext();
 
-		v = (View) findViewById(R.id.afterLogin);
+		v = findViewById(R.id.afterLogin);
 
 		Button buttonPNL = (Button) findViewById(R.id.PNL);
 		buttonPNL.setOnClickListener(new View.OnClickListener() {
@@ -393,15 +399,19 @@ public class AfterLogin extends Activity {
 		this.setTitle("");
 
 		Cursor result;
-		String value;
 		double sum = 0;
 		double dValue;
+		float totalMins = 0;
+		double ratedValue = 0;
 		lastResult = 0;
+		lastTime = 0;
 		DecimalFormat df = new DecimalFormat("$#,##0.00");
+		DecimalFormat pf = new DecimalFormat("#,##0.00");
 		// Button pnlStr = (Button) findViewById(R.id.PNL);
 		final String strHead = this.getString(R.string.cEarnings);
 		final TextView strHeadStr = (TextView) findViewById(R.id.PNLLabel);
 
+		String totalMinsStr;
 		// Get total career earnings
 		String query = null;
 		DbHelper db = new DbHelper(mContext);
@@ -412,11 +422,21 @@ public class AfterLogin extends Activity {
 		if (result.moveToFirst()) {
 			gamesLogger.i(TAG, SubTag + "got result back from provider");
 			do {
-				value = result.getString(result.getColumnIndex("amount"));
-				if (value.equals(""))
+				int k = result.getColumnIndex("amount");
+				String value = result.getString(k);
+				if (value == null || value.equals(""))
 					dValue = 0;
 				else
 					dValue = Double.parseDouble(value);
+				totalMinsStr = result.getString(result.getColumnIndex("timePlayed"));
+				if (totalMinsStr != null && Float.valueOf(totalMinsStr) > 0) {
+					totalMins += Float.valueOf(totalMinsStr);
+					ratedValue += dValue;
+					gamesLogger.i(TAG, SubTag + "Time: " + totalMins + " ratedValue: " + pf.format(ratedValue));
+					lastTime = Float.valueOf(totalMinsStr);
+				} else {
+					lastTime = 0;
+				}
 				sum += dValue;
 				lastResult = dValue;
 				lastRecord = result.getString(result.getColumnIndex("_id"));
@@ -425,9 +445,14 @@ public class AfterLogin extends Activity {
 			gamesLogger.i(TAG, SubTag
 					+ "No Data returned from Content Provider");
 
-		gamesLogger.i(TAG, SubTag + "Sum:  " + df.format(sum));
 		strHeadStr.setText(strHead);
-		buttonPNL.setText(df.format(sum));
+		if (totalMins > 0) {
+			ratedValue /= (totalMins / 60);
+			buttonPNL.setText(df.format(sum) + "(" + pf.format(ratedValue) + ")");
+		} else {
+			ratedValue = 0;
+			buttonPNL.setText(df.format(sum) + "(N/A)");
+		}
 		// pnlStr.setTextColor(Color.BLACK);
 		if (sum >= 0) {
 			buttonPNL.setBackgroundColor(Color.rgb(193, 255, 193));
@@ -454,15 +479,23 @@ public class AfterLogin extends Activity {
 				+ " records");
 
 		sum = 0;
+		totalMins = 0;
+		ratedValue = 0;
 		if (result.moveToFirst()) {
 			gamesLogger.i(TAG, SubTag + "got result back from provider");
 			do {
-				value = result.getString(result.getColumnIndex("amount"));
+				String value = result.getString(result.getColumnIndex("amount"));
 				gamesLogger.i(TAG, SubTag + "got Value:  " + value);
 				if (value.equals(""))
 					dValue = 0;
 				else
 					dValue = Double.parseDouble(value);
+				totalMinsStr = result.getString(result.getColumnIndex("timePlayed"));
+				if (totalMinsStr != null && Float.valueOf(totalMinsStr) > 0) {
+					totalMins += Float.valueOf(totalMinsStr);
+					ratedValue += dValue;
+					gamesLogger.i(TAG, SubTag + "Time: " + totalMins + " ratedValue: " + pf.format(ratedValue));
+				}
 				sum += dValue;
 
 			} while (result.moveToNext());
@@ -471,10 +504,16 @@ public class AfterLogin extends Activity {
 					+ "No Data returned from Content Provider");
 
 		gamesLogger.i(TAG, SubTag + "Sum:  " + df.format(sum));
+		if (totalMins > 0) {
+			ratedValue /= (totalMins / 60);
+			buttonLastMonth.setText(df.format(sum) + "(" + pf.format(ratedValue) + ")");
+		} else {
+			ratedValue = 0;
+			buttonLastMonth.setText(df.format(sum) + "(N/A)");
+		}
 		strHeadStr.setText(strHead);
 		// pnlStr = (Button) findViewById(R.id.PNLMonth);
-		buttonLastMonth.setText(df.format(sum));
-		// pnlStr.setTextColor(Color.BLACK);
+		// pnlStr.setTextColor(Co lor.BLACK);
 		if (sum >= 0) {
 			buttonLastMonth.setBackgroundColor(Color.rgb(193, 255, 193));
 			buttonLastMonth.setTextColor(getResources().getColor(
@@ -485,12 +524,19 @@ public class AfterLogin extends Activity {
 					android.R.color.background_light));
 		}
 		// Get last event result
-		gamesLogger.i(TAG, SubTag + "Last Result:  " + df.format(lastResult));
 		strHeadStr.setText(strHead);
+		ratedValue = lastResult;
+		if (lastTime > 0) {
+			ratedValue /= (lastTime / 60);
+			buttonLastEvent.setText(df.format(lastResult) + "(" + pf.format(ratedValue) + ")");
+		} else {
+			ratedValue = 0;
+			buttonLastEvent.setText(df.format(lastResult) + "(N/A)");
+		}
+		gamesLogger.i(TAG, SubTag + "Last Result:  " + df.format(lastResult) + "(" + lastTime);
 		// pnlStr = (Button) findViewById(R.id.PNLLast);
 		buttonLastEvent.setTextColor(getResources().getColor(
 				android.R.color.background_light));
-		buttonLastEvent.setText(df.format(lastResult));
 		// pnlStr.setTextColor(Color.BLACK);
 		if (lastResult >= 0) {
 			buttonLastEvent.setBackgroundColor(Color.rgb(193, 255, 193));

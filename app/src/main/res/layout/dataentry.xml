@@ -11,7 +11,24 @@
             <EditText android:id="@+id/Amount" android:layout_width="250sp"
                       android:inputType="number|numberDecimal"/>
         </TableRow>
-        <TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:text="@string/timePlayed"
+            android:layout_gravity="left|center_vertical"/>
+
+        <EditText
+            android:id="@+id/TimePlayed"
+            android:gravity="top"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:singleLine="true"/>
+    </TableRow>
+
+    <TableRow>
             <TextView android:text="@string/Date" 
                 android:layout_gravity="left|center_vertical"/>
             <Button android:id="@+id/dateButton"
@@ -21,8 +38,20 @@
         <TableRow>
             <TextView android:text="@string/evTypeName" android:layout_gravity="center"/>
             <RadioGroup android:orientation="horizontal" android:layout_width="fill_parent">
-                <RadioButton android:id="@+id/idTourney" android:checked="true" android:text="@string/Tourney"/>
-                <RadioButton android:id="@+id/idCash" android:checked="false" android:text="@string/Cash"/>
+
+                <RadioButton
+                    android:id="@+id/idTourney"
+                    android:checked="true"
+                    android:layout_height="fill_parent"
+                    android:layout_width="wrap_content"
+                    android:text="@string/Tourney"/>
+
+                <RadioButton
+                    android:id="@+id/idCash"
+                    android:checked="false"
+                    android:layout_height="fill_parent"
+                    android:layout_width="wrap_content"
+                    android:text="@string/Cash"/>
             </RadioGroup>
         </TableRow>
         <TableRow>
@@ -53,9 +82,6 @@
                 android:scrollHorizontally="true"
                 android:singleLine="false" />
 
-        </TableRow>
-        <TableRow>
-            <TextView android:text="@string/Empty"/>
         </TableRow>
         <TableRow>
             <TextView android:text="@string/Empty"/>
